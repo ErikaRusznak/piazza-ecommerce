@@ -36,42 +36,52 @@ public class TestDataCreator {
     }
 
     public static void createBuyerBaseData(EntityManager em, PasswordEncoder passwordEncoder){
-        UserAccount account1 = new UserAccount(
-                "Cosmina",
-                "Maria",
-                "cosminamaria@gmail.com",
-                "/src/image2",
-                "0735897635");
-        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Buyers.buyer1 = createBuyer(em, account1);
 
-        UserAccount account2 = new UserAccount(
+        UserAccount account1 = new UserAccount(
                 "Erika",
                 "Rusznak",
                 "erikarusznak@gmail.com",
                 "none",
-                "0777777635");
+                "0747871208");
+        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Buyers.buyer1 = createBuyer(em, account1);
+
+        UserAccount account2 = new UserAccount(
+                "Alex",
+                "Dulfu",
+                "alexdulfu@gmail.com",
+                "none",
+                "0758418097");
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer2 = createBuyer(em, account2);
 
         UserAccount account3 = new UserAccount(
-                "Vlad",
-                "Ciobotariu",
-                "vladciobotariu@gmail.com",
+                "Giulia",
+                "Lucaciu",
+                "giulialucaciu@gmail.com",
                 "none",
-                "+40770157915");
+                "0796854752");
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer3 = createBuyer(em, account3);
+
     }
 
     public static void createBuyerAddressBaseData(EntityManager em){
-        Buyer mergedBuyer = em.merge(Buyers.buyer3);
-        Address address1 = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
-        mergedBuyer.addAddress(address1, "Vlad", "Cristi", "+40356424801");
+        Buyer mergedBuyer = em.merge(Buyers.buyer1);
+        Address address1 = new Address("Romania", "Maramures", "Baia Mare", "Strada Vasile Lucaciu", "nr 6/8", "300091");
+        mergedBuyer.addAddress(address1, "Erika", "Rusznak", "+40747871208");
 
-        Address address2 = new Address("Moldova", "Marbella", "Barcelona", "Angola st 1", "Bloc, ap 170", "300999");
-        mergedBuyer.addAddress(address2, "Vlad", "Cristian", "+40356424809");
+        Address address2 = new Address("Romania", "Timis", "Timisoara", "Aleea Minis", "Sc 2B", "300999");
+        mergedBuyer.addAddress(address2, "Erika", "Rusznak", "+40747871208");
 
+
+        Buyer mergedBuyer2 = em.merge(Buyers.buyer2);
+        Address address3 = new Address("Romania", "Maramures", "Baia Mare", "Strada Ferastraului", "nr 58", "300091");
+        mergedBuyer2.addAddress(address3, "Alex", "Dulfu", "+40758418097");
+
+        Buyer mergedBuyer3 = em.merge(Buyers.buyer3);
+        Address address4 = new Address("Romania", "Bucuresti", "Bucuresti", "Strada Luceafarului", "nr 4", "300012");
+        mergedBuyer3.addAddress(address4, "Giulia", "Lucaciu", "+40796854752");
     }
 
     public static Seller createSellerFarmer(EntityManager em, Address address, UserAccount account, String alias){
@@ -88,11 +98,11 @@ public class TestDataCreator {
         return seller;
     }
 
-    public static void  createSellerBaseData(EntityManager em, PasswordEncoder passwordEncoder){
+    public static void createSellerBaseData(EntityManager em, PasswordEncoder passwordEncoder){
 
-        UserAccount account1 = new UserAccount("Vlad",
-                "Ciobotariu",
-                "vladciobotariu1@gmail.com",
+        UserAccount account1 = new UserAccount("Alex",
+                "Dulfu",
+                "alex.dulfu@gmail.com",
                 "/src/image1",
                 "0734896512");
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -107,21 +117,21 @@ public class TestDataCreator {
                 "Mega Fresh SRL"
         );
 
-        UserAccount account2 = new UserAccount("Mihnea",
-                "Mondialu",
-                "mihneamondialu@gmail.com",
+        UserAccount account2 = new UserAccount("Stefan",
+                "Rusznak",
+                "rusznak65@gmail.com",
                 "/src/image99",
                 "0734896777");
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller2 = createSellerFarmer(em,
-                new Address("Spania",
-                        "Granada",
-                        "Barcelona",
-                        "Strada Real Madrid nr 4",
-                        "Bloc Cupa Romaniei",
+                new Address("Romania",
+                        "Maramures",
+                        "Baia Mare",
+                        "Str Tauti",
+                        "nr 2",
                         "307773"),
                 account2,
-                "FC BARCELONA"
+                "Eco Tech"
         );
 
     }
@@ -203,17 +213,17 @@ public class TestDataCreator {
     }
 
     public static void createCartBaseData(EntityManager em){
-        Cart cart1 = createCart(em, Buyers.buyer3);
-        Cart cart2 = createCart(em, Buyers.buyer2);
-
+        Cart cart1 = createCart(em, Buyers.buyer1);
         addItemToCart(em, cart1, product1, 2F);
         addItemToCart(em, cart1, Products.product2, 5F);
 
-        addItemToCart(em, cart2, Products.product2, 5F);
+        Cart cart2 = createCart(em, Buyers.buyer2);
+        addItemToCart(em, cart2, product1, 2F);
+
     }
 
     public static void createFavoritesBaseData(EntityManager em){
-        Buyer buyer = em.merge(Buyers.buyer3);
+        Buyer buyer = em.merge(Buyers.buyer1);
         buyer.addFavorite(product1);
         buyer.addFavorite(Products.product2);
     }

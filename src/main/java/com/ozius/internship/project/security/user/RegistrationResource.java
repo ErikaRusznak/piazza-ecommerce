@@ -2,7 +2,9 @@ package com.ozius.internship.project.security.user;
 
 import com.ozius.internship.project.entity.UserAccount;
 import com.ozius.internship.project.entity.buyer.Buyer;
+import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.repository.BuyerRepository;
+import com.ozius.internship.project.repository.CartRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,10 +17,12 @@ public class RegistrationResource {
 
     private final BuyerRepository buyerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
-    public RegistrationResource(BuyerRepository buyerRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationResource(BuyerRepository buyerRepository, PasswordEncoder passwordEncoder, CartRepository cartRepository) {
         this.buyerRepository = buyerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.cartRepository = cartRepository;
     }
 
     @CrossOrigin(origins = "*")
@@ -43,5 +47,9 @@ public class RegistrationResource {
 
         Buyer buyer = new Buyer(user);
         buyerRepository.save(buyer);
+
+        // we create a cart for the client
+        Cart cart = new Cart(buyer);
+        cartRepository.save(cart);
     }
 }
