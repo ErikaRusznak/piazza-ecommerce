@@ -23,7 +23,7 @@ const SearchComponent = ({ handleSearchChanged, filterName }) => {
 
     return (
         <div>
-            <div className="relative w-[300px] sm:w-[150px]">
+            <div className="relative w-[300px] sm:w-[150] xs:w-[150px]">
                 <input
                     type="search"
                     id="search-dropdown"

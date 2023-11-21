@@ -28,11 +28,11 @@ const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, tog
     };
 
     return (
-        <div>
-            <li className="flex mb-10 h-full ">
+        <div className="h-[20rem] w-[15rem]">
+            <li className="flex mb-10 h-full">
 
-                <a className=" group bg-white border border-zinc-300 rounded-xl w-full flex flex-col justify-between dark:border dark:border-[#312e81]">
-                    <div className="relative aspect-square overflow-hidden border-b-2 cursor-pointer rounded-xl ">
+                <a className=" group bg-white dark:bg-[#1a2747] border border-zinc-300 rounded-xl w-full flex flex-col justify-around dark:border dark:border-[#312e81]">
+                    <div className="relative aspect-square overflow-hidden cursor-pointer rounded-xl align-center justify-center">
                         <img
                             src={`${baseURL}${imageName}`}
                             alt={name}

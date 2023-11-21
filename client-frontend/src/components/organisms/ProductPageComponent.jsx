@@ -176,7 +176,7 @@ function ProductPageComponent() {
         <div className="">
             {isLoading === false &&
                 <section>
-                    <div className="mx-auto mt-16 max-w-7xl px-10">
+                    <div className="mx-auto mt-10 max-w-7xl px-10">
                         <header>
                             <h2 className="text-3xl mb-10 font-bold text-zinc-800 dark:text-white">
                                 Check the products
@@ -205,13 +205,13 @@ function ProductPageComponent() {
                                     handleItemsPerPageChange={handleItemsPerPageChange}
                                 />
 
-                                <ul className="mt-2 grid gap-16 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 w-full justify-center">
+                                <ul className="mt-2 grid gap-16 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 w-full justify-center">
                                     {products.map((product) => (
                                         <div key={product.id}>
                                             <ProductComponent
                                                 key={product.id}
                                                 id={product.id}
-                                                name={product.name}
+                                                name={product.name}xs
                                                 imageName={product.imageName}
                                                 price={product.price}
                                                 sellerAlias={product.seller.alias}

@@ -128,6 +128,13 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
 
     return (
         <div>
+            {/*<div className="mb-10">*/}
+            {/*    <SearchComponent*/}
+            {/*        handleSearchChanged={handleFilterChanged}*/}
+            {/*        filterName="productName"/>*/}
+
+            {/*</div>*/}
+
             {breakpoint === "sm" ? (
                 <div>
                     <FilteringSmallWindowSize/>
@@ -187,11 +194,8 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
                                                      onSortChanged={onSortChanged}/>
                             </ExpandableItem>
                         </div>
-
                         <div>
-                            <SearchComponent
-                                handleSearchChanged={handleFilterChanged}
-                                filterName="productName"/>
+                            <SearchComponent />
                         </div>
                     </div>
 

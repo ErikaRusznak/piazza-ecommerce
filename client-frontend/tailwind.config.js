@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     screens: require('./src/tailwind.screens.js'),
     fontSize: {
-      'xs': '0.9rem',
-      'xxs': '0.58rem',
+      'xs': '0.58rem',
+      'sm': '0.9rem',
       'md': '1rem',
       'lg': '1.1rem',
       'xl': '1.2rem',
