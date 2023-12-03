@@ -219,7 +219,7 @@ public class CartEntityTest extends JpaBaseEntity {
         Buyer savedBuyer = doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Cart cart = entityFinder.getTheOne(Cart.class);
-            Buyer buyer = createBuyer(em, new UserAccount("Marcel", "Danila", "marceldanila@gmail.com","/src/image90","0777777635"));
+            Buyer buyer = createBuyer(em, new UserAccount("Marcel", "Danila", "marceldanila@gmail.com","/src/image90","0777777635", UserStatus.CLIENT));
             cart.assignBuyerToCart(buyer);
 
             return buyer;

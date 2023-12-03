@@ -42,7 +42,8 @@ public class TestDataCreator {
                 "Rusznak",
                 "erikarusznak@gmail.com",
                 "none",
-                "0747871208");
+                "0747871208",
+                UserStatus.CLIENT);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer1 = createBuyer(em, account1);
 
@@ -51,7 +52,8 @@ public class TestDataCreator {
                 "Dulfu",
                 "alexdulfu@gmail.com",
                 "none",
-                "0758418097");
+                "0758418097",
+                UserStatus.CLIENT);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer2 = createBuyer(em, account2);
 
@@ -60,7 +62,8 @@ public class TestDataCreator {
                 "Lucaciu",
                 "giulialucaciu@gmail.com",
                 "none",
-                "0796854752");
+                "0796854752",
+                UserStatus.CLIENT);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer3 = createBuyer(em, account3);
 
@@ -104,7 +107,8 @@ public class TestDataCreator {
                 "Dulfu",
                 "alex.dulfu@gmail.com",
                 "/src/image1",
-                "0734896512");
+                "0734896512",
+                UserStatus.ADMIN);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller1 = createSellerFarmer(em,
                 new Address("Romania",
@@ -121,7 +125,8 @@ public class TestDataCreator {
                 "Rusznak",
                 "rusznak65@gmail.com",
                 "/src/image99",
-                "0734896777");
+                "0734896777",
+                UserStatus.ADMIN);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller2 = createSellerFarmer(em,
                 new Address("Romania",

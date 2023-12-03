@@ -8,6 +8,7 @@ import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.Category;
 import com.ozius.internship.project.entity.UserAccount;
+import com.ozius.internship.project.entity.UserStatus;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.order.OrderStatus;
@@ -51,7 +52,8 @@ public class ProductQueryTest extends JpaBaseEntity {
                 "Ciobotariu",
                 "vladciobotariu1@gmail.com",
                 "/src/image1",
-                "0734896512");
+                "0734896512",
+                UserStatus.ADMIN);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Seller seller1 = createSellerFarmer(em,
                 new Address("Romania",
@@ -68,7 +70,8 @@ public class ProductQueryTest extends JpaBaseEntity {
                 "Mondialu",
                 "mihneamondialu@gmail.com",
                 "/src/image99",
-                "0734896777");
+                "0734896777",
+                 UserStatus.ADMIN);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Seller seller2 = createSellerFarmer(em,
                 new Address("Spania",
