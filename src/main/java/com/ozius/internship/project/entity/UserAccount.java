@@ -17,6 +17,7 @@ public class UserAccount extends BaseEntity{
         String PASSWORD_HASH = "PASSWORD_HASH";
         String IMAGE_NAME = "IMAGE_NAME";
         String TELEPHONE = "TELEPHONE";
+        String USER_STATUS = "USER_STATUS";
     }
 
     @Column(name = Columns.FIRST_NAME, nullable = false)
@@ -36,16 +37,19 @@ public class UserAccount extends BaseEntity{
 
     @Column(name = Columns.TELEPHONE, length = 12, nullable = false)
     private String telephone;
+    @Column(name=Columns.USER_STATUS, nullable = false)
+    private UserStatus userStatus;
 
     protected UserAccount() {
     }
 
-    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone) {
+    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone, UserStatus userStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.imageName = imageName;
         this.telephone = telephone;
+        this.userStatus = userStatus;
     }
 
     public void updateAccount(String firstName, String lastName, String email, String image, String telephone){
@@ -91,6 +95,10 @@ public class UserAccount extends BaseEntity{
         return telephone;
     }
 
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
     @Override
     public String toString() {
         return "UserAccount{" +
@@ -99,6 +107,7 @@ public class UserAccount extends BaseEntity{
                 ", email='" + email + '\'' +
                 ", imageName='" + imageName + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", userStatus='" + userStatus.toString() + '\'' +
                 '}';
     }
 }

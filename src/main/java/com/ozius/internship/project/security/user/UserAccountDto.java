@@ -1,5 +1,6 @@
 package com.ozius.internship.project.security.user;
 
+import com.ozius.internship.project.entity.UserStatus;
 import com.ozius.internship.project.security.password.ValidPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,4 +19,5 @@ public class UserAccountDto {
     private String lastName;
     private String telephone;
     private String image;
+    private UserStatus userStatus;
 }

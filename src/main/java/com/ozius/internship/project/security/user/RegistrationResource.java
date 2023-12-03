@@ -40,7 +40,8 @@ public class RegistrationResource {
                 userAccountDto.getLastName(),
                 userAccountDto.getEmail(),
                 userAccountDto.getImage(),
-                userAccountDto.getTelephone()
+                userAccountDto.getTelephone(),
+                userAccountDto.getUserStatus()
         );
 
         user.setInitialPassword(passwordEncoder.encode(userAccountDto.getPassword()));

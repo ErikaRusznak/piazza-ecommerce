@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("localhost::")
 public class BuyerController {
 
     private final BuyerService buyerService;
