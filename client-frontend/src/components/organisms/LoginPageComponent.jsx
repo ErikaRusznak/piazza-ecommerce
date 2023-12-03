@@ -1,32 +1,41 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useAuth } from '../../api/auth/AuthContext'
+import {getUserStatusByEmail} from "../../api/entities/UserAccount";
 
 function LoginPageComponent(){
 
-    const [email, setUser] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setUser] = useState('');
+    const [password, setPassword] = useState('');
+    const [showErrorMessage, setErrorMessage] = useState(false);
+    const navigate = useNavigate();
+    const auth = useAuth();
 
-    const [showErrorMessage, setErrorMessage] = useState(false)
+    async function handleSubmit() {
+        const loginSuccess = await auth.login(email, password);
+        const { data: userStatus }  = await getUserStatusByEmail(email);
 
-    const navigate = useNavigate()
-    const auth = useAuth()
+        if (loginSuccess) {
 
-    function handleUsernameChange(event){
-        setUser(event.target.value)
+            console.log(userStatus);
+            if (userStatus === 'CLIENT') {
+                console.log('client');
+                navigate('/');
+            } else if (userStatus === 'ADMIN') {
+                console.log('admin');
+                navigate('/admin/');
+            }
+        } else {
+            setErrorMessage(true);
+        }
     }
 
-    function handlePasswordChange(event){
-        setPassword(event.target.value)
+    function handleUsernameChange(event) {
+        setUser(event.target.value);
     }
 
-    async function handelSubmit(){
-        if(await auth.login(email, password)){
-            navigate('/')
-        }
-        else{
-            setErrorMessage(true)
-        }
+    function handlePasswordChange(event) {
+        setPassword(event.target.value);
     }
 
     return (
@@ -99,7 +108,7 @@ function LoginPageComponent(){
                             <button
                                 type="button"
                                 name="login"
-                                onClick={handelSubmit}
+                                onClick={handleSubmit}
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign in

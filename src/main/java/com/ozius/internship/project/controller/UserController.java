@@ -25,4 +25,13 @@ public class UserController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/users/{email}/role")
+    public ResponseEntity<Object> retrieveUserStatus(@PathVariable String email) {
+        UserAccount userAccount = userAccountRepository.findByEmail(email);
+        if(userAccount!=null) {
+            return ResponseEntity.ok(userAccount.getUserStatus().toString());
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
