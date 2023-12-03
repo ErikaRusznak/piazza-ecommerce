@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import QuantityInput from "../../atoms/input/QuantityInput";
 import ProductSpecificInfo from "./ProductSpecificInfo";
 import {useCart} from "../../../contexts/CartContext";
-import {useAuth} from "../../../auth/AuthContext";
+import {useAuth} from "../../../api/auth/AuthContext";
 import {useNavigate} from "react-router-dom";
 import AddRemoveWishlist from "../../atoms/button/AddRemoveWishlist";
 import {useAlert} from "../../../contexts/AlertContext";

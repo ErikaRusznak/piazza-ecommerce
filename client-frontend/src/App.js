@@ -2,14 +2,14 @@ import './styles/App.css';
 import "@fontsource/roboto";
 
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
-import AuthProvider, {useAuth} from './auth/AuthContext'
+import AuthProvider, {useAuth} from './api/auth/AuthContext'
 import FavoriteProvider from './contexts/FavoriteContext'
 
 import HeaderComponent from "./components/moleculas/header/HeaderComponent";
 import WelcomePageComponent from "./components/organisms/WelcomePageComponent";
 import LoginPageComponent from "./components/organisms/LoginPageComponent";
 import RegisterPageComponent from "./components/organisms/RegisterPageComponent";
-import {AuthVerify} from "./auth/AuthVerify";
+import {AuthVerify} from "./api/auth/AuthVerify";
 import CartComponent from "./components/organisms/CartPageComponent";
 import CategoryPageComponent from './components/organisms/CategoryPageComponent'
 import ProductPageComponent from './components/organisms/ProductPageComponent'

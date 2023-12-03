@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react'
 import ProductInformation from "../moleculas/productInformation/ProductInformation";
 import ProductHistorySteps from "../atoms/products/ProductHistorySteps";
 import ReviewItems from "../moleculas/reviews/ReviewItems";
-import {getProductByIdApi} from "../../api/ProductApi";
+import {getProductByIdApi} from "../../api/entities/ProductApi";
 import {useParams} from "react-router-dom";
-import {baseURL} from "../../auth/ApiClient";
+import {baseURL} from "../../api/ApiClient";
 import ProductRating from "../atoms/starReviews/ProductRating";
 
 const ProductDetailsPageComponent = () => {

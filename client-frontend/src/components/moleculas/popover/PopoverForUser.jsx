@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import {Link} from "react-router-dom";
 import {ArrowLeftOnRectangleIcon, ClipboardDocumentListIcon, Cog6ToothIcon} from "@heroicons/react/24/outline";
-import {useAuth} from "../../../auth/AuthContext";
+import {useAuth} from "../../../api/auth/AuthContext";
 
 
 const accountData = [

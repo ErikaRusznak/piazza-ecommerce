@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import CategoryComponent from "../moleculas/CategoryComponent";
 import '../../styles/CategoryPageComponent.css';
 import NoEntityMessageComponent from "../atoms/error/NoEntityMessageComponent";
-import {getAllCategoriesApi} from "../../api/CategoryApi";
+import {getAllCategoriesApi} from "../../api/entities/CategoryApi";
 
 const CategoryPageComponent = () => {
 

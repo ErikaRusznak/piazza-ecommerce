@@ -1,7 +1,7 @@
 import React, {Fragment, useRef} from "react";
 import {Popover, Transition} from "@headlessui/react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
-import {baseURL} from "../../../auth/ApiClient";
+import {baseURL} from "../../../api/ApiClient";
 import {Link, useNavigate} from "react-router-dom";
 
 const PopoverComponent = ({popoverName, popoverItems}) => {

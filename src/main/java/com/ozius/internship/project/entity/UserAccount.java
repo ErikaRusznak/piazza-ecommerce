@@ -1,8 +1,6 @@
 package com.ozius.internship.project.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = UserAccount.TABLE_NAME)
@@ -37,6 +35,8 @@ public class UserAccount extends BaseEntity{
 
     @Column(name = Columns.TELEPHONE, length = 12, nullable = false)
     private String telephone;
+
+    @Enumerated(EnumType.STRING)
     @Column(name=Columns.USER_STATUS, nullable = false)
     private UserStatus userStatus;
 

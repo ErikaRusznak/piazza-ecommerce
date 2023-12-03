@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {Popover, Transition} from "@headlessui/react";
 import {HeartIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
-import {baseURL} from "../../../auth/ApiClient";
+import {baseURL} from "../../../api/ApiClient";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 
 const PopoverFavorites = () => {

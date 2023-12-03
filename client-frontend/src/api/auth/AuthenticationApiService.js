@@ -1,10 +1,10 @@
-import {api} from "./ApiClient"
+import {api} from "../ApiClient"
 
 export function executeJwtAuthenticationService(username, password){
     return api.post(`/authenticate`,{username, password})
 }
 
-export function registerApiService(email, password, firstName, lastName, telephone, image){
+export function registerApiService(email, password, firstName, lastName, telephone, image, userStatus){
     return api.post('/register-client',
         {
             firstName: firstName,
@@ -12,6 +12,7 @@ export function registerApiService(email, password, firstName, lastName, telepho
             email: email,
             telephone: telephone,
             image: image,
-            password: password
+            password: password,
+            userStatus: userStatus,
         })
 }

@@ -1,4 +1,4 @@
-import {api} from "../auth/ApiClient";
+import {api} from "../ApiClient";
 
 export function getFavorites(){
     return api.get(`/my-favorites`)

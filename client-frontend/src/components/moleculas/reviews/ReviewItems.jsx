@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ReviewComponent from "./ReviewComponent";
-import {getReviewsApi} from "../../../api/ReviewApi";
+import {getReviewsApi} from "../../../api/entities/ReviewApi";
 
 const ReviewItems = ({productId, updateProductRating}) => {
 
