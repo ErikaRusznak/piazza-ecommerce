@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useAuth} from "../../auth/AuthContext";
+import {useAuth} from "../../api/auth/AuthContext";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import CartItemCard from "../moleculas/cart/CartItemCard";
 import ShippingAddressesComponent from "../moleculas/ShippingAddressesComponent";
-import {submitOrder} from "../../api/OrderApi";
-import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../api/BuyerApi";
+import {submitOrder} from "../../api/entities/OrderApi";
+import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../api/entities/BuyerApi";
 import {useCart} from "../../contexts/CartContext";
 import {useAlert} from "../../contexts/AlertContext";
 import AddressForm from "../moleculas/forms/AddressForm";

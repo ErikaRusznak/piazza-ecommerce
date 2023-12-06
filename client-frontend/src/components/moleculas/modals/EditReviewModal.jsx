@@ -2,7 +2,7 @@ import React from 'react'
 import BaseModal from "../../atoms/BaseModal";
 import {Form, Formik} from "formik";
 import TextInputWithError from "../../atoms/input/TextInputWithError";
-import {updateReviewApi} from "../../../api/ReviewApi";
+import {updateReviewApi} from "../../../api/entities/ReviewApi";
 import {editReviewSchema} from "../../../validators/editReviewSchema";
 
 const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, review, updateReview}) => {

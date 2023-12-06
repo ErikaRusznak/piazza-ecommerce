@@ -1,4 +1,4 @@
-import {api} from "../auth/ApiClient";
+import {api} from "../ApiClient";
 
 export function submitOrder(shippingAddress, products, email){
     return api.post('/order', {

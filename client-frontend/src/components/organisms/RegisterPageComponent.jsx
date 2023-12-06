@@ -1,18 +1,27 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import { useAuth } from '../../auth/AuthContext'
+import { useAuth } from '../../api/auth/AuthContext'
 import {Field, Formik, Form} from "formik";
 import { passwordSchema } from "../../validators/passwordSchema";
 import TextInputWithError from "../atoms/input/TextInputWithError";
 import ErrorField from "../atoms/error/ErrorField";
+import UserStatusRadio from "../atoms/radio/UserStatusRadio";
 
 function RegisterPageComponent(){
 
     const auth = useAuth()
     const navigate = useNavigate()
 
+
+    const radioItems = [
+        {radioLabel: "Client", idName: "border-radio-1", value: "CLIENT"},
+        {radioLabel: "Admin", idName: "border-radio-2", value: "ADMIN"},
+    ];
+
     async function onSubmit(values){
-        await auth.registerUser(values.email, values.password, values.firstName, values.lastName, values.telephone, values.image)
+
+        const selectedRadioItem = radioItems.find(item => item.radioLabel === values.userStatus);
+        await auth.registerUser(values.email, values.password, values.firstName, values.lastName, values.telephone, values.image, selectedRadioItem.value)
             .then(
                 ()=>navigate('/login')
             )
@@ -39,7 +48,8 @@ function RegisterPageComponent(){
                                 lastName: "",
                                 email: "",
                                 telephone: "",
-                                image: ""
+                                image: "",
+                                userStatus: "",
                             }}
                             onSubmit={onSubmit}
                             validationSchema={passwordSchema}
@@ -47,7 +57,7 @@ function RegisterPageComponent(){
                             validateOnChange={false}
                     >
 
-                        {({ errors, validateField }) => {
+                        {({ errors, validateField, setFieldTouched, setFieldValue }) => {
 
                             return (
                                 <Form className="space-y-2">
@@ -105,6 +115,19 @@ function RegisterPageComponent(){
                                             ></Field>
                                         </div>
                                     </div>
+
+                                    <UserStatusRadio
+                                                     fieldName={"userStatus"}
+                                                     labelName={"Role"}
+                                                     radioItems={radioItems}
+                                                     errorName={errors.userStatus}
+                                                     onBlur={() => {
+                                                         validateField("userStatus");
+                                                         setFieldTouched("userStatus", true);
+                                                     }}
+                                                     onChange={(value) => setFieldValue("userStatus", value)}
+
+                                                     />
 
                                     <div>
                                         <button

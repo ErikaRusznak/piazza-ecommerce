@@ -1,4 +1,4 @@
-import { api } from '../auth/ApiClient'
+import { api } from '../ApiClient'
 
 export const getAllCategoriesApi = () => {
     return api.get("/categories")

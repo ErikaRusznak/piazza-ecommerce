@@ -6,7 +6,7 @@ function TextInputWithError({fieldName, errorName, labelName, onBlur, fieldType}
 
     return (
         <div>
-            <label className={` ${errorName ? 'text-red-600':'text-inherit' } block text-sm font-medium leading-6`}>
+            <label className={`  block text-sm font-medium leading-6`}>
                 {labelName}
             </label>
             <div className="mt-2">

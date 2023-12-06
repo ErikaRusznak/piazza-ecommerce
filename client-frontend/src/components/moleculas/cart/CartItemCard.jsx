@@ -1,4 +1,4 @@
-import {baseURL} from "../../../auth/ApiClient";
+import {baseURL} from "../../../api/ApiClient";
 import QuantityInput from "../../atoms/input/QuantityInput";
 import useBreakpoint from "../../../hooks/useBreakpoint";
 import {useTranslation} from "react-i18next";

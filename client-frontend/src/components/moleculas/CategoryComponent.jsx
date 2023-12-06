@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import { baseURL } from '../../auth/ApiClient';
+import { baseURL } from '../../api/ApiClient';
 import {useNavigate} from "react-router-dom";
 
 const CategoryComponent = ({ categoryName, imageUrl }) => {

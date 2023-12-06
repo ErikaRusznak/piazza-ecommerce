@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {useAuth} from '../../../auth/AuthContext';
-import {getAllCategoriesApi} from "../../../api/CategoryApi";
+import {useAuth} from '../../../api/auth/AuthContext';
+import {getAllCategoriesApi} from "../../../api/entities/CategoryApi";
 import '../../../styles/Header.css'
 import {Dialog, Popover, Transition} from '@headlessui/react';
 import {

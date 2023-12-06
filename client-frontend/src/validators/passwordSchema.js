@@ -1,5 +1,5 @@
 import { object, string, ref } from "yup";
-import {api} from "../auth/ApiClient";
+import {api} from "../api/ApiClient";
 import "yup-phone-lite";
 
 const getCharacterValidationError = (str) => {
@@ -19,7 +19,7 @@ export const passwordSchema = object().shape({
             .required("Please re-type your password")
             .oneOf([ref("password")], "Passwords does not match"),
         email: string()
-            .required()
+            .required("The email field is required")
             .email("Invalid email")
             .test('checkDuplicateEmail', "Email already registered", function (value){
                 return new Promise((resolve) => {
@@ -29,11 +29,13 @@ export const passwordSchema = object().shape({
                 });
             }),
         firstName: string()
-            .required(),
+            .required("The first name field is required"),
         lastName: string()
-            .required(),
+            .required("The last name field is required"),
         telephone: string()
             .phone("RO", 'Please enter valid RO number')
-            .required("Telephone Required")
+            .required("Telephone required"),
+        userStatus: string()
+            .required("You should check a role"),
     })
 ;

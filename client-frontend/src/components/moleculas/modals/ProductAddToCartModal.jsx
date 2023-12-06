@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {getProductByIdApi} from "../../../api/ProductApi";
-import {baseURL} from "../../../auth/ApiClient";
-import {useAuth} from "../../../auth/AuthContext";
+import {getProductByIdApi} from "../../../api/entities/ProductApi";
+import {baseURL} from "../../../api/ApiClient";
+import {useAuth} from "../../../api/auth/AuthContext";
 import {useNavigate} from "react-router-dom";
 import QuantityInput from "../../atoms/input/QuantityInput";
 import {useCart} from "../../../contexts/CartContext";

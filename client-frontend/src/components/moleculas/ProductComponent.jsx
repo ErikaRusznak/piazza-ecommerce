@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {baseURL} from "../../auth/ApiClient";
-import {useAuth} from "../../auth/AuthContext";
+import {baseURL} from "../../api/ApiClient";
+import {useAuth} from "../../api/auth/AuthContext";
 import {useFavorite} from "../../contexts/FavoriteContext";
 import ProductRating from "../atoms/starReviews/ProductRating";
 

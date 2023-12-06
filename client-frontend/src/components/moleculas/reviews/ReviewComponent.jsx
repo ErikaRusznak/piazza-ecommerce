@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import ProductRating from "../../atoms/starReviews/ProductRating";
-import {useAuth} from "../../../auth/AuthContext";
+import {useAuth} from "../../../api/auth/AuthContext";
 import EditReviewModal from "../modals/EditReviewModal";
-import {getReviewByIdApi} from "../../../api/ReviewApi";
+import {getReviewByIdApi} from "../../../api/entities/ReviewApi";
 
 const ReviewComponent = ({reviewId, firstName, lastName, imageName, rating, description, publishDate, updateReviewInState}) => {
 

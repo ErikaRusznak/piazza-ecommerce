@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import ProductComponent from "../moleculas/ProductComponent";
-import {getProductsApi} from "../../api/ProductApi";
+import {getProductsApi} from "../../api/entities/ProductApi";
 import FilteringComponent from "../moleculas/filter/FilteringComponent";
 import NoEntityMessageComponent from "../atoms/error/NoEntityMessageComponent";
 import ProductAddToCartModal from "../moleculas/modals/ProductAddToCartModal";
