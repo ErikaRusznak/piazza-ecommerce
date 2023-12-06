@@ -171,6 +171,15 @@ function ProductPageComponent() {
         }
     }
 
+    let gapNumForLarge;
+
+    if (window.innerWidth < 1279 && window.innerWidth > 1175) {
+        gapNumForLarge = 4;
+    } else if (window.innerWidth < 1176 && window.innerWidth > 1023) {
+        gapNumForLarge = 6;
+    } else {
+        gapNumForLarge = 0;
+    }
 
     return (
         <div className="">
@@ -205,7 +214,7 @@ function ProductPageComponent() {
                                     handleItemsPerPageChange={handleItemsPerPageChange}
                                 />
 
-                                <ul className="mt-2 grid gap-16 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 w-full justify-center">
+                                <ul className={`mt-2 h-full flex flex-row justify-start items-start sm:max-w-[767.9px] md:max-w-[871px] lg:max-w-[1172px] xl:max-w-[1200px] 2xl:max-w-[1200px] flex-wrap gap-x-12 gap-y-8 lg:gap-x-6`}>
                                     {products.map((product) => (
                                         <div key={product.id}>
                                             <ProductComponent
