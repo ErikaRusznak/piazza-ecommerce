@@ -18,6 +18,8 @@ import CartProvider from "./contexts/CartContext";
 import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
 import OrderHistoryPageComponent from "./components/organisms/OrderHistoryPageComponent";
+import AdminLandingPage from "./components/organisms/AdminLandingPage";
+import React from "react";
 
 function AuthenticatedRoute({children}) {
 
@@ -45,6 +47,17 @@ function NotAuthenticatedRoute({children}) {
     return <Navigate to={"/"}/>
 }
 
+function AuthenticatedRolesRoute({ path, element, allowedRoles }) {
+    const auth = useAuth();
+    const userRole = auth.getUserRole();
+
+    if (!auth.isAuthenticated || (allowedRoles && !allowedRoles.includes(userRole))) {
+        return <Navigate to="/" />;
+    }
+
+    return <Route path={path} element={element} />;
+}
+
 function App() {
 
     return (
@@ -53,53 +66,50 @@ function App() {
                 <AuthProvider>
                     <FavoriteProvider>
                         <CartProvider>
+                            <HeaderComponent />
+                            <AlertProvider>
+                                <Routes>
+                                    <Route path="/" element={<WelcomePageComponent />} />
+                                    <Route path='' element={<WelcomePageComponent />} />
+                                    <Route path='/login' element={
+                                        <NotAuthenticatedRoute>
+                                            <LoginPageComponent />
+                                        </NotAuthenticatedRoute>
+                                    } />
+                                    <Route path='/register' element={
+                                        <NotAuthenticatedRoute>
+                                            <RegisterPageComponent />
+                                        </NotAuthenticatedRoute>
+                                    } />
+                                    <Route path='/products/categories' element={<CategoryPageComponent />} />
+                                    <Route path='/products' element={<ProductPageComponent />} />
+                                    <Route path='/:sellerAlias/products/:productId' element={<ProductDetailsPageComponent />} />
 
-                            <HeaderComponent/>
+                                    { /* Use standard Route components and conditionally render AuthenticatedRoute or AuthenticatedRolesRoute */}
+                                    <Route path='/account/cart' element={
+                                        <AuthenticatedRoute>
+                                            <CartComponent />
+                                        </AuthenticatedRoute>
+                                    } />
+                                    <Route path='/checkout' element={
+                                        <AuthenticatedRoute>
+                                            <CheckoutPageComponent />
+                                        </AuthenticatedRoute>
+                                    } />
+                                    <Route path='/order-history' element={
+                                        <AuthenticatedRoute>
+                                            <OrderHistoryPageComponent />
+                                        </AuthenticatedRoute>
+                                    } />
+                                    <Route path='/admin' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
+                                            <AdminLandingPage />
+                                        </AuthenticatedRolesRoute>
+                                    } />
 
-                                <AlertProvider>
-
-                                    <Routes>
-                                        <Route path='/' element={<WelcomePageComponent/>}/>
-                                        <Route path='' element={<WelcomePageComponent/>}/>
-                                        <Route path='/login' element={
-                                            <NotAuthenticatedRoute>
-                                                <LoginPageComponent/>
-                                            </NotAuthenticatedRoute>
-                                        }/>
-
-                                        <Route path='/register' element={
-                                            <NotAuthenticatedRoute>
-                                                <RegisterPageComponent/>
-                                            </NotAuthenticatedRoute>
-                                        }/>
-
-                                        <Route path='/products/categories' element={<CategoryPageComponent/>}/>
-                                        <Route path='/products' element={<ProductPageComponent/>}/>
-                                        <Route path='/:sellerAlias/products/:productId' element={<ProductDetailsPageComponent/>}/>
-
-                                        <Route path='/account/cart' element={
-                                            <AuthenticatedRoute>
-                                                <CartComponent/>
-                                            </AuthenticatedRoute>
-                                        }/>
-
-                                        <Route path='/checkout' element={
-                                            <AuthenticatedRoute>
-                                                <CheckoutPageComponent/>
-                                            </AuthenticatedRoute>
-                                        }/>
-
-                                        <Route path='/order-history' element={
-                                            <AuthenticatedRoute>
-                                                <OrderHistoryPageComponent/>
-                                            </AuthenticatedRoute>
-                                        }/>
-
-                                    </Routes>
-                                </AlertProvider>
-
-                            <AuthVerify/>
-
+                                </Routes>
+                            </AlertProvider>
+                            <AuthVerify />
                         </CartProvider>
                     </FavoriteProvider>
                 </AuthProvider>

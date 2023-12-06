@@ -9,7 +9,6 @@ import useBreakpoint from "../../hooks/useBreakpoint";
 const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, toggleModal }) => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
-    const breakpoint = useBreakpoint();
 
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
 
@@ -29,21 +28,20 @@ const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, tog
     };
 
     return (
-        // <div className="h-[400px] w-[260px] lg:h-[387px] lg:h-[250px] md:h-[387px] md:h-[250px] sm:h-[400px] sm:w-[260px] xs:h-[400px] xs:w-[260px]">
         <div className="h-[340px] w-[263px] lg:h-[340px] lg:w-[250px] md:h-[340px] md:w-[250px] sm:h-[340px] sm:w-[260px]">
             <li className="flex mb-10 h-full">
 
                 <a className=" group bg-white dark:bg-[#1a2747] border border-zinc-300 rounded-xl w-full flex flex-col justify-around dark:border dark:border-[#312e81] shadow-md">
                     <div className=" flex items-center justify-center ">
-                    <div className="h-full w-full relative aspect-square overflow-hidden cursor-pointer  ">
+                    <div className="h-full w-full relative aspect-square overflow-hidden cursor-pointer ">
                         <img
                             src={`${baseURL}${imageName}`}
                             alt={name}
-                            className="object-cover w-52 h-52 mx-auto rounded-md"
+                            className="object-cover w-56 h-56 mx-auto rounded-md"
                             onClick={() => navigate(`/${sellerAlias}/products/${id}`)}
                         />
                         {isAuthenticated &&
-                            <div className="absolute top-0 left-0 p-2">
+                            <div className="absolute top-0 left-0 pl-6 pt-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill={isFavorite ? "rgb(244, 63, 94)" : "none"}
                                      viewBox="0 0 24 24" strokeWidth={1.5}
                                      stroke="currentColor" className="w-7 h-7 text-rose-500"
@@ -70,7 +68,7 @@ const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, tog
                             </div>
                             <div>
                                 <button type="button"
-                                        className="text-lg w-10 h-10 rounded-[20px] text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-indigo-300 dark:focus:ring-indigo-800 shadow-lg shadow-indigo-500/50 dark:shadow-lg dark:shadow-indigo-800/80 font-medium px-3 py-1.5 text-center mr-2 mb-2"
+                                        className="text-lg w-10 h-10 rounded-[20px] text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-indigo-300 dark:focus:ring-indigo-800 shadow-lg shadow-indigo-500/50 dark:shadow-lg dark:shadow-indigo-800/80 font-medium px-3 py-1.5 text-center  mb-2"
                                         onClick={() => toggleModal(id)}>
                                     +
                                 </button>
