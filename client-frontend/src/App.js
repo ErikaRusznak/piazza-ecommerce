@@ -19,23 +19,8 @@ import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
 import OrderHistoryPageComponent from "./components/organisms/OrderHistoryPageComponent";
 import AdminLandingPage from "./components/organisms/AdminLandingPage";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
-
-const AuthenticatedRoute = ({children}) => {
-
-    const auth = sessionStorage.getItem('isAuthenticated')
-
-    if (auth === "false") {
-        return <Navigate to={"/"}/>
-    }
-    if (auth) {
-        return (
-            children
-        )
-    }
-    return <Navigate to={"/"}/>
-}
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -113,7 +98,7 @@ function App() {
                                     }/>
 
                                     <Route path='/products/categories' element={
-                                        <LandingPageComponent/>
+                                        <CategoryPageComponent/>
                                     }/>
 
                                     <Route path='/products' element={
