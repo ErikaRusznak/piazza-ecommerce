@@ -18,13 +18,15 @@ function LoginPageComponent(){
         if (loginSuccess) {
 
             console.log(userStatus);
-            if (userStatus === 'CLIENT') {
-                console.log('client');
-                navigate('/');
-            } else if (userStatus === 'ADMIN') {
-                console.log('admin');
-                navigate('/admin/');
-            }
+            // if (userStatus === 'CLIENT') {
+            //     console.log('client');
+            //     navigate('/');
+            // } else if (userStatus === 'ADMIN') {
+            //     console.log('admin');
+            //     navigate('/admin/');
+            // }
+            navigate("/welcome");
+            localStorage.setItem("userStatus", userStatus);
         } else {
             setErrorMessage(true);
         }

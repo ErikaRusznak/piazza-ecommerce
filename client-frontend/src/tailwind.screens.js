@@ -1,7 +1,6 @@
 module.exports = {
-    'xs': {'max': '579.9px'},
 
-    'sm': {'min':'580px', 'max': '767.9px'},
+    'sm': {'max': '767.9px'},
     // => @media (min-width: 640px and max-width: 767px) { ... }
 
     'md': {'min': '768px', 'max': '1023.9px'},

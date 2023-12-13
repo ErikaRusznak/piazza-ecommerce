@@ -49,6 +49,16 @@ function AuthProvider({children}){
         }
     }
 
+    async function getUserRole() {
+        try {
+            const { data: { userStatus } } = await getUserStatusByEmail(username);
+            return userStatus;
+        } catch(error) {
+            console.log("Error getting user role: ", error);
+            return null;
+        }
+    }
+
     function logout(){
         setToken(null);
         setAuthenticated(false);
@@ -57,7 +67,7 @@ function AuthProvider({children}){
     }
 
     return (
-        <authContext.Provider value={{isAuthenticated, login, logout, registerUser, username, token}}>
+        <authContext.Provider value={{isAuthenticated, login, logout, registerUser, username, token, getUserRole}}>
             {children}
         </authContext.Provider>
     )
