@@ -60,12 +60,12 @@ const AuthenticatedRolesRoute = ({path, element, allowedRoles}) => {
 }
 
 const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
-
+    const auth = useAuth();
     const userRole = localStorage.getItem("userStatus");
 
     let renderComponent;
 
-    if (allowedRoles && !allowedRoles.includes(userRole)) {
+    if (!auth.isAuthenticated || (allowedRoles && !allowedRoles.includes(userRole)))  {
         return <Navigate to="/" />;
     } else {
         if (userRole === 'ADMIN') {
