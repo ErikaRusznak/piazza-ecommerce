@@ -19,9 +19,10 @@ import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
 import OrderHistoryPageComponent from "./components/organisms/OrderHistoryPageComponent";
 import AdminLandingPage from "./components/organisms/AdminLandingPage";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import LandingPageComponent from "./components/organisms/LandingPageComponent";
 
-function AuthenticatedRoute({children}) {
+const AuthenticatedRoute = ({children}) => {
 
     const auth = sessionStorage.getItem('isAuthenticated')
 
@@ -36,7 +37,7 @@ function AuthenticatedRoute({children}) {
     return <Navigate to={"/"}/>
 }
 
-function NotAuthenticatedRoute({children}) {
+const NotAuthenticatedRoute = ({children}) => {
 
     const auth = useAuth()
     if (!auth.isAuthenticated) {
@@ -47,15 +48,40 @@ function NotAuthenticatedRoute({children}) {
     return <Navigate to={"/"}/>
 }
 
-function AuthenticatedRolesRoute({ path, element, allowedRoles }) {
+const AuthenticatedRolesRoute = ({path, element, allowedRoles}) => {
     const auth = useAuth();
-    const userRole = auth.getUserRole();
+    const userRole = localStorage.getItem("userStatus");
 
     if (!auth.isAuthenticated || (allowedRoles && !allowedRoles.includes(userRole))) {
         return <Navigate to="/" />;
     }
 
     return <Route path={path} element={element} />;
+}
+
+const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
+
+    const userRole = localStorage.getItem("userStatus");
+
+    let renderComponent;
+
+    if (allowedRoles && !allowedRoles.includes(userRole)) {
+        return <Navigate to="/" />;
+    } else {
+        if (userRole === 'ADMIN') {
+            renderComponent = <AdminLandingPage />;
+        } else if (userRole === 'CLIENT') {
+            renderComponent = <WelcomePageComponent />;
+        } else {
+            renderComponent = <LandingPageComponent />;
+        }
+    }
+
+    return (
+        <Routes>
+            <Route path="/*" element={renderComponent} />
+        </Routes>
+    );
 }
 
 function App() {
@@ -66,50 +92,70 @@ function App() {
                 <AuthProvider>
                     <FavoriteProvider>
                         <CartProvider>
-                            <HeaderComponent />
+                            <HeaderComponent/>
                             <AlertProvider>
                                 <Routes>
-                                    <Route path="/" element={<WelcomePageComponent />} />
-                                    <Route path='' element={<WelcomePageComponent />} />
+
+                                    {/*no need to be authenticated*/}
                                     <Route path='/login' element={
                                         <NotAuthenticatedRoute>
-                                            <LoginPageComponent />
+                                            <LoginPageComponent/>
                                         </NotAuthenticatedRoute>
-                                    } />
+                                    }/>
                                     <Route path='/register' element={
                                         <NotAuthenticatedRoute>
-                                            <RegisterPageComponent />
+                                            <RegisterPageComponent/>
                                         </NotAuthenticatedRoute>
-                                    } />
-                                    <Route path='/products/categories' element={<CategoryPageComponent />} />
-                                    <Route path='/products' element={<ProductPageComponent />} />
-                                    <Route path='/:sellerAlias/products/:productId' element={<ProductDetailsPageComponent />} />
+                                    }/>
 
-                                    { /* Use standard Route components and conditionally render AuthenticatedRoute or AuthenticatedRolesRoute */}
-                                    <Route path='/account/cart' element={
-                                        <AuthenticatedRoute>
-                                            <CartComponent />
-                                        </AuthenticatedRoute>
+                                    <Route path='/' element={
+                                        <LandingPageComponent/>
+                                    }/>
+
+                                    <Route path='/products/categories' element={
+                                        <LandingPageComponent/>
+                                    }/>
+
+                                    <Route path='/products' element={
+                                            <ProductPageComponent/>
+                                    }/>
+
+                                    {/*both routes*/}
+                                    <Route path="/welcome/*" element={
+                                        <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>
                                     } />
-                                    <Route path='/checkout' element={
-                                        <AuthenticatedRoute>
-                                            <CheckoutPageComponent />
-                                        </AuthenticatedRoute>
-                                    } />
-                                    <Route path='/order-history' element={
-                                        <AuthenticatedRoute>
-                                            <OrderHistoryPageComponent />
-                                        </AuthenticatedRoute>
-                                    } />
-                                    <Route path='/admin' element={
-                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
-                                            <AdminLandingPage />
+
+
+                                    {/*client routes*/}
+                                    <Route path='/:sellerAlias/products/:productId' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
+                                            <ProductDetailsPageComponent/>
                                         </AuthenticatedRolesRoute>
-                                    } />
+                                    }/>
+
+
+                                    <Route path='/account/cart' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
+                                            <CartComponent/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+                                    <Route path='/checkout' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
+                                            <CheckoutPageComponent/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+                                    <Route path='/order-history' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
+                                            <OrderHistoryPageComponent/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+
+                                    {/*admin routes*/}
+
 
                                 </Routes>
                             </AlertProvider>
-                            <AuthVerify />
+                            <AuthVerify/>
                         </CartProvider>
                     </FavoriteProvider>
                 </AuthProvider>

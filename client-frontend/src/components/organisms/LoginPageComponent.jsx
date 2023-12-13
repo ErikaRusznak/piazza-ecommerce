@@ -25,7 +25,8 @@ function LoginPageComponent(){
             //     console.log('admin');
             //     navigate('/admin/');
             // }
-            navigate("/");
+            navigate("/welcome");
+            localStorage.setItem("userStatus", userStatus);
         } else {
             setErrorMessage(true);
         }
