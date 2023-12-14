@@ -171,16 +171,6 @@ function ProductPageComponent() {
         }
     }
 
-    let gapNumForLarge;
-
-    if (window.innerWidth < 1279 && window.innerWidth > 1175) {
-        gapNumForLarge = 4;
-    } else if (window.innerWidth < 1176 && window.innerWidth > 1023) {
-        gapNumForLarge = 6;
-    } else {
-        gapNumForLarge = 0;
-    }
-
     return (
         <div className="">
             {isLoading === false &&
@@ -216,20 +206,18 @@ function ProductPageComponent() {
 
                                 <ul className={`mt-2 h-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 items-center`}>
                                     {products.map((product) => (
-                                        <div className="col-span-1">
+                                        <div className="col-span-1" key={product.id}>
                                             <div className="flex items-center justify-center h-full">
-                                                <div key={product.id}>
-                                                    <ProductComponent
-                                                        key={product.id}
-                                                        id={product.id}
-                                                        name={product.name} xs
-                                                        imageName={product.imageName}
-                                                        price={product.price}
-                                                        sellerAlias={product.seller.alias}
-                                                        rating={product.rating}
-                                                        toggleModal={() => toggleModal(product.id)}
-                                                    />
-                                                </div>
+                                                <ProductComponent
+                                                    key={product.id}
+                                                    id={product.id}
+                                                    name={product.name} xs
+                                                    imageName={product.imageName}
+                                                    price={product.price}
+                                                    sellerAlias={product.seller.alias}
+                                                    rating={product.rating}
+                                                    toggleModal={() => toggleModal(product.id)}
+                                                />
                                             </div>
                                         </div>
                                     ))}
