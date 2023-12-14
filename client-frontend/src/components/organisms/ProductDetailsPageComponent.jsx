@@ -6,6 +6,7 @@ import {getProductByIdApi} from "../../api/entities/ProductApi";
 import {useParams} from "react-router-dom";
 import {baseURL} from "../../api/ApiClient";
 import ProductRating from "../atoms/starReviews/ProductRating";
+import {useAuth} from "../../api/auth/AuthContext";
 
 const ProductDetailsPageComponent = () => {
 

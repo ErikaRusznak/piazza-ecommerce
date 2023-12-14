@@ -19,8 +19,13 @@ import PopoverFavorites from "../popover/PopoverFavorites";
 import PopoverForUser from "../popover/PopoverForUser";
 import DisclosureComponent from "../popover/DisclosureComponent";
 
-const accountData = [
-    {name: 'Orders', href: '/account/orders', icon: ClipboardDocumentListIcon},
+const accountDataClient = [
+    {name: 'Orders', href: '/order-history', icon: ClipboardDocumentListIcon},
+    {name: 'Settings', href: '/account/settings', icon: Cog6ToothIcon},
+];
+
+const accountDataAdmin = [
+    {name: 'Orders', href: '/alias/order-history', icon: ClipboardDocumentListIcon},
     {name: 'Settings', href: '/account/settings', icon: Cog6ToothIcon},
 ];
 
@@ -34,6 +39,7 @@ export default function HeaderComponent() {
     const [categories, setCategories] = useState([]);
 
     const {isAuthenticated, username, logout} = useAuth();
+    const userRole = sessionStorage.getItem("userStatus");
 
     const location = useLocation()
     const buttonRef = useRef();
@@ -66,7 +72,10 @@ export default function HeaderComponent() {
                     <LogoComponent/>
                 </div>
                 <div className="flex md:hidden lg:hidden xl:hidden 2xl:hidden">
-                    {!!username &&
+                    {(isAuthenticated && userRole==="CLIENT") &&
+                        <PopoverFavorites/>
+                    }
+                    {(isAuthenticated && userRole==="CLIENT") &&
                         <CartIcon/>
                     }
 
@@ -90,20 +99,31 @@ export default function HeaderComponent() {
                     <Link to="/products" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
                         Shop
                     </Link>
-                    <Link to="/sellers" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
-                        Sellers
-                    </Link>
+                    {(!isAuthenticated || (isAuthenticated && userRole==="CLIENT")) &&
+                        <Link to="/sellers" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
+                            Sellers
+                        </Link>
+                    }
+                    {(isAuthenticated && userRole==="ADMIN") &&
+                        <Link to="/sellersAlias/products" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
+                            Seller Products
+                        </Link>
+                    }
+                    {(isAuthenticated && userRole==="ADMIN") &&
+                        <Link to="/sellerAlias" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
+                            Seller Page
+                        </Link>
+                    }
                 </Popover.Group>
 
 
                 <div
                     className="hidden md:flex md:flex-1 md:justify-end lg:flex lg:flex-1 lg:justify-end xl:flex xl:flex-1 xl:justify-end 2xl:flex 2xl:flex-1 2xl:justify-end text-inherit dark:text-inherit">
 
-                    {isAuthenticated &&
+                    {(isAuthenticated && userRole==="CLIENT") &&
                         <PopoverFavorites/>
                     }
-
-                    {!!username &&
+                    {isAuthenticated && userRole==="CLIENT" &&
                         <CartIcon/>
                     }
 
@@ -127,7 +147,8 @@ export default function HeaderComponent() {
 
                                 <Popover.Panel className="absolute -left-20 top-full z-10 mt-3 w-auto max-w-2xl overflow-hidden rounded-3xl bg-white dark:bg-zinc-800 shadow-lg ring-1 ring-gray-900/5
                                 dark:bg-opacity-70 dark:backdrop-blur-md bg-opacity-70 backdrop-blur-md">
-                                    <PopoverForUser/>
+                                    {userRole==="CLIENT" && <PopoverForUser accountData={accountDataClient}/>}
+                                    {userRole==="ADMIN" && <PopoverForUser accountData={accountDataAdmin}/>}
                                 </Popover.Panel>
 
                             </Transition>
@@ -203,23 +224,54 @@ export default function HeaderComponent() {
                                     >
                                         Shop
                                     </Link>
-                                    <Link
-                                        to="/sellers"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
-                                    >
-                                        Sellers
-                                    </Link>
+                                    { (!isAuthenticated || (isAuthenticated && userRole==="CLIENT")) && (
+                                        <Link
+                                            to="/sellers"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
+                                        >
+                                            Sellers
+                                        </Link>
+                                    )}
+                                    { userRole==="ADMIN" && (
+                                        <Link
+                                            to="/sellerAlias/products"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
+                                        >
+                                            Seller Products
+                                        </Link>
+                                    )}
+                                    { userRole==="ADMIN" && (
+                                        <Link
+                                            to="/sellerAlias"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
+                                        >
+                                            Seller Page
+                                        </Link>
+                                    )}
+
+
                                 </div>
                                 <div className="py-6">
 
-                                    {isAuthenticated &&
+                                    {(isAuthenticated && userRole==="CLIENT") &&
                                         <Link
                                             onClick={() => setMobileMenuOpen(false)}
                                             to="/account/favorites"
                                             className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
                                         >
                                             Favorites
+                                        </Link>
+                                    }
+                                    {(isAuthenticated && userRole==="CLIENT") &&
+                                        <Link
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            to="/account/cart"
+                                            className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
+                                        >
+                                            Cart
                                         </Link>
                                     }
 
@@ -238,7 +290,18 @@ export default function HeaderComponent() {
                                         <DisclosureComponent
                                             disclosureName="Account">
 
-                                            {accountData.map((item) => (
+                                            {userRole==="CLIENT" && accountDataClient.map((item) => (
+                                                <Link
+                                                    onClick={() => setMobileMenuOpen(false)}
+                                                    key={item.name}
+                                                    to={item.href}
+                                                    className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
+                                                >
+                                                    {item.name}
+                                                </Link>
+                                            ))}
+
+                                            {userRole==="ADMIN" && accountDataAdmin.map((item) => (
                                                 <Link
                                                     onClick={() => setMobileMenuOpen(false)}
                                                     key={item.name}

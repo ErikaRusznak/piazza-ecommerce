@@ -14,6 +14,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
     const {isAuthenticated} = useAuth();
     const {pushAlert, clearAlert} = useAlert()
     const navigate = useNavigate();
+    const userRole = sessionStorage.getItem("userStatus");
 
     const updateQuantity = (input) => {
         setQuantity((prevQuantity) => Math.max(1, prevQuantity + input));
@@ -61,28 +62,34 @@ const ProductInformation = ({description, price, category, producer, city, produ
                     label="City"
                     information={city}
                 />
-                <div className="flex justify-between items-center">
-                    <p className="font-bold text-base leading-4 text-zinc-600 dark:text-zinc-100">Quantity</p>
-                    <div className="flex">
-                        <QuantityInput
-                            quantity={quantity}
-                            onQuantityChanged={updateQuantity}
-                        />
+                {(!isAuthenticated || (isAuthenticated && userRole === "CLIENT")) && (
+                    <div>
+                        <div className="flex justify-between items-center">
+                            <p className="font-bold text-base leading-4 text-zinc-600 dark:text-zinc-100">Quantity</p>
+                            <div className="flex">
+                                <QuantityInput
+                                    quantity={quantity}
+                                    onQuantityChanged={updateQuantity}
+                                />
+                            </div>
+                        </div>
+                        <hr className="bg-zinc-200 w-full my-3"/>
                     </div>
-                </div>
-                <hr className="bg-zinc-200 w-full my-3"/>
+                )}
 
             </div>
-            <div className={`flex ${isAuthenticated ? "gap-10" : ""}`}>
-            <AddRemoveWishlist
-                    productId={productId}
-                />
-                <button
-                    className="font-medium rounded-lg text-base leading-4 text-white bg-indigo-600 w-full py-5 mt-6 border border-indigo-750 hover:bg-indigo-700 dark:border-indigo-900"
-                    onClick={() => handleAddToCart()}>
-                    Add to cart
-                </button>
-            </div>
+            {(!isAuthenticated || (isAuthenticated && userRole === "CLIENT")) && (
+                <div className={`flex ${isAuthenticated ? "gap-10" : ""}`}>
+                    <AddRemoveWishlist
+                        productId={productId}
+                    />
+                    <button
+                        className="font-medium rounded-lg text-base leading-4 text-white bg-indigo-600 w-full py-5 mt-6 border border-indigo-750 hover:bg-indigo-700 dark:border-indigo-900"
+                        onClick={() => handleAddToCart()}>
+                        Add to cart
+                    </button>
+                </div>
+            )}
         </div>
     )
 }

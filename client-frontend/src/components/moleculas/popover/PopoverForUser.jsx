@@ -4,12 +4,7 @@ import {ArrowLeftOnRectangleIcon, ClipboardDocumentListIcon, Cog6ToothIcon} from
 import {useAuth} from "../../../api/auth/AuthContext";
 
 
-const accountData = [
-    { name: 'Orders', href: '/account/orders', icon: ClipboardDocumentListIcon },
-    { name: 'Settings', href: '/account/settings', icon: Cog6ToothIcon },
-];
-
-const PopoverForUser = () => {
+const PopoverForUser = ({accountData}) => {
 
     const buttonRef = useRef();
     const { logout } = useAuth();

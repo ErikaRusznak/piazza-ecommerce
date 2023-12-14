@@ -35,7 +35,7 @@ const NotAuthenticatedRoute = ({children}) => {
 
 const AuthenticatedRolesRoute = ({allowedRoles, children}) => {
     const auth = useAuth();
-    const userRole = localStorage.getItem("userStatus");
+    const userRole = sessionStorage.getItem("userStatus");
 
     if (!auth.isAuthenticated || (allowedRoles && !allowedRoles.includes(userRole))) {
         return <Navigate to="/" />;
@@ -47,7 +47,7 @@ const AuthenticatedRolesRoute = ({allowedRoles, children}) => {
 
 const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
     const auth = useAuth();
-    const userRole = localStorage.getItem("userStatus");
+    const userRole = sessionStorage.getItem("userStatus");
 
     let renderComponent;
 
@@ -106,6 +106,11 @@ function App() {
                                             <ProductPageComponent/>
                                     }/>
 
+                                    <Route path='/:sellerAlias/products/:productId' element={
+                                        <ProductDetailsPageComponent/>
+                                    }/>
+
+
                                     {/*both routes*/}
                                     <Route path="/welcome/*" element={
                                         <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>
@@ -113,13 +118,6 @@ function App() {
 
 
                                     {/*client routes*/}
-                                    <Route path='/:sellerAlias/products/:productId' element={
-                                        <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
-                                            <ProductDetailsPageComponent/>
-                                        </AuthenticatedRolesRoute>
-                                    }/>
-
-
                                     <Route path='/account/cart' element={
                                         <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
                                             <CartComponent/>
