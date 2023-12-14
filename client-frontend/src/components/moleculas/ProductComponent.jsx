@@ -9,6 +9,7 @@ import useBreakpoint from "../../hooks/useBreakpoint";
 const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, toggleModal }) => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
+    const breakpoint = useBreakpoint();
 
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
 
@@ -28,16 +29,15 @@ const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, tog
     };
 
     return (
-        <div className="h-[340px] w-[263px] lg:h-[340px] lg:w-[250px] md:h-[340px] md:w-[250px] sm:h-[340px] sm:w-[260px]">
+        <div className="h-[340px] w-[263px] lg:h-[340px] lg:w-[230px] md:h-[340px] md:w-[220px] sm:h-[340px] sm:w-[260px]">
             <li className="flex mb-10 h-full">
-
-                <a className=" group bg-white dark:bg-[#1a2747] border border-zinc-300 rounded-xl w-full flex flex-col justify-around dark:border dark:border-[#312e81] shadow-md">
-                    <div className=" flex items-center justify-center ">
-                    <div className="h-full w-full relative aspect-square overflow-hidden cursor-pointer ">
+                <a className="group bg-white dark:bg-[#1a2747] border border-zinc-300 rounded-xl w-full flex flex-col justify-around dark:border dark:border-[#312e81] shadow-md">
+                    <div className="flex items-center justify-center">
+                        <div className="h-full w-full relative aspect-square overflow-hidden cursor-pointer">
                         <img
                             src={`${baseURL}${imageName}`}
                             alt={name}
-                            className="object-cover w-56 h-56 mx-auto rounded-md"
+                            className="mt-3 object-cover w-56 h-56 lg:w-52 lg:h-52 lg:mt-1 md:w-48 md:h-48 md:mt-1 mx-auto rounded-md"
                             onClick={() => navigate(`/${sellerAlias}/products/${id}`)}
                         />
                         {isAuthenticated &&

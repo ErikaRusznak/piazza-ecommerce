@@ -214,31 +214,35 @@ function ProductPageComponent() {
                                     handleItemsPerPageChange={handleItemsPerPageChange}
                                 />
 
-                                <ul className={`mt-2 h-full flex flex-row justify-start items-start sm:max-w-[767.9px] md:max-w-[871px] lg:max-w-[1172px] xl:max-w-[1200px] 2xl:max-w-[1200px] flex-wrap gap-x-12 gap-y-8 lg:gap-x-6`}>
+                                <ul className={`mt-2 h-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 items-center`}>
                                     {products.map((product) => (
-                                        <div key={product.id}>
-                                            <ProductComponent
-                                                key={product.id}
-                                                id={product.id}
-                                                name={product.name}xs
-                                                imageName={product.imageName}
-                                                price={product.price}
-                                                sellerAlias={product.seller.alias}
-                                                rating={product.rating}
-                                                toggleModal={() => toggleModal(product.id)}
-                                            />
+                                        <div className="col-span-1">
+                                            <div className="flex items-center justify-center h-full">
+                                                <div key={product.id}>
+                                                    <ProductComponent
+                                                        key={product.id}
+                                                        id={product.id}
+                                                        name={product.name} xs
+                                                        imageName={product.imageName}
+                                                        price={product.price}
+                                                        sellerAlias={product.seller.alias}
+                                                        rating={product.rating}
+                                                        toggleModal={() => toggleModal(product.id)}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     ))}
                                 </ul>
 
                                 <div className="mt-10 flex pb-10 justify-center">
-                                        <PaginationComponent
-                                            className="pagination-bar"
-                                            currentPage={currentPage}
-                                            totalCount={totalNumberProducts}
-                                            itemsPerPage={itemsPerPage}
-                                            handlePageChange={page => setCurrentPage(page)}
-                                        />
+                                    <PaginationComponent
+                                        className="pagination-bar"
+                                        currentPage={currentPage}
+                                        totalCount={totalNumberProducts}
+                                        itemsPerPage={itemsPerPage}
+                                        handlePageChange={page => setCurrentPage(page)}
+                                    />
                                 </div>
 
                             </div>
