@@ -218,7 +218,6 @@ function ProductPageComponent() {
                                     {products.map((product) => (
                                         <div className="col-span-1">
                                             <div className="flex items-center justify-center h-full">
-
                                                 <div key={product.id}>
                                                     <ProductComponent
                                                         key={product.id}
