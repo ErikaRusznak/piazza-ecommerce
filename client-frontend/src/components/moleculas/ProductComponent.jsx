@@ -41,7 +41,7 @@ const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, tog
                             onClick={() => navigate(`/${sellerAlias}/products/${id}`)}
                         />
                         {isAuthenticated &&
-                            <div className="absolute top-0 left-0 pl-6 pt-2">
+                            <div className="absolute top-0 left-0 pl-6 pt-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill={isFavorite ? "rgb(244, 63, 94)" : "none"}
                                      viewBox="0 0 24 24" strokeWidth={1.5}
                                      stroke="currentColor" className="w-7 h-7 text-rose-500"

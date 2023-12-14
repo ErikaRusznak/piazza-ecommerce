@@ -1,5 +1,6 @@
 import './styles/App.css';
 import "@fontsource/roboto";
+import React from "react";
 
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import AuthProvider, {useAuth} from './api/auth/AuthContext'
@@ -19,7 +20,6 @@ import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
 import OrderHistoryPageComponent from "./components/organisms/OrderHistoryPageComponent";
 import AdminLandingPage from "./components/organisms/AdminLandingPage";
-import React from "react";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
@@ -33,15 +33,16 @@ const NotAuthenticatedRoute = ({children}) => {
     return <Navigate to={"/"}/>
 }
 
-const AuthenticatedRolesRoute = ({path, element, allowedRoles}) => {
+const AuthenticatedRolesRoute = ({allowedRoles, children}) => {
     const auth = useAuth();
     const userRole = localStorage.getItem("userStatus");
 
     if (!auth.isAuthenticated || (allowedRoles && !allowedRoles.includes(userRole))) {
         return <Navigate to="/" />;
+    } else {
+        return children
     }
 
-    return <Route path={path} element={element} />;
 }
 
 const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
@@ -124,6 +125,7 @@ function App() {
                                             <CartComponent/>
                                         </AuthenticatedRolesRoute>
                                     }/>
+
                                     <Route path='/checkout' element={
                                         <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
                                             <CheckoutPageComponent/>
