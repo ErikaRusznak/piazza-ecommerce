@@ -106,7 +106,9 @@ function CheckoutPageComponent() {
         if (!!selectedShippingAddress) {
             submitOrder(selectedShippingAddress, checkoutItems, username)
                 .then(
-                    () => {
+                    (response) => {
+                        const orderId = response.data.id;
+                        console.log("orderId", response);
                         pushAlert({
                             type: "success",
                             title: "Order Placed",
@@ -114,7 +116,7 @@ function CheckoutPageComponent() {
                         })
                         setTimeout(() => {
                             refreshCart()
-                            navigate('/order-history')
+                            navigate(`/order-successful/${orderId}`)
                         }, 2000)
                     }
                 )

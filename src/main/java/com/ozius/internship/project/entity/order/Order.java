@@ -23,6 +23,7 @@ public class Order extends BaseEntity {
     public static final String TABLE_NAME = "customer_order";
 
     interface Columns {
+        String ORDER_ID = "ORDER_ID";
         String BUYER_EMAIL = "BUYER_EMAIL";
         String BUYER_FIRST_NAME = "BUYER_FIRST_NAME";
         String BUYER_LAST_NAME = "BUYER_LAST_NAME";
@@ -47,6 +48,7 @@ public class Order extends BaseEntity {
         String SERIAL_NUMBER = "SERIAL_NUMBER";
         String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
+        String FULL_ORDER_ID = "FULL_ORDER_ID";
     }
 
     @Enumerated(EnumType.STRING)
@@ -115,6 +117,7 @@ public class Order extends BaseEntity {
 
     @Column(name = Columns.TOTAL_PRICE, nullable = false)
     private float totalPrice;
+
 
     protected Order() {
     }

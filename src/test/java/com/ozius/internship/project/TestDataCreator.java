@@ -170,7 +170,7 @@ public class TestDataCreator {
     public static void createProductsBaseData(EntityManager em){
 
         Products.product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller1, UnitOfMeasure.GRAM);
+        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.GRAM);
         Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT);
         Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
         Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);

@@ -129,7 +129,13 @@ function App() {
                                             <CheckoutPageComponent/>
                                         </AuthenticatedRolesRoute>
                                     }/>
-                                    <Route path='/order-history' element={
+                                    {/*<Route path='/order-history' element={*/}
+                                    {/*    <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>*/}
+                                    {/*        <OrderHistoryPageComponent/>*/}
+                                    {/*    </AuthenticatedRolesRoute>*/}
+                                    {/*}/>*/}
+
+                                    <Route path='/order-successful/:orderId' element={
                                         <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
                                             <OrderHistoryPageComponent/>
                                         </AuthenticatedRolesRoute>
