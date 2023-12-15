@@ -1,6 +1,7 @@
 package com.ozius.internship.project.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.seller.Review;
 import jakarta.persistence.*;
@@ -20,6 +21,8 @@ public class FullOrder extends BaseEntity {
     interface Columns {
         String FULL_ORDER_ID = "FULL_ORDER_ID";
         String PUBLISH_DATE = "PUBLISH_DATE";
+        String BUYER_EMAIL = "BUYER_EMAIL";
+        String TOTAL_PRICE = "TOTAL_PRICE";
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -31,14 +34,38 @@ public class FullOrder extends BaseEntity {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate publishDate;
 
-    public FullOrder() {
+    @Column(name = Order.Columns.BUYER_EMAIL, nullable = false)
+    private String buyerEmail;
+
+    @Column(name = Columns.TOTAL_PRICE, nullable = false)
+    private float totalPrice;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "country", column = @Column(name = Order.Columns.COUNTRY, nullable = false)),
+            @AttributeOverride(name = "state", column = @Column(name = Order.Columns.STATE, nullable = false)),
+            @AttributeOverride(name = "city", column = @Column(name = Order.Columns.CITY, nullable = false)),
+            @AttributeOverride(name = "addressLine1", column = @Column(name = Order.Columns.ADDRESS_LINE_1, nullable = false)),
+            @AttributeOverride(name = "addressLine2", column = @Column(name = Order.Columns.ADDRESS_LINE_2)),
+            @AttributeOverride(name = "zipCode", column = @Column(name = Order.Columns.ZIP_CODE, length = 6, nullable = false))
+    })
+    private Address shippingAddress;
+
+    protected FullOrder() {
+
+    }
+
+    public FullOrder(String buyerEmail, Address shippingAddress) {
         this.publishDate = LocalDate.now();
         this.orders = new HashSet<>();
+        this.buyerEmail = buyerEmail;
+        this.shippingAddress = shippingAddress;
+        this.totalPrice = 0;
     }
 
     public void addOrder(Order order) {
         orders.add(order);
-        System.out.println("added order");
+        totalPrice += order.getTotalPrice();
     }
 
     public Set<Order> getOrders() {
@@ -49,10 +76,25 @@ public class FullOrder extends BaseEntity {
         return publishDate;
     }
 
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
     @Override
     public String toString() {
         return "FullOrder{" +
                 "publishDate=" + publishDate +
+                ", buyerEmail='" + buyerEmail + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", shippingAddress=" + shippingAddress +
                 '}';
     }
 }

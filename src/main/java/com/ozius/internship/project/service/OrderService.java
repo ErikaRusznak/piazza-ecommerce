@@ -39,11 +39,11 @@ public class OrderService {
     @Transactional
     public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products) {
 
-        FullOrder fullOrder = new FullOrder();
         Address address = shippingAddress.getAddress();
         String buyerFirstName = shippingAddress.getFirstName();
         String buyerLastName = shippingAddress.getLastName();
         String buyerTelephone = shippingAddress.getTelephone();
+        FullOrder fullOrder = new FullOrder(buyerEmail, address);
 
         Buyer buyer = buyerService.getBuyerByEmail(buyerEmail);
         if(buyer==null){
@@ -82,4 +82,6 @@ public class OrderService {
         return modelMapper.map(fullOrder, FullOrderDTO.class);
 
     }
+
+
 }

@@ -18,7 +18,7 @@ import CheckoutPageComponent from "./components/organisms/CheckoutPageComponent"
 import CartProvider from "./contexts/CartContext";
 import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
-import OrderHistoryPageComponent from "./components/organisms/OrderHistoryPageComponent";
+import OrderSuccessfulPageComponent from "./components/organisms/OrderSuccessfulPageComponent";
 import AdminLandingPage from "./components/organisms/AdminLandingPage";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 
@@ -135,9 +135,9 @@ function App() {
                                     {/*    </AuthenticatedRolesRoute>*/}
                                     {/*}/>*/}
 
-                                    <Route path='/order-successful/:orderId' element={
+                                    <Route path='/order-successful/:fullOrderId' element={
                                         <AuthenticatedRolesRoute allowedRoles={['CLIENT']}>
-                                            <OrderHistoryPageComponent/>
+                                            <OrderSuccessfulPageComponent/>
                                         </AuthenticatedRolesRoute>
                                     }/>
 

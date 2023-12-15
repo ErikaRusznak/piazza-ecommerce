@@ -1,6 +1,6 @@
 package com.ozius.internship.project.dto;
 
-import lombok.AllArgsConstructor;
+import com.ozius.internship.project.entity.Address;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,7 +8,9 @@ import java.util.Set;
 
 @Data
 public class FullOrderDTO {
-
+    private long id;
     private Set<OrderDTO> orders;
     private LocalDate publishDate;
+    private String buyerEmail;
+    private Address shippingAddress;
 }
