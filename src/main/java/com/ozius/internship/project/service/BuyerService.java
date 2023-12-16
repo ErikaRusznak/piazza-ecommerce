@@ -1,6 +1,7 @@
 package com.ozius.internship.project.service;
 
 import com.ozius.internship.project.dto.BuyerAddressDto;
+import com.ozius.internship.project.dto.BuyerDTO;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.buyer.BuyerAddress;
@@ -9,6 +10,7 @@ import com.ozius.internship.project.repository.BuyerRepository;
 import com.ozius.internship.project.repository.ProductRepository;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,17 +21,26 @@ public class BuyerService {
     private final BuyerRepository buyerRepository;
     private final UserAccountRepository userAccountRepository;
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
-    public BuyerService(BuyerRepository buyerRepository, UserAccountRepository userAccountRepository, ProductRepository productRepository) {
+    public BuyerService(BuyerRepository buyerRepository, UserAccountRepository userAccountRepository, ProductRepository productRepository, ModelMapper modelMapper) {
         this.buyerRepository = buyerRepository;
         this.userAccountRepository = userAccountRepository;
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Transactional
     public Buyer getBuyerByEmail(String email){
         long userId = userAccountRepository.findByEmail(email).getId();
         return buyerRepository.findBuyerByAccount_Id(userId);
+    }
+
+    @Transactional
+    public BuyerDTO getBuyerByEmailDTO(String email) {
+        long userId = userAccountRepository.findByEmail(email).getId();
+        Buyer buyer = buyerRepository.findBuyerByAccount_Id(userId);
+        return modelMapper.map(buyer, BuyerDTO.class);
     }
 
     @Transactional

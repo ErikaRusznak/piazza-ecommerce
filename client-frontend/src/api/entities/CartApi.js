@@ -1,10 +1,10 @@
 import {api} from "../ApiClient";
 
-export function getCartItems(){
+export const getCartItems = () => {
     return api.get(`/my-cart`)
 }
 
-export function removeCartItem(productId){
+export const removeCartItem = (productId) => {
     return api.delete('/my-cart',{
         params:{
             productId
@@ -12,7 +12,7 @@ export function removeCartItem(productId){
     })
 }
 
-export function addOrUpdateCartItem(productId, quantity){
+export const addOrUpdateCartItem = (productId, quantity) => {
     return api.put('/my-cart',{}, {
         params:{
             productId,

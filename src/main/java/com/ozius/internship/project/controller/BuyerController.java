@@ -1,6 +1,7 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.BuyerAddressDto;
+import com.ozius.internship.project.dto.BuyerDTO;
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.entity.buyer.BuyerAddress;
 import com.ozius.internship.project.entity.product.Product;
@@ -78,6 +79,12 @@ public class BuyerController {
         String loggedUserName = principal.getName();
 
         buyerService.addBuyerAddress(loggedUserName, shippingAddress);
+    }
+
+    @GetMapping("/buyer/{email}")
+    public ResponseEntity<BuyerDTO> getBuyerByEmailDTO(@PathVariable String email) {
+        BuyerDTO buyerDTO = buyerService.getBuyerByEmailDTO(email);
+        return ResponseEntity.ok(buyerDTO);
     }
 
 }

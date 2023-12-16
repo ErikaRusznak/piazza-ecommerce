@@ -2,15 +2,19 @@ package com.ozius.internship.project.service;
 
 import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.CheckoutItemDto;
+import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
+import com.ozius.internship.project.entity.order.FullOrder;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.repository.FullOrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -24,19 +28,34 @@ public class OrderService {
     private EntityManager em;
     private final BuyerService buyerService;
     private final CartService cartService;
+    private final FullOrderRepository fullOrderRepository;
+    private final ModelMapper modelMapper;
 
-    public OrderService(BuyerService buyerService, CartService cartService) {
+    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, ModelMapper modelMapper) {
         this.buyerService = buyerService;
         this.cartService = cartService;
+        this.fullOrderRepository = fullOrderRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    public boolean canAccessOrder(String authenticatedUserEmail, long fullOrderId) {
+        String orderBuyerEmail = getBuyerEmailFromOrder(fullOrderId);
+        return authenticatedUserEmail.equals(orderBuyerEmail);
+    }
+
+    public String getBuyerEmailFromOrder(long id) {
+        FullOrder fullOrder = fullOrderRepository.findById(id).orElseThrow();
+        return fullOrder.getBuyerEmail();
     }
 
     @Transactional
-    public void makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products) {
+    public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products) {
 
         Address address = shippingAddress.getAddress();
         String buyerFirstName = shippingAddress.getFirstName();
         String buyerLastName = shippingAddress.getLastName();
         String buyerTelephone = shippingAddress.getTelephone();
+        FullOrder fullOrder = new FullOrder(buyerEmail, address);
 
         Buyer buyer = buyerService.getBuyerByEmail(buyerEmail);
         if(buyer==null){
@@ -59,6 +78,7 @@ public class OrderService {
             Order orderPersisted = sellersToOrder.computeIfAbsent(seller, k -> {
                 Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone);
                 em.persist(order);
+                fullOrder.addOrder(order);
                 return order;
             });
 
@@ -69,5 +89,18 @@ public class OrderService {
         //remove products from cart
         Cart buyerCart = cartService.getCartByUserEmail(buyerEmail);
         buyerCart.clearCartFromAllCartItems();
+
+        fullOrder.setTotalPrice();
+        em.persist(fullOrder);
+        return modelMapper.map(fullOrder, FullOrderDTO.class);
+
     }
+
+    @Transactional
+    public FullOrderDTO getFullOrderById(long id) {
+        FullOrder fullOrder = fullOrderRepository.findById(id).orElseThrow();
+        return modelMapper.map(fullOrder, FullOrderDTO.class);
+    }
+
+
 }

@@ -23,6 +23,7 @@ public class Order extends BaseEntity {
     public static final String TABLE_NAME = "customer_order";
 
     interface Columns {
+        String ORDER_ID = "ORDER_ID";
         String BUYER_EMAIL = "BUYER_EMAIL";
         String BUYER_FIRST_NAME = "BUYER_FIRST_NAME";
         String BUYER_LAST_NAME = "BUYER_LAST_NAME";
