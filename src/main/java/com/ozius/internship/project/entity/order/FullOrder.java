@@ -68,7 +68,6 @@ public class FullOrder extends BaseEntity {
 
     public void addOrder(Order order) {
         orders.add(order);
-        totalPrice += order.getTotalPrice();
     }
 
     public Set<Order> getOrders() {
@@ -95,10 +94,21 @@ public class FullOrder extends BaseEntity {
         return orderNumber;
     }
 
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public static String generateRandomOrderNumber() {
         int randomPart = new Random().nextInt(900000) + 100000;
         return String.format("%06d", randomPart);
+    }
+
+    public void setTotalPrice() {
+        float total = 0f;
+        for(Order o : getOrders()) {
+            total += o.getTotalPrice();
+        }
+        setTotalPrice(total);
     }
 
     @Override

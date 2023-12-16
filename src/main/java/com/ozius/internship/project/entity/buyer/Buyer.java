@@ -79,6 +79,7 @@ public class Buyer extends BaseEntity {
         return account.getTelephone();
     }
 
+
     public void addFavorite(Product product){
         if(this.favoriteProducts.stream().anyMatch(item -> item.equals(product))){
             throw new IllegalItemException("can't add to favorites, items already exists");

@@ -1,14 +1,22 @@
 import {api} from "../ApiClient";
 
-export function getFavorites(){
-    return api.get(`/my-favorites`)
+export const getBuyerByEmailApi = (email) => {
+    return api.get(`/buyer/${email}`)
 }
 
-export function getBuyerAddresses(){
+export const getBuyerAddresses = () => {
     return api.get("/my-buyer-addresses")
 }
 
-export function addFavorite(productId) {
+export const updateShippingAddress = (shippingAddress) => {
+    return api.put('/my-buyer-addresses', shippingAddress)
+}
+
+export const addShippingAddress = (shippingAddress) => {
+    return api.post('/my-buyer-addresses', shippingAddress)
+}
+
+export const addFavorite = (productId) => {
     return api.put('/my-favorites', {},{
         params: {
             productId
@@ -16,7 +24,7 @@ export function addFavorite(productId) {
     })
 }
 
-export function removeFavorite(productId){
+export const removeFavorite = (productId) => {
     return api.delete('/my-favorites',{
         params:{
             productId
@@ -24,10 +32,6 @@ export function removeFavorite(productId){
     })
 }
 
-export function updateShippingAddress(shippingAddress){
-    return api.put('/my-buyer-addresses', shippingAddress)
-}
-
-export function addShippingAddress(shippingAddress){
-    return api.post('/my-buyer-addresses', shippingAddress)
+export const getFavorites = () => {
+    return api.get(`/my-favorites`)
 }

@@ -14,4 +14,5 @@ public class FullOrderDTO {
     private String buyerEmail;
     private Address shippingAddress;
     private String orderNumber;
+    private float totalPrice;
 }

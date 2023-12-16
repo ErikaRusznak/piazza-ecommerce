@@ -90,6 +90,7 @@ public class OrderService {
         Cart buyerCart = cartService.getCartByUserEmail(buyerEmail);
         buyerCart.clearCartFromAllCartItems();
 
+        fullOrder.setTotalPrice();
         em.persist(fullOrder);
         return modelMapper.map(fullOrder, FullOrderDTO.class);
 

@@ -48,7 +48,6 @@ public class Order extends BaseEntity {
         String SERIAL_NUMBER = "SERIAL_NUMBER";
         String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
-        String FULL_ORDER_ID = "FULL_ORDER_ID";
     }
 
     @Enumerated(EnumType.STRING)
@@ -117,7 +116,6 @@ public class Order extends BaseEntity {
 
     @Column(name = Columns.TOTAL_PRICE, nullable = false)
     private float totalPrice;
-
 
     protected Order() {
     }

@@ -8,5 +8,4 @@ public class BuyerDTO {
     private String lastName;
     private String imageName;
     private String telephone;
-
 }
