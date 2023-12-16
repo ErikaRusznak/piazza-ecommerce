@@ -3,13 +3,12 @@ package com.ozius.internship.project.entity.order;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.seller.Review;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -19,10 +18,10 @@ public class FullOrder extends BaseEntity {
     public static final String TABLE_NAME = "full_order";
 
     interface Columns {
-        String FULL_ORDER_ID = "FULL_ORDER_ID";
         String PUBLISH_DATE = "PUBLISH_DATE";
         String BUYER_EMAIL = "BUYER_EMAIL";
         String TOTAL_PRICE = "TOTAL_PRICE";
+        String ORDER_NUMBER = "ORDER_NUMBER";
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -34,11 +33,14 @@ public class FullOrder extends BaseEntity {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate publishDate;
 
-    @Column(name = Order.Columns.BUYER_EMAIL, nullable = false)
+    @Column(name = Columns.BUYER_EMAIL, nullable = false)
     private String buyerEmail;
 
     @Column(name = Columns.TOTAL_PRICE, nullable = false)
     private float totalPrice;
+
+    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    private String orderNumber;
 
     @Embedded
     @AttributeOverrides({
@@ -61,6 +63,7 @@ public class FullOrder extends BaseEntity {
         this.buyerEmail = buyerEmail;
         this.shippingAddress = shippingAddress;
         this.totalPrice = 0;
+        this.orderNumber = generateRandomOrderNumber();
     }
 
     public void addOrder(Order order) {
@@ -88,12 +91,23 @@ public class FullOrder extends BaseEntity {
         return shippingAddress;
     }
 
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+
+    public static String generateRandomOrderNumber() {
+        int randomPart = new Random().nextInt(900000) + 100000;
+        return String.format("%06d", randomPart);
+    }
+
     @Override
     public String toString() {
         return "FullOrder{" +
                 "publishDate=" + publishDate +
                 ", buyerEmail='" + buyerEmail + '\'' +
                 ", totalPrice=" + totalPrice +
+                ", orderNumber='" + orderNumber + '\'' +
                 ", shippingAddress=" + shippingAddress +
                 '}';
     }

@@ -3,7 +3,6 @@ package com.ozius.internship.project.service;
 import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.CheckoutItemDto;
 import com.ozius.internship.project.dto.FullOrderDTO;
-import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
@@ -11,6 +10,7 @@ import com.ozius.internship.project.entity.order.FullOrder;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.repository.FullOrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -28,12 +28,24 @@ public class OrderService {
     private EntityManager em;
     private final BuyerService buyerService;
     private final CartService cartService;
+    private final FullOrderRepository fullOrderRepository;
     private final ModelMapper modelMapper;
 
-    public OrderService(BuyerService buyerService, CartService cartService, ModelMapper modelMapper) {
+    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, ModelMapper modelMapper) {
         this.buyerService = buyerService;
         this.cartService = cartService;
+        this.fullOrderRepository = fullOrderRepository;
         this.modelMapper = modelMapper;
+    }
+
+    public boolean canAccessOrder(String authenticatedUserEmail, long fullOrderId) {
+        String orderBuyerEmail = getBuyerEmailFromOrder(fullOrderId);
+        return authenticatedUserEmail.equals(orderBuyerEmail);
+    }
+
+    public String getBuyerEmailFromOrder(long id) {
+        FullOrder fullOrder = fullOrderRepository.findById(id).orElseThrow();
+        return fullOrder.getBuyerEmail();
     }
 
     @Transactional
@@ -81,6 +93,12 @@ public class OrderService {
         em.persist(fullOrder);
         return modelMapper.map(fullOrder, FullOrderDTO.class);
 
+    }
+
+    @Transactional
+    public FullOrderDTO getFullOrderById(long id) {
+        FullOrder fullOrder = fullOrderRepository.findById(id).orElseThrow();
+        return modelMapper.map(fullOrder, FullOrderDTO.class);
     }
 
 

@@ -108,7 +108,6 @@ function CheckoutPageComponent() {
                 .then(
                     (response) => {
                         const orderId = response.data.id;
-                        console.log("orderId", response);
                         pushAlert({
                             type: "success",
                             title: "Order Placed",

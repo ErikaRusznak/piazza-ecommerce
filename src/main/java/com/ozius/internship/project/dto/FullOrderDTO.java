@@ -13,4 +13,5 @@ public class FullOrderDTO {
     private LocalDate publishDate;
     private String buyerEmail;
     private Address shippingAddress;
+    private String orderNumber;
 }

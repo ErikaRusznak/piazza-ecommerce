@@ -22,7 +22,7 @@ public class LocationController {
     public ResponseEntity<List<String>> getListOfLocations() {
         List<Seller> sellers = sellerRepository.findAll();
         List<String> cities = sellers.stream()
-                .map(seller -> seller.getCity())
+                .map(Seller::getCity)
                 .distinct()
                 .collect(Collectors.toList());
 

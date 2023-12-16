@@ -61,6 +61,7 @@
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
+    "@savvywombat/tailwindcss-grid-areas": "^3.1.0",
     "babel-loader": "^9.1.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
