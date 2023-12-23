@@ -11,6 +11,7 @@ import com.ozius.internship.project.entity.exception.IllegalSellerDetails;
 import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -111,6 +112,16 @@ public class Seller extends BaseEntity {
         return legalAddress.getCity();
     }
 
+    public String getCountry() { return legalAddress.getCountry(); }
+
+    public String getState() { return legalAddress.getState(); }
+
+    public String getAddressLine1() { return legalAddress.getAddressLine1(); }
+
+    public String getAddressLine2() { return legalAddress.getAddressLine2(); }
+
+    public String getZipCode() { return legalAddress.getZipCode(); }
+
     public UserAccount getAccount() {
         return account;
     }
@@ -125,6 +136,38 @@ public class Seller extends BaseEntity {
 
     public LegalDetails getLegalDetails() {
         return legalDetails;
+    }
+
+    public String getCompanyName() {
+        return legalDetails != null ? legalDetails.getName() : null;
+    }
+
+    public String getCui() {
+        return legalDetails != null ? legalDetails.getCui() : null;
+    }
+
+    public CompanyType getCompanyType() {
+        return legalDetails != null && legalDetails.getRegistrationNumber() != null
+                ? legalDetails.getRegistrationNumber().getCompanyType()
+                : null;
+    }
+
+    public Integer getNumericCodeByState() {
+        return legalDetails != null && legalDetails.getRegistrationNumber() != null
+                ? legalDetails.getRegistrationNumber().getNumericCodeByState()
+                : null;
+    }
+
+    public Integer getSerialNumber() {
+        return legalDetails != null && legalDetails.getRegistrationNumber() != null
+                ? legalDetails.getRegistrationNumber().getSerialNumber()
+                : null;
+    }
+
+    public LocalDate getDateOfRegistration() {
+        return legalDetails != null && legalDetails.getRegistrationNumber() != null
+                ? legalDetails.getRegistrationNumber().getDateOfRegistration()
+                : null;
     }
 
     public SellerType getSellerType() {
