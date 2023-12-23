@@ -106,12 +106,12 @@ export default function HeaderComponent() {
                     }
                     {(isAuthenticated && userRole==="ADMIN") &&
                         <Link to="/sellersAlias/products" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
-                            Seller Products
+                            Products
                         </Link>
                     }
                     {(isAuthenticated && userRole==="ADMIN") &&
                         <Link to="/sellerAlias" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
-                            Seller Page
+                            Profile
                         </Link>
                     }
                 </Popover.Group>
