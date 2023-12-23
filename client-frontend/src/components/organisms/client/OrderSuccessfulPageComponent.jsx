@@ -1,9 +1,9 @@
-import BigContainer from "../atoms/containers/BigContainer";
+import BigContainer from "../../atoms/containers/BigContainer";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {getFullOrderByIdApi} from "../../api/entities/OrderApi";
-import FullOrderInformation from "../moleculas/FullOrderInformation";
-import FullOrderItems from "../moleculas/FullOrderItems";
+import {getFullOrderByIdApi} from "../../../api/entities/OrderApi";
+import FullOrderInformation from "../../moleculas/FullOrderInformation";
+import FullOrderItems from "../../moleculas/FullOrderItems";
 
 function OrderSuccessfulPageComponent() {
 

@@ -7,19 +7,19 @@ import AuthProvider, {useAuth} from './api/auth/AuthContext'
 import FavoriteProvider from './contexts/FavoriteContext'
 
 import HeaderComponent from "./components/moleculas/header/HeaderComponent";
-import WelcomePageComponent from "./components/organisms/WelcomePageComponent";
+import ClientLandingPageComponent from "./components/organisms/client/ClientLandingPageComponent";
 import LoginPageComponent from "./components/organisms/LoginPageComponent";
 import RegisterPageComponent from "./components/organisms/RegisterPageComponent";
 import {AuthVerify} from "./api/auth/AuthVerify";
-import CartComponent from "./components/organisms/CartPageComponent";
+import CartComponent from "./components/organisms/client/CartPageComponent";
 import CategoryPageComponent from './components/organisms/CategoryPageComponent'
 import ProductPageComponent from './components/organisms/ProductPageComponent'
-import CheckoutPageComponent from "./components/organisms/CheckoutPageComponent";
+import CheckoutPageComponent from "./components/organisms/client/CheckoutPageComponent";
 import CartProvider from "./contexts/CartContext";
 import AlertProvider from "./contexts/AlertContext";
 import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPageComponent";
-import OrderSuccessfulPageComponent from "./components/organisms/OrderSuccessfulPageComponent";
-import AdminLandingPage from "./components/organisms/AdminLandingPage";
+import OrderSuccessfulPageComponent from "./components/organisms/client/OrderSuccessfulPageComponent";
+import AdminLandingPageComponent from "./components/organisms/admin/AdminLandingPageComponent";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
@@ -55,10 +55,13 @@ const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
         return <Navigate to="/" />;
     } else {
         if (userRole === 'ADMIN') {
-            renderComponent = <AdminLandingPage />;
+            console.log("admin")
+            renderComponent = <AdminLandingPageComponent />;
         } else if (userRole === 'CLIENT') {
-            renderComponent = <WelcomePageComponent />;
+            console.log("client")
+            renderComponent = <ClientLandingPageComponent />;
         } else {
+            console.log("landing")
             renderComponent = <LandingPageComponent />;
         }
     }

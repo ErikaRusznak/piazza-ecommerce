@@ -1,9 +1,9 @@
 import React from "react";
 
-import CartItemCard from "../moleculas/cart/CartItemCard";
-import CartSummary from "../moleculas/cart/CartSummary";
-import ErrorComponent from "../moleculas/error/ErrorComponent";
-import {useCart} from "../../contexts/CartContext";
+import CartItemCard from "../../moleculas/cart/CartItemCard";
+import CartSummary from "../../moleculas/cart/CartSummary";
+import ErrorComponent from "../../moleculas/error/ErrorComponent";
+import {useCart} from "../../../contexts/CartContext";
 import {useNavigate} from "react-router-dom";
 
 function Cart(){
