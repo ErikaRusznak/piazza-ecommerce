@@ -21,6 +21,7 @@ import ProductDetailsPageComponent from "./components/organisms/ProductDetailsPa
 import OrderSuccessfulPageComponent from "./components/organisms/client/OrderSuccessfulPageComponent";
 import AdminLandingPageComponent from "./components/organisms/admin/AdminLandingPageComponent";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
+import SellerProductsPageComponent from "./components/organisms/admin/SellerProductsPageComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -145,7 +146,11 @@ function App() {
                                     }/>
 
                                     {/*admin routes*/}
-
+                                    <Route path='/:sellerAlias/products' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
+                                            <SellerProductsPageComponent />
+                                        </AuthenticatedRolesRoute>
+                                    }/>
 
                                 </Routes>
                             </AlertProvider>

@@ -4,7 +4,9 @@ import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.ReviewDTO;
 import com.ozius.internship.project.service.ProductService;
 import com.ozius.internship.project.service.queries.ProductPaginationSearchQuery;
+import com.ozius.internship.project.service.queries.filter.FilterCriteria;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
+import com.ozius.internship.project.service.queries.filter.Operation;
 import com.ozius.internship.project.service.queries.sort.SortSpecs;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
@@ -30,11 +32,17 @@ public class ProductController {
         this.productService = productService;
     }
 
+    private String convertAlias(String alias) {
+        return alias.toLowerCase().replaceAll("\\s", "");
+    }
+
+
     @GetMapping("/products")
-    public ApiPaginationResponse<List<ProductDTO>> getProductsByFilter(@RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
-                                                                       @RequestParam(name = "page", defaultValue = "1") int page,
-                                                                       @RequestParam(name = "sort", required = false) SortSpecs sortSpecs,
-                                                                       @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs) {
+    public ApiPaginationResponse<List<ProductDTO>> getProductsByFilter(
+            @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "sort", required = false) SortSpecs sortSpecs,
+            @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs) {
 
 
         ProductPaginationSearchQuery query = new ProductPaginationSearchQuery(modelMapper, entityManager)

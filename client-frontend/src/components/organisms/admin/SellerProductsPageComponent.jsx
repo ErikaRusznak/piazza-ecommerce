@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from "react-router-dom";
-import ProductComponent from "../moleculas/ProductComponent";
-import {getProductsApi} from "../../api/entities/ProductApi";
-import FilteringComponent from "../moleculas/filter/FilteringComponent";
-import NoEntityMessageComponent from "../atoms/error/NoEntityMessageComponent";
-import ProductAddToCartModal from "../moleculas/modals/ProductAddToCartModal";
-import PaginationComponent from "../moleculas/PaginationComponent";
-import SelectionOfNumberPerPage from "../atoms/input/SelectionOfNumberPerPage";
-import useBreakpoint from "../../hooks/useBreakpoint";
+import React, {useEffect, useState} from "react";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
+import useBreakpoint from "../../../hooks/useBreakpoint";
+import {getProductsApi} from "../../../api/entities/ProductApi";
+import FilteringComponent from "../../moleculas/filter/FilteringComponent";
+import NoEntityMessageComponent from "../../atoms/error/NoEntityMessageComponent";
+import SelectionOfNumberPerPage from "../../atoms/input/SelectionOfNumberPerPage";
+import ProductComponent from "../../moleculas/ProductComponent";
+import PaginationComponent from "../../moleculas/PaginationComponent";
+import ProductAddToCartModal from "../../moleculas/modals/ProductAddToCartModal";
 
 const buildFilterOptionsFromQueryParams = (queryParams) => {
     return {
@@ -15,11 +15,12 @@ const buildFilterOptionsFromQueryParams = (queryParams) => {
         priceTo: queryParams.get('priceTo') ? parseInt(queryParams.get('priceTo')) : null,
         categoryName: queryParams.get('categoryName') ? queryParams.getAll('categoryName') : [],
         cityName: queryParams.get('cityName') ? queryParams.getAll('cityName') : [],
-        productName: queryParams.get('productName') ? queryParams.get('productName') : null
+        productName: queryParams.get('productName') ? queryParams.get('productName') : null,
+        sellerAlias: queryParams.get('sellerAlias') ? queryParams.get('sellerAlias') : null,
     };
 }
 
-const ProductPageComponent = () => {
+const SellerProductsPageComponent = () => {
 
     const [products, setProducts] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -41,6 +42,8 @@ const ProductPageComponent = () => {
     const [isLoading, setLoading] = useState(true)
 
     const breakpoint = useBreakpoint();
+
+    const { sellerAlias } = useParams();
 
     const toggleModal = (productId) => {
         setIsModalOpen(!isModalOpen);
@@ -118,6 +121,8 @@ const ProductPageComponent = () => {
 
     const buildFilterSpecs = () => {
         const filterSearchSpec = [];
+        filterSearchSpec.push(createFilterCriteria("sellerAlias", "eq", sellerAlias));
+
         if (filterOptions.categoryName.length) {
             const value = createValueForFilterCriteria(filterOptions.categoryName);
             filterSearchSpec.push(createFilterCriteria("categoryName", "eq", value));
@@ -136,6 +141,7 @@ const ProductPageComponent = () => {
             filterSearchSpec.push(createFilterCriteria("productName", "starts_with", filterOptions.productName));
         }
         return filterSearchSpec;
+
     }
 
     const buildSortSpecs = () => {
@@ -178,7 +184,7 @@ const ProductPageComponent = () => {
                     <div className="mx-auto mt-10 max-w-7xl px-10">
                         <header>
                             <h2 className="text-3xl mb-10 font-bold text-zinc-800 dark:text-white">
-                                Check the products
+                                {sellerAlias}'s products
                             </h2>
                         </header>
 
@@ -250,4 +256,4 @@ const ProductPageComponent = () => {
     );
 }
 
-export default ProductPageComponent;
+export default SellerProductsPageComponent;

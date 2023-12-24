@@ -12,6 +12,7 @@ const CartProvider = ({children}) => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
 
     const {isAuthenticated, username} = useAuth()
+    const userRole = sessionStorage.getItem("userStatus");
 
     function loadCartItems() {
 
@@ -22,7 +23,7 @@ const CartProvider = ({children}) => {
          *  }} data
          */
 
-        if(!!isAuthenticated){
+        if(!!isAuthenticated && userRole === "CLIENT"){
             getCartItems()
                 .then(
                     (response) => {

@@ -89,6 +89,7 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
             categoryName: [],
             cityName: [],
             productName: null,
+            sellerAlias: null,
         };
         onFilterChanged(newFilterOptions);
     }
@@ -129,11 +130,11 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
     return (
         <div>
             {/*<div className="mb-10">*/}
-            {/*    <SearchComponent*/}
-            {/*        handleSearchChanged={handleFilterChanged}*/}
-            {/*        filterName="productName"/>*/}
+            {/*<SearchComponent*/}
+            {/*    handleSearchChanged={handleFilterChanged}*/}
+            {/*    filterName="productName"/>*/}
 
-            {/*</div>*/}
+        {/*</div>*/}
 
             {breakpoint === "sm" ? (
                 <div>
@@ -195,7 +196,9 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
                             </ExpandableItem>
                         </div>
                         <div>
-                            <SearchComponent />
+                            <SearchComponent
+                                handleSearchChanged={handleFilterChanged}
+                                filterName="productName"/>
                         </div>
                     </div>
 

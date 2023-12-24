@@ -10,9 +10,10 @@ const FavoriteProvider = ({children}) => {
     const [allFavorites, setAllFavorites] = useState([]);
     const [numberOfFavorites, setNumberOfFavorites] = useState(0);
     const {isAuthenticated} = useAuth()
+    const userRole = sessionStorage.getItem("userStatus");
 
     const loadFavoriteItems = () => {
-        if (!!isAuthenticated) {
+        if (!!isAuthenticated && userRole === "CLIENT") {
             getFavorites()
                 .then((res) => {
                     setAllFavorites(res.data)

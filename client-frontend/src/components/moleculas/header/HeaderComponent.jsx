@@ -18,6 +18,7 @@ import PopoverComponent from "../popover/PopoverComponent";
 import PopoverFavorites from "../popover/PopoverFavorites";
 import PopoverForUser from "../popover/PopoverForUser";
 import DisclosureComponent from "../popover/DisclosureComponent";
+import {getSellerByEmailApi} from "../../../api/entities/SellerApi";
 
 const accountDataClient = [
     {name: 'Orders', href: '/order-history', icon: ClipboardDocumentListIcon},
@@ -37,6 +38,7 @@ export default function HeaderComponent() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const [categories, setCategories] = useState([]);
+    const [sellerAlias, setSellerAlias] = useState("");
 
     const {isAuthenticated, username, logout} = useAuth();
     const userRole = sessionStorage.getItem("userStatus");
@@ -45,6 +47,7 @@ export default function HeaderComponent() {
     const buttonRef = useRef();
 
     const navigate = useNavigate()
+
     const getCategoryList = () => {
         getAllCategoriesApi()
             .then((res) => {
@@ -53,10 +56,25 @@ export default function HeaderComponent() {
             .catch((err) => console.log(err));
     };
 
+    const getSellerByEmail = (email) => {
+       getSellerByEmailApi(email)
+           .then((res) => {
+               setSellerAlias(res.data.alias);
+           })
+           .catch((err) => console.log(err));
+    }
+
     useEffect(() => {
-        getCategoryList()
+        getCategoryList();
     }, [location, username]);
 
+    useEffect(() => {
+        if(!!isAuthenticated && userRole === "ADMIN") {
+            getSellerByEmail(username);
+        } else {
+            setSellerAlias("null");
+        }
+    }, [username]);
     const createQueryParam = (categoryName) => {
         const queryParams = new URLSearchParams()
         queryParams.set("categoryName", categoryName);
@@ -105,12 +123,12 @@ export default function HeaderComponent() {
                         </Link>
                     }
                     {(isAuthenticated && userRole==="ADMIN") &&
-                        <Link to="/sellersAlias/products" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
+                        <Link  to={`/${sellerAlias}/products`} className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
                             Products
                         </Link>
                     }
                     {(isAuthenticated && userRole==="ADMIN") &&
-                        <Link to="/sellerAlias" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
+                        <Link to={`/${sellerAlias}`} className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
                             Profile
                         </Link>
                     }
@@ -235,20 +253,20 @@ export default function HeaderComponent() {
                                     )}
                                     { userRole==="ADMIN" && (
                                         <Link
-                                            to="/sellerAlias/products"
+                                            to={`/${sellerAlias}/products`}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
                                         >
-                                            Seller Products
+                                            Products
                                         </Link>
                                     )}
                                     { userRole==="ADMIN" && (
                                         <Link
-                                            to="/sellerAlias"
+                                            to={`/${sellerAlias}`}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-inherit dark:text-inherit hover:bg-gray-50 dark:hover:bg-zinc-900"
                                         >
-                                            Seller Page
+                                            Profile
                                         </Link>
                                     )}
 
