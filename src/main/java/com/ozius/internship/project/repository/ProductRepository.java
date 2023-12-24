@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT r FROM Seller s JOIN s.reviews r WHERE r.product.id = :id")
     List<Review> getReviewsForProduct(@Param("id") long id);
 
+    @Query("SELECT p FROM Product p JOIN p.seller s WHERE s.alias = :sellerAlias")
+    List<Product> getAllProductsForSeller(@Param("sellerAlias") String sellerAlias);
+
 }

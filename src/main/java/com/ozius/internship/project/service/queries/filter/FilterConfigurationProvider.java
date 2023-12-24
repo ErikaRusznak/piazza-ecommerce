@@ -24,6 +24,7 @@ public class FilterConfigurationProvider {
         mapCriteriaToFormatInDataBase("orderStatus", new FilterConfiguration<>(Operation.EQ, new OrderStatusConverter()));
         mapCriteriaToFormatInDataBase("priceFrom", new FilterConfiguration<>(Operation.GTE, new NoTransformationConverter()));
         mapCriteriaToFormatInDataBase("priceTo", new FilterConfiguration<>(Operation.LTE, new NoTransformationConverter()));
+        mapCriteriaToFormatInDataBase("sellerAlias", new FilterConfiguration<>(Operation.EQ, value -> value));
     }
 
     public FilterConfiguration<?> getConfigurationForFilter(String filter){

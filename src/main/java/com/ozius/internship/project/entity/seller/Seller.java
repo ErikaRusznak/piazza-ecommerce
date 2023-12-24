@@ -28,6 +28,7 @@ public class Seller extends BaseEntity {
     interface Columns{
         String ACCOUNT_ID = "ACCOUNT_ID";
         String ALIAS = "ALIAS";
+        String ALIASCONVERTED = "ALIASCONVERTED";
         String COUNTRY = "COUNTRY";
         String STATE = "STATE";
         String CITY = "CITY";

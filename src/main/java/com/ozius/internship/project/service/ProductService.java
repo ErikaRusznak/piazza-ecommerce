@@ -42,4 +42,13 @@ public class ProductService {
         List<Review> reviews = productRepository.getReviewsForProduct(productId);
         product.updateRatingInformation(reviews);
     }
+
+    @Transactional
+    public List<ProductDTO> getProductsBySellerAlias(String sellerAlias) {
+        List<Product> products = productRepository.getAllProductsForSeller(sellerAlias);
+
+        return products.stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+    }
 }
