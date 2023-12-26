@@ -22,6 +22,8 @@ import OrderSuccessfulPageComponent from "./components/organisms/client/OrderSuc
 import AdminLandingPageComponent from "./components/organisms/admin/AdminLandingPageComponent";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 import SellerProductsPageComponent from "./components/organisms/admin/SellerProductsPageComponent";
+import SellerPageComponent from "./components/organisms/SellerPageComponent";
+import AllSellersComponent from "./components/organisms/AllSellersComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -112,6 +114,14 @@ function App() {
 
                                     <Route path='/:sellerAlias/products/:productId' element={
                                         <ProductDetailsPageComponent/>
+                                    }/>
+
+                                    <Route path='/:sellerAlias' element={
+                                        <SellerPageComponent/>
+                                    }/>
+
+                                    <Route path='/sellers' element={
+                                        <AllSellersComponent/>
                                     }/>
 
 

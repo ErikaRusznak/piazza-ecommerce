@@ -15,7 +15,7 @@ public class LegalDetails {
 
     }
 
-    LegalDetails(String name, String cui, RegistrationNumber registrationNumber) {
+    public LegalDetails(String name, String cui, RegistrationNumber registrationNumber) {
         this.name = name;
         this.cui = cui;
         this.registrationNumber = registrationNumber;

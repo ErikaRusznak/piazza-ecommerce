@@ -6,12 +6,12 @@ import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
-import com.ozius.internship.project.entity.seller.LegalDetails;
-import com.ozius.internship.project.entity.seller.Review;
-import com.ozius.internship.project.entity.seller.Seller;
-import com.ozius.internship.project.entity.seller.SellerType;
+import com.ozius.internship.project.entity.seller.*;
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.Registration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
 
 import static com.ozius.internship.project.TestDataCreator.Products.product1;
 
@@ -106,7 +106,7 @@ public class TestDataCreator {
         UserAccount account1 = new UserAccount("Alex",
                 "Dulfu",
                 "alex.dulfu@gmail.com",
-                "/src/image1",
+                "/images/magazine.jpg",
                 "0734896512",
                 UserStatus.ADMIN);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -124,7 +124,7 @@ public class TestDataCreator {
         UserAccount account2 = new UserAccount("Stefan",
                 "Rusznak",
                 "rusznak65@gmail.com",
-                "/src/image99",
+                "/images/magazine.jpg",
                 "0734896777",
                 UserStatus.ADMIN);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -138,6 +138,26 @@ public class TestDataCreator {
                 account2,
                 "Eco Tech"
         );
+
+        UserAccount account3 = new UserAccount("Ozius",
+                "Solutions",
+                "ozius123@gmail.com",
+                "/images/magazine.jpg",
+                "0734896777",
+                UserStatus.ADMIN);
+        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Sellers.seller3 = createSellerCompany(em,
+                new Address("Romania",
+                        "Maramures",
+                        "Baia Mare",
+                        "Strada V Lucaciu",
+                        "nr 2",
+                        "300125"),
+                account3,
+                "Ozius Solutions",
+                SellerType.COMPANY,
+                new LegalDetails("LegalCompany", "10234567",
+                    new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
 
     }
 
@@ -250,6 +270,7 @@ public class TestDataCreator {
     public static class Sellers{
         public static Seller seller1;
         public static Seller seller2;
+        public static Seller seller3;
     }
 
     public static class Products{

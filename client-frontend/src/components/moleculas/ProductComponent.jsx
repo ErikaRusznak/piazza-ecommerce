@@ -7,8 +7,7 @@ import {useFavorite} from "../../contexts/FavoriteContext";
 const ProductComponent = ({ id, name, imageName, price, sellerAlias, rating, toggleModal }) => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth();
-    const userRole = sessionStorage.getItem("userStatus");
-
+    const userRole = sessionStorage.getItem("userStatus")
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
 
     const [isFavorite, setIsFavorite] = useState(false);
