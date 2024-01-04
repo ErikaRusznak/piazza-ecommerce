@@ -23,7 +23,7 @@ import AdminLandingPageComponent from "./components/organisms/admin/AdminLanding
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 import SellerProductsPageComponent from "./components/organisms/admin/SellerProductsPageComponent";
 import SellerPageComponent from "./components/organisms/SellerPageComponent";
-import AllSellersComponent from "./components/organisms/AllSellersComponent";
+import AllSellersPageComponent from "./components/organisms/AllSellersPageComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -118,7 +118,7 @@ function App() {
                                     }/>
 
                                     <Route path='/sellers' element={
-                                        <AllSellersComponent/>
+                                        <AllSellersPageComponent/>
                                     }/>
 
 

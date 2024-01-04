@@ -7,3 +7,7 @@ export const getSellerByEmailApi = (email) => {
 export const getSellerByAliasApi = (alias) => {
     return api.get(`/sellerAlias/${alias}`)
 }
+
+export const getAllSellersApi = () => {
+    return api.get('/sellers')
+}

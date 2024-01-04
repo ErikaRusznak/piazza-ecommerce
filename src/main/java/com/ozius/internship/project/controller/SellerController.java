@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class SellerController {
 
@@ -26,5 +28,11 @@ public class SellerController {
     private ResponseEntity<SellerDTO> getSellerByAlias(@PathVariable String alias) {
         SellerDTO sellerDTO = sellerService.getSellerByAlias(alias);
         return ResponseEntity.ok(sellerDTO);
+    }
+
+    @GetMapping("/sellers")
+    private ResponseEntity<List<SellerDTO>> getSellers() {
+        List<SellerDTO> sellers = sellerService.getAllSellers();
+        return ResponseEntity.ok(sellers);
     }
 }

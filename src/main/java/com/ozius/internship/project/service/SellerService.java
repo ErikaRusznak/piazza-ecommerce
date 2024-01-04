@@ -1,5 +1,6 @@
 package com.ozius.internship.project.service;
 
+import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.SellerDTO;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.repository.SellerRepository;
@@ -8,7 +9,9 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SellerService {
@@ -34,5 +37,13 @@ public class SellerService {
     public SellerDTO getSellerByAlias(String alias) {
         Seller seller = sellerRepository.findSellerByAlias(alias);
         return modelMapper.map(seller, SellerDTO.class);
+    }
+
+    @Transactional
+    public List<SellerDTO> getAllSellers() {
+        List<Seller> sellers = sellerRepository.findAll();
+        return sellers.stream()
+                .map(seller -> modelMapper.map(seller, SellerDTO.class))
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import { getSellerByAliasApi } from "../../api/entities/SellerApi";
 import { baseURL } from "../../api/ApiClient";
 import { useAuth } from "../../api/auth/AuthContext";
@@ -26,15 +26,18 @@ const SellerPageComponent = () => {
 
     return seller && (
         <div className="mx-auto mt-16 max-w-7xl px-10">
-            <div className="flex justify-center items-center gap-8">
+            <Link to="/sellers" className="text-md font-semibold leading-6 text-inherit dark:text-inherit">
+                <span aria-hidden="true">&larr;</span> Back to sellers
+            </Link>
+            <div className="flex justify-center items-center gap-8 mt-4">
                 <div className="items-center">
-                    <div className="w-full md:max-w-3xl rounded overflow-hidden shadow-md shadow-zinc-600">
+                    <div className="w-full md:max-w-3xl rounded overflow-hidden shadow-inner shadow-zinc-400">
                         <div className="grid grid-cols-3 sm:grid-cols-1 gap-6 p-6">
-                            <div className="md:col-span-1 sm:col-span-full">
+                            <div className="md:col-span-1 sm:col-span-full flex items-center justify-center">
                                 <img
                                     src={`${baseURL}${seller.account.imageName}`}
                                     alt={seller.account.imageName}
-                                    className="w-full max-w-sm md:max-w-md mx-auto md:mx-0 "
+                                    className="w-full max-w-sm md:max-w-md mx-auto md:mx-0"
                                 />
                             </div>
 
