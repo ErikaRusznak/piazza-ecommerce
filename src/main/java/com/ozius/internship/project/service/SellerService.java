@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SellerService {
     
@@ -25,6 +27,12 @@ public class SellerService {
     public SellerDTO getSellerByEmail(String email) {
         long userId = userAccountRepository.findByEmail(email).getId();
         Seller seller = sellerRepository.findSellerByAccount_Id(userId);
+        return modelMapper.map(seller, SellerDTO.class);
+    }
+
+    @Transactional
+    public SellerDTO getSellerByAlias(String alias) {
+        Seller seller = sellerRepository.findSellerByAlias(alias);
         return modelMapper.map(seller, SellerDTO.class);
     }
 }

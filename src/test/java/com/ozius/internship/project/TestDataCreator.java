@@ -6,12 +6,12 @@ import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
-import com.ozius.internship.project.entity.seller.LegalDetails;
-import com.ozius.internship.project.entity.seller.Review;
-import com.ozius.internship.project.entity.seller.Seller;
-import com.ozius.internship.project.entity.seller.SellerType;
+import com.ozius.internship.project.entity.seller.*;
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.Registration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
 
 import static com.ozius.internship.project.TestDataCreator.Products.product1;
 
@@ -106,7 +106,7 @@ public class TestDataCreator {
         UserAccount account1 = new UserAccount("Alex",
                 "Dulfu",
                 "alex.dulfu@gmail.com",
-                "/src/image1",
+                "/images/magazine.jpg",
                 "0734896512",
                 UserStatus.ADMIN);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -118,13 +118,13 @@ public class TestDataCreator {
                         "Bloc 3 Scara B Ap 12",
                         "303413"),
                 account1,
-                "Mega Fresh SRL"
+                "Mega Fresh"
         );
 
         UserAccount account2 = new UserAccount("Stefan",
                 "Rusznak",
                 "rusznak65@gmail.com",
-                "/src/image99",
+                "/images/magazine.jpg",
                 "0734896777",
                 UserStatus.ADMIN);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -138,6 +138,26 @@ public class TestDataCreator {
                 account2,
                 "Eco Tech"
         );
+
+        UserAccount account3 = new UserAccount("Ozius",
+                "Solutions",
+                "ozius123@gmail.com",
+                "/images/magazine.jpg",
+                "0734896777",
+                UserStatus.ADMIN);
+        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Sellers.seller3 = createSellerCompany(em,
+                new Address("Romania",
+                        "Maramures",
+                        "Baia Mare",
+                        "Strada V Lucaciu",
+                        "nr 2",
+                        "300125"),
+                account3,
+                "Ozius Solutions",
+                SellerType.COMPANY,
+                new LegalDetails("Mega Fresh SRL", "10234567",
+                    new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
 
     }
 
@@ -170,9 +190,9 @@ public class TestDataCreator {
     public static void createProductsBaseData(EntityManager em){
 
         Products.product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.GRAM);
+        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM);
         Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT);
-        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
+        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.GRAM);
         Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
         Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
         Products.product7 = createProduct(em, "Orange", "This is an orange! It is a fruit!", "/images/orange.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
@@ -234,9 +254,9 @@ public class TestDataCreator {
     }
 
     public static void createReviewsBaseData(EntityManager em) {
-        Reviews.review1 = createReview(em, Buyers.buyer2, "review for product 1 from buyer 2", 5F, Products.product1);
-        Reviews.review2 = createReview(em, Buyers.buyer3, "review for product 1 from buyer 3", 3F, Products.product1);
-        Reviews.review3 = createReview(em, Buyers.buyer1, "review for product 1 from buyer 1", 5F, Products.product1);
+        Reviews.review1 = createReview(em, Buyers.buyer2, "Acest produs este delicios! Il recomand", 5F, Products.product1);
+        Reviews.review2 = createReview(em, Buyers.buyer3, "Au existat bucati care erau batatorite", 3F, Products.product1);
+        Reviews.review3 = createReview(em, Buyers.buyer1, "Mi-ar fi placut sa fie mai dulci, dar in rest sunt bune", 4F, Products.product1);
         Reviews.review4 = createReview(em, Buyers.buyer2, "review for product 2 from buyer 2", 4F, Products.product2);
         Reviews.review5 = createReview(em, Buyers.buyer3, "review for product 2 from buyer 3", 2F, Products.product2);
     }
@@ -250,6 +270,7 @@ public class TestDataCreator {
     public static class Sellers{
         public static Seller seller1;
         public static Seller seller2;
+        public static Seller seller3;
     }
 
     public static class Products{

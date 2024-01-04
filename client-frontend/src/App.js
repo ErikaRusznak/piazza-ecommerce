@@ -22,6 +22,8 @@ import OrderSuccessfulPageComponent from "./components/organisms/client/OrderSuc
 import AdminLandingPageComponent from "./components/organisms/admin/AdminLandingPageComponent";
 import LandingPageComponent from "./components/organisms/LandingPageComponent";
 import SellerProductsPageComponent from "./components/organisms/admin/SellerProductsPageComponent";
+import SellerPageComponent from "./components/organisms/SellerPageComponent";
+import AllSellersComponent from "./components/organisms/AllSellersComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -56,13 +58,10 @@ const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
         return <Navigate to="/" />;
     } else {
         if (userRole === 'ADMIN') {
-            console.log("admin")
             renderComponent = <AdminLandingPageComponent />;
         } else if (userRole === 'CLIENT') {
-            console.log("client")
             renderComponent = <ClientLandingPageComponent />;
         } else {
-            console.log("landing")
             renderComponent = <LandingPageComponent />;
         }
     }
@@ -114,6 +113,14 @@ function App() {
                                         <ProductDetailsPageComponent/>
                                     }/>
 
+                                    <Route path='/:sellerAlias' element={
+                                        <SellerPageComponent/>
+                                    }/>
+
+                                    <Route path='/sellers' element={
+                                        <AllSellersComponent/>
+                                    }/>
+
 
                                     {/*both routes*/}
                                     <Route path="/welcome/*" element={
@@ -148,7 +155,7 @@ function App() {
                                     {/*admin routes*/}
                                     <Route path='/:sellerAlias/products' element={
                                         <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
-                                            <SellerProductsPageComponent />
+                                            <SellerProductsPageComponent type="fullPage"/>
                                         </AuthenticatedRolesRoute>
                                     }/>
 

@@ -33,6 +33,7 @@ public class WebConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/products-test")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/reviews/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/seller/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/sellerAlias/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()

@@ -4,6 +4,8 @@ import com.ozius.internship.project.entity.seller.CompanyType;
 import com.ozius.internship.project.entity.seller.SellerType;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class SellerDTO {
     private long id;
@@ -19,5 +21,5 @@ public class SellerDTO {
     private String companyName;
     private String cui;
     private CompanyType companyType;
-
+    private LocalDate dateOfRegistration;
 }

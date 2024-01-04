@@ -21,4 +21,10 @@ public class SellerController {
         SellerDTO sellerDTO = sellerService.getSellerByEmail(email);
         return ResponseEntity.ok(sellerDTO);
     }
+
+    @GetMapping("/sellerAlias/{alias}")
+    private ResponseEntity<SellerDTO> getSellerByAlias(@PathVariable String alias) {
+        SellerDTO sellerDTO = sellerService.getSellerByAlias(alias);
+        return ResponseEntity.ok(sellerDTO);
+    }
 }
