@@ -118,7 +118,7 @@ public class TestDataCreator {
                         "Bloc 3 Scara B Ap 12",
                         "303413"),
                 account1,
-                "Mega Fresh SRL"
+                "Mega Fresh"
         );
 
         UserAccount account2 = new UserAccount("Stefan",
@@ -156,7 +156,7 @@ public class TestDataCreator {
                 account3,
                 "Ozius Solutions",
                 SellerType.COMPANY,
-                new LegalDetails("LegalCompany", "10234567",
+                new LegalDetails("Mega Fresh SRL", "10234567",
                     new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
 
     }

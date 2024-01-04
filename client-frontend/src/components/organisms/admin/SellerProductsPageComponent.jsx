@@ -20,7 +20,8 @@ const buildFilterOptionsFromQueryParams = (queryParams) => {
     };
 }
 
-const SellerProductsPageComponent = () => {
+// type can be simplified, fullPage
+const SellerProductsPageComponent = ({type}) => {
 
     const [products, setProducts] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -43,7 +44,7 @@ const SellerProductsPageComponent = () => {
 
     const breakpoint = useBreakpoint();
 
-    const { sellerAlias } = useParams();
+    const {sellerAlias} = useParams();
 
     const toggleModal = (productId) => {
         setIsModalOpen(!isModalOpen);
@@ -182,33 +183,39 @@ const SellerProductsPageComponent = () => {
             {isLoading === false &&
                 <section>
                     <div className="mx-auto mt-10 max-w-7xl px-10">
-                        <header>
-                            <h2 className="text-3xl mb-10 font-bold text-zinc-800 dark:text-white">
-                                {sellerAlias}'s products
-                            </h2>
-                        </header>
+                        {type === "fullPage" && (
+                            <>
+                                <header>
+                                    <h2 className="text-3xl mb-10 font-bold text-zinc-800 dark:text-white">
+                                        {sellerAlias}'s products
+                                    </h2>
+                                </header>
 
-                        <div className="mb-8">
-                            <div>
-                                <FilteringComponent
-                                    filterOptions={filterOptions}
-                                    onFilterChanged={handleOnFilterChanged}
-                                    onSortChanged={handleSortChanged}
-                                />
-                            </div>
+                                <div className="mb-8">
+                                    <div>
+                                        <FilteringComponent
+                                            filterOptions={filterOptions}
+                                            onFilterChanged={handleOnFilterChanged}
+                                            onSortChanged={handleSortChanged}
+                                        />
+                                    </div>
 
-                        </div>
+                                </div>
+                            </>
+                        )}
+
 
                         {(totalNumberProducts === 0) ? (<NoEntityMessageComponent
                             header="Products do not exist yet."
                             paragraph="Sorry, we could not find the products you are looking for."/>) : (
                             <div>
-
-                                <SelectionOfNumberPerPage
-                                    itemsPerPage={itemsPerPage}
-                                    setItemsPerPage={setItemsPerPage}
-                                    handleItemsPerPageChange={handleItemsPerPageChange}
-                                />
+                                {type === "fullPage" && (
+                                    <SelectionOfNumberPerPage
+                                        itemsPerPage={itemsPerPage}
+                                        setItemsPerPage={setItemsPerPage}
+                                        handleItemsPerPageChange={handleItemsPerPageChange}
+                                    />
+                                )}
 
                                 <ul className={`mt-2 h-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4 items-center`}>
                                     {products.map((product) => (
@@ -253,7 +260,8 @@ const SellerProductsPageComponent = () => {
                 productId={productId}
             />
         </div>
-    );
+    )
+        ;
 }
 
 export default SellerProductsPageComponent;

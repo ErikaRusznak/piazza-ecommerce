@@ -58,13 +58,10 @@ const AuthenticatedRolesRouteFirstPage = ({allowedRoles}) => {
         return <Navigate to="/" />;
     } else {
         if (userRole === 'ADMIN') {
-            console.log("admin")
             renderComponent = <AdminLandingPageComponent />;
         } else if (userRole === 'CLIENT') {
-            console.log("client")
             renderComponent = <ClientLandingPageComponent />;
         } else {
-            console.log("landing")
             renderComponent = <LandingPageComponent />;
         }
     }
@@ -158,7 +155,7 @@ function App() {
                                     {/*admin routes*/}
                                     <Route path='/:sellerAlias/products' element={
                                         <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
-                                            <SellerProductsPageComponent />
+                                            <SellerProductsPageComponent type="fullPage"/>
                                         </AuthenticatedRolesRoute>
                                     }/>
 
