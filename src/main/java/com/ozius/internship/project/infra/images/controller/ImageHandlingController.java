@@ -3,6 +3,7 @@ package com.ozius.internship.project.infra.images.controller;
 import com.ozius.internship.project.entity.exception.FileDownloadException;
 import com.ozius.internship.project.infra.images.service.ImageService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ public class ImageHandlingController {
     }
 
     @PostMapping("/images")
+    @PreAuthorize("hasRole('ADMIN')")
     public String upload(@RequestParam("file") MultipartFile file) throws FileNotFoundException {
         return imageService.upload(file);
     }

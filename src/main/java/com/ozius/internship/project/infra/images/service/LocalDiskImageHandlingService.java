@@ -34,7 +34,7 @@ public class LocalDiskImageHandlingService implements ImageService {
     public String upload(MultipartFile file) {
         try {
             String fileName = file.getOriginalFilename();
-            File imageFile = new File(imageUploadPath + fileName);
+            File imageFile = new File(imageUploadPath + "/" + fileName);
             try (FileOutputStream fos = new FileOutputStream(imageFile)) {
                 fos.write(file.getBytes());
             }
