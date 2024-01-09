@@ -2,19 +2,16 @@ package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.ReviewDTO;
+import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.service.ProductService;
 import com.ozius.internship.project.service.queries.ProductPaginationSearchQuery;
-import com.ozius.internship.project.service.queries.filter.FilterCriteria;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
-import com.ozius.internship.project.service.queries.filter.Operation;
 import com.ozius.internship.project.service.queries.sort.SortSpecs;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -31,11 +28,6 @@ public class ProductController {
         this.entityManager = entityManager;
         this.productService = productService;
     }
-
-    private String convertAlias(String alias) {
-        return alias.toLowerCase().replaceAll("\\s", "");
-    }
-
 
     @GetMapping("/products")
     public ApiPaginationResponse<List<ProductDTO>> getProductsByFilter(
@@ -66,6 +58,13 @@ public class ProductController {
     public ResponseEntity<List<ReviewDTO>> getReviewsForProduct(@PathVariable long id) {
         List<ReviewDTO> reviews = productService.getReviewsForProduct(id);
         return ResponseEntity.ok(reviews);
+    }
+
+    @PostMapping("/products")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product createdProduct = productService.createProduct(product);
+        return ResponseEntity.ok(createdProduct);
     }
 
 }

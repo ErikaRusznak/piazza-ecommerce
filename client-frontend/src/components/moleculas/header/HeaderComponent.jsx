@@ -75,6 +75,7 @@ export default function HeaderComponent() {
             setSellerAlias("null");
         }
     }, [username]);
+
     const createQueryParam = (categoryName) => {
         const queryParams = new URLSearchParams()
         queryParams.set("categoryName", categoryName);

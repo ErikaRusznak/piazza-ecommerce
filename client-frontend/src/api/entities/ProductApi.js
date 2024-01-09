@@ -15,3 +15,9 @@ export const getProductsApi = (page, itemsPerPage, sortSpecs, filterSpecs) => {
 export const getProductByIdApi = (productId) => {
     return api.get(`/products/${productId}`)
 }
+
+export function createProductApi(product){
+    return api.post('/products',
+        product
+    );
+}
