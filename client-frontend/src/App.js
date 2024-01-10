@@ -162,7 +162,12 @@ function App() {
 
                                     <Route path='/createProduct' element={
                                         <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
-                                            <CreateProductPageComponent />
+                                            <CreateProductPageComponent mode="create"/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+                                    <Route path='/editProduct/:productId' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
+                                            <CreateProductPageComponent mode="edit"/>
                                         </AuthenticatedRolesRoute>
                                     }/>
 

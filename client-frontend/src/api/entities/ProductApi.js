@@ -16,8 +16,18 @@ export const getProductByIdApi = (productId) => {
     return api.get(`/products/${productId}`)
 }
 
-export function createProductApi(product){
-    return api.post('/products',
+export const createProductApi = (product) => {
+    return api.post("/products",
+        product
+    );
+}
+
+export const deleteProductByIdApi = (productId) => {
+    return api.delete(`/products/${productId}`)
+}
+
+export const updateProductApi = (product) => {
+    return api.put("/products",
         product
     );
 }

@@ -8,6 +8,7 @@ import SelectionOfNumberPerPage from "../../atoms/input/SelectionOfNumberPerPage
 import ProductComponent from "../../moleculas/ProductComponent";
 import PaginationComponent from "../../moleculas/PaginationComponent";
 import ProductAddToCartModal from "../../moleculas/modals/ProductAddToCartModal";
+import DeleteProductModal from "../../moleculas/modals/DeleteProductModal";
 
 const buildFilterOptionsFromQueryParams = (queryParams) => {
     return {
@@ -37,6 +38,7 @@ const SellerProductsPageComponent = ({type}) => {
     const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams(location.search)));
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const [productId, setProductId] = useState(null);
 
@@ -48,6 +50,11 @@ const SellerProductsPageComponent = ({type}) => {
 
     const toggleModal = (productId) => {
         setIsModalOpen(!isModalOpen);
+        setProductId(productId);
+    }
+
+    const toggleDeleteModal = (productId) => {
+        setIsDeleteModalOpen(!isDeleteModalOpen);
         setProductId(productId);
     }
 
@@ -90,21 +97,14 @@ const SellerProductsPageComponent = ({type}) => {
         getProducts(1, newItemsPerPage, sortSpecs, filterSpecs);
     }
 
-    const handleSortChanged = (sortFilter) => {
-        setProductSort(sortFilter);
-        setCurrentPage(1);
-    }
-    const handleOnFilterChanged = (newFilterOptions) => {
-        setFilterOptions(newFilterOptions);
-        setCurrentPage(1);
-    }
-
     const createFilterCriteria = (criteria, operation, value) => {
         return `${criteria}[${operation}]${value}`;
     }
     const createSortCriteria = (criteria, orderSort) => {
         return `${criteria}-${orderSort}`;
     }
+
+    const padding = type === "simplified" ? "px-0" : "px-10";
 
     const createValueForFilterCriteria = (filterOption) => {
         if (Array.isArray(filterOption)) {
@@ -145,6 +145,15 @@ const SellerProductsPageComponent = ({type}) => {
 
     }
 
+    const handleSortChanged = (sortFilter) => {
+        setProductSort(sortFilter);
+        setCurrentPage(1);
+    }
+    const handleOnFilterChanged = (newFilterOptions) => {
+        setFilterOptions(newFilterOptions);
+        setCurrentPage(1);
+    }
+
     const buildSortSpecs = () => {
         const sortSpecs = [];
         if (productSort.criteria && productSort.orderSort) {
@@ -182,7 +191,7 @@ const SellerProductsPageComponent = ({type}) => {
         <div className="">
             {isLoading === false &&
                 <section>
-                    <div className="mx-auto mt-10 max-w-7xl px-10">
+                    <div className={`mx-auto mt-10 max-w-7xl ${padding}`}>
                         {type === "fullPage" && (
                             <>
                                 <header>
@@ -190,20 +199,18 @@ const SellerProductsPageComponent = ({type}) => {
                                         {sellerAlias}'s products
                                     </h2>
                                 </header>
-
-                                {/*<div className="mb-8">*/}
-                                {/*    <div>*/}
-                                {/*        <FilteringComponent*/}
-                                {/*            filterOptions={filterOptions}*/}
-                                {/*            onFilterChanged={handleOnFilterChanged}*/}
-                                {/*            onSortChanged={handleSortChanged}*/}
-                                {/*        />*/}
-                                {/*    </div>*/}
-
-                                {/*</div>*/}
+                                <div className="mb-8">
+                                    <div>
+                                        <FilteringComponent
+                                            filterOptions={filterOptions}
+                                            onFilterChanged={handleOnFilterChanged}
+                                            onSortChanged={handleSortChanged}
+                                        />
+                                    </div>
+                                </div>
                             </>
-                        )}
 
+                        )}
 
                         {(totalNumberProducts === 0) ? (<NoEntityMessageComponent
                             header="Products do not exist yet."
@@ -229,13 +236,14 @@ const SellerProductsPageComponent = ({type}) => {
                                                     price={product.price}
                                                     sellerAlias={product.seller.alias}
                                                     rating={product.rating}
+                                                    sellerEmail={product.seller.account.email}
                                                     toggleModal={() => toggleModal(product.id)}
+                                                    toggleDeleteModal={() => toggleDeleteModal(product.id)}
                                                 />
                                             </div>
                                         </div>
                                     ))}
                                 </ul>
-
                                 <div className="mt-10 flex pb-10 justify-center">
                                     <PaginationComponent
                                         className="pagination-bar"
@@ -245,7 +253,6 @@ const SellerProductsPageComponent = ({type}) => {
                                         handlePageChange={page => setCurrentPage(page)}
                                     />
                                 </div>
-
                             </div>
                         )}
                     </div>
@@ -259,9 +266,17 @@ const SellerProductsPageComponent = ({type}) => {
                 setIsModalOpen={setIsModalOpen}
                 productId={productId}
             />
+
+            <DeleteProductModal
+                toggleModal={toggleDeleteModal}
+                isModalOpen={isDeleteModalOpen}
+                setIsModalOpen={setIsDeleteModalOpen}
+                productId={productId}
+                products={products}
+                setProducts={setProducts}
+            />
         </div>
-    )
-        ;
+    );
 }
 
 export default SellerProductsPageComponent;

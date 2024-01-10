@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {addImageApi} from "../../../api/entities/ImageApi";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {getSellerByEmailApi} from "../../../api/entities/SellerApi";
@@ -9,10 +9,12 @@ import TextInputWithError from "../../atoms/input/TextInputWithError";
 import SelectInputWithError from "../../atoms/input/SelectInputWithError";
 import {getAllCategoriesApi} from "../../../api/entities/CategoryApi";
 import {createProductSchema} from "../../../validators/createProductSchema";
-import {createProductApi} from "../../../api/entities/ProductApi";
+import {createProductApi, getProductByIdApi, updateProductApi} from "../../../api/entities/ProductApi";
 
 
-const CreateProductPageComponent = () => {
+const CreateProductPageComponent = ({mode}) => {
+
+    const {productId} = useParams();
 
     const navigate = useNavigate();
     const {username} = useAuth();
@@ -26,6 +28,14 @@ const CreateProductPageComponent = () => {
         {id: 1, name: "GRAM"},
         {id: 2, name: "ONE_UNIT"},
     ]
+
+    const [initialValues, setInitialValues] = useState({
+        name: '',
+        description: '',
+        price: 0,
+        categoryId: null,
+        unitOfMeasure: UNIT_OF_MEASURES[0].name,
+    });
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -49,12 +59,32 @@ const CreateProductPageComponent = () => {
             .catch((err) => console.log(err));
     };
 
+    useEffect(() => {
+        getSellerByEmail(username);
+        getCategoryList();
+        if (productId) {
+            getProductByIdApi(productId)
+                .then((res) => {
+                    const productData = res.data;
+                    setInitialValues({
+                        name: productData.name,
+                        description: productData.description,
+                        price: productData.price,
+                        categoryId: productData.category.id,
+                        unitOfMeasure: productData.unitOfMeasure,
+                        imageName: productData.imageName,
+                    });
+                })
+                .catch((err) => console.error(err));
+        }
+    }, [productId]);
+
     const handleSubmit = (values) => {
-        console.log("values", values)
-        const selectedCategory = categories?.find(category => category.id === Number(values.categoryId));
+        const selectedCategory = categories?.find(category => category.id === Number(values.categoryId)) ;
         const selectedUnitOfMeasure = (UNIT_OF_MEASURES.find(unit => unit.id === Number(values.unitOfMeasure))).name;
-        if(fileName) {
-            createProductApi({
+        if (productId !== undefined) {
+            updateProductApi({
+                id: productId,
                 name: values.name,
                 description: values.description,
                 imageName: fileName,
@@ -64,12 +94,29 @@ const CreateProductPageComponent = () => {
                 unitOfMeasure: selectedUnitOfMeasure
             })
                 .then((res) => {
-                    console.log(res);
-                    navigate(`/${seller?.alias}`);
+                    navigate(`/${seller?.alias}`)
                 })
                 .catch((err) => console.error(err));
-        }
 
+        } else {
+
+            if (fileName) {
+                createProductApi({
+                    name: values.name,
+                    description: values.description,
+                    imageName: fileName,
+                    price: Number(values.price),
+                    category: selectedCategory,
+                    seller: seller,
+                    unitOfMeasure: selectedUnitOfMeasure
+                })
+                    .then((res) => {
+                        console.log(res);
+                        navigate(`/${seller?.alias}`);
+                    })
+                    .catch((err) => console.error(err));
+            }
+        }
     }
 
 
@@ -98,19 +145,13 @@ const CreateProductPageComponent = () => {
                 className="flex min-h-full flex-1 flex-col justify-center px-6 sm:py-6 lg:px-8 text-gray-900 dark:text-gray-100">
                 <div className="mx-auto w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg 2xl:max-w-xl">
                     <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight">
-                        Add product
+                        {mode === 'edit' ? 'Edit Product' : 'Add Product'}
                     </h2>
                 </div>
 
                 <div className="mt-5 mx-auto w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg 2xl:max-w-xl">
                     <Formik
-                        initialValues={{
-                            name: "",
-                            description: "",
-                            price: 0,
-                            categoryId: categories?.length > 0 ? categories[0].id : null,
-                            unitOfMeasure: UNIT_OF_MEASURES[0].name,
-                        }}
+                        initialValues={initialValues}
                         onSubmit={handleSubmit}
                         validationSchema={createProductSchema}
                         validateOnBlur={false}
@@ -140,9 +181,9 @@ const CreateProductPageComponent = () => {
                                                         fieldType={"textarea"}
                                     />
                                     <TextInputWithError fieldName={'price'}
-                                                          errorName={errors.price}
-                                                          labelName={'Price'}
-                                                          onBlur={() => validateField('price')}/>
+                                                        errorName={errors.price}
+                                                        labelName={'Price'}
+                                                        onBlur={() => validateField('price')}/>
 
                                     <SelectInputWithError fieldName={'categoryId'}
                                                           errorName={errors.cateogryId}
@@ -175,7 +216,6 @@ const CreateProductPageComponent = () => {
 
                                         {file && (
                                             <button
-                                                type="submit"
                                                 className="justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                 onClick={() => handleAddImage()}
                                             >
@@ -201,10 +241,7 @@ const CreateProductPageComponent = () => {
                                                               d="M6 18 18 6M6 6l12 12"/>
                                                     </svg>
                                                 </div>
-
                                             }
-
-
                                         </div>
                                     </div>
 
@@ -213,7 +250,7 @@ const CreateProductPageComponent = () => {
                                             type="submit"
                                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
-                                            Add product
+                                            {mode === 'edit' ? 'Edit Product' : 'Add Product'}
                                         </button>
                                     </div>
                                 </Form>
