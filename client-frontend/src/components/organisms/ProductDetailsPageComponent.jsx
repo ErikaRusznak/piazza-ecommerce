@@ -34,7 +34,7 @@ const ProductDetailsPageComponent = () => {
     };
 
     return (
-        product && (<div className="mx-auto mt-16 max-w-7xl px-10">
+        product && (<div className="mx-auto mt-16 sm:mt-6 max-w-7xl px-10">
             <div className={`flex justify-center items-center sm:flex-col gap-8`}>
 
                 <div className="w-full items-center">
@@ -87,7 +87,7 @@ const ProductDetailsPageComponent = () => {
             </div>
             <div className="flex justify-center items-center w-full">
                 <div
-                    className="w-full mt-10">
+                    className="w-full mt-10 sm:mt-8">
                     <ReviewItems
                         productId={product.id}
                         updateProductRating={updateProductRating}

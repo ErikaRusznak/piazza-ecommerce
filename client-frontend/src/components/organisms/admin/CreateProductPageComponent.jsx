@@ -90,14 +90,14 @@ const CreateProductPageComponent = () => {
 
 
     return (seller && categories) && (
-        <div className="mx-auto mt-16 max-w-7xl px-10">
+        <div className="mx-auto mt-16 sm:mt-4 max-w-7xl px-10">
             <Link to={`/${seller?.alias}`} className="text-md font-semibold leading-6 text-inherit dark:text-inherit">
                 <span aria-hidden="true">&larr;</span> Back to profile
             </Link>
             <div
                 className="flex min-h-full flex-1 flex-col justify-center px-6 sm:py-6 lg:px-8 text-gray-900 dark:text-gray-100">
                 <div className="mx-auto w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-lg 2xl:max-w-xl">
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
+                    <h2 className="mt-3 text-center text-2xl font-bold leading-9 tracking-tight">
                         Add product
                     </h2>
                 </div>

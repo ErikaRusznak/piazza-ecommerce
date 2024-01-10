@@ -36,10 +36,10 @@ const ReviewItems = ({productId, updateProductRating}) => {
     return (
         <div id="reviews">
             <div className="px-10 flex flex-col gap-2 p-5 text-zinc-800 border rounded-2xl border-indigo-300 shadow-md mt-10 mb-10">
-                <h1 className="text-xl pt-5 font-bold dark:text-white">Reviews</h1>
+                <h1 className="text-xl pt-5 sm:pt-2 font-bold dark:text-white">Reviews</h1>
 
 
-                <div className="flex flex-col gap-3 mt-10">
+                <div className="flex flex-col gap-3 mt-10 sm:mt-5">
                     {reviews.map((review) => (
                         <div key={review.id}>
                             <ReviewComponent

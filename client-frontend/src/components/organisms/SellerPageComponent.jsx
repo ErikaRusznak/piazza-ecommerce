@@ -29,7 +29,7 @@ const SellerPageComponent = () => {
     }, [sellerAlias]);
 
     return seller && (
-        <div className="mx-auto mt-16 max-w-7xl px-10">
+        <div className="mx-auto mt-16 max-w-7xl sm:mt-4 px-10">
             <Link to="/sellers" className="text-md font-semibold leading-6 text-inherit dark:text-inherit">
                 <span aria-hidden="true">&larr;</span> Back to sellers
             </Link>

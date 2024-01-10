@@ -61,7 +61,7 @@ const ReviewComponent = ({reviewId, firstName, lastName, imageName, rating, desc
                                 {firstLetterOfFirstName}{firstLetterOfLastName}
                             </div>
                         </div>
-                        <span className="font-semibold dark:text-white sm:text-xs">{firstName} {lastName}</span>
+                        <span className="font-semibold dark:text-white sm:text-sm">{firstName} {lastName}</span>
                     </div>
                     <div className="flex  gap-1 pr-4">
                         <ProductRating
