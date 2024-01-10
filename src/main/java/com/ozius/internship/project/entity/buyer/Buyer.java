@@ -78,6 +78,7 @@ public class Buyer extends BaseEntity {
     public String getTelephone() {
         return account.getTelephone();
     }
+    public String getEmail() { return account.getEmail(); }
 
 
     public void addFavorite(Product product){
