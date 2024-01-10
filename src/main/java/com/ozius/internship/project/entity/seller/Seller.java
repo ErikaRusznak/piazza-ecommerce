@@ -28,7 +28,6 @@ public class Seller extends BaseEntity {
     interface Columns{
         String ACCOUNT_ID = "ACCOUNT_ID";
         String ALIAS = "ALIAS";
-        String ALIASCONVERTED = "ALIASCONVERTED";
         String COUNTRY = "COUNTRY";
         String STATE = "STATE";
         String CITY = "CITY";
@@ -106,22 +105,22 @@ public class Seller extends BaseEntity {
     }
 
     public Address getLegalAddress() {
-        return legalAddress;
+        return legalAddress != null ? legalAddress : null;
     }
 
     public String getCity() {
-        return legalAddress.getCity();
+        return legalAddress != null ? legalAddress.getCity() : null;
     }
 
-    public String getCountry() { return legalAddress.getCountry(); }
+    public String getCountry() {         return legalAddress != null ? legalAddress.getCountry() : null; }
 
-    public String getState() { return legalAddress.getState(); }
+    public String getState() { return legalAddress != null ? legalAddress.getState() : null;}
 
-    public String getAddressLine1() { return legalAddress.getAddressLine1(); }
+    public String getAddressLine1() { return legalAddress != null ? legalAddress.getAddressLine1() : null; }
 
-    public String getAddressLine2() { return legalAddress.getAddressLine2(); }
+    public String getAddressLine2() { return legalAddress != null ? legalAddress.getAddressLine2() : null; }
 
-    public String getZipCode() { return legalAddress.getZipCode(); }
+    public String getZipCode() { return legalAddress != null ? legalAddress.getZipCode() : null; }
 
     public UserAccount getAccount() {
         return account;

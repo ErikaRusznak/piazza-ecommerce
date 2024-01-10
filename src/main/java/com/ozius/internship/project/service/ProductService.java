@@ -44,11 +44,9 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductDTO> getProductsBySellerAlias(String sellerAlias) {
-        List<Product> products = productRepository.getAllProductsForSeller(sellerAlias);
-
-        return products.stream()
-                .map(product -> modelMapper.map(product, ProductDTO.class))
-                .collect(Collectors.toList());
+    public Product createProduct(Product product) {
+        productRepository.save(product);
+        return modelMapper.map(product, Product.class);
     }
+
 }

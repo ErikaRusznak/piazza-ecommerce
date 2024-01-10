@@ -138,7 +138,12 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged }) =>
 
             {breakpoint === "sm" ? (
                 <div>
-                    <FilteringSmallWindowSize/>
+                    {/*<FilteringSmallWindowSize/>*/}
+                    <div className="mb-8 md:hidden lg:hidden xl:hidden 2xl:hidden 3xl:hidden">
+                        <SearchComponent
+                            handleSearchChanged={handleFilterChanged}
+                            filterName="productName"/>
+                    </div>
                 </div>
             ) : (
                 <div className="">

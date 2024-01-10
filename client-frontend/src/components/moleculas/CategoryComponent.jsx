@@ -14,25 +14,23 @@ const CategoryComponent = ({ categoryName, imageUrl }) => {
     }
 
     return (
-        <div className="group relative items-center justify-center p-4"
-             onClick={() => {
-                 buttonRef2.current?.click();
-                 createQueryParam(categoryName);
-             }}>
-            <div className="relative overflow-hidden rounded-xl bg-white cursor-pointer group-hover:opacity-75 border" style={{ paddingBottom: '100%' }}>
+        <div
+            className="group relative items-center justify-center p-4 rounded-xl cursor-pointer"
+            onClick={() => {
+                buttonRef2.current?.click();
+                createQueryParam(categoryName);
+            }}
+        >
+            <div className="relative overflow-hidden rounded-xl" style={{ paddingBottom: '100%' }}>
                 <img
                     src={`${baseURL}${imageUrl}`}
                     alt={categoryName}
-                    className="absolute inset-0 h-full w-full object-cover object-center bg-zinc-200 dark:bg-zinc-200"
-
+                    className="absolute inset-0 h-full w-full object-cover object-center bg-white"
                 />
             </div>
-            <h3 className="text-center mt-6 text-lg font-bold cursor-pointer text-zinc-800">
-                    <span className="absolute inset-0" />
-                    <div>
-                        {categoryName}
-                    </div>
-
+            <h3 className="text-center mt-6 text-lg font-bold cursor-pointer text-zinc-900 dark:text-white">
+                <span className="absolute inset-0" />
+                <div>{categoryName}</div>
             </h3>
         </div>
     );

@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = Product.TABLE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = { Product.Columns.NAME, Product.Columns.SELLER_ID }) })
+@Table(name = Product.TABLE_NAME/*, uniqueConstraints = { @UniqueConstraint(columnNames = { Product.Columns.NAME, Product.Columns.SELLER_ID }) }*/)
 public class Product extends BaseEntity {
     public static final String TABLE_NAME = "product";
 

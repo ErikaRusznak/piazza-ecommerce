@@ -186,21 +186,21 @@ const SellerProductsPageComponent = ({type}) => {
                         {type === "fullPage" && (
                             <>
                                 <header>
-                                    <h2 className="text-3xl mb-10 font-bold text-zinc-800 dark:text-white">
+                                    <h2 className="text-3xl sm:text-2xl mb-10 font-bold text-zinc-800 dark:text-white">
                                         {sellerAlias}'s products
                                     </h2>
                                 </header>
 
-                                <div className="mb-8">
-                                    <div>
-                                        <FilteringComponent
-                                            filterOptions={filterOptions}
-                                            onFilterChanged={handleOnFilterChanged}
-                                            onSortChanged={handleSortChanged}
-                                        />
-                                    </div>
+                                {/*<div className="mb-8">*/}
+                                {/*    <div>*/}
+                                {/*        <FilteringComponent*/}
+                                {/*            filterOptions={filterOptions}*/}
+                                {/*            onFilterChanged={handleOnFilterChanged}*/}
+                                {/*            onSortChanged={handleSortChanged}*/}
+                                {/*        />*/}
+                                {/*    </div>*/}
 
-                                </div>
+                                {/*</div>*/}
                             </>
                         )}
 

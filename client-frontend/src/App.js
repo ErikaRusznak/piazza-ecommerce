@@ -24,6 +24,7 @@ import LandingPageComponent from "./components/organisms/LandingPageComponent";
 import SellerProductsPageComponent from "./components/organisms/admin/SellerProductsPageComponent";
 import SellerPageComponent from "./components/organisms/SellerPageComponent";
 import AllSellersPageComponent from "./components/organisms/AllSellersPageComponent";
+import CreateProductPageComponent from "./components/organisms/admin/CreateProductPageComponent";
 
 const NotAuthenticatedRoute = ({children}) => {
 
@@ -156,6 +157,12 @@ function App() {
                                     <Route path='/:sellerAlias/products' element={
                                         <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
                                             <SellerProductsPageComponent type="fullPage"/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+
+                                    <Route path='/createProduct' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
+                                            <CreateProductPageComponent />
                                         </AuthenticatedRolesRoute>
                                     }/>
 
