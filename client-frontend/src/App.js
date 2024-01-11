@@ -99,7 +99,7 @@ function App() {
                                     }/>
 
                                     <Route path='/' element={
-                                        <LandingPageComponent/>
+                                        <ClientLandingPageComponent/>
                                     }/>
 
                                     <Route path='/products/categories' element={
@@ -124,9 +124,9 @@ function App() {
 
 
                                     {/*both routes*/}
-                                    <Route path="/welcome/*" element={
-                                        <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>
-                                    } />
+                                    {/*<Route path="/welcome/*" element={*/}
+                                    {/*    <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>*/}
+                                    {/*} />*/}
 
 
                                     {/*client routes*/}
