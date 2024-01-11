@@ -67,8 +67,6 @@ export default function HeaderComponent() {
     useEffect(() => {
         getCategoryList();
         if(!!isAuthenticated && userRole === "ADMIN") {
-            console.log("isAuth", isAuthenticated)
-            console.log(userRole);
             getSellerByEmail(username);
         } else {
             setSellerAlias("null");

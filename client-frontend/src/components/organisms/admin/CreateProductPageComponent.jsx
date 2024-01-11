@@ -74,6 +74,8 @@ const CreateProductPageComponent = ({mode}) => {
                         unitOfMeasure: productData.unitOfMeasure,
                         imageName: productData.imageName,
                     });
+                    // setFile(productData.imageName)
+                    setFileName(productData.imageName)
                 })
                 .catch((err) => console.error(err));
         }
@@ -135,6 +137,9 @@ const CreateProductPageComponent = ({mode}) => {
 
     const textForImageUpload = file ? "Replace image" : "Upload image";
 
+
+    const selectedFileText = productId ? fileName : file?.name;
+    const uploadText = productId ? "Uploaded" : "Upload";
 
     return (seller && categories) && (
         <div className="mx-auto mt-16 sm:mt-4 max-w-7xl px-10">
@@ -219,7 +224,7 @@ const CreateProductPageComponent = ({mode}) => {
                                                 className="justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                 onClick={() => handleAddImage()}
                                             >
-                                                Upload
+                                                {uploadText}
                                             </button>
                                         )}
 
@@ -227,7 +232,7 @@ const CreateProductPageComponent = ({mode}) => {
                                             {file &&
                                                 <div className="flex flex-row gap-2 items-center">
                                                     <p className="mt-2">
-                                                        Selected file: {file.name}
+                                                        Selected file: {selectedFileText}
                                                     </p>
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                          viewBox="0 0 24 24"
