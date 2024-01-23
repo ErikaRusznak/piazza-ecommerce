@@ -31,8 +31,10 @@ public class SpringContextConfigurationDev {
     private String KEY_STORE_PASSWORD;
     @Value("${keystore.alias}")
     private String KEY_STORE_ALIAS;
-    @Value("${frontend.url}")
-    private String FRONT_END_URL;
+    @Value("${frontend.url.client}")
+    private String FRONT_END_URL_CLIENT;
+    @Value("${frontend.url.producer}")
+    private String FRONT_END_URL_PRODUCER;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -42,7 +44,7 @@ public class SpringContextConfigurationDev {
                 if (registry == null) throw new AssertionError();
                 registry.addMapping("/**")
                         .allowedMethods("*")
-                        .allowedOrigins(FRONT_END_URL);
+                        .allowedOrigins(FRONT_END_URL_CLIENT, FRONT_END_URL_PRODUCER);
             }
         };
     }
