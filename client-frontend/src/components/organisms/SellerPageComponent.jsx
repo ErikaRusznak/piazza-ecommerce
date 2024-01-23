@@ -56,9 +56,18 @@ const SellerPageComponent = () => {
 
             <div className="px-10 flex flex-col gap-2 p-5 text-zinc-800 border rounded-2xl border-indigo-300 shadow-md mt-10 mb-10">
                 <div className="flex flex-row items-center -mb-4">
-                <div className="font-bold text-white text-2xl ">Products</div>
+                <div className="font-bold text-white text-xl ">Products</div>
                     {(userRole==="ADMIN" && username===seller.account.email) && (
-                        <div className="font-bold text-white ml-5 cursor-pointer" onClick={()=>navigate('/createProduct')}>Add product here</div>
+                        <div className="font-bold text-white ml-5 cursor-pointer"
+                             onClick={()=>navigate('/createProduct')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                                 stroke="currentColor" className="w-6 h-6 text-indigo-500">
+                                <path strokeLinecap="round" strokeLinejoin="round"
+                                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+
+
+                        </div>
                     )}
                 </div>
                     <SellerProductsPageComponent type="simplified"/>

@@ -99,7 +99,7 @@ function App() {
                                     }/>
 
                                     <Route path='/' element={
-                                        <LandingPageComponent/>
+                                        <ClientLandingPageComponent/>
                                     }/>
 
                                     <Route path='/products/categories' element={
@@ -124,9 +124,9 @@ function App() {
 
 
                                     {/*both routes*/}
-                                    <Route path="/welcome/*" element={
-                                        <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>
-                                    } />
+                                    {/*<Route path="/welcome/*" element={*/}
+                                    {/*    <AuthenticatedRolesRouteFirstPage allowedRoles={['CLIENT', 'ADMIN']}/>*/}
+                                    {/*} />*/}
 
 
                                     {/*client routes*/}
@@ -162,7 +162,12 @@ function App() {
 
                                     <Route path='/createProduct' element={
                                         <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
-                                            <CreateProductPageComponent />
+                                            <CreateProductPageComponent mode="create"/>
+                                        </AuthenticatedRolesRoute>
+                                    }/>
+                                    <Route path='/editProduct/:productId' element={
+                                        <AuthenticatedRolesRoute allowedRoles={['ADMIN']}>
+                                            <CreateProductPageComponent mode="edit"/>
                                         </AuthenticatedRolesRoute>
                                     }/>
 

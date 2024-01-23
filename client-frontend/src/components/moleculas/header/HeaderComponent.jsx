@@ -66,15 +66,13 @@ export default function HeaderComponent() {
 
     useEffect(() => {
         getCategoryList();
-    }, [location, username]);
-
-    useEffect(() => {
         if(!!isAuthenticated && userRole === "ADMIN") {
             getSellerByEmail(username);
         } else {
             setSellerAlias("null");
         }
-    }, [username]);
+    }, [location, username]);
+
 
     const createQueryParam = (categoryName) => {
         const queryParams = new URLSearchParams()

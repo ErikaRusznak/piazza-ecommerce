@@ -2,7 +2,6 @@ import {createContext, useContext, useEffect, useReducer, useRef, useState} from
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {getUserStatusByEmail} from "../entities/UserAccount";
-import {useNavigate} from "react-router-dom";
 
 const authContext = createContext(undefined)
 export const useAuth = () => useContext(authContext)
@@ -60,6 +59,7 @@ function AuthProvider({children}){
     }
 
     function logout(){
+        sessionStorage.removeItem("userStatus");
         setToken(null);
         setAuthenticated(false);
         setUsername(null);

@@ -16,8 +16,9 @@ function LoginPageComponent(){
         const { data: userStatus }  = await getUserStatusByEmail(email);
 
         if (loginSuccess) {
-            navigate("/welcome");
+            navigate("/");
             sessionStorage.setItem("userStatus", userStatus);
+            window.location.reload();
         } else {
             setErrorMessage(true);
         }

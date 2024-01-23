@@ -5,7 +5,7 @@ function ButtonSmallWithIcon({text, onClick, children}){
             <div>
                 {children}
             </div>
-            <div>
+            <div className="text-sm">
                 {text}
             </div>
         </button>

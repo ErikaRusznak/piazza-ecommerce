@@ -49,4 +49,20 @@ public class ProductService {
         return modelMapper.map(product, Product.class);
     }
 
+    @Transactional
+    public void deleteProduct(long productId) {
+        boolean exists = productRepository.existsById(productId);
+        if(!exists) {
+            throw new IllegalStateException("product does not exist");
+        }
+        productRepository.deleteById(productId);
+    }
+
+    @Transactional
+    public Product updateProduct(Product product) {
+        Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
+        updatedProduct.updateProduct(product.getName(), product.getDescription(), product.getImageName(), product.getPrice(), product.getCategory(), product.getSeller(), product.getUnitOfMeasure());
+        return updatedProduct;
+    }
+
 }

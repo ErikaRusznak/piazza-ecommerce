@@ -77,7 +77,7 @@ function CartItemCard({item, isModifiable}){
                 <div className="flex flex-col justify-between items-end ml-4">
                     <div className="mt-0 mb-4">
                         <h2 className="text-right text-lg font-bold text-gray-900 dark:text-white">{item.product.name}</h2>
-                        <p className="mt-1 text-xs text-right text-gray-700 dark:text-gray-200">Price per {t(`enums.unitOfMeasure.${item.product.unitOfMeasure}`)}: {item.product.price} RON</p>
+                        <p className="mt-1 text-sm text-right text-gray-700 dark:text-gray-200">Price per {t(`enums.unitOfMeasure.${item.product.unitOfMeasure}`)}: {item.product.price} RON</p>
                     </div>
                     <div className="flex justify-between mt-0 mb-3">
                         <div className="flex items-center gap-2 ml-4">

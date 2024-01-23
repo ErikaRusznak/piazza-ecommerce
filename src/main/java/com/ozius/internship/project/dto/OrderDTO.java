@@ -19,7 +19,7 @@ public class OrderDTO {
     private OrderStatus orderStatus;
     private Address shippingAddress;
     private String sellerEmail;
-    private String buyerEmail;
+//    private String buyerEmail;
     private LegalDetails legalDetails;
     private SellerType sellerType;
     private Set<OrderItemDTO> orderItems;
