@@ -20,41 +20,29 @@ import PopoverForUser from "../popover/PopoverForUser";
 import DisclosureComponent from "../popover/DisclosureComponent";
 import {getSellerByEmailApi} from "../../../api/entities/SellerApi";
 
-const accountDataClient = [
-    {name: 'Orders', href: '/order-history', icon: ClipboardDocumentListIcon},
-    {name: 'Settings', href: '/account/settings', icon: Cog6ToothIcon},
-];
 
-const accountDataAdmin = [
-    {name: 'Orders', href: '/alias/order-history', icon: ClipboardDocumentListIcon},
-    {name: 'Settings', href: '/account/settings', icon: Cog6ToothIcon},
-];
-
-const callsToAction = [
-    {name: 'See all', href: '/products/categories'},
-];
 
 export default function HeaderComponent() {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
     const [sellerAlias, setSellerAlias] = useState("");
 
-    const {isAuthenticated, username, logout} = useAuth();
-    const userRole = sessionStorage.getItem("userStatus");
+    // const {isAuthenticated, username, logout} = useAuth();
+    // const userRole = sessionStorage.getItem("userStatus");
 
     const location = useLocation()
     const buttonRef = useRef();
 
     const navigate = useNavigate()
 
-    const getCategoryList = () => {
-        getAllCategoriesApi()
-            .then((res) => {
-                setCategories(res.data.data);
-            })
-            .catch((err) => console.log(err));
-    };
+    // const getCategoryList = () => {
+    //     getAllCategoriesApi()
+    //         .then((res) => {
+    //             setCategories(res.data.data);
+    //         })
+    //         .catch((err) => console.log(err));
+    // };
 
     const getSellerByEmail = (email) => {
        getSellerByEmailApi(email)

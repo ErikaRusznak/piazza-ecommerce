@@ -1,8 +1,11 @@
 import MainLayout from "@/components/templates/MainLayout";
-import type { AppProps } from "next/app";
+import type {AppProps} from "next/app";
+import AuthProvider from "../../../api/auth/AuthContext";
 
 export default ({Component, pageProps}: AppProps) => (
-    <MainLayout>
-        Popsicle
-    </MainLayout>
-)
+    <AuthProvider>
+        <MainLayout>
+            Popsicle
+        </MainLayout>
+    </AuthProvider>
+);
