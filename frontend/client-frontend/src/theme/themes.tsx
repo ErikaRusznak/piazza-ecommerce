@@ -14,28 +14,28 @@ import {createTheme} from '@mui/material/styles';
 
 declare module "@mui/material/styles" {
     interface TypeBackground {
-        accent: string;
-        main: string;
-        canvas: string;
+        gradient: string;
+        darker: string;
+        lighter: string;
     }
 }
 
 const useTheme = () => createTheme({
         palette: {
             background: {
-                canvas: "#fff",
-                paper: "#173247",
-                default: "#173247",
-                main: "#061D2E",
-                accent:
-                    "linear-gradient(180deg, #061D2E 0%, rgba(6, 29, 46, 0.91) 42.00%, #061D2E 100%);",
+                paper: "#fff",
+                lighter: "#2e7474",
+                default: "#183D3D",
+                darker: "#143232",
+                gradient:
+                    "linear-gradient(180deg, #5C8374 0%, rgba(6, 29, 46, 0.91) 42.00%, #93B1A6 100%);",
             },
             secondary: {
-                main: "#6673EA",
+                main: "#5C8374",
                 contrastText: "white",
             },
             primary: {
-                main: "#2DD2DD",
+                main: "#93B1A6",
                 contrastText: "white",
             },
             info: {

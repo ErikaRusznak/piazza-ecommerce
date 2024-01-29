@@ -7,7 +7,7 @@ const LogoComponent = () => {
     return (
         <Link href={"/"}>
             <Image
-                src="./icon.svg"
+                src="./icon1.svg"
                 alt="icon"
                 width={40}
                 height={40}
