@@ -1,3 +1,4 @@
+"use client"
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {useAuth} from "../api/auth/AuthContext";
 import {addFavorite, getFavorites, removeFavorite} from "../api/entities/BuyerApi";

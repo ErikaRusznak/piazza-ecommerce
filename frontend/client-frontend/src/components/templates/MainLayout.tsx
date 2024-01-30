@@ -1,6 +1,6 @@
 'use client'
 import React, {PropsWithChildren} from "react";
-import NavigationBar from "@/components/organisms/NavigationBar";
+import NavigationBar from "@/components/organisms/Navbar/NavigationBar";
 import AuthProvider from "../../../api/auth/AuthContext";
 import CartProvider from "../../../contexts/CartContext";
 import FavoriteProvider from "../../../contexts/FavoriteContext";
@@ -43,9 +43,7 @@ const MainLayout = ({children}: PropsWithChildren) => {
         },
     ];
     return (
-        <AuthProvider>
-            <CartProvider>
-                <FavoriteProvider>
+  <>
                     <NavigationBar sx={{...styles.layoutPaddings}}/>
                     <Box sx={styles.root} id="root">
                         <Box component="main" sx={mainStyles}>
@@ -55,10 +53,7 @@ const MainLayout = ({children}: PropsWithChildren) => {
                         {/*    <Footer weAreHiringButtonColor={weAreHiringButtonColor}></Footer>*/}
                         {/*</Box>*/}
                     </Box>
-
-                </FavoriteProvider>
-            </CartProvider>
-        </AuthProvider>
+</>
     );
 };
 

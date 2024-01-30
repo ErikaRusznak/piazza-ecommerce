@@ -5,6 +5,8 @@ import CartIcon from './styledIcons/CartIcon';
 import FavoriteIcon from "./styledIcons/FavoriteIcon";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import LoginIcon from '@mui/icons-material/Login';
+import CloseIcon from '@mui/icons-material/Close';
 
 export {
     ContentPasteIcon,
@@ -14,4 +16,6 @@ export {
     FavoriteIcon,
     AccountCircleIcon,
     ArrowForwardIcon,
+    LoginIcon,
+    CloseIcon
 }

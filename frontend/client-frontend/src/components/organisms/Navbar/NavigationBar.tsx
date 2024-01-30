@@ -14,8 +14,9 @@ import {
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/logo/LogoComponent";
 import SimpleMenu from "@/components/atoms/menu/SimpleMenu";
-import {useAuth} from "../../../api/auth/AuthContext";
-import {getAllCategoriesApi} from "../../../api/entities/CategoryApi";
+import {useAuth} from "../../../../api/auth/AuthContext";
+import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
+import HamburgerMenu from "@/components/organisms/Navbar/HamburgerMenu";
 
 const accountDataClient = [
     {name: 'Orders', href: '/order-history', icon: ContentPasteIcon},
@@ -40,11 +41,14 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
     const theme = useTheme();
     const backgroundColor = theme.palette.background.default;
 
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [categories, setCategories] = useState([]);
 
     const {isAuthenticated, username, logout} = useAuth();
     const buttonRef = useRef();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const onMenuIconClick = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
+    }
 
     const getCategoryList = () => {
         getAllCategoriesApi()
@@ -106,23 +110,21 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                                 </>
                             </>
                         )}
-
-
                     </Box>
                 </Box>
 
-                <Box sx={{display: {xs: "block", sm: "none"}}}>
-                    {!isAuthenticated && ( //should not be !
-                        <>
-                            <>Favvv</>
-                            <>Cart</>
-                        </>
+                <Box sx={{display: {xs: "flex", sm: "none"}}}>
+                    {(!isAuthenticated && !mobileMenuOpen) && ( //should not be !
+                        <Box sx={{display: "flex", gap: theme.spacing(2), alignItems: "center"}}>
+                            <FavoriteIcon/>
+                            <CartIcon/>
+                        </Box>
                     )}
-                    <Button
-                        sx={{justifyContent: "flex-end"}}
-                        onClick={() => setMobileMenuOpen(true)}>
-                        <MenuIcon/>
-                    </Button>
+                    <HamburgerMenu
+                        isAuthenticated={isAuthenticated}
+                        mobileMenuOpen={mobileMenuOpen}
+                        onMenuIconClick={onMenuIconClick}
+                    />
                     <Box>
                         {/*Transitions*/}
 

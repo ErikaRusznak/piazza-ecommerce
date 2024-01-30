@@ -1,4 +1,4 @@
-// "use client"
+"use client"
 import {createContext, JSXElementConstructor, ReactElement, useContext} from "react";
 import { executeJwtAuthenticationService, registerApiService } from "./AuthenticationApiService";
 import { getUserStatusByEmail } from "../entities/UserAccount";
