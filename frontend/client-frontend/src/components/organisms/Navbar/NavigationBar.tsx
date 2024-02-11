@@ -6,7 +6,6 @@ import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {
     ContentPasteIcon,
-    MenuIcon,
     TuneIcon,
     CartIcon,
     FavoriteIcon,
@@ -44,7 +43,6 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
     const [categories, setCategories] = useState([]);
 
     const {isAuthenticated, username, logout} = useAuth();
-    const buttonRef = useRef();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
@@ -124,11 +122,8 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                         isAuthenticated={isAuthenticated}
                         mobileMenuOpen={mobileMenuOpen}
                         onMenuIconClick={onMenuIconClick}
+                        categoryList={categories}
                     />
-                    <Box>
-                        {/*Transitions*/}
-
-                    </Box>
                 </Box>
             </Toolbar>
         </AppBar>

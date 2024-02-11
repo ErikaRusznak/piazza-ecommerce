@@ -7,7 +7,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import LoginIcon from '@mui/icons-material/Login';
 import CloseIcon from '@mui/icons-material/Close';
-
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 export {
     ContentPasteIcon,
     TuneIcon,
@@ -17,5 +18,7 @@ export {
     AccountCircleIcon,
     ArrowForwardIcon,
     LoginIcon,
-    CloseIcon
+    CloseIcon,
+    ExpandMore,
+    ExpandLess
 }

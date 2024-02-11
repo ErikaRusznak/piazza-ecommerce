@@ -1,23 +1,36 @@
-import React from "react";
-import { CloseIcon, LoginIcon, MenuIcon } from "@/components/atoms/icons";
-import { Box, Button, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
+import React, {useState} from "react";
+import {CloseIcon, ExpandLess, ExpandMore, MenuIcon} from "@/components/atoms/icons";
+import {Box, Button, Drawer, List, ListItemButton, ListItemText, Divider, Collapse} from "@mui/material";
 import useTheme from "@/theme/themes";
 import IconButton from "@mui/material/IconButton";
+import {baseURL} from "../../../../api/ApiClient";
+
+type CategoryType = {
+    id: number;
+    imageName: string;
+    name: string;
+}
 
 type HamburgerMenuProps = {
     isAuthenticated: boolean;
     mobileMenuOpen: boolean;
     onMenuIconClick: () => void;
+    categoryList: CategoryType[] | null | undefined;
 };
 
-
-const HamburgerMenu = ({ isAuthenticated, mobileMenuOpen, onMenuIconClick }: HamburgerMenuProps) => {
+const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, categoryList}: HamburgerMenuProps) => {
     const theme = useTheme();
+    const [openCategories, setOpenCategories] = useState(false);
+    const handleOpenCategories = () => {
+        setOpenCategories(!openCategories);
+    }
 
     const buttonStyle = {
         m: 1,
         width: 0.5,
     }
+
+    const textColor = theme.palette.info.main;
 
     return (
         <>
@@ -26,9 +39,9 @@ const HamburgerMenu = ({ isAuthenticated, mobileMenuOpen, onMenuIconClick }: Ham
                 color="inherit"
                 aria-label="open drawer"
                 onClick={onMenuIconClick}
-                sx={{ color: "white", pl: 6 }}
+                sx={{color: "white", pl: 6}}
             >
-                <MenuIcon />
+                <MenuIcon/>
             </IconButton>
 
             <Drawer
@@ -44,53 +57,101 @@ const HamburgerMenu = ({ isAuthenticated, mobileMenuOpen, onMenuIconClick }: Ham
                         backgroundColor: theme.palette.background.default,
                     }}
                 >
-                    <IconButton sx={{ mb: 1, color: theme.palette.info.main }}>
-                        <CloseIcon onClick={onMenuIconClick} />
+                    <IconButton sx={{mb: 1, color: textColor}}>
+                        <CloseIcon onClick={onMenuIconClick}/>
                     </IconButton>
 
-                    <Divider sx={{ mb: 2, background: theme.palette.background.lighter }} />
+                    <Divider sx={{mb: 2, background: theme.palette.background.lighter}}/>
 
-                    <Box sx={{ mb: 2 }}>
+                    <Box sx={{mb: 2}}>
                         <List>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <LoginIcon sx={{ color: "primary.main" }} />
-                                </ListItemIcon>
-                                <ListItemText primary="Pictures" />
+                            <ListItemButton onClick={handleOpenCategories}>
+                                <ListItemText sx={{color: textColor}} primary="Categories"/>
+                                {openCategories ? <ExpandLess sx={{color: textColor}}/> :
+                                    <ExpandMore sx={{color: textColor}}/>}
                             </ListItemButton>
+                            <Collapse in={openCategories} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    {categoryList?.map((item) => (
+                                        <ListItemButton sx={{pl: 4}}>
+                                            <img
+                                                src={`${baseURL}${item.imageName}`}
+                                                alt={item.name}
+                                                width={30}
+                                                height={30}
+                                                style={{filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)'}}
+                                            />
+                                            <ListItemText sx={{pl: 2, color: textColor}} primary={item.name}/>
+                                        </ListItemButton>
+                                    ))}
+                                </List>
+                            </Collapse>
+                            <ListItemButton>
+                                <ListItemText primary="Shop" sx={{color: textColor}}/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemText primary="Sellers" sx={{color: textColor}}/>
+                            </ListItemButton>
+
+                            <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>
+
+                            <ListItemButton>
+                                <ListItemText primary="Orders" sx={{color: textColor}}/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemText primary="Settings" sx={{color: textColor}}/>
+                            </ListItemButton>
+
+
                         </List>
                     </Box>
-                    {!isAuthenticated && ( // ar trebui sa nu fie !
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                position: "absolute",
-                                bottom: "0",
-                                left: "50%",
-                                transform: "translate(-50%, 0)",
-                                mb: 5,
-                            }}
-                        >
-                            <Button variant="outlined"
-                                    sx={{ ...buttonStyle,
-                                        borderColor: theme.palette.background.lighter,
-                                        color: theme.palette.info.main,
-                                        "&:hover": {borderColor: theme.palette.background.darker}
-                                    }}>
-                                Register
-                            </Button>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            position: "absolute",
+                            bottom: "0",
+                            left: "50%",
+                            transform: "translate(-50%, 0)",
+                            mb: 5,
+                        }}
+                    >
+                        {isAuthenticated ? (
+                            <>
+                                <Button variant="outlined"
+                                        sx={{
+                                            ...buttonStyle,
+                                            borderColor: theme.palette.background.lighter,
+                                            color: theme.palette.info.main,
+                                            "&:hover": {borderColor: theme.palette.background.darker}
+                                        }}>
+                                    Register
+                                </Button>
+                                <Button variant="contained"
+                                        sx={{
+                                            ...buttonStyle,
+                                            background: theme.palette.background.lighter,
+                                            color: theme.palette.info.main,
+                                            "&:hover": {background: theme.palette.background.darker}
+                                        }}>
+                                    Login
+                                </Button>
+                            </>
+                        ) : (
                             <Button variant="contained"
-                                    sx={{ ...buttonStyle,
+                                    sx={{
+                                        ...buttonStyle,
                                         background: theme.palette.background.lighter,
                                         color: theme.palette.info.main,
+                                        width: "100%",
                                         "&:hover": {background: theme.palette.background.darker}
                                     }}>
-                                Login
+                                Logout
                             </Button>
-
-                        </Box>
-                    )}
+                        )}
+                    </Box>
+                    )
                 </Box>
             </Drawer>
         </>

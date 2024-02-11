@@ -104,7 +104,9 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
                                 alt={item.name}
                                 width={30}
                                 height={30}
+                                style={{filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)'}}
                             />
+
                             <Box
                                 onClick={() => {
                                     // createQueryParam(item.name);
