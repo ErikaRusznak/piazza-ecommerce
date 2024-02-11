@@ -1,12 +1,10 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AppBar, Button, SxProps, Theme, Toolbar, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {
-    ContentPasteIcon,
-    TuneIcon,
     CartIcon,
     FavoriteIcon,
     AccountCircleIcon,
@@ -16,20 +14,6 @@ import SimpleMenu from "@/components/atoms/menu/SimpleMenu";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 import HamburgerMenu from "@/components/organisms/Navbar/HamburgerMenu";
-
-const accountDataClient = [
-    {name: 'Orders', href: '/order-history', icon: ContentPasteIcon},
-    {name: 'Settings', href: '/account/settings', icon: TuneIcon},
-];
-
-const accountDataAdmin = [
-    {name: 'Orders', href: '/alias/order-history', icon: ContentPasteIcon},
-    {name: 'Settings', href: '/account/settings', icon: TuneIcon},
-];
-
-const callsToAction = [
-    {name: 'See all', href: '/products/categories'},
-];
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -65,14 +49,17 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
         <AppBar
             color="default"
             elevation={0}
+            position="sticky"
             sx={{
+                top: 0,
                 background: backgroundColor,
             }}
         >
             <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
+
                 <LogoComponent/>
 
-                <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(4), alignItems: "center"}}>
+                <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
                     <SimpleMenu
                         text="Categories"
                         menuItems={categories}
@@ -80,9 +67,10 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                     <Typography sx={{color: theme.palette.info.main}}>Shop</Typography>
                     <Typography sx={{color: theme.palette.info.main}}>Sellers</Typography>
                 </Box>
+
                 <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
                     {!isAuthenticated && ( //should not be !
-                        <Box sx={{display: "flex", gap: theme.spacing(2), alignItems: "center"}}>
+                        <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteIcon/>
                             <CartIcon/>
                         </Box>
@@ -113,7 +101,7 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
 
                 <Box sx={{display: {xs: "flex", sm: "none"}}}>
                     {(!isAuthenticated && !mobileMenuOpen) && ( //should not be !
-                        <Box sx={{display: "flex", gap: theme.spacing(2), alignItems: "center"}}>
+                        <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteIcon/>
                             <CartIcon/>
                         </Box>
@@ -127,7 +115,6 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                 </Box>
             </Toolbar>
         </AppBar>
-    )
-        ;
+    );
 };
 export default NavigationBar;

@@ -39,7 +39,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                 color="inherit"
                 aria-label="open drawer"
                 onClick={onMenuIconClick}
-                sx={{color: "white", pl: 6}}
+                sx={{color: "white", pl: 4}}
             >
                 <MenuIcon/>
             </IconButton>

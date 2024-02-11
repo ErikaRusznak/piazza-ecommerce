@@ -15,7 +15,7 @@ const MainLayout = ({children}: PropsWithChildren) => {
             flexDirection: "column",
             width: "auto",
             height: "100vh",
-            paddingTop: {xs: "56px", sm: "64px"},
+            // paddingTop: {xs: "56px", sm: "64px"},
 
         },
         layoutPaddings: {
@@ -30,7 +30,7 @@ const MainLayout = ({children}: PropsWithChildren) => {
             backgroundColor: themes().palette.background.darker,
             // backgroundSize: "cover",
             padding: themes().spacing(2, 2, 2, 2),
-        },
+         },
     };
 
     const mainStyles: SxProps<Theme> = [
@@ -43,17 +43,16 @@ const MainLayout = ({children}: PropsWithChildren) => {
         },
     ];
     return (
-  <>
-                    <NavigationBar sx={{...styles.layoutPaddings}}/>
-                    <Box sx={styles.root} id="root">
-                        <Box component="main" sx={mainStyles}>
-                            {children}
-                        </Box>
-                        {/*<Box sx={[styles.layoutPaddings]}>*/}
-                        {/*    <Footer weAreHiringButtonColor={weAreHiringButtonColor}></Footer>*/}
-                        {/*</Box>*/}
-                    </Box>
-</>
+        <>
+            <Box sx={styles.root} id="root">
+                <Box component="main" sx={mainStyles}>
+                    {children}
+                </Box>
+                {/*<Box sx={[styles.layoutPaddings]}>*/}
+                {/*    <Footer weAreHiringButtonColor={weAreHiringButtonColor}></Footer>*/}
+                {/*</Box>*/}
+            </Box>
+        </>
     );
 };
 
