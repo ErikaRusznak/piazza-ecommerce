@@ -12,6 +12,9 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Save from "@mui/icons-material/Save";
 import Delete from "@mui/icons-material/Delete";
 import InfoIcon from '@mui/icons-material/Info';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export {
     ContentPasteIcon,
@@ -28,4 +31,7 @@ export {
     Save,
     Delete,
     InfoIcon,
+    ShoppingCartCheckoutIcon,
+    SettingsIcon,
+    LogoutIcon,
 }

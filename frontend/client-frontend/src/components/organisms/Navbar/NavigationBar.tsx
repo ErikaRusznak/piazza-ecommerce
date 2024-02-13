@@ -1,13 +1,24 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import {AppBar, Button, SxProps, Theme, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Button, Divider, List,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Popover,
+    SxProps,
+    Theme,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {
     CartIcon,
     FavoriteIcon,
-    AccountCircleIcon,
+    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon, LoginIcon,
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
@@ -20,19 +31,32 @@ type NavigationBarProps = {
     sx?: SxProps<Theme>;
 }
 
-const NavigationBar = ({sx} : NavigationBarProps) => {
+const NavigationBar = ({sx}: NavigationBarProps) => {
 
     const theme = useTheme();
     const router = useRouter();
     const backgroundColor = theme.palette.background.default;
 
     const [categories, setCategories] = useState([]);
+    const auth = useAuth();
 
     const {isAuthenticated, username, logout} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     }
+
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    const textColor = theme.palette.info.main;
 
     const getCategoryList = () => {
         getAllCategoriesApi()
@@ -80,18 +104,66 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                     <Box>
                         {!isAuthenticated ? (
                             <Button variant="text"
-                                    sx={{color: theme.palette.info.main,
+                                    sx={{
+                                        color: theme.palette.info.main,
                                         textTransform: "none",
                                         fontSize: "16px",
                                         "&:hover": {backgroundColor: theme.palette.background.lighter}
                                     }}
                                     onClick={() => router.push("/login")}
-                                    >
+                            >
+                                <LoginIcon sx={{pr: 2}}/>
                                 Login
                             </Button>
                         ) : (
                             <>
-                                <AccountCircleIcon/>
+                                <AccountCircleIcon sx={{color: textColor, cursor: "pointer"}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                <Popover
+                                    id={id} open={open}
+                                    anchorEl={anchorEl}
+                                    onClose={handleClose}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    sx={{mt: 1,
+                                        borderRadius: theme.shape.borderRadius,
+
+                                    }}
+                                >
+                                    <List
+                                        sx={{
+                                            boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`, // Add a subtle box shadow
+                                            backgroundColor: "rgba(46,116,116, 0.7)",
+                                        }}
+                                    >
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                <ShoppingCartCheckoutIcon sx={{color: textColor}} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Orders" sx={{ color: textColor, fontSize: "1rem" }} />
+                                        </ListItemButton>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                <SettingsIcon sx={{color: textColor}}/>
+                                            </ListItemIcon>
+                                            <ListItemText primary="Settings" sx={{ color: textColor, fontSize: "1rem" }} />
+                                        </ListItemButton>
+
+                                        <Divider sx={{ background: theme.palette.background.lighter }} />
+
+                                        <ListItemButton onClick={() => auth.logout()}>
+                                            <ListItemIcon>
+                                                <LogoutIcon sx={{color: textColor}} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Logout" sx={{ color: textColor, fontSize: "1rem" }} />
+                                        </ListItemButton>
+                                    </List>
+                                </Popover>
                             </>
                         )}
                     </Box>

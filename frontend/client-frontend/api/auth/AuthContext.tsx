@@ -58,7 +58,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             }
 
         } catch (error) {
-            // logout();
+            setToken(null);
+            setAuthenticated(false);
+            setUsername(null);
             return false;
         }
     }
