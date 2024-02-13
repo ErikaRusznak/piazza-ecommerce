@@ -2,7 +2,7 @@ import {useLocation} from "react-router-dom";
 import {useAuth} from "./AuthContext";
 import {useEffect} from "react";
 
-const parseJwt = (token) => {
+const parseJwt = (token: any|null) => {
     try {
         return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, memo, useEffect, useRef} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -51,7 +51,6 @@ const LoginPage = () => {
         const loginSuccess = await auth.login(data.email, data.password);
         if (loginSuccess) {
             router.push("/");
-            setShowErrorMessage(false);
         } else {
             setShowErrorMessage(true);
         }
@@ -146,4 +145,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default memo(LoginPage);

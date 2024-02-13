@@ -1,8 +1,8 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
-import { executeJwtAuthenticationService, registerApiService } from "./AuthenticationApiService";
 import { getUserStatusByEmail } from "../entities/UserAccount";
 import { useSessionStorage } from "../../hooks/useSessionStorage";
+import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -58,7 +58,7 @@ function AuthProvider({ children }: AuthProviderProps) {
             }
 
         } catch (error) {
-            logout();
+            // logout();
             return false;
         }
     }
