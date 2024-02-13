@@ -1,4 +1,4 @@
-import {shippingAddressSchema} from "../../../validators/shippingAddressSchema";
+import {shippingAddressSchema} from "../../../../../frontend/client-frontend/validators/shippingAddressSchema";
 import {Form, Formik} from "formik";
 import TextInputWithError from "../../atoms/input/TextInputWithError";
 import CountrySelector from "../../atoms/countries/selector";

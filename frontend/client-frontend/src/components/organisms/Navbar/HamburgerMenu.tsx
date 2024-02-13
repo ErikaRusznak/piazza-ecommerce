@@ -132,7 +132,12 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                             borderColor: theme.palette.background.lighter,
                                             color: theme.palette.info.main,
                                             "&:hover": {borderColor: theme.palette.background.darker}
-                                        }}>
+                                        }}
+                                        onClick={() => {
+                                            router.push("/register");
+                                            onMenuIconClick();
+                                        }}
+                                >
                                     Register
                                 </Button>
                                 <Button variant="contained"

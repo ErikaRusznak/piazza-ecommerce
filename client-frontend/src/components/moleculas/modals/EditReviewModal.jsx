@@ -3,7 +3,7 @@ import BaseModal from "../../atoms/BaseModal";
 import {Form, Formik} from "formik";
 import TextInputWithError from "../../atoms/input/TextInputWithError";
 import {updateReviewApi} from "../../../api/entities/ReviewApi";
-import {editReviewSchema} from "../../../validators/editReviewSchema";
+import {editReviewSchema} from "../../../../../frontend/client-frontend/validators/editReviewSchema";
 
 const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, review, updateReview}) => {
 

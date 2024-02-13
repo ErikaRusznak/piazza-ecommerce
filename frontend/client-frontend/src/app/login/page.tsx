@@ -48,6 +48,7 @@ const LoginPage = () => {
 
     const onSubmit: SubmitHandler<LoginFormInput> = async (data, e) => {
         e?.preventDefault();
+        console.log("here")
         const loginSuccess = await auth.login(data.email, data.password);
         if (loginSuccess) {
             router.push("/");
@@ -78,7 +79,7 @@ const LoginPage = () => {
             <Container component="main" maxWidth="xs">
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -134,7 +135,7 @@ const LoginPage = () => {
                             </StyledLink>
                         </Grid>
                         <Grid item>
-                            <StyledLink href="#" sx={{fontSize: "0.9rem"}}>
+                            <StyledLink href="/register" sx={{fontSize: "0.9rem"}}>
                                 {"Don't have an account? Sign Up"}
                             </StyledLink>
                         </Grid>

@@ -8,9 +8,10 @@ type FormTextFieldProps = {
     control: any;
     label: string;
     type: string;
+    required?: boolean | undefined;
 }
 
-const FormTextField = ({name, control, label, type}:FormTextFieldProps) => {
+const FormTextField = ({name, control, label, type, required=true}:FormTextFieldProps) => {
 
     const theme = useTheme();
 
@@ -22,7 +23,7 @@ const FormTextField = ({name, control, label, type}:FormTextFieldProps) => {
                 <CssTextField
                     label={label}
                     fullWidth
-                    required
+                    required={required}
                     type={type}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}

@@ -8,7 +8,7 @@ import ErrorField from "../../atoms/error/ErrorField";
 import TextInputWithError from "../../atoms/input/TextInputWithError";
 import SelectInputWithError from "../../atoms/input/SelectInputWithError";
 import {getAllCategoriesApi} from "../../../api/entities/CategoryApi";
-import {createProductSchema} from "../../../validators/createProductSchema";
+import {createProductSchema} from "../../../../../frontend/client-frontend/validators/createProductSchema";
 import {createProductApi, getProductByIdApi, updateProductApi} from "../../../api/entities/ProductApi";
 
 
