@@ -1,23 +1,22 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
-import { getUserStatusByEmail } from "../entities/UserAccount";
 import { useSessionStorage } from "../../hooks/useSessionStorage";
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
+import {getUserStatusByEmail} from "../entities/UserAccount";
 
-interface AuthContextType {
+type AuthContextType = {
     isAuthenticated: boolean;
     username: string;
     token: string;
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
     registerUser: (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userStatus: string) => Promise<boolean>;
-    getUserRole: () => Promise<string | null>;
-}
+};
 
-const authContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = (): AuthContextType => {
-    const contextValue = useContext(authContext);
+    const contextValue = useContext(AuthContext);
     if (!contextValue) {
         throw new Error("useAuth must be used within an AuthProvider");
     }
@@ -26,13 +25,13 @@ export const useAuth = (): AuthContextType => {
 
 type AuthProviderProps = {
     children: ReactElement;
-}
-function AuthProvider({ children }: AuthProviderProps) {
+};
+const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [token, setToken] = useSessionStorage("token", "");
 
-    async function registerUser(email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) {
+    const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) => {
         const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userStatus);
         if (status === 201) {
             return true;
@@ -42,11 +41,12 @@ function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    async function login(username: string, password: string) {
+    const login = async (username: string, password: string) => {
         try {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
+            const { data } = await getUserStatusByEmail(username);
+            if (status === 200 && data === "CLIENT") {
 
-            if (status === 200) {
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
@@ -63,27 +63,17 @@ function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    async function getUserRole() {
-        try {
-            const { data: { userStatus } } = await getUserStatusByEmail(username);
-            return userStatus;
-        } catch (error) {
-            console.log("Error getting user role: ", error);
-            return null;
-        }
-    }
-
-    function logout() {
+    const logout = () => {
         setToken(null);
         setAuthenticated(false);
         setUsername(null);
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
-        <authContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token, getUserRole }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token }}>
             {children}
-        </authContext.Provider>
+        </AuthContext.Provider>
     );
 }
 

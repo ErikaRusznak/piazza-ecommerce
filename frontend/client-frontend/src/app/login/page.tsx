@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState, memo, useEffect, useRef} from "react";
+import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -145,4 +145,4 @@ const LoginPage = () => {
     );
 };
 
-export default memo(LoginPage);
+export default LoginPage;
