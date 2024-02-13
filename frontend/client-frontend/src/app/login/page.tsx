@@ -6,12 +6,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     Alert, AlertTitle,
-    Box,
     Checkbox,
-    Container,
     FormControlLabel,
     Grid,
-    Typography
 } from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
@@ -21,6 +18,7 @@ import StyledLink from "@/components/atoms/StyledLink";
 import * as yup from "yup";
 import FormTextField from "@/components/atoms/form/FormTextField";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 
 type LoginFormInput = {
     email: string;
@@ -39,7 +37,7 @@ const LoginPage = () => {
 
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const auth = useAuth();
-    const textColor = theme.palette.info.main;
+    const textColor = theme.palette.info.contrastText;
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -48,7 +46,6 @@ const LoginPage = () => {
 
     const onSubmit: SubmitHandler<LoginFormInput> = async (data, e) => {
         e?.preventDefault();
-        console.log("here")
         const loginSuccess = await auth.login(data.email, data.password);
         if (loginSuccess) {
             router.push("/");
@@ -76,18 +73,8 @@ const LoginPage = () => {
     return (
         <MainLayout>
             <BreadcrumbsComponent links={breadcrumbsLinks}/>
-            <Container component="main" maxWidth="xs">
-                <Box
-                    sx={{
-                        marginTop: 5,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography component="h1" variant="h5" sx={{color: textColor, mb: 3}}>
-                        Sign in to your account
-                    </Typography>
+            <PrincipalFormLayout titleText="Sign in to your account">
+                <>
                     {showErrorMessage && (
                         <Alert
                             severity="error"
@@ -140,8 +127,8 @@ const LoginPage = () => {
                             </StyledLink>
                         </Grid>
                     </Grid>
-                </Box>
-            </Container>
+                </>
+            </PrincipalFormLayout>
         </MainLayout>
     );
 };

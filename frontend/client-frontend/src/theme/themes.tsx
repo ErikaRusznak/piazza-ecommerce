@@ -40,6 +40,7 @@ const useTheme = () => createTheme({
             },
             info: {
                 main: "#fff",
+                contrastText: "#143232",
             },
         },
 

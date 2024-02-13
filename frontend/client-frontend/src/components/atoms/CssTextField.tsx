@@ -13,10 +13,10 @@ export const CssTextField = styled(
                 borderColor: theme.palette.background.lighter,
             },
             '&:hover fieldset': {
-                borderColor: theme.palette.primary.main,
+                borderColor: theme.palette.background.darker,
             },
             '&.Mui-focused fieldset': {
-                borderColor: theme.palette.background.lighter,
+                borderColor: theme.palette.background.darker,
             },
         },
     };

@@ -34,12 +34,12 @@ const FormTextField = ({name, control, label, type, required=true}:FormTextField
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                 />

@@ -11,10 +11,11 @@ import {useAuth} from "../../../api/auth/AuthContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
-import {Box, Container, Grid, Typography} from "@mui/material";
+import {Grid} from "@mui/material";
 import FormTextField from "@/components/atoms/form/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
+import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 
 type RegisterFormInput = {
     firstName: string,
@@ -45,7 +46,7 @@ const RegisterSchema = yup.object().shape({
     email: yup.string()
         .required("The email field is required")
         .email("Invalid email")
-        .test('checkDuplicateEmail', "Email already registered", function (value){
+        .test('checkDuplicateEmail', "Email already registered", function (value) {
             return new Promise((resolve) => {
                 api.get(`/users/${value}`)
                     .then(() => resolve(false))
@@ -68,7 +69,6 @@ const RegisterPage = () => {
     const theme = useTheme();
     const router = useRouter();
     const auth = useAuth();
-    const textColor = theme.palette.info.main;
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
         {label: "Register", link: "/register"}
@@ -113,18 +113,8 @@ const RegisterPage = () => {
     return (
         <MainLayout>
             <BreadcrumbsComponent links={breadcrumbsLinks}/>
-            <Container component="main" maxWidth="xs">
-                <Box
-                    sx={{
-                        marginTop: 5,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography component="h1" variant="h5" sx={{color: textColor, mb: 3}}>
-                        Create an account
-                    </Typography>
+            <PrincipalFormLayout titleText="Create an account">
+                <>
                     <form style={{marginTop: 1}}>
                         <Grid container gap={1} mt={2}>
                             <Grid item xs>
@@ -161,7 +151,7 @@ const RegisterPage = () => {
                             name="telephone"
                             control={control}
                             label={"Phone number"}
-                            type="text" />
+                            type="text"/>
                         <FormTextField
                             name="image"
                             control={control}
@@ -185,8 +175,8 @@ const RegisterPage = () => {
                         </Grid>
 
                     </Grid>
-                </Box>
-            </Container>
+                </>
+            </PrincipalFormLayout>
         </MainLayout>
     );
 };

@@ -14,7 +14,7 @@ const StyledLink = styled(Link)<StyledLinkProps>(
             color: (() => {
                 switch (color) {
                     case "info":
-                        return theme.palette.info.main;
+                        return theme.palette.info.contrastText;
                     case "primary":
                         return theme.palette.primary.main;
                     case "secondary":
