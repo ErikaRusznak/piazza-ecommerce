@@ -13,6 +13,7 @@ const LogoComponent = () => {
                     alt="icon"
                     width={40}
                     height={40}
+                    priority={true}
                     style={{ filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)' }}
                 />
             </Link>

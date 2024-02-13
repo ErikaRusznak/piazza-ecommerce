@@ -5,6 +5,7 @@ import useTheme from "@/theme/themes";
 import IconButton from "@mui/material/IconButton";
 import {baseURL} from "../../../../api/ApiClient";
 import {useRouter} from "next/navigation";
+import {useAuth} from "../../../../api/auth/AuthContext";
 
 type CategoryType = {
     id: number;
@@ -23,16 +24,16 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
 
     const theme = useTheme();
     const router = useRouter();
+    const auth = useAuth();
     const [openCategories, setOpenCategories] = useState(false);
     const handleOpenCategories = () => {
         setOpenCategories(!openCategories);
-    }
+    };
 
     const buttonStyle = {
         m: 1,
         width: 0.5,
-    }
-
+    };
     const textColor = theme.palette.info.main;
 
     return (
@@ -61,7 +62,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                     }}
                 >
                     <IconButton sx={{mb: 1, color: textColor}} onClick={onMenuIconClick}>
-                        <CloseIcon />
+                        <CloseIcon/>
                     </IconButton>
 
                     <Divider sx={{mb: 2, background: theme.palette.background.lighter}}/>
@@ -98,12 +99,17 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
 
                             <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>
 
-                            <ListItemButton>
-                                <ListItemText primary="Orders" sx={{color: textColor}}/>
-                            </ListItemButton>
-                            <ListItemButton>
-                                <ListItemText primary="Settings" sx={{color: textColor}}/>
-                            </ListItemButton>
+                            {isAuthenticated && (
+                                <>
+                                    <ListItemButton>
+                                        <ListItemText primary="Orders" sx={{color: textColor}}/>
+                                    </ListItemButton>
+                                    <ListItemButton>
+                                        <ListItemText primary="Settings" sx={{color: textColor}}/>
+                                    </ListItemButton>
+                                </>
+                            )}
+
                         </List>
                     </Box>
 
@@ -152,7 +158,12 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                         color: theme.palette.info.main,
                                         width: "100%",
                                         "&:hover": {background: theme.palette.background.darker}
-                                    }}>
+                                    }}
+                                    onClick={() => {
+                                        onMenuIconClick();
+                                        auth.logout();
+                                    }}
+                            >
                                 Logout
                             </Button>
                         )}

@@ -46,7 +46,6 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
         getCategoryList();
     }, []);
 
-
     return (
         <AppBar
             color="default"
@@ -71,7 +70,7 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                 </Box>
 
                 <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
-                    {!isAuthenticated && ( //should not be !
+                    {isAuthenticated && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteIcon/>
                             <CartIcon/>
@@ -93,17 +92,13 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                         ) : (
                             <>
                                 <AccountCircleIcon/>
-                                <>
-                                    {/*<>Orders</>*/}
-                                    {/*<>Settings</>*/}
-                                </>
                             </>
                         )}
                     </Box>
                 </Box>
 
                 <Box sx={{display: {xs: "flex", sm: "none"}}}>
-                    {(!isAuthenticated && !mobileMenuOpen) && ( //should not be !
+                    {(isAuthenticated && !mobileMenuOpen) && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteIcon/>
                             <CartIcon/>

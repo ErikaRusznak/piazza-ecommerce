@@ -67,7 +67,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setToken(null);
         setAuthenticated(false);
         setUsername(null);
-        // window.location.reload();
+        window.location.reload();
     }
 
     return (
