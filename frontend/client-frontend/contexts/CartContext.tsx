@@ -21,10 +21,9 @@ const CartProvider = ({ children }: any) => {
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
     const { isAuthenticated, username } = useAuth();
-    const userRole = sessionStorage.getItem("userStatus");
 
     function loadCartItems() {
-        if (!!isAuthenticated && userRole === "CLIENT") {
+        if (!!isAuthenticated) {
             getCartItems()
                 .then((response) => {
                     setAllCartItems(response.data.cartItems);

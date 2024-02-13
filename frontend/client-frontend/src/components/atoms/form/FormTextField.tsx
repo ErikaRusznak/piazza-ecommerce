@@ -1,0 +1,50 @@
+import React from "react";
+import {CssTextField} from "@/components/atoms/CssTextField";
+import {Controller} from "react-hook-form";
+import useTheme from "@/theme/themes";
+
+type FormTextFieldProps = {
+    name: string;
+    control: any;
+    label: string;
+    type: string;
+}
+
+const FormTextField = ({name, control, label, type}:FormTextFieldProps) => {
+
+    const theme = useTheme();
+
+    return (
+        <Controller
+            name={name}
+            control={control}
+            render={({ field, fieldState }) => (
+                <CssTextField
+                    label={label}
+                    fullWidth
+                    required
+                    type={type}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                    {...field}
+                    sx={{ my: 1, py: 1 }}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        field.onChange(event);
+                    }}
+                    InputProps={{
+                        style: {
+                            color: theme.palette.info.main,
+                        }
+                    }}
+                    InputLabelProps={{
+                        style: {
+                            color: theme.palette.info.main,
+                        }
+                    }}
+                />
+            )}
+        />
+    );
+};
+
+export default FormTextField;

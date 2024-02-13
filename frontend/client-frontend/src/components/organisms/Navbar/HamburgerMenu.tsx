@@ -4,6 +4,7 @@ import {Box, Button, Drawer, List, ListItemButton, ListItemText, Divider, Collap
 import useTheme from "@/theme/themes";
 import IconButton from "@mui/material/IconButton";
 import {baseURL} from "../../../../api/ApiClient";
+import {useRouter} from "next/navigation";
 
 type CategoryType = {
     id: number;
@@ -19,7 +20,9 @@ type HamburgerMenuProps = {
 };
 
 const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, categoryList}: HamburgerMenuProps) => {
+
     const theme = useTheme();
+    const router = useRouter();
     const [openCategories, setOpenCategories] = useState(false);
     const handleOpenCategories = () => {
         setOpenCategories(!openCategories);
@@ -57,8 +60,8 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                         backgroundColor: theme.palette.background.default,
                     }}
                 >
-                    <IconButton sx={{mb: 1, color: textColor}}>
-                        <CloseIcon onClick={onMenuIconClick}/>
+                    <IconButton sx={{mb: 1, color: textColor}} onClick={onMenuIconClick}>
+                        <CloseIcon />
                     </IconButton>
 
                     <Divider sx={{mb: 2, background: theme.palette.background.lighter}}/>
@@ -73,7 +76,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             <Collapse in={openCategories} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     {categoryList?.map((item) => (
-                                        <ListItemButton sx={{pl: 4}}>
+                                        <ListItemButton key={item.id} sx={{pl: 4}}>
                                             <img
                                                 src={`${baseURL}${item.imageName}`}
                                                 alt={item.name}
@@ -101,8 +104,6 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             <ListItemButton>
                                 <ListItemText primary="Settings" sx={{color: textColor}}/>
                             </ListItemButton>
-
-
                         </List>
                     </Box>
 
@@ -117,7 +118,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             mb: 5,
                         }}
                     >
-                        {isAuthenticated ? (
+                        {!isAuthenticated ? (
                             <>
                                 <Button variant="outlined"
                                         sx={{
@@ -134,7 +135,12 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                             background: theme.palette.background.lighter,
                                             color: theme.palette.info.main,
                                             "&:hover": {background: theme.palette.background.darker}
-                                        }}>
+                                        }}
+                                        onClick={() => {
+                                            router.push("/login");
+                                            onMenuIconClick();
+                                        }}
+                                >
                                     Login
                                 </Button>
                             </>
@@ -151,7 +157,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             </Button>
                         )}
                     </Box>
-                    )
+
                 </Box>
             </Drawer>
         </>

@@ -9,11 +9,12 @@ import {
     FavoriteIcon,
     AccountCircleIcon,
 } from "@/components/atoms/icons";
-import LogoComponent from "@/components/logo/LogoComponent";
-import SimpleMenu from "@/components/atoms/menu/SimpleMenu";
+import LogoComponent from "@/components/atoms/logo/LogoComponent";
+import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 import HamburgerMenu from "@/components/organisms/Navbar/HamburgerMenu";
+import {useRouter} from "next/navigation";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -22,6 +23,7 @@ type NavigationBarProps = {
 const NavigationBar = ({sx} : NavigationBarProps) => {
 
     const theme = useTheme();
+    const router = useRouter();
     const backgroundColor = theme.palette.background.default;
 
     const [categories, setCategories] = useState([]);
@@ -84,6 +86,7 @@ const NavigationBar = ({sx} : NavigationBarProps) => {
                                         fontSize: "16px",
                                         "&:hover": {backgroundColor: theme.palette.background.lighter}
                                     }}
+                                    onClick={() => router.push("/login")}
                                     >
                                 Login
                             </Button>

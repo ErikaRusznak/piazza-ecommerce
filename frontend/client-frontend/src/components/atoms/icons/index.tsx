@@ -9,6 +9,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import Save from "@mui/icons-material/Save";
+import Delete from "@mui/icons-material/Delete";
+import InfoIcon from '@mui/icons-material/Info';
+
 export {
     ContentPasteIcon,
     TuneIcon,
@@ -20,5 +24,8 @@ export {
     LoginIcon,
     CloseIcon,
     ExpandMore,
-    ExpandLess
+    ExpandLess,
+    Save,
+    Delete,
+    InfoIcon,
 }

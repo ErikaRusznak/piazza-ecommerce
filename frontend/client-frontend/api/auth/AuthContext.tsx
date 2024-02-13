@@ -1,10 +1,9 @@
 "use client"
-import {createContext, JSXElementConstructor, ReactElement, useContext} from "react";
+import {createContext, ReactElement, useContext} from "react";
 import { executeJwtAuthenticationService, registerApiService } from "./AuthenticationApiService";
 import { getUserStatusByEmail } from "../entities/UserAccount";
 import { useSessionStorage } from "../../hooks/useSessionStorage";
 
-// Define the context type
 interface AuthContextType {
     isAuthenticated: boolean;
     username: string;
@@ -49,11 +48,9 @@ function AuthProvider({ children }: AuthProviderProps) {
 
             if (status === 200) {
                 setAuthenticated(true);
-
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
                 setUsername(username);
-
                 return true;
             } else {
                 logout();
@@ -77,7 +74,6 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
 
     function logout() {
-        sessionStorage.removeItem("userStatus");
         setToken(null);
         setAuthenticated(false);
         setUsername(null);

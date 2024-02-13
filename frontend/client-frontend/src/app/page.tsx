@@ -4,6 +4,6 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export default ({}: AppProps) => (
     <MainLayout>
-        <ArrowForwardIcon />
+        Home page
     </MainLayout>
 );
