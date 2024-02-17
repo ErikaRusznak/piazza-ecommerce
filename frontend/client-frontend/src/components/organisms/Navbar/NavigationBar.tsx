@@ -103,16 +103,16 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
                     <Box>
                         {!isAuthenticated ? (
-                            <Button variant="text"
+                            <Button variant="contained"
                                     sx={{
                                         color: theme.palette.info.main,
+                                        backgroundColor: theme.palette.background.lighter,
                                         textTransform: "none",
                                         fontSize: "16px",
-                                        "&:hover": {backgroundColor: theme.palette.background.lighter}
+                                        "&:hover": {backgroundColor: theme.palette.secondary.main}
                                     }}
                                     onClick={() => router.push("/login")}
                             >
-                                <LoginIcon sx={{pr: 2}}/>
                                 Login
                             </Button>
                         ) : (

@@ -78,7 +78,7 @@ const HomePage = () => {
                             router.push("/login");
                         }}
                     >
-                        Create an account
+                        Get started
                     </Button>
                 </Box>
             </Box>

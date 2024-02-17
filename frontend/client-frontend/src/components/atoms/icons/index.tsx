@@ -15,6 +15,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from "@mui/icons-material/Add";
 
 export {
     ContentPasteIcon,
@@ -34,4 +35,5 @@ export {
     ShoppingCartCheckoutIcon,
     SettingsIcon,
     LogoutIcon,
+    AddIcon,
 }
