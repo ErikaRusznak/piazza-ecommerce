@@ -23,9 +23,9 @@ import {
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 import HamburgerMenu from "@/components/organisms/Navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
+import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;

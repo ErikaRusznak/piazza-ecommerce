@@ -104,7 +104,7 @@ const useTheme = () => createTheme({
         breakpoints: {
             values: {
                 xxs: 0,
-                xs: 320,
+                xs: 352,
                 sm: 600,
                 md: 900,
                 lg: 1200,

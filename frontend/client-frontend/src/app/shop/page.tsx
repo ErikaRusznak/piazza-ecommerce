@@ -1,12 +1,15 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import ProductCard from "@/components/organisms/ProductCard";
 import MainLayout from "@/components/templates/MainLayout";
-import {Box, List, ListItem} from "@mui/material";
+import {Box, List, ListItem, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import {getProductsApi} from "../../../api/entities/ProductApi";
+import ProductCard from "@/components/moleculas/ProductCard";
+import MainProductList from "@/components/organisms/product/MainProductList";
+import SearchComponent from "@/components/moleculas/filtering/SearchComponent";
+import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 
 const buildFilterOptionsFromQueryParams = (queryParams) => {
     return {
@@ -44,7 +47,6 @@ const ProductsPage = () => {
         // setItemsPerPage(newItemsPerPage);
         getProductsApi(page, newItemsPerPage, sortSpecs, filterSpecs)
             .then((res) => {
-                console.log(res.data.data)
                 setProducts(res.data.data);
                 // setTotalNumberProducts(res.data.numberOfElements);
                 setLoading(false)
@@ -168,61 +170,29 @@ const ProductsPage = () => {
 
     return (
         <MainLayout>
+            <Box sx={{
+                maxWidth: "872px",
+                margin: "0 auto",
+                [theme.breakpoints.only("lg")]: {
+                    maxWidth: "872px"
+                },
+                [theme.breakpoints.only("md")]: {
+                    maxWidth: "872px"
+                },
+                [theme.breakpoints.only("sm")]: {
+                    maxWidth: "567px",
+                },
+                [theme.breakpoints.only("xs")]: {
+                    maxWidth: "320px",
+                },
+            }}>
+                <Typography variant="h4" sx={{color: theme.palette.info.main}}>
+                    Check the products
+                </Typography>
+                <FilteringComponent />
+            </Box>
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-                <List
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
-                        alignItems: "flex-start",
-                        maxWidth: "872px",
-                        margin: "0 auto",
-                        [theme.breakpoints.only("lg")]: {
-                            maxWidth: "872px"
-                        },
-                        [theme.breakpoints.only("md")]: {
-                            maxWidth: "872px"
-                        },
-                        [theme.breakpoints.only("sm")]: {
-                            maxWidth: "567px",
-                        },
-                        [theme.breakpoints.only("xs")]: {
-                            maxWidth: "320px",
-                        },
-                        [theme.breakpoints.only("xxs")]: {
-                            maxWidth: "148px",
-                        },
-                        flexWrap: "wrap",
-                        columnGap: theme.spacing(3),
-                        rowGap: theme.spacing(3),
-                    }}
-                >
-                    {products.map(product => (
-                        <ListItem
-                            key={product.id}
-                            sx={{
-                                display: "block",
-                                paddingBlockEnd: "0px",
-                                paddingBlockStart: "0px",
-                                paddingInlineEnd: "0px",
-                                paddingInlineStart: "0px",
-                                maxWidth: "200px",
-                                [theme.breakpoints.only("sm")]: {
-                                    maxWidth: "173px",
-                                },
-                                [theme.breakpoints.only("xs")]: {
-                                    maxWidth: "148px",
-                                },
-                                [theme.breakpoints.only("xxs")]: {
-                                    maxWidth: "148px",
-                                },
-                            }}
-                        >
-                            <ProductCard product={product} onOpenChange={() => {}}/>
-
-                        </ListItem>
-                    ))}
-                </List>
+                <MainProductList products={products}/>
             </Box>
         </MainLayout>
     );

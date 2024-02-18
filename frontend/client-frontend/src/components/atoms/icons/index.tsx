@@ -16,6 +16,10 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from "@mui/icons-material/Add";
+import SearchIcon from "@mui/icons-material/Search";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export {
     ContentPasteIcon,
@@ -36,4 +40,8 @@ export {
     SettingsIcon,
     LogoutIcon,
     AddIcon,
+    SearchIcon,
+    ArrowForwardIosIcon,
+    KeyboardArrowRightIcon,
+    KeyboardArrowDownIcon,
 }

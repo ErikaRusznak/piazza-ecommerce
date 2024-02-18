@@ -112,7 +112,7 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
                             minHeight: "2.5rem",
                         }}
                     >
-                        Apple
+                        {product.name}
                     </Typography>
                 </Box>
 
