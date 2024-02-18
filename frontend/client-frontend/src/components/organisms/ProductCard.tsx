@@ -1,6 +1,6 @@
 import React from "react";
 import useTheme from "@/theme/themes";
-import {Box, Card, Typography, useMediaQuery} from "@mui/material";
+import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon} from "@/components/atoms/icons";
 import {baseURL} from "../../../api/ApiClient";
@@ -13,8 +13,7 @@ type IProductCardProps = {
 const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
     const theme = useTheme();
 
-    const smallSize = useMediaQuery(theme.breakpoints.down("sm"));
-    console.log(smallSize);
+
     const handleOnClick = (event: React.MouseEvent<Element, MouseEvent>) => {
         event.preventDefault();
         // onOpenChange(product);
@@ -25,13 +24,25 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
             sx={{
                 height: "300px",
                 width: "200px",
-                [theme.breakpoints.down("lg")]: {
+                [theme.breakpoints.only("lg")]: {
                     height: "300px",
                     width: "200px",
                 },
-                [theme.breakpoints.down("md")]: {
+                [theme.breakpoints.only("md")]: {
+                    height: "300px",
+                    width: "200px",
+                },
+                [theme.breakpoints.only("sm")]: {
                     height: "280px",
-                    width: "180px",
+                    width: "173px",
+                },
+                [theme.breakpoints.only("xs")]: {
+                    height: "240px",
+                    width: "148px",
+                },
+                [theme.breakpoints.only("xxs")]: {
+                    height: "240px",
+                    width: "148px",
                 },
                 borderRadius: "20px",
                 boxShadow: theme.shadows[3],

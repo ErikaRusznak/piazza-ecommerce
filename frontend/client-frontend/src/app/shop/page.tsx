@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import ProductCard from "@/components/organisms/ProductCard";
 import MainLayout from "@/components/templates/MainLayout";
 import {Box, List, ListItem} from "@mui/material";
-import Link from "next/link";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import {getProductsApi} from "../../../api/entities/ProductApi";
@@ -166,49 +165,64 @@ const ProductsPage = () => {
     //     }
     // }
     //
+
     return (
         <MainLayout>
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-            <List
-                sx={{
-                    // width: "100%",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-                    maxWidth: "872px",
-                    margin: "0 auto",
-                    [theme.breakpoints.down("lg")]: {
-                        maxWidth: "872px"
-                    },
-                    [theme.breakpoints.down("md")]: {
-                        maxWidth: "588px"
-                    },
-                    [theme.breakpoints.down("sm")]: {
-                        maxWidth:"588px",
-                    },
-                    flexWrap: "wrap",
-                    columnGap: theme.spacing(3),
-                    rowGap: theme.spacing(3),
-                }}
-            >
-                {products.map(product => (
-                    <ListItem
-                        key={product.id}
-                        sx={{
-                            display: "block",
-                            paddingBlockEnd: "0px",
-                            paddingBlockStart: "0px",
-                            paddingInlineEnd: "0px",
-                            paddingInlineStart: "0px",
-                            maxWidth: "200px",
-                        }}
-                    >
-                            <ProductCard product={product} onOpenChange={()=>{}}></ProductCard>
+                <List
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                        maxWidth: "872px",
+                        margin: "0 auto",
+                        [theme.breakpoints.only("lg")]: {
+                            maxWidth: "872px"
+                        },
+                        [theme.breakpoints.only("md")]: {
+                            maxWidth: "872px"
+                        },
+                        [theme.breakpoints.only("sm")]: {
+                            maxWidth: "567px",
+                        },
+                        [theme.breakpoints.only("xs")]: {
+                            maxWidth: "320px",
+                        },
+                        [theme.breakpoints.only("xxs")]: {
+                            maxWidth: "148px",
+                        },
+                        flexWrap: "wrap",
+                        columnGap: theme.spacing(3),
+                        rowGap: theme.spacing(3),
+                    }}
+                >
+                    {products.map(product => (
+                        <ListItem
+                            key={product.id}
+                            sx={{
+                                display: "block",
+                                paddingBlockEnd: "0px",
+                                paddingBlockStart: "0px",
+                                paddingInlineEnd: "0px",
+                                paddingInlineStart: "0px",
+                                maxWidth: "200px",
+                                [theme.breakpoints.only("sm")]: {
+                                    maxWidth: "173px",
+                                },
+                                [theme.breakpoints.only("xs")]: {
+                                    maxWidth: "148px",
+                                },
+                                [theme.breakpoints.only("xxs")]: {
+                                    maxWidth: "148px",
+                                },
+                            }}
+                        >
+                            <ProductCard product={product} onOpenChange={() => {}}/>
 
-                    </ListItem>
-                ))}
-            </List>
+                        </ListItem>
+                    ))}
+                </List>
             </Box>
         </MainLayout>
     );

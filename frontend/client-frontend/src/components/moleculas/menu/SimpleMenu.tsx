@@ -82,7 +82,7 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
                 disableElevation
                 onClick={handleClick}
                 variant="text"
-                sx={{color: theme.palette.info.main, textTransform: "none", fontSize: "16px"}}
+                sx={{color: theme.palette.info.main, textTransform: "none", fontSize: "16px", px: 0}}
                 endIcon={<KeyboardArrowDownIcon sx={{ml: -1}}/>}
             >
                 {text}

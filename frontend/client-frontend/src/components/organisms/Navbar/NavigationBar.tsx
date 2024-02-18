@@ -18,7 +18,7 @@ import useTheme from "@/theme/themes";
 import {
     CartIcon,
     FavoriteIcon,
-    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon, LoginIcon,
+    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon,
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
@@ -85,12 +85,12 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                 <LogoComponent/>
 
                 <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
+                    <Typography sx={{color: theme.palette.info.main}}>Shop</Typography>
+                    <Typography sx={{color: theme.palette.info.main}}>Sellers</Typography>
                     <SimpleMenu
                         text="Categories"
                         menuItems={categories}
                     />
-                    <Typography sx={{color: theme.palette.info.main}}>Shop</Typography>
-                    <Typography sx={{color: theme.palette.info.main}}>Sellers</Typography>
                 </Box>
 
                 <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
