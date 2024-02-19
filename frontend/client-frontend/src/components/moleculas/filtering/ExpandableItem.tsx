@@ -2,6 +2,7 @@ import React from "react";
 import {Accordion, AccordionDetails, AccordionSummary, Box, Collapse, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {KeyboardArrowDownIcon, KeyboardArrowRightIcon} from "@/components/atoms/icons";
+import useTheme from "@/theme/themes";
 
 type ExpandableItemProps = {
     label: string;
@@ -10,6 +11,8 @@ type ExpandableItemProps = {
     onClick: () => void;
 }
 const ExpandableItem = ({ label, children, isOpen, onClick }:ExpandableItemProps) => {
+
+    const theme = useTheme();
     return (
         <Box >
             <Box onClick={onClick} sx={{ cursor: 'pointer' }}>
@@ -18,22 +21,21 @@ const ExpandableItem = ({ label, children, isOpen, onClick }:ExpandableItemProps
                         display: 'flex',
                         alignItems: 'center',
                         gap: 2,
-                        // borderBottom: '1px solid #d7d7d7',
-                        borderRadius: 'md',
-                        paddingBottom: 1,
-                        transition: 'border-color 0.3s',
+                        borderBottom: '1px solid #93B1A6',
+                        borderRadius: "5px",
+                        transition: 'border-color 2s',
                         '&:hover': {
-                            borderColor: '#4CAF50', // Example hover border color
+                            borderColor: '#5C8374', // Example hover border color
                         },
-                        color: 'text.primary',
+                        color: theme.palette.info.main,
                     }}
                 >
-                    <Typography variant="h6">{label}</Typography>
-                    <IconButton>
+                    <Typography sx={{fontSize: "18px"}}>{label}</Typography>
+                    <IconButton sx={{padding: 0}}>
                         {!isOpen ? (
-                            <KeyboardArrowRightIcon />
+                            <KeyboardArrowRightIcon style={{color: theme.palette.info.main}}/>
                         ):(
-                            <KeyboardArrowDownIcon />
+                            <KeyboardArrowDownIcon style={{color: theme.palette.info.main}}/>
                         )}
                     </IconButton>
                 </Box>

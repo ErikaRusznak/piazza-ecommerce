@@ -5,6 +5,9 @@ import Tag from "@/components/atoms/filtering/Tag";
 import SearchComponent from "@/components/moleculas/filtering/SearchComponent";
 import ExpandableItem from "@/components/moleculas/filtering/ExpandableItem";
 import {Box} from "@mui/material";
+import RangeFilterComponent from "@/components/moleculas/filtering/RangeFilterComponent";
+import MultipleChoiceFilterComponent from "@/components/moleculas/filtering/MultipleChoiceFilterComponent";
+import SortFilterComponent from "@/components/moleculas/filtering/SortFilterComponent";
 
 const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => {
 
@@ -130,15 +133,23 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                 handleSearchChanged={handleFilterChanged}
                 filterName="productName"
             />
-            <Box sx={{display: "flex", gap: 1}}>
+            <Box sx={{display: "flex", gap: 1, position: "relative"}}>
                 <ExpandableItem
                     label="Price"
                     isOpen={openFilter === 'Price'}
                     onClick={() => handleFilterClick("Price")}
                 >
                     <Box sx={{width: "20px"}}>
-                        Price sdasdadas
-                        dasdsaasdsdasdsadasdasdsadaasd
+                        <RangeFilterComponent onClickInside={(e:any) => e.stopPropagation()}
+                                              toggleRangeFilter={toggleFilter}
+                                              handleRangeChanged={handlePriceChanged}
+                                              labelFrom="Price From"
+                                              labelTo="Price To"
+                                              getRangeFrom={10}
+                                              getRangeTo={100}
+                                              // getRangeFrom={filterOptions.priceFrom}
+                                              // getRangeTo={filterOptions.priceTo}
+                        />
                     </Box>
                 </ExpandableItem>
                 <ExpandableItem
@@ -146,7 +157,43 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                     isOpen={openFilter === 'City'}
                     onClick={() => handleFilterClick("City")}
                 >
-                    City
+                    <Box sx={{width: "20px"}}>
+                    <MultipleChoiceFilterComponent
+                        onClickInside={(e:any) => e.stopPropagation()}
+                        toggleFilter={toggleFilter}
+                        handleListChanged={handleFilterMultipleOptionsChanged}
+                        list={cityOptions}
+                        filterName="cityName"
+                        // getElementsNames={filterOptions.cityName}
+                        getElementsNames={"cityname"}
+                    />
+                    </Box>
+                </ExpandableItem>
+                <ExpandableItem
+                    label="Category"
+                    isOpen={openFilter === 'Category'}
+                    onClick={() => handleFilterClick("Category")}
+                >
+                    <Box sx={{width: "20px"}}>
+                        <MultipleChoiceFilterComponent
+                            onClickInside={(e:any) => e.stopPropagation()}
+                            toggleFilter={toggleFilter}
+                            handleListChanged={handleFilterMultipleOptionsChanged}
+                            list={categoryOptions}
+                            filterName="categoryName"
+                            // getElementsNames={filterOptions.categoryName}
+                            getElementsNames={"categoryName"}
+                        />
+                    </Box>
+                </ExpandableItem>
+                <ExpandableItem
+                    label="Sort By"
+                    isOpen={openFilter === 'Sort'}
+                    onClick={() => handleFilterClick('Sort')}
+                >
+                    <SortFilterComponent
+                        onSortChanged={onSortChanged}
+                    />
                 </ExpandableItem>
             </Box>
 

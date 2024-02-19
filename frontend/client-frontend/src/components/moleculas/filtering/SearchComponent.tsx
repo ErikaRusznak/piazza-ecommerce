@@ -38,14 +38,13 @@ const SearchComponent = ({handleSearchChanged, filterName }:SearchComponentProps
                 // @ts-ignore
                 setTextField(e.target.value);
             }}
-            label="Enter a city name"
             variant="outlined"
             placeholder="Search..."
             size="small"
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end" sx={{p: 0}}>
-                        <IconButton type="submit" aria-label="search">
+                        <IconButton type="submit" aria-label="search" sx={{padding: 0}}>
                             <SearchIcon style={{ fill: theme.palette.info.main, paddingRight: 0 }} />
                         </IconButton>
                     </InputAdornment>
