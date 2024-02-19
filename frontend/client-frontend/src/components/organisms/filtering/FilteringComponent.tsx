@@ -8,6 +8,7 @@ import {Box} from "@mui/material";
 import RangeFilterComponent from "@/components/moleculas/filtering/RangeFilterComponent";
 import MultipleChoiceFilterComponent from "@/components/moleculas/filtering/MultipleChoiceFilterComponent";
 import SortFilterComponent from "@/components/moleculas/filtering/SortFilterComponent";
+import FilterTagContainer from "@/components/moleculas/filtering/FilterTagContainer";
 
 const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => {
 
@@ -196,7 +197,16 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                     />
                 </ExpandableItem>
             </Box>
-
+            {!isFilterOptionsEmpty &&
+                <div className="">
+                    <FilterTagContainer
+                        filterTags={filterTags}
+                        removeFilterOneOption={onFilterRemovedOneOption}
+                        removeFilterMultipleOptions={onFilterRemovedMultipleOptions}
+                        removeAllTags={removeAllTags}
+                    />
+                </div>
+            }
         </>
     );
 };
