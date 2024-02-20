@@ -20,6 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export {
     ContentPasteIcon,
@@ -44,4 +45,5 @@ export {
     ArrowForwardIosIcon,
     KeyboardArrowRightIcon,
     KeyboardArrowDownIcon,
+    ClearIcon,
 }

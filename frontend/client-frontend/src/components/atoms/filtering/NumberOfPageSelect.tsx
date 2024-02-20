@@ -52,15 +52,15 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
 
                     }}
                 >
-                    {!isXSmallScreen && (
-                        <MenuItem value="6" sx={{color: "red"}}>6 per page</MenuItem>
-                    )}
-                    {!isSmallScreen && (
-                        <MenuItem value="8">8 per page</MenuItem>
-                    )}
-                    {!isMediumScreen && (
-                        <MenuItem value="12">12 per page</MenuItem>
-                    )}
+                    {/*{!isXSmallScreen && (*/}
+                    {/*    <MenuItem value="6" sx={{color: "red"}}>6 per page</MenuItem>*/}
+                    {/*)}*/}
+                    {/*{!isSmallScreen && (*/}
+                    {/*    <MenuItem value="8">8 per page</MenuItem>*/}
+                    {/*)}*/}
+                    {/*{!isMediumScreen && (*/}
+                    {/*    <MenuItem value="12">12 per page</MenuItem>*/}
+                    {/*)}*/}
                 </Select>
             </FormControl>
         // </Box>

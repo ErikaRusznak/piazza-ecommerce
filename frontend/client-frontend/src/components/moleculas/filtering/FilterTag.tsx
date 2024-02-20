@@ -1,8 +1,12 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import useTheme from "@/theme/themes";
+import {ClearIcon} from "@/components/atoms/icons";
 
 const FilterTag = ({ filterName, value, removeFilter }) => {
+
+    const theme = useTheme();
 
     const customLabels = {
         priceTo: "Price To",
@@ -17,19 +21,15 @@ const FilterTag = ({ filterName, value, removeFilter }) => {
             {value ? (
                 <Box
                     sx={{
-                        backgroundColor: 'zinc.100',
-                        border: '1px solid #93B1A6',
-                        borderRadius: '8px',
-                        paddingY: '4px',
-                        paddingX: '6px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        color: 'zinc.800',
-                        '&:hover': {
-                            backgroundColor: 'zinc.200',
-                            border: '1px solid #93B1A6',
-                        },
+                        backgroundColor: theme.palette.primary.main,
+                        border: "1px solid #93B1A6",
+                        borderRadius: "8px",
+                        paddingY: "4px",
+                        paddingX: "6px",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        color: theme.palette.info.main,
                     }}
                 >
                     <Typography variant="body2">
@@ -37,17 +37,15 @@ const FilterTag = ({ filterName, value, removeFilter }) => {
                     </Typography>
                     <IconButton
                         sx={{
-                            padding: '0',
+                            padding: 0,
+                            pl: 1,
                             '&:hover': {
-                                color: 'zinc.800',
+                                color: theme.palette.secondary.main,
                             },
                         }}
                         onClick={removeFilter}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                             stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
+                        <ClearIcon sx={{ fontSize: "18px",}}/>
                     </IconButton>
                 </Box>
             ) : null}

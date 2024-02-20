@@ -146,10 +146,8 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                                               handleRangeChanged={handlePriceChanged}
                                               labelFrom="Price From"
                                               labelTo="Price To"
-                                              getRangeFrom={10}
-                                              getRangeTo={100}
-                                              // getRangeFrom={filterOptions.priceFrom}
-                                              // getRangeTo={filterOptions.priceTo}
+                                              getRangeFrom={filterOptions.priceFrom}
+                                              getRangeTo={filterOptions.priceTo}
                         />
                     </Box>
                 </ExpandableItem>
@@ -165,8 +163,7 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                         handleListChanged={handleFilterMultipleOptionsChanged}
                         list={cityOptions}
                         filterName="cityName"
-                        // getElementsNames={filterOptions.cityName}
-                        getElementsNames={"cityname"}
+                        getElementsNames={filterOptions.cityName}
                     />
                     </Box>
                 </ExpandableItem>
@@ -182,8 +179,7 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                             handleListChanged={handleFilterMultipleOptionsChanged}
                             list={categoryOptions}
                             filterName="categoryName"
-                            // getElementsNames={filterOptions.categoryName}
-                            getElementsNames={"categoryName"}
+                            getElementsNames={filterOptions.categoryName}
                         />
                     </Box>
                 </ExpandableItem>

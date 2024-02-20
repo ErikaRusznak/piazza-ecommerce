@@ -2,17 +2,29 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import {Box, List, ListItem, Pagination, Typography} from "@mui/material";
+import {Box, Pagination, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import {getProductsApi} from "../../../api/entities/ProductApi";
-import ProductCard from "@/components/moleculas/ProductCard";
 import MainProductList from "@/components/organisms/product/MainProductList";
-import SearchComponent from "@/components/moleculas/filtering/SearchComponent";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 
-const buildFilterOptionsFromQueryParams = (queryParams) => {
+type SortFilter = {
+    criteria: "productPrice" | "productName" | null;
+    orderSort: "asc" | "desc" | null;
+}
+
+type FilterOptions = {
+    categoryName: [] | string[];
+    cityName: [] | string[];
+    priceFrom: null | number;
+    priceTo: null | number;
+    productName: null | string;
+    sellerAlias: null | string;
+}
+
+const buildFilterOptionsFromQueryParams = (queryParams: any) => {
     return {
         priceFrom: queryParams.get('priceFrom') ? parseInt(queryParams.get('priceFrom')) : null,
         priceTo: queryParams.get('priceTo') ? parseInt(queryParams.get('priceTo')) : null,
@@ -32,7 +44,7 @@ const ProductsPage = () => {
     const [totalNumberProductsPerPage, setTotalNumberProductsPerPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [productSort, setProductSort] = useState({criteria: null, orderSort: null});
+    const [productSort, setProductSort] = useState<SortFilter>({criteria: null, orderSort: null});
 
     const [queryParams, setQueryParams] = useState(new URLSearchParams(location.search));
 
@@ -45,7 +57,7 @@ const ProductsPage = () => {
     const [isLoading, setLoading] = useState(true)
 
     const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
-    const getProducts = (page, newItemsPerPage, sortSpecs, filterSpecs) => {
+    const getProducts = (page:number, newItemsPerPage: number, sortSpecs: string[], filterSpecs: string[]) => {
         setItemsPerPage(newItemsPerPage);
         getProductsApi(page, newItemsPerPage, sortSpecs, filterSpecs)
             .then((res) => {
@@ -59,11 +71,11 @@ const ProductsPage = () => {
     }
 
     useEffect(() => {
-        const filterSpecs = buildFilterSpecs();
-        const sortSpecs = buildSortSpecs();
+        const filterSpecs: string[] = buildFilterSpecs();
+        const sortSpecs: string[] = buildSortSpecs();
         setOrRemoveQueryParameters(filterOptions);
-        getProducts(currentPage, itemsPerPage, [], []);
-    }, [/*filterOptions, productSort,*/ itemsPerPage, currentPage]);
+        getProducts(currentPage, itemsPerPage, sortSpecs, filterSpecs);
+    }, [filterOptions, productSort, itemsPerPage, currentPage]);
 
     // useEffect(() => {
     //     navigate({search: queryParams.toString()});
@@ -77,7 +89,7 @@ const ProductsPage = () => {
     //     setCurrentPage(1);
     // }, [breakpoint]);
 
-    const handleItemsPerPageChange = (event) => {
+    const handleItemsPerPageChange = (event: { target: { value: string; }; }) => {
         const newItemsPerPage = parseInt(event.target.value);
         const filterSpecs = buildFilterSpecs();
         const sortSpecs = buildSortSpecs();
@@ -85,23 +97,23 @@ const ProductsPage = () => {
         getProducts(1, newItemsPerPage, sortSpecs, filterSpecs);
     }
 
-    const handleSortChanged = (sortFilter) => {
+    const handleSortChanged = (sortFilter: SortFilter) => {
         setProductSort(sortFilter);
         setCurrentPage(1);
     }
-    const handleOnFilterChanged = (newFilterOptions) => {
+    const handleOnFilterChanged = (newFilterOptions: FilterOptions) => {
         setFilterOptions(newFilterOptions);
         setCurrentPage(1);
     }
 
-    const createFilterCriteria = (criteria, operation, value) => {
+    const createFilterCriteria = (criteria: string, operation: string, value: string | FilterOptions | number | null) => {
         return `${criteria}[${operation}]${value}`;
     }
-    const createSortCriteria = (criteria, orderSort) => {
+    const createSortCriteria = (criteria: "productPrice" | "productName", orderSort: "asc" | "desc") => {
         return `${criteria}-${orderSort}`;
     }
 
-    const createValueForFilterCriteria = (filterOption) => {
+    const createValueForFilterCriteria = (filterOption: FilterOptions[]) => {
         if (Array.isArray(filterOption)) {
             if (filterOption.length > 1) {
                 return filterOption.join('|');
@@ -145,7 +157,7 @@ const ProductsPage = () => {
         return sortSpecs;
     }
 
-    const setOrRemoveQueryParameters = (filterOptions) => {
+    const setOrRemoveQueryParameters = (filterOptions: { [x: string]: any; priceFrom?: number | null; priceTo?: number | null; categoryName?: string[]; cityName?: string[]; productName?: string; }) => {
         const newQueryParams = new URLSearchParams();
 
         for (let key in filterOptions) {
@@ -160,7 +172,7 @@ const ProductsPage = () => {
     }
 
 
-    const setSearchQueryParameters = (key, value, newQueryParams) => {
+    const setSearchQueryParameters = (key: string, value: string[], newQueryParams: URLSearchParams) => {
         if (Array.isArray(value)) {
             for (let val in value) {
                 newQueryParams.append(key, value[val]);
@@ -172,12 +184,13 @@ const ProductsPage = () => {
 
     const numberOfPages = Math.ceil(totalNumberOfProducts / itemsPerPage);
 
+
     return (
         <MainLayout>
             <Pagination
-                count={numberOfPages} //total num of pages
+                count={numberOfPages}
                 defaultPage={1}
-                page={currentPage} // current page
+                page={currentPage}
                 variant="outlined"
                 color="primary"
                 onChange={(e, page) => {
@@ -187,11 +200,11 @@ const ProductsPage = () => {
                     mb: 3,
                     '& .MuiPaginationItem-root': {
                         color: theme.palette.info.main,
-                        border: '1px solid #93B1A6',// Default color for unselected items
+                        border: '1px solid #93B1A6',
                     },
                     '& .Mui-selected': {
-                        backgroundColor: theme.palette.secondary.main, // Background color for selected item
-                        color: theme.palette.info.main, // Text color for selected item
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.info.main,
                     },
                 }}
             />

@@ -1,5 +1,5 @@
 import React from "react";
-import {Accordion, AccordionDetails, AccordionSummary, Box, Collapse, Typography} from "@mui/material";
+import { Box, Collapse, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {KeyboardArrowDownIcon, KeyboardArrowRightIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
@@ -23,9 +23,9 @@ const ExpandableItem = ({ label, children, isOpen, onClick }:ExpandableItemProps
                         gap: 2,
                         borderBottom: '1px solid #93B1A6',
                         borderRadius: "5px",
-                        transition: 'border-color 2s',
+                        transition: 'border-color 0.3s',
                         '&:hover': {
-                            borderColor: '#5C8374', // Example hover border color
+                            borderColor: theme.palette.secondary.main,
                         },
                         color: theme.palette.info.main,
                     }}

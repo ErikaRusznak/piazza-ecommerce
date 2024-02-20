@@ -1,26 +1,28 @@
 import React from "react";
 import {Box, Button} from "@mui/material";
 import FilterTag from "@/components/moleculas/filtering/FilterTag";
+import useTheme from "@/theme/themes";
 
 const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMultipleOptions, removeAllTags }) => {
 
+    const theme = useTheme();
     return (
         <Box
             sx={{
-                backgroundColor: 'zinc.200',
-                border: '1px solid #93B1A6',
-                borderRadius: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '4px',
-                marginY: '5px',
+                backgroundColor: theme.palette.background.default,
+                border: "1px solid #93B1A6",
+                borderRadius: "16px",
+                display: "flex",
+                alignItems: "center",
+                padding: "4px",
+                marginY: "5px",
             }}
         >
             <Box
                 sx={{
-                    display: 'inline-flex',
-                    gap: '3px',
-                    flexWrap: 'wrap',
+                    display: "inline-flex",
+                    gap: "3px",
+                    flexWrap: "wrap",
                 }}
             >
                 {filterTags.map((tag, index) => (
@@ -46,15 +48,16 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                     </Box>
                 ))}
             </Box>
-            <Box sx={{ flexGrow: 1 }} /> {/* Add a flex-grow element to push the button to the end */}
+            <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ flex: 'justify-end' }}>
                 <Button
                     variant="outlined"
                     sx={{
-                        fontWeight: 'semibold',
-                        color: 'zinc.800',
+                        color: theme.palette.primary.main,
+                        borderColor: theme.palette.primary.main,
                         '&:hover': {
-                            backgroundColor: 'zinc.100',
+                            borderColor: theme.palette.secondary.main,
+                            color: theme.palette.secondary.main,
                         },
                         borderRadius: '16px',
                         px: '8px',
