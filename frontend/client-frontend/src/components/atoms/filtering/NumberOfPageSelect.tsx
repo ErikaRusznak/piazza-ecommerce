@@ -7,9 +7,9 @@ import useTheme from "@/theme/themes";
 import {useMediaQuery} from "@mui/material";
 
 type NumberOfPageSelectProps = {
-    itemsPerPage: number;
+    itemsPerPage: number | string;
     setItemsPerPage: (newItemsPerPage: number) => void;
-    handleItemsPerPageChange: () => void;
+    handleItemsPerPageChange: (event: { target: { value: string; }; }) => void;
 }
 
 const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageChange}: NumberOfPageSelectProps) => {
@@ -43,7 +43,7 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={itemsPerPage}
+                value={itemsPerPage as string}
                 label="Items per page"
                 onChange={handleItemsPerPageChange}
                 sx={{
