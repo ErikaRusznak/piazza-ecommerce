@@ -4,11 +4,25 @@ import IconButton from "@mui/material/IconButton";
 import useTheme from "@/theme/themes";
 import {ClearIcon} from "@/components/atoms/icons";
 
-const FilterTag = ({ filterName, value, removeFilter }) => {
+type FilterTagProps = {
+    filterName: string;
+    value: string | number;
+    removeFilter: () => void;
+}
+
+type CustomLabels = {
+    priceTo: string;
+    priceFrom: string;
+    cityName: string;
+    categoryName: string;
+    productName: string;
+};
+
+const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
 
     const theme = useTheme();
 
-    const customLabels = {
+    const customLabels: CustomLabels = {
         priceTo: "Price To",
         priceFrom: "Price From",
         cityName: "City",
@@ -33,7 +47,7 @@ const FilterTag = ({ filterName, value, removeFilter }) => {
                     }}
                 >
                     <Typography variant="body2">
-                        {customLabels[filterName] || filterName}: {value}
+                        {customLabels[filterName as keyof CustomLabels] || filterName}: {value}
                     </Typography>
                     <IconButton
                         sx={{

@@ -1,9 +1,17 @@
 import React from "react";
-import {Box, Button, Slider, Typography} from "@mui/material";
+import {Button, Slider, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
 
-const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChanged, labelFrom, labelTo, getRangeFrom, getRangeTo }) => {
+type RangeFilterComponentProps = {
+    onClickInside: (e: any) => any;
+    toggleRangeFilter: () => void;
+    handleRangeChanged: (priceFrom: number, priceTo: number) => void;
+    getRangeFrom: number | null;
+    getRangeTo: number | null;
+};
+
+const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChanged, getRangeFrom, getRangeTo }: RangeFilterComponentProps) => {
 
     const theme = useTheme();
 

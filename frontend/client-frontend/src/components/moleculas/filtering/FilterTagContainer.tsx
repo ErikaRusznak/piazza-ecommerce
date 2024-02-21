@@ -2,8 +2,15 @@ import React from "react";
 import {Box, Button} from "@mui/material";
 import FilterTag from "@/components/moleculas/filtering/FilterTag";
 import useTheme from "@/theme/themes";
+import Tag from "@/components/atoms/filtering/Tag";
 
-const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMultipleOptions, removeAllTags }) => {
+type FilterTagContainerProps = {
+    filterTags: Tag[];
+    removeFilterOneOption: (filterNameToRemove: string) => void;
+    removeFilterMultipleOptions: (filterNameToRemove: string, valueToRemove: string) => void;
+    removeAllTags: () => void;
+}
+const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMultipleOptions, removeAllTags }:FilterTagContainerProps) => {
 
     const theme = useTheme();
     return (
@@ -26,7 +33,7 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                 }}
             >
                 {filterTags.map((tag, index) => (
-                    <Box key={index} sx={{ display: 'inline-flex', gap: '3px' }}>
+                    <Box key={index} sx={{ display: "inline-flex", gap: "3px" }}>
                         {Array.isArray(tag.value) ? (
                             tag.value.map((value, valueIndex) => (
                                 <FilterTag
@@ -49,19 +56,19 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                 ))}
             </Box>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ flex: 'justify-end' }}>
+            <Box sx={{ flex: "justify-end" }}>
                 <Button
                     variant="outlined"
                     sx={{
                         color: theme.palette.primary.main,
                         borderColor: theme.palette.primary.main,
-                        '&:hover': {
+                        "&:hover": {
                             borderColor: theme.palette.secondary.main,
                             color: theme.palette.secondary.main,
                         },
-                        borderRadius: '16px',
-                        px: '8px',
-                        py: '4px',
+                        borderRadius: "16px",
+                        px: "8px",
+                        py: "4px",
                     }}
                     onClick={removeAllTags}
                 >

@@ -4,7 +4,7 @@ import useTheme from "@/theme/themes";
 
 type FilterComponentLayoutProps = {
     children: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (e:any) => any;
 }
 const FilterComponentLayout = ({children, onClick}:FilterComponentLayoutProps) => {
     const theme = useTheme();

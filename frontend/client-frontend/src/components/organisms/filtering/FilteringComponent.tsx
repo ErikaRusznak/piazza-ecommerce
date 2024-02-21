@@ -9,20 +9,31 @@ import RangeFilterComponent from "@/components/moleculas/filtering/RangeFilterCo
 import MultipleChoiceFilterComponent from "@/components/moleculas/filtering/MultipleChoiceFilterComponent";
 import SortFilterComponent from "@/components/moleculas/filtering/SortFilterComponent";
 import FilterTagContainer from "@/components/moleculas/filtering/FilterTagContainer";
+import {FilterOptions, SortFilter} from "@/app/shop/page";
 
-const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => {
+type FilteringComponentProps = {
+    filterOptions: FilterOptions;
+    onFilterChanged: (newFilterOptions: FilterOptions) => void;
+    onSortChanged: (newSortFilter: SortFilter) => void;
+}
 
-    const [openFilter, setOpenFilter] = useState(null);
-    const [filterTags, setFilterTags] = useState([]);
+export type FilterOptionKeys = "priceFrom" | "priceTo" | "categoryName" | "cityName" | "productName";
 
-    const [cityOptions, setCityOptions] = useState([]);
-    const [categoryOptions, setCategoryOptions] = useState([]);
+export type FilterOptionValues = number | string | [] | string[];
+
+const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}:FilteringComponentProps) => {
+
+    const [openFilter, setOpenFilter] = useState<"Price" | "City" | "Category" | "Sort" | null>(null);
+    const [filterTags, setFilterTags] = useState<Tag[]>([]);
+
+    const [cityOptions, setCityOptions] = useState<string[]>([]);
+    const [categoryOptions, setCategoryOptions] = useState<string[]>([]);
 
     const toggleFilter = () => {
         setOpenFilter(null);
     }
 
-    const handleFilterClick = (filter) => {
+    const handleFilterClick = (filter: "Price" | "City" | "Category" | "Sort" | null) => {
         if (openFilter === filter) {
             setOpenFilter(null); // same filter clicked again
         } else {
@@ -52,11 +63,11 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
 
     useEffect(() => {
         if (filterOptions && typeof filterOptions === 'object') {
-            const newFilterTags = Object.keys(filterOptions)
-                .filter(key => !!filterOptions[key])
+            const newFilterTags: Tag[] = Object.keys(filterOptions)
+                .filter(key => !!filterOptions[key as FilterOptionKeys])
                 .filter(key => key !== "productName")
                 .map(key => {
-                    return new Tag(key, filterOptions[key], "ONE_VALUE");
+                    return new Tag(key, filterOptions[key as FilterOptionKeys] as FilterOptionValues, "ONE_VALUE");
                 });
             setFilterTags(newFilterTags);
         }
@@ -64,19 +75,21 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
 
 
     // for price, sort
-    const onFilterRemovedOneOption = (filterNameToRemove) => {
-        const updatedFilterOptions = {...filterOptions};
+    const onFilterRemovedOneOption = (filterNameToRemove: string) => {
+        const updatedFilterOptions: FilterOptions = {...filterOptions};
         delete updatedFilterOptions[filterNameToRemove];
         onFilterChanged(updatedFilterOptions);
     }
 
     // for category, city
-    const onFilterRemovedMultipleOptions = (filterNameToRemove, valueToRemove) => {
-        const updatedFilterOptions = {...filterOptions};
+    const onFilterRemovedMultipleOptions = (filterNameToRemove: string, valueToRemove: string) => {
+        const updatedFilterOptions: FilterOptions = { ...filterOptions };
+
         if (Array.isArray(updatedFilterOptions[filterNameToRemove])) {
-            updatedFilterOptions[filterNameToRemove] = updatedFilterOptions[filterNameToRemove].filter(
-                (value) => value !== valueToRemove
-            );
+            const filteredValues = (updatedFilterOptions[filterNameToRemove] as string[])
+                .filter((value) => value !== valueToRemove);
+
+            (updatedFilterOptions[filterNameToRemove] as string[]) = filteredValues as string[] || null;
             onFilterChanged(updatedFilterOptions);
         }
     };
@@ -94,21 +107,21 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
     }
 
     // price
-    const handlePriceChanged = (priceFrom, priceTo) => {
+    const handlePriceChanged = (priceFrom: number, priceTo: number) => {
         const newFilterOptions = {...filterOptions, "priceFrom": priceFrom, "priceTo": priceTo};
         onFilterChanged(newFilterOptions);
     }
 
     // productName
-    const handleFilterChanged = (filterName, filterValue) => {
+    const handleFilterChanged = (filterName: FilterOptionKeys, filterValue: string) => {
         const newFilterOptions = {...filterOptions, [filterName]: filterValue};
         onFilterChanged(newFilterOptions);
     }
 
     // city, category
-    const handleFilterMultipleOptionsChanged = (filterName, filterValues) => {
+    const handleFilterMultipleOptionsChanged = (filterName: FilterOptionKeys, filterValues: string[]) => {
         const newFilterOptions = {...filterOptions};
-        newFilterOptions[filterName] = filterValues;
+        (newFilterOptions[filterName] as string[]) = filterValues;
 
         onFilterChanged(newFilterOptions);
     };
@@ -124,7 +137,7 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
             if (Array.isArray(value)) {
                 return value.length === 0;
             }
-            return value === null || value.toString() === '' || key === 'filterName';
+            return value === null || value?.toString() === '' || key === 'filterName';
         });
 
 
@@ -144,8 +157,6 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}) => 
                         <RangeFilterComponent onClickInside={(e:any) => e.stopPropagation()}
                                               toggleRangeFilter={toggleFilter}
                                               handleRangeChanged={handlePriceChanged}
-                                              labelFrom="Price From"
-                                              labelTo="Price To"
                                               getRangeFrom={filterOptions.priceFrom}
                                               getRangeTo={filterOptions.priceTo}
                         />

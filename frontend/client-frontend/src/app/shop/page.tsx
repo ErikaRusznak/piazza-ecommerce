@@ -10,18 +10,19 @@ import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 
-type SortFilter = {
+export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
     orderSort: "asc" | "desc" | null;
 }
 
-type FilterOptions = {
+export type FilterOptions = {
     categoryName: [] | string[];
     cityName: [] | string[];
     priceFrom: null | number;
     priceTo: null | number;
     productName: null | string;
-    sellerAlias: null | string;
+    [key: string]: number | string | string[] | null | undefined;
+    // sellerAlias: null | string;
 }
 
 const buildFilterOptionsFromQueryParams = (queryParams: any) => {
@@ -106,14 +107,14 @@ const ProductsPage = () => {
         setCurrentPage(1);
     }
 
-    const createFilterCriteria = (criteria: string, operation: string, value: string | FilterOptions | number | null) => {
+    const createFilterCriteria = (criteria: string, operation: string, value: number) => {
         return `${criteria}[${operation}]${value}`;
     }
     const createSortCriteria = (criteria: "productPrice" | "productName", orderSort: "asc" | "desc") => {
         return `${criteria}-${orderSort}`;
     }
 
-    const createValueForFilterCriteria = (filterOption: FilterOptions[]) => {
+    const createValueForFilterCriteria = (filterOption: any[]) => {
         if (Array.isArray(filterOption)) {
             if (filterOption.length > 1) {
                 return filterOption.join('|');

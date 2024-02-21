@@ -2,11 +2,17 @@ import React, {useEffect} from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import useTheme from "@/theme/themes";
-import {Box, useMediaQuery} from "@mui/material";
+import {useMediaQuery} from "@mui/material";
 
-const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageChange}) => {
+type NumberOfPageSelectProps = {
+    itemsPerPage: number;
+    setItemsPerPage: (newItemsPerPage: number) => void;
+    handleItemsPerPageChange: () => void;
+}
+
+const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageChange}: NumberOfPageSelectProps) => {
 
     const theme = useTheme();
     // const breakpoint = useBreakpoint();
@@ -22,48 +28,46 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
     const isXXLargeScreen = useMediaQuery(theme.breakpoints.up('xl'));
 
     return (
-        // <Box sx={{ maxWidth: 200 }}>
-            <FormControl fullWidth sx={{maxWidth: 200}} size={"small"}>
-                <InputLabel
-                    id="demo-simple-select-label"
-                    sx={{
+        <FormControl fullWidth sx={{maxWidth: 200}} size={"small"}>
+            <InputLabel
+                id="demo-simple-select-label"
+                sx={{
+                    color: theme.palette.primary.main,
+                    marginBottom: 1,
+                    '&.Mui-focused': {
                         color: theme.palette.primary.main,
-                        marginBottom: 1,
-                        '&.Mui-focused': {
-                            color: theme.palette.primary.main,
-                        },
-                    }}
-                >
-                    Items per page</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={itemsPerPage}
-                    label="Items per page"
-                    onChange={handleItemsPerPageChange}
-                    sx={{
-                        '& .MuiSelect-select': {
-                            backgroundColor: theme.palette.secondary.main,
-                            color: theme.palette.info.main,
-                        },
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: theme.palette.primary.main,
-                        },
+                    },
+                }}
+            >
+                Items per page</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={itemsPerPage}
+                label="Items per page"
+                onChange={handleItemsPerPageChange}
+                sx={{
+                    '& .MuiSelect-select': {
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.info.main,
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: theme.palette.primary.main,
+                    },
 
-                    }}
-                >
-                    {/*{!isXSmallScreen && (*/}
-                    {/*    <MenuItem value="6" sx={{color: "red"}}>6 per page</MenuItem>*/}
-                    {/*)}*/}
-                    {/*{!isSmallScreen && (*/}
-                    {/*    <MenuItem value="8">8 per page</MenuItem>*/}
-                    {/*)}*/}
-                    {/*{!isMediumScreen && (*/}
-                    {/*    <MenuItem value="12">12 per page</MenuItem>*/}
-                    {/*)}*/}
-                </Select>
-            </FormControl>
-        // </Box>
+                }}
+            >
+                {/*{!isXSmallScreen && (*/}
+                <MenuItem value="6" sx={{color: "red"}}>6 per page</MenuItem>
+                {/*)}*/}
+                {/*{!isSmallScreen && (*/}
+                <MenuItem value="8">8 per page</MenuItem>
+                {/*)}*/}
+                {/*{!isMediumScreen && (*/}
+                <MenuItem value="12">12 per page</MenuItem>
+                {/*)}*/}
+            </Select>
+        </FormControl>
     );
 };
 

@@ -2,13 +2,24 @@ import React, {useState} from "react";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
 import useTheme from "@/theme/themes";
 import {Box, Button, Checkbox} from "@mui/material";
+import {FilterOptionKeys} from "@/components/organisms/filtering/FilteringComponent";
 
-const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handleListChanged, filterName, getElementsNames}) => {
+type MultipleChoiceFilterComponentProps = {
+    onClickInside: (e: any) => any;
+    toggleFilter: () => void;
+    list: string[];
+    handleListChanged: (filterName: FilterOptionKeys, filterValues: string[]) => void;
+    filterName: string;
+    getElementsNames: string[];
+}
+
+const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handleListChanged, filterName, getElementsNames}:MultipleChoiceFilterComponentProps) => {
 
     const theme = useTheme();
-    const [checkedElements, setCheckedElements] = useState(getElementsNames || []);
+    const [checkedElements, setCheckedElements] = useState<string[]>(getElementsNames || []);
 
-    const handleCheck = (e) => {
+
+    const handleCheck = (e: { target: { value: any; checked: any; }; }) => {
         const element = e.target.value;
         let updatedList = [...checkedElements];
         if (e.target.checked && !checkedElements.includes(element)) {
@@ -20,7 +31,7 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
     };
 
     const handleClickOnSave = () => {
-        handleListChanged(filterName, checkedElements);
+        handleListChanged(filterName as FilterOptionKeys, checkedElements);
         toggleFilter();
     };
 
@@ -61,8 +72,8 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
                                     color: theme.palette.info.main,
                                 }}
                             >
-                  {item}
-                </span>
+                              {item}
+                            </span>
                         </Box>
                     ))}
                 </Box>
