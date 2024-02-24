@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {Box, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
@@ -10,7 +10,6 @@ import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
-import {sort} from "next/dist/build/webpack/loaders/css-loader/src/utils";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -42,16 +41,17 @@ const ProductsPage = () => {
     const theme = useTheme();
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const [products, setProducts] = useState([]);
 
     const [itemsPerPage, setItemsPerPage] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
+    const numberOfPages = Math.ceil(totalNumberOfProducts / itemsPerPage);
 
     const [productSort, setProductSort] = useState<SortFilter>({criteria: null, orderSort: null});
 
-    const [queryParams, setQueryParams] = useState(new URLSearchParams());
     const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams()));
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,9 +80,8 @@ const ProductsPage = () => {
 
 
     useEffect(() => {
-        setFilterOptions(buildFilterOptionsFromQueryParams(queryParams));
-    }, [queryParams]);
-
+        setFilterOptions(buildFilterOptionsFromQueryParams(searchParams));
+    }, [searchParams]);
 
     const handleItemsPerPageChange = (itemsPerPage: number) => {
         const filterSpecs = buildFilterSpecs();
@@ -160,7 +159,7 @@ const ProductsPage = () => {
                                             productName?: string;
                                         },
                                         sortSpecs: string[]) => {
-        const newQueryParams = new URLSearchParams(queryParams.toString());
+        const newQueryParams = new URLSearchParams();
         for (let key in filterOptions) {
             const value = filterOptions[key];
             if (value !== null && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
@@ -189,9 +188,6 @@ const ProductsPage = () => {
             newQueryParams.set(key, value);
         }
     };
-
-    const numberOfPages = Math.ceil(totalNumberOfProducts / itemsPerPage);
-
 
     return (
         <MainLayout>

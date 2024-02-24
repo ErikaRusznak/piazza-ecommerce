@@ -7,7 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import themes from "@/theme/themes";
 import {baseURL} from "../../../../api/ApiClient";
 import {Box} from "@mui/system";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 const StyledMenu = styled((props: MenuProps) => (
 
@@ -51,16 +51,15 @@ type SimpleMenuProps = {
     menuItems: any[];
 }
 
-const createQueryParam = (categoryName: string) => {
-    const router = useRouter();
-    const queryParams = new URLSearchParams()
+const createQueryParam = (categoryName: string, router: any, pathname: any) => {
+    const queryParams = new URLSearchParams();
     queryParams.set("categoryName", categoryName);
-    const newSearch = queryParams.toString();
-    router.push(`/products?${newSearch}`);
+    router.push(pathname + "?" + queryParams.toString());
 }
 
 const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
 
+    const pathname = usePathname();
     const theme = themes();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -109,9 +108,8 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
 
                             <Box
                                 onClick={() => {
-                                    // createQueryParam(item.name);
+                                    createQueryParam(item.name, router, pathname);
                                     handleClose();
-                                    router.push(`/${item.name}`)
                                 }}
                             >
                                 {item.name}
