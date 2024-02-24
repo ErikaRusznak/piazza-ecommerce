@@ -10,6 +10,7 @@ import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
+import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -189,12 +190,18 @@ const ProductsPage = () => {
         }
     };
 
+    const breadcrumbsLinks = [
+        {label: "Home", link: "/"},
+        {label: "Shop", link: "/shop"}
+    ];
+
     return (
         <MainLayout>
-
+            <BreadcrumbsComponent links={breadcrumbsLinks}/>
             <Box sx={{
                 maxWidth: "872px",
                 margin: "0 auto",
+                mt: 1,
                 [theme.breakpoints.only("lg")]: {
                     maxWidth: "872px"
                 },
@@ -208,6 +215,7 @@ const ProductsPage = () => {
                     maxWidth: "320px",
                 },
             }}>
+
                 <Typography variant="h4" sx={{color: theme.palette.info.main}}>
                     Check the products
                 </Typography>

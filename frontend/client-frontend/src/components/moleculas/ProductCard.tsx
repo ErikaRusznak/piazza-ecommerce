@@ -4,6 +4,8 @@ import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon} from "@/components/atoms/icons";
 import {baseURL} from "../../../api/ApiClient";
+import StyledButton from "@/components/atoms/StyledButton";
+import {useAuth} from "../../../api/auth/AuthContext";
 
 type IProductCardProps = {
     product?: any;
@@ -12,8 +14,7 @@ type IProductCardProps = {
 
 const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
     const theme = useTheme();
-
-
+    const {isAuthenticated} = useAuth();
     const handleOnClick = (event: React.MouseEvent<Element, MouseEvent>) => {
         event.preventDefault();
         // onOpenChange(product);
@@ -22,38 +23,39 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
     return (
         <Card
             sx={{
-                height: "300px",
+                height: isAuthenticated ? "330px" : "300px",
                 width: "200px",
                 [theme.breakpoints.only("lg")]: {
-                    height: "300px",
+                    height: isAuthenticated ? "330px" : "300px",
                     width: "200px",
                 },
                 [theme.breakpoints.only("md")]: {
-                    height: "300px",
+                    height: isAuthenticated ? "330px" : "300px",
                     width: "200px",
                 },
                 [theme.breakpoints.only("sm")]: {
-                    height: "280px",
+                    height: isAuthenticated ? "280px" : "260px",
                     width: "173px",
                 },
                 [theme.breakpoints.only("xs")]: {
-                    height: "240px",
+                    height: isAuthenticated ? "280px" : "260px",
                     width: "148px",
                 },
                 [theme.breakpoints.only("xxs")]: {
-                    height: "240px",
+                    height: isAuthenticated ? "280px" : "260px",
                     width: "148px",
                 },
                 borderRadius: "20px",
-                boxShadow: theme.shadows[3],
+                boxShadow: "0px 1px 1px 1px #ffffff20",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
                 boxSizing: "border-box",
                 padding: theme.spacing(2),
-                gap: theme.spacing(2),
+                gap: 1,
                 backgroundColor: theme.palette.background.lighter,
+                border: "1px solid #93B1A6",
             }}
         >
             <Box
@@ -85,7 +87,6 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
                     flexDirection: "column",
                     alignItems: "flex-start",
                     justifyContent: "flex-start",
-                    gap: theme.spacing(1),
                     textAlign: "left",
                 })}
             >
@@ -110,6 +111,11 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
                             alignSelf: "stretch",
                             position: "relative",
                             minHeight: "2.5rem",
+                            fontSize: {
+                                xs: "18px",
+                                md: "20px"
+                            },
+                            color: theme.palette.info.main,
                         }}
                     >
                         {product.name}
@@ -123,22 +129,49 @@ const ProductCard = ({ product, onOpenChange }: IProductCardProps) => {
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
+                        fontSize: {
+                            xs: "16px",
+                            md: "18px"
+                        },
+                        color: theme.palette.info.main,
                     }}
                 >
                     <Typography>{product.price} RON</Typography>
                     <IconButton
                         onClick={handleOnClick}
-                        // variant="solid"
                         color="primary"
                         sx={{
-                            "--IconButton-size": "2.5rem",
-                            "--Icon-fontSize": "1rem",
                             borderRadius: "20px",
+                            background: theme.palette.background.gradient,
+                            border: "1px solid #93B1A6",
+                            "&:hover": {
+                                background: "linear-gradient(267.27deg, #183D3D 10%, #2e7474 90%)",
+                                border: "1px solid #93B1A6",
+                            }
                         }}
                     >
-                        <AddIcon />
+                        <AddIcon sx={{
+                            color: theme.palette.primary.main,
+                        }}/>
                     </IconButton>
+
                 </Box>
+                {isAuthenticated && (
+                    <StyledButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                            mt: 1,
+                            backgroundColor: theme.palette.background.lighter,
+                            border: "1px solid #93B1A6",
+                        }}
+                        // onClick={handleSubmit(onSubmit)}
+                    >
+                        Add to cart
+                    </StyledButton>
+                )}
+
             </Box>
         </Card>
     );

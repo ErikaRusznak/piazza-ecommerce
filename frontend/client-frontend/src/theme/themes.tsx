@@ -39,7 +39,7 @@ const useTheme = () => createTheme({
                 default: "#183D3D",
                 darker: "#143232",
                 gradient:
-                    "linear-gradient(180deg, #5C8374 0%, rgba(6, 29, 46, 0.91) 42.00%, #93B1A6 100%);",
+                    "linear-gradient(267.27deg, #2e7474 0%, #183D3D 100%)",
             },
             secondary: {
                 main: "#5C8374",
