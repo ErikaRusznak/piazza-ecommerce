@@ -1,25 +1,33 @@
 import React, {useEffect} from "react";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import useTheme from "@/theme/themes";
-import {useMediaQuery} from "@mui/material";
+import {FormControl, InputLabel, Select, useMediaQuery} from "@mui/material";
+import StyledMenuItem from "@/components/atoms/StyledMenuItem";
+import MenuItem from "@mui/material/MenuItem";
+import themes from "@/theme/themes";
 
 type NumberOfPageSelectProps = {
     itemsPerPage: number | string;
     setItemsPerPage: (newItemsPerPage: number) => void;
-    handleItemsPerPageChange: (event: { target: { value: string; }; }) => void;
+    handleItemsPerPageChange: (itemsPerPage: number) => void;
 }
 
 const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageChange}: NumberOfPageSelectProps) => {
 
     const theme = useTheme();
-    // const breakpoint = useBreakpoint();
-    //
-    // useEffect(() => {
-    //     setItemsPerPage(12);
-    // }, [breakpoint]);
+    const [values, setValues] = React.useState({
+        itemsPerPage: "",
+        name: "hai"
+    });
+
+    const handleChange = (event: any) => {
+        const { value } = event.target;
+        setValues((oldValues) => ({
+            ...oldValues,
+            itemsPerPage: value as string,
+        }));
+        handleItemsPerPageChange(value);
+    };
+
     const isXSmallScreen = useMediaQuery(theme.breakpoints.between('xxs', 'xs'));
     const isSmallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
     const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -30,7 +38,7 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
     return (
         <FormControl fullWidth sx={{maxWidth: 200}} size={"small"}>
             <InputLabel
-                id="demo-simple-select-label"
+                htmlFor="items-per-page"
                 sx={{
                     color: theme.palette.primary.main,
                     marginBottom: 1,
@@ -39,35 +47,80 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
                     },
                 }}
             >
-                Items per page</InputLabel>
+                Items per page
+            </InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={itemsPerPage as string}
-                label="Items per page"
-                onChange={handleItemsPerPageChange}
+                value={values.itemsPerPage}
+                onChange={handleChange}
+                MenuProps={{MenuListProps: {disablePadding: true}}}
+                inputProps={{
+                    name: "itemsPerPage",
+                    id: "items-per-page"
+                }}
                 sx={{
                     '& .MuiSelect-select': {
-                        backgroundColor: theme.palette.secondary.main,
+                        backgroundColor: theme.palette.background.lighter,
                         color: theme.palette.info.main,
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
                         borderColor: theme.palette.primary.main,
                     },
-
+                    '&.Mui-focused': {
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: theme.palette.background.lighter,
+                        },
+                    },
                 }}
             >
-                {/*{!isXSmallScreen && (*/}
-                <MenuItem value="6" sx={{color: "red"}}>6 per page</MenuItem>
-                {/*)}*/}
-                {/*{!isSmallScreen && (*/}
-                <MenuItem value="8">8 per page</MenuItem>
-                {/*)}*/}
-                {/*{!isMediumScreen && (*/}
-                <MenuItem value="12">12 per page</MenuItem>
-                {/*)}*/}
+                {/*TODO - try to put the menu item in a separate component, idk why it was not working*/}
+                <MenuItem
+                    value={6}
+                    sx={{
+                        backgroundColor: theme.palette.background.lighter,
+                        color: "white",
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.main,
+                        },
+                        '&.Mui-selected': {
+                            backgroundColor: theme.palette.secondary.main,
+                        },
+                    }}
+                >
+                    6 per page
+                </MenuItem>
+                <MenuItem
+                    value={8}
+                    sx={{
+                        backgroundColor: theme.palette.background.lighter,
+                        color: "white",
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.main,
+                        },
+                        '&.Mui-selected': {
+                            backgroundColor: theme.palette.secondary.main,
+                        },
+                    }}
+                >
+                    8 per page
+                </MenuItem>
+                <MenuItem
+                    value={12}
+                    sx={{
+                        backgroundColor: theme.palette.background.lighter,
+                        color: "white",
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary.main,
+                        },
+                        '&.Mui-selected': {
+                            backgroundColor: theme.palette.secondary.main,
+                        },
+                    }}
+                >
+                    12 per page
+                </MenuItem>
             </Select>
         </FormControl>
+
     );
 };
 

@@ -90,12 +90,11 @@ const ProductsPage = () => {
     //     setCurrentPage(1);
     // }, [breakpoint]);
 
-    const handleItemsPerPageChange = (event: { target: { value: string; }; }) => {
-        const newItemsPerPage = parseInt(event.target.value);
+    const handleItemsPerPageChange = (itemsPerPage: number) => {
         const filterSpecs = buildFilterSpecs();
         const sortSpecs = buildSortSpecs();
         setCurrentPage(1);
-        getProducts(1, newItemsPerPage, sortSpecs, filterSpecs);
+        getProducts(1, itemsPerPage, sortSpecs, filterSpecs);
     }
 
     const handleSortChanged = (sortFilter: SortFilter) => {
