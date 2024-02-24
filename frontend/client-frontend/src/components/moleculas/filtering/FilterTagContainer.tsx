@@ -22,7 +22,7 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                 display: "flex",
                 alignItems: "center",
                 padding: "4px",
-                marginY: "5px",
+                my: "5px",
             }}
         >
             <Box
@@ -33,7 +33,7 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                 }}
             >
                 {filterTags.map((tag, index) => (
-                    <Box key={index} sx={{ display: "inline-flex", gap: "3px" }}>
+                    <Box key={index} sx={{ display: "inline-flex", gap: "6px" }}>
                         {Array.isArray(tag.value) ? (
                             tag.value.map((value, valueIndex) => (
                                 <FilterTag

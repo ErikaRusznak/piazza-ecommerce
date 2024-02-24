@@ -1,15 +1,16 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {Box, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {getProductsApi} from "../../../api/entities/ProductApi";
 import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
+import {sort} from "next/dist/build/webpack/loaders/css-loader/src/utils";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -40,56 +41,48 @@ const ProductsPage = () => {
 
     const theme = useTheme();
     const router = useRouter();
+    const pathname = usePathname();
+
     const [products, setProducts] = useState([]);
 
     const [itemsPerPage, setItemsPerPage] = useState(8);
-    const [totalNumberProductsPerPage, setTotalNumberProductsPerPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
 
     const [productSort, setProductSort] = useState<SortFilter>({criteria: null, orderSort: null});
 
-    const [queryParams, setQueryParams] = useState(new URLSearchParams(location.search));
-
-    const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams(location.search)));
+    const [queryParams, setQueryParams] = useState(new URLSearchParams());
+    const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams()));
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const [productId, setProductId] = useState(null);
-
     const [isLoading, setLoading] = useState(true)
 
-    const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
     const getProducts = (page: number, newItemsPerPage: number, sortSpecs: string[], filterSpecs: string[]) => {
         setItemsPerPage(newItemsPerPage);
         getProductsApi(page, newItemsPerPage, sortSpecs, filterSpecs)
             .then((res) => {
                 setProducts(res.data.data);
                 setTotalNumberOfProducts(res.data.numberOfElements);
-                setTotalNumberProductsPerPage(res.data.numberOfElements);
                 setLoading(false)
 
             })
             .catch((err) => console.log(err))
-    }
+    };
+
 
     useEffect(() => {
         const filterSpecs: string[] = buildFilterSpecs();
         const sortSpecs: string[] = buildSortSpecs();
-        setOrRemoveQueryParameters(filterOptions);
+        setOrRemoveQueryParameters(filterOptions, sortSpecs);
         getProducts(currentPage, itemsPerPage, sortSpecs, filterSpecs);
     }, [filterOptions, productSort, itemsPerPage, currentPage]);
 
-    // useEffect(() => {
-    //     navigate({search: queryParams.toString()});
-    // }, [queryParams]);
 
     useEffect(() => {
-        setFilterOptions(buildFilterOptionsFromQueryParams(new URLSearchParams(location.search)));
-    }, [location.search]);
+        setFilterOptions(buildFilterOptionsFromQueryParams(queryParams));
+    }, [queryParams]);
 
-    // useEffect(() => {
-    //     setCurrentPage(1);
-    // }, [breakpoint]);
 
     const handleItemsPerPageChange = (itemsPerPage: number) => {
         const filterSpecs = buildFilterSpecs();
@@ -159,15 +152,15 @@ const ProductsPage = () => {
     }
 
     const setOrRemoveQueryParameters = (filterOptions: {
-        [x: string]: any;
-        priceFrom?: number | null;
-        priceTo?: number | null;
-        categoryName?: string[];
-        cityName?: string[];
-        productName?: string;
-    }) => {
-        const newQueryParams = new URLSearchParams();
-
+                                            [x: string]: any;
+                                            priceFrom?: number | null;
+                                            priceTo?: number | null;
+                                            categoryName?: string[];
+                                            cityName?: string[];
+                                            productName?: string;
+                                        },
+                                        sortSpecs: string[]) => {
+        const newQueryParams = new URLSearchParams(queryParams.toString());
         for (let key in filterOptions) {
             const value = filterOptions[key];
             if (value !== null && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
@@ -176,19 +169,26 @@ const ProductsPage = () => {
                 newQueryParams.delete(key);
             }
         }
-        setQueryParams(newQueryParams);
-    }
 
+        // for sorting
+        if (sortSpecs.length > 0) {
+            newQueryParams.set('sort', sortSpecs[0]);
+        } else {
+            newQueryParams.delete('sort');
+        }
 
-    const setSearchQueryParameters = (key: string, value: string[], newQueryParams: URLSearchParams) => {
+        router.push(pathname + "?" + newQueryParams.toString());
+    };
+
+    const setSearchQueryParameters = (key: string, value: string | string[], newQueryParams: URLSearchParams) => {
         if (Array.isArray(value)) {
-            for (let val in value) {
-                newQueryParams.append(key, value[val]);
+            for (let val of value) {
+                newQueryParams.append(key, val);
             }
         } else {
             newQueryParams.set(key, value);
         }
-    }
+    };
 
     const numberOfPages = Math.ceil(totalNumberOfProducts / itemsPerPage);
 
@@ -220,7 +220,13 @@ const ProductsPage = () => {
                     onFilterChanged={handleOnFilterChanged}
                     onSortChanged={handleSortChanged}/>
 
-                <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", mt: 1}}>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mt: 1
+                }}>
                     <MainProductList products={products}/>
                 </Box>
                 <Box sx={{display: "flex", justifyContent: "space-between", position: "relative", mt: 2}}>
