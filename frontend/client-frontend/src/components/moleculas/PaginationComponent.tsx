@@ -29,6 +29,7 @@ const PaginationComponent = ({numberOfPages, currentPage, setCurrentPage}:Pagina
                 '& .MuiPaginationItem-page.Mui-selected': {
                     backgroundColor: theme.palette.secondary.main,
                     color: theme.palette.info.main,
+                    border: '1px solid #93B1A6',
                 },
             }}
         />
