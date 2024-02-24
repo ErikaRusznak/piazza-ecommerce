@@ -1,17 +1,13 @@
-import React, {useEffect} from "react";
+import React from "react";
 import useTheme from "@/theme/themes";
 import {FormControl, InputLabel, Select, useMediaQuery} from "@mui/material";
-import StyledMenuItem from "@/components/atoms/StyledMenuItem";
 import MenuItem from "@mui/material/MenuItem";
-import themes from "@/theme/themes";
 
 type NumberOfPageSelectProps = {
-    itemsPerPage: number | string;
-    setItemsPerPage: (newItemsPerPage: number) => void;
     handleItemsPerPageChange: (itemsPerPage: number) => void;
 }
 
-const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageChange}: NumberOfPageSelectProps) => {
+const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps) => {
 
     const theme = useTheme();
     const [values, setValues] = React.useState({
@@ -36,7 +32,7 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
     const isXXLargeScreen = useMediaQuery(theme.breakpoints.up('xl'));
 
     return (
-        <FormControl fullWidth sx={{maxWidth: 200}} size={"small"}>
+        <FormControl fullWidth sx={{width: 200}} size={"small"}>
             <InputLabel
                 htmlFor="items-per-page"
                 sx={{
@@ -83,6 +79,9 @@ const NumberOfPageSelect = ({itemsPerPage, setItemsPerPage, handleItemsPerPageCh
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,
+                            "&:hover": {
+                                backgroundColor: theme.palette.primary.main,
+                            }
                         },
                     }}
                 >

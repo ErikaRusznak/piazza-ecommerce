@@ -44,6 +44,7 @@ const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
                         alignItems: "center",
                         justifyContent: "space-between",
                         color: theme.palette.info.main,
+                        boxShadow: "0 1px 1px 1px #ffffffb2"
                     }}
                 >
                     <Typography variant="body2">

@@ -23,7 +23,6 @@ const ExpandableItem = ({ label, children, isOpen, onClick }:ExpandableItemProps
                         gap: 2,
                         borderBottom: '1px solid #93B1A6',
                         borderRadius: "5px",
-                        transition: 'border-color 0.3s',
                         '&:hover': {
                             borderColor: theme.palette.secondary.main,
                         },

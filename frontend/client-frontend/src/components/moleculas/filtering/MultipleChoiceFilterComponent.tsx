@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
 import useTheme from "@/theme/themes";
 import {Box, Button, Checkbox} from "@mui/material";
@@ -18,6 +18,9 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
     const theme = useTheme();
     const [checkedElements, setCheckedElements] = useState<string[]>(getElementsNames || []);
 
+    useEffect(() => {
+        setCheckedElements(getElementsNames || []);
+    }, [getElementsNames]);
 
     const handleCheck = (e: { target: { value: any; checked: any; }; }) => {
         const element = e.target.value;
@@ -43,7 +46,6 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '8px',
                     }}
                 >
                     {list.map((item, index) => (
@@ -88,7 +90,10 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
                         sx={{
                             borderColor: theme.palette.background.lighter,
                             color: theme.palette.info.main,
-                            "&:hover": { borderColor: theme.palette.background.default },
+                            "&:hover": {
+                                borderColor: theme.palette.primary.main,
+                                color: theme.palette.primary.main
+                            },
                             fontSize: { xs: "5px", sm: "10px", md: "15px" },
                         }}
                         onClick={() => {

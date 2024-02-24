@@ -2,13 +2,14 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import {Box, Pagination, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import {getProductsApi} from "../../../api/entities/ProductApi";
 import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
+import PaginationComponent from "@/components/moleculas/PaginationComponent";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -58,7 +59,7 @@ const ProductsPage = () => {
     const [isLoading, setLoading] = useState(true)
 
     const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
-    const getProducts = (page:number, newItemsPerPage: number, sortSpecs: string[], filterSpecs: string[]) => {
+    const getProducts = (page: number, newItemsPerPage: number, sortSpecs: string[], filterSpecs: string[]) => {
         setItemsPerPage(newItemsPerPage);
         getProductsApi(page, newItemsPerPage, sortSpecs, filterSpecs)
             .then((res) => {
@@ -157,7 +158,14 @@ const ProductsPage = () => {
         return sortSpecs;
     }
 
-    const setOrRemoveQueryParameters = (filterOptions: { [x: string]: any; priceFrom?: number | null; priceTo?: number | null; categoryName?: string[]; cityName?: string[]; productName?: string; }) => {
+    const setOrRemoveQueryParameters = (filterOptions: {
+        [x: string]: any;
+        priceFrom?: number | null;
+        priceTo?: number | null;
+        categoryName?: string[];
+        cityName?: string[];
+        productName?: string;
+    }) => {
         const newQueryParams = new URLSearchParams();
 
         for (let key in filterOptions) {
@@ -187,32 +195,7 @@ const ProductsPage = () => {
 
     return (
         <MainLayout>
-            <Pagination
-                count={numberOfPages}
-                defaultPage={1}
-                page={currentPage}
-                variant="outlined"
-                color="primary"
-                onChange={(e, page) => {
-                    setCurrentPage(page);
-                }}
-                sx={{
-                    mb: 3,
-                    '& .MuiPaginationItem-root': {
-                        color: theme.palette.info.main,
-                        border: '1px solid #93B1A6',
-                    },
-                    '& .Mui-selected': {
-                        backgroundColor: theme.palette.secondary.main,
-                        color: theme.palette.info.main,
-                    },
-                }}
-            />
-            <NumberOfPageSelect
-                itemsPerPage={itemsPerPage}
-                setItemsPerPage={setItemsPerPage}
-                handleItemsPerPageChange={handleItemsPerPageChange}
-            />
+
             <Box sx={{
                 maxWidth: "872px",
                 margin: "0 auto",
@@ -236,11 +219,25 @@ const ProductsPage = () => {
                     filterOptions={filterOptions}
                     onFilterChanged={handleOnFilterChanged}
                     onSortChanged={handleSortChanged}/>
-            </Box>
-            <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
-                <MainProductList products={products}/>
-            </Box>
 
+                <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", mt: 1}}>
+                    <MainProductList products={products}/>
+                </Box>
+                <Box sx={{display: "flex", justifyContent: "space-between", position: "relative", mt: 2}}>
+                    <Box sx={{position: "absolute", left: 0}}>
+                        <NumberOfPageSelect
+                            handleItemsPerPageChange={handleItemsPerPageChange}
+                        />
+                    </Box>
+                    <Box sx={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
+                        <PaginationComponent
+                            numberOfPages={numberOfPages}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                        />
+                    </Box>
+                </Box>
+            </Box>
         </MainLayout>
     );
 };
