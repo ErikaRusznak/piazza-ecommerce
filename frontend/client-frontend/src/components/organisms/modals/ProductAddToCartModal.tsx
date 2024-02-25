@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { styled } from '@mui/system';
-import { Button, Box } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Box, Typography} from '@mui/material';
 import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
 import {useAuth} from "../../../../api/auth/AuthContext";
@@ -9,6 +8,8 @@ import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "../../../../api/ApiClient";
 import ProductRating from "@/components/moleculas/ProductRating";
 import QuantityInput from "@/components/atoms/QuantityInput";
+import useTheme from "@/theme/themes";
+import StyledButton from "@/components/atoms/StyledButton";
 
 type ProductAddToCartModalProps = {
     isModalOpen: boolean;
@@ -16,14 +17,6 @@ type ProductAddToCartModalProps = {
     setIsModalOpen: (value: boolean) => void;
     productId: number;
 };
-
-const ModalContentWrapper = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#0F172A' : 'white',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
-    transition: 'all 300ms ease-in-out',
-}));
 
 const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                                                          isModalOpen,
@@ -35,9 +28,9 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
 
     const [product, setProduct] = useState<any | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
-    const { updateCartItemQuantity } = useCart();
+    const {updateCartItemQuantity} = useCart();
 
-    const { isAuthenticated } = useAuth();
+    const {isAuthenticated} = useAuth();
 
     const isRatingDisplayed = true;
 
@@ -73,76 +66,94 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
         setIsModalOpen(false);
     };
 
+    const theme = useTheme();
+
     return (
         <BaseModal isModalOpen={isModalOpen} toggleModal={() => toggleModal(productId)}>
-            {product && (
-                <ModalContentWrapper>
-                    <div>
-                        <div>
-                            <div>
-                                <div>
-                                    <img
-                                        src={`${baseURL}${product.imageName}`}
-                                        alt=""
-                                        style={{
-                                            objectFit: 'cover',
-                                            width: '100%',
-                                            height: 'auto',
-                                            borderRadius: '8px 8px 0 0',
-                                        }}
-                                    />
-                                </div>
-                                <div>
-                                    <QuantityInput quantity={quantity} onQuantityChanged={updateQuantity} />
-                                </div>
-                            </div>
-                            <div>
-                                <h2>{product.name}</h2>
-                                <p>
-                                    Price per {product.unitOfMeasure}: {product.price} RON
-                                </p>
-                                <div>
+            {product &&
+                <Box>
+                    <Box sx={{
+                        backgroundColor: theme.palette.background.lighter,
+                        px: 4, pb: 2, pt: 5,
+                        borderTopLeftRadius: "14px",
+                        borderTopRightRadius: "14px",
+                        border: "1px solid #93B1A6"
+                    }}>
+                        <Box>
+                            <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+
+                                    <Box>
+                                        <img src={`${baseURL}${product.imageName}`}
+                                             alt=""
+                                             style={{
+                                                 width: "120px",
+                                                 margin: "auto",
+                                                 borderRadius: "14px",
+                                             }}
+                                        />
+                                    </Box>
+
+                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <QuantityInput
+                                            quantity={quantity}
+                                            onQuantityChanged={updateQuantity}
+                                        />
+                                    </Box>
+                                </Box>
+                                <Box sx={{mt: 1}}>
                                     <ProductRating
                                         rating={product.productRating}
                                         isRatingDisplayed={isRatingDisplayed}
                                         viewType="simple"
                                     />
-                                </div>
-                                <div>
-                                    <p>{product.seller.city}</p>
-                                    <p>{product.seller.alias}</p>
-                                </div>
-                            </div>
-                            <div>
-                                <p>{(product.price * quantity).toFixed(2)} RON</p>
-                            </div>
-                        </div>
-                        <div>
-                            <Button
-                                type="button"
-                                onClick={() => handleAddToCart()}
-                                sx={{
-                                    color: 'white',
-                                    backgroundColor: 'linear-gradient(to right, #4f93ce, #6b66b4, #6b66b4)',
-                                    '&:hover': {
-                                        backgroundColor: 'linear-gradient(to bottom right, #4f93ce, #6b66b4, #6b66b4)',
-                                    },
-                                    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                                    borderRadius: '8px',
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    px: '12px',
-                                    py: '8px',
-                                    cursor: 'pointer',
-                                    outline: 'none',
-                                }}
-                            >
-                                Add to cart
-                            </Button>
-                        </div>
-                    </div>
-                </ModalContentWrapper>
-            )}
+                                </Box>
+                                <Box sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    borderTop: "1px solid #93B1A6"
+                                }}>
+                                    <Box sx={{ mt: 1, mr: 2 }}>
+                                        <Typography variant="h6" sx={{
+                                            fontWeight: "bold",
+                                            color: theme.palette.info.main,
+                                        }}>
+                                            {product.name}
+                                        </Typography>
+                                        <Typography variant="body2" sx={{color: theme.palette.info.main}}>
+                                            Price per {product.unitOfMeasure}: {product.price} RON
+                                        </Typography>
+
+                                    </Box>
+                                    <Box sx={{display: "flex", alignItems: "center"}}>
+                                        <Typography variant="body1" sx={{ color: theme.palette.info.main }}>
+                                            {(product.price * quantity).toFixed(2)} RON
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            border: "1px solid #93B1A6",
+                            px: 2, py: 1,
+                            backgroundColor: theme.palette.background.lighter,
+                            borderBottomLeftRadius: "14px",
+                            borderBottomRightRadius: "14px",
+                        }}>
+                        <StyledButton
+                            variant="contained"
+                            sx={{backgroundColor: theme.palette.background.lighter, border: "1px solid #93B1A6"}}
+                            onClick={handleAddToCart}
+                        >
+                            Add to cart
+                        </StyledButton>
+                    </Box>
+                </Box>
+            }
         </BaseModal>
     );
 };
