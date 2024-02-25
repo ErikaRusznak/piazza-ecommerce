@@ -10,7 +10,7 @@ const StyledShoppingIcon = styled(ShoppingCartIcon)(({theme}) => ({
     color: themes().palette.info.main,
 }));
 
-const CartIcon = () => {
+const CartStyledIcon = () => {
     // @ts-ignore
     const { numberOfCartItems } = useCart();
 
@@ -25,4 +25,4 @@ const CartIcon = () => {
     );
 };
 
-export default CartIcon;
+export default CartStyledIcon;

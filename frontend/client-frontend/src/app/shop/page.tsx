@@ -11,6 +11,7 @@ import FilteringComponent from "@/components/organisms/filtering/FilteringCompon
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import ProductAddToCartModal from "@/components/organisms/modals/ProductAddToCartModal";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -56,8 +57,13 @@ const ProductsPage = () => {
     const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams()));
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [productId, setProductId] = useState(null);
+    const [productId, setProductId] = useState<number>(0);
     const [isLoading, setLoading] = useState(true)
+
+    const toggleModal = (productId:number) => {
+        setIsModalOpen(!isModalOpen);
+        setProductId(productId);
+    }
 
     const getProducts = (page: number, newItemsPerPage: number, sortSpecs: string[], filterSpecs: string[]) => {
         setItemsPerPage(newItemsPerPage);
@@ -197,6 +203,12 @@ const ProductsPage = () => {
 
     return (
         <MainLayout>
+            <ProductAddToCartModal
+                toggleModal={toggleModal}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                productId={productId}
+            />
             <BreadcrumbsComponent links={breadcrumbsLinks}/>
             <Box sx={{
                 maxWidth: "872px",
@@ -231,7 +243,10 @@ const ProductsPage = () => {
                     justifyContent: "center",
                     mt: 1
                 }}>
-                    <MainProductList products={products}/>
+                    <MainProductList
+                        products={products}
+                        toggleModal={(productId:number) => toggleModal(productId)}
+                    />
                 </Box>
                 <Box sx={{display: "flex", justifyContent: "space-between", position: "relative", mt: 2}}>
                     <Box sx={{position: "absolute", left: 0}}>

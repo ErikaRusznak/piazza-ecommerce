@@ -1,7 +1,8 @@
-"use client"
+"use client";
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {useAuth} from "../api/auth/AuthContext";
-import {addFavorite, getFavorites, removeFavorite} from "../api/entities/BuyerApi";
+import { useAuth } from "../api/auth/AuthContext";
+import { addFavorite, getFavorites, removeFavorite } from "../api/entities/BuyerApi";
 
 interface FavoriteContextType {
     allFavorites: any[];
@@ -12,15 +13,21 @@ interface FavoriteContextType {
 }
 
 const FavoriteContext = createContext<FavoriteContextType | undefined>(undefined);
-export const useFavorite = () => useContext(FavoriteContext);
+export const useFavorite = (): FavoriteContextType => {
+    const context = useContext(FavoriteContext);
+    if (!context) {
+        throw new Error("useFavorite must be used within a FavoriteProvider");
+    }
+    return context;
+};
 
-const FavoriteProvider = ({ children }: any) => {
-    const [allFavorites, setAllFavorites] = useState<any[]>([]); // Adjust the type accordingly
+const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
+    const [allFavorites, setAllFavorites] = useState<any[]>([]);
     const [numberOfFavorites, setNumberOfFavorites] = useState(0);
     const { isAuthenticated } = useAuth();
 
     const loadFavoriteItems = () => {
-        if (!!isAuthenticated) {
+        if (isAuthenticated) {
             getFavorites()
                 .then((res: { data: React.SetStateAction<any[]>; }) => {
                     setAllFavorites(res.data);

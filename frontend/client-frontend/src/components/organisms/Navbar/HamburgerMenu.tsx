@@ -91,10 +91,10 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                 </List>
                             </Collapse>
                             <ListItemButton>
-                                <ListItemText primary="Shop" sx={{color: textColor}}/>
+                                <ListItemText primary="Shop" sx={{color: textColor}} onClick={() => router.push("/shop")}/>
                             </ListItemButton>
                             <ListItemButton>
-                                <ListItemText primary="Sellers" sx={{color: textColor}}/>
+                                <ListItemText primary="Sellers" sx={{color: textColor}} onClick={() => router.push("/sellers")}/>
                             </ListItemButton>
 
                             <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>

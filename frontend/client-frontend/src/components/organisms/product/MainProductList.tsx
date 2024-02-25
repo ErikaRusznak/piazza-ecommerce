@@ -5,9 +5,10 @@ import useTheme from "@/theme/themes";
 
 type MainProductListProps = {
     products: any;
+    toggleModal: (productId: number) => void;
 }
 
-const MainProductList = ({products}:MainProductListProps) => {
+const MainProductList = ({products, toggleModal}:MainProductListProps) => {
 
     const theme = useTheme();
 
@@ -61,7 +62,10 @@ const MainProductList = ({products}:MainProductListProps) => {
                         },
                     }}
                 >
-                    <ProductCard product={product} onOpenChange={() => {}}/>
+                    <ProductCard
+                        product={product}
+                        toggleModal={() => toggleModal(product.id)}
+                    />
 
                 </ListItem>
             ))}

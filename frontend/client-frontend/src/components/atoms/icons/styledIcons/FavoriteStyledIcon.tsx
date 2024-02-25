@@ -10,7 +10,7 @@ const StyledFavoriteIcon = styled(FavoriteBorderIcon)(({theme}) => ({
     color: themes().palette.info.main,
 }));
 
-const FavoriteIcon = () => {
+const FavoriteStyledIcon = () => {
 
     // @ts-ignore
     const {numberOfFavorites} = useFavorite();
@@ -25,5 +25,4 @@ const FavoriteIcon = () => {
         )
     );
 };
-
-export default FavoriteIcon;
+export default FavoriteStyledIcon;

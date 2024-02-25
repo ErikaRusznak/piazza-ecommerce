@@ -13,7 +13,13 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
-export const useCart = () => useContext(CartContext);
+export const useCart = (): CartContextType => {
+    const context = useContext(CartContext);
+    if(!context) {
+        throw new Error("useCart must be used within a CartProvider");
+    }
+    return context;
+}
 
 const CartProvider = ({ children }: any) => {
     const [allCartItems, setAllCartItems] = useState<any[] | null>(null);
@@ -23,7 +29,7 @@ const CartProvider = ({ children }: any) => {
     const { isAuthenticated, username } = useAuth();
 
     function loadCartItems() {
-        if (!!isAuthenticated) {
+        if (isAuthenticated) {
             getCartItems()
                 .then((response) => {
                     setAllCartItems(response.data.cartItems);

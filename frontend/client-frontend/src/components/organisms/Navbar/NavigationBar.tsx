@@ -16,8 +16,8 @@ import {
 import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {
-    CartIcon,
-    FavoriteIcon,
+    CartStyledIcon,
+    FavoriteStyledIcon,
     AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon,
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
@@ -85,8 +85,18 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                 <LogoComponent/>
 
                 <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
-                    <Typography sx={{color: theme.palette.info.main}}>Shop</Typography>
-                    <Typography sx={{color: theme.palette.info.main}}>Sellers</Typography>
+                    <Typography
+                        sx={{color: theme.palette.info.main, cursor: "pointer"}}
+                        onClick={() => router.push("/shop")}
+                    >
+                        Shop
+                    </Typography>
+                    <Typography
+                        sx={{color: theme.palette.info.main, cursor: "pointer"}}
+                        onClick={() => router.push("/sellers")}
+                    >
+                        Sellers
+                    </Typography>
                     <SimpleMenu
                         text="Categories"
                         menuItems={categories}
@@ -96,8 +106,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                 <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
                     {isAuthenticated && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
-                            <FavoriteIcon/>
-                            <CartIcon/>
+                            <FavoriteStyledIcon/>
+                            <CartStyledIcon/>
                         </Box>
                     )}
 
@@ -172,8 +182,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                 <Box sx={{display: {xs: "flex", sm: "none"}}}>
                     {(isAuthenticated && !mobileMenuOpen) && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
-                            <FavoriteIcon/>
-                            <CartIcon/>
+                            <FavoriteStyledIcon/>
+                            <CartStyledIcon/>
                         </Box>
                     )}
                     <HamburgerMenu
