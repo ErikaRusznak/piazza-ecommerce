@@ -7,7 +7,7 @@ interface CartContextType {
     allCartItems: any[] | null;
     numberOfCartItems: number;
     cartTotalPrice: number;
-    updateCartItemQuantity: (productId: string, newQuantity: number) => void;
+    updateCartItemQuantity: (productId: number, newQuantity: number) => void;
     deleteCartItem: (productId: string) => void;
     refreshCart: () => void;
 }
@@ -47,7 +47,7 @@ const CartProvider = ({ children }: any) => {
         }
     }
 
-    function updateCartItemQuantity(productId: string, newQuantity: number) {
+    function updateCartItemQuantity(productId: number, newQuantity: number) {
         addOrUpdateCartItem(productId, newQuantity)
             .then(() => {
                 refreshCart();

@@ -7,9 +7,9 @@ import { addFavorite, getFavorites, removeFavorite } from "../api/entities/Buyer
 interface FavoriteContextType {
     allFavorites: any[];
     numberOfFavorites: number;
-    addToFavorite: (productId: string) => void;
-    removeFromFavorite: (productId: string) => void;
-    checkIsFavorite: (favoritesArray: any[], id: string) => boolean;
+    addToFavorite: (productId: number) => void;
+    removeFromFavorite: (productId: number) => void;
+    checkIsFavorite: (favoritesArray: any[], id: number) => boolean;
 }
 
 const FavoriteContext = createContext<FavoriteContextType | undefined>(undefined);
@@ -37,7 +37,7 @@ const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
         }
     };
 
-    const addToFavorite = (productId: string) => {
+    const addToFavorite = (productId: number) => {
         addFavorite(productId)
             .then(() => {
                 loadFavoriteItems();
@@ -45,11 +45,11 @@ const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
             .catch((err: any) => console.log(err));
     };
 
-    const checkIsFavorite = (favoritesArray: any[], id: string) => {
+    const checkIsFavorite = (favoritesArray: any[], id: number) => {
         return favoritesArray.some((favorite) => favorite.id === id);
     };
 
-    const removeFromFavorite = (productId: string) => {
+    const removeFromFavorite = (productId: number) => {
         removeFavorite(productId)
             .then(() => {
                 loadFavoriteItems();

@@ -7,6 +7,7 @@ import {baseURL} from "../../../api/ApiClient";
 import StyledButton from "@/components/atoms/StyledButton";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useFavorite} from "../../../contexts/FavoriteContext";
+import {useRouter} from "next/navigation";
 
 // TODO - make a type for product, not any
 type ProductCardProps = {
@@ -17,6 +18,7 @@ type ProductCardProps = {
 
 const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => {
     const theme = useTheme();
+    const router = useRouter();
     const {isAuthenticated} = useAuth();
 
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
@@ -84,6 +86,9 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    "&:hover": {
+                        cursor: "pointer",
+                    }
                 }}
             >
                 <img
@@ -93,6 +98,7 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                     }}
                     src={`${baseURL}${product.imageName}`}
                     alt={product.name}
+                    onClick={() => router.push(`/shop/${product.id}`)}
                 />
             </Box>
 
@@ -133,7 +139,13 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                                 md: "20px"
                             },
                             color: theme.palette.info.main,
+                            "&:hover": {
+                                cursor: "pointer",
+                                textDecoration: "underline",
+                                color: theme.palette.primary.main,
+                            }
                         }}
+                        onClick={() => router.push(`/shop/${product.id}`)}
                     >
                         {product.name}
                     </Typography>
