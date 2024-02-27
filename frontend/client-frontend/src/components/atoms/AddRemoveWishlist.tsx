@@ -4,13 +4,12 @@ import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useAlert} from "../../../contexts/AlertContext";
 import {Box, Button} from "@mui/material";
 import {FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
+import StyledButton from "@/components/atoms/StyledButton";
 
 type AddRemoveWishListProps = {
     productId: number;
 }
-const AddRemoveWishlist = ({productId} : AddRemoveWishListProps) => {
-
-    const {isAuthenticated} = useAuth();
+const AddRemoveWishlist = ({productId}: AddRemoveWishListProps) => {
 
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
     const [isFavorite, setIsFavorite] = useState(false);
@@ -42,28 +41,24 @@ const AddRemoveWishlist = ({productId} : AddRemoveWishListProps) => {
         }
     };
     return (
-        isAuthenticated && (
-            <Button
-                sx={{display: "flex", justifyContent: "center", }}
-                onClick={toggleFavorite}>
-                <Box className="flex">
-                    <Box sx={{mt: "3px"}}>
-                        {isFavorite ? (
-                            "Remove from wishlist"
-                        ) : (
-                            "Add to wishlist"
-                        )}
-                    </Box>
-                    <Box>
-                        {isFavorite ? (
-                            <FavoriteIcon />
-                        ) : (
-                            <FavoriteBorderIcon />
-                        )}
-                    </Box>
+        <StyledButton
+            variant="contained"
+            onClick={toggleFavorite}>
+            <Box sx={{display: "flex", flexDirection: "row", gap: 1}}>
+                <Box>
+                    {isFavorite ? (
+                        "Remove from wishlist"
+                    ) : (
+                        "Add to wishlist"
+                    )}
                 </Box>
-            </Button>
-        )
+                {isFavorite ? (
+                    <FavoriteIcon/>
+                ) : (
+                    <FavoriteBorderIcon/>
+                )}
+            </Box>
+        </StyledButton>
     );
 };
 

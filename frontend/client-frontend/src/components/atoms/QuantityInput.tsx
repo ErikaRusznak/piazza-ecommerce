@@ -18,6 +18,8 @@ const QuantityContainer = styled("div")({
 
 const QuantityButton = styled(Button)(({ theme }) => ({
     color: themes().palette.background.default,
+    lineHeight: 1.5,
+    height: "60%",
     backgroundColor: themes().palette.primary.main,
     '&:hover': {
         color: themes().palette.background.default,

@@ -3,15 +3,16 @@ import React from "react";
 import {styled} from "@mui/system";
 
 const CustomRating = styled(Rating)({
-    '& .MuiRating-iconFilled': {
-        border: '1px solid white',
+    '& .MuiRating-root': {
+        // border: '1px solid white',
+        color: "red",
     },
 });
 
 const StarReviewsReadOnly = ({rating}: {rating: number}) => {
-
+// TODO - change border color
     return (
-        <Rating
+        <CustomRating
             name="half-rating-read"
             defaultValue={rating}
             precision={0.5}

@@ -16,7 +16,7 @@ const ProductSpecificInfo = ({label, information}: ProductSpecificInfoProps) => 
         <>
             <Box sx={{
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 alignItems: "center",
             }}>
                 <Typography variant="body1" sx={{
@@ -24,8 +24,9 @@ const ProductSpecificInfo = ({label, information}: ProductSpecificInfoProps) => 
                 }}>
                     {label}
                 </Typography>
-                <Box
+                <Typography
                     sx={{
+                        color: theme.palette.info.main,
                         cursor: label === 'Producer' ? 'pointer' : 'default',
                         '&:hover': {
                             textDecoration: label === 'Producer' ? 'underline' : 'none',
@@ -37,9 +38,9 @@ const ProductSpecificInfo = ({label, information}: ProductSpecificInfoProps) => 
                          }
                      }}>
                     {information}
-                </Box>
+                </Typography>
             </Box>
-            <Divider sx={{backgroundColor: "yellow", width: "full", my: 2}}/>
+            <Divider sx={{backgroundColor: theme.palette.primary.main, width: "full", my: 2}}/>
         </>
     );
 };

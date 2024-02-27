@@ -10,17 +10,6 @@ type ProductRatingProps = {
     viewType: 'simple' | 'detailed' | 'extended';
 };
 
-const ExtendedLink = styled('p')({
-    fontNormal: 'normal',
-    fontSize: '14px',
-    lineHeight: '20px',
-    color: '#4B5563',
-    cursor: 'pointer',
-    '&:hover': {
-        textDecoration: 'underline',
-    },
-});
-
 const ProductRating: React.FC<ProductRatingProps> = ({
                                                          rating,
                                                          numReviews,
@@ -44,16 +33,27 @@ const ProductRating: React.FC<ProductRatingProps> = ({
                             <Typography
                                 variant="body2"
                                 component="p"
-                                sx={{ marginLeft: 2, fontSize: '14px', fontWeight: 'medium', color: '#6B7280' }}
+                                sx={{ fontSize: '14px', fontWeight: 'medium', color: '#dddddd' }}
                             >
                                 {rating.toFixed(2)} out of 5
                             </Typography>
                         )}
                     </div>
                     {viewType === 'extended' && (
-                        <ExtendedLink onClick={handleClickScroll}>
-                            {numReviews} reviews
-                        </ExtendedLink>
+                        <Typography
+                            sx={{
+                                fontNormal: 'normal',
+                                fontSize: '14px',
+                                lineHeight: '20px',
+                                color: '#dddddd',
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    textDecoration: 'underline',
+                                },
+                            }}
+                            onClick={handleClickScroll}>
+                                {numReviews} reviews
+                        </Typography>
                     )}
                 </div>
             ) : (
