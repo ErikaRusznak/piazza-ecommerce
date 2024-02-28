@@ -29,21 +29,21 @@ const ReviewComponent = ({reviewId, firstName, lastName, email, imageName, ratin
     const {isAuthenticated, username} = useAuth();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [review, setReview] = useState(null);
+    const [selectedReview, setSelectedReview] = useState(null);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     }
 
     const updateReview = (updatedReview) => {
-        setReview(updatedReview)
+        setSelectedReview(updatedReview)
         updateReviewInState(updatedReview);
     };
 
     const getReviewById = (reviewId) => {
         getReviewByIdApi(reviewId)
             .then((res) => {
-                setReview(res.data)
+                setSelectedReview(res.data)
             })
             .catch((err) => console.log(err))
     }
@@ -106,7 +106,7 @@ const ReviewComponent = ({reviewId, firstName, lastName, email, imageName, ratin
                 toggleModal={toggleModal}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
-                review={review}
+                review={selectedReview}
                 updateReview={updateReview}
             />
         </div>

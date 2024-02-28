@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Typography} from '@mui/material';
+import {Box, Typography, useMediaQuery} from '@mui/material';
 import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
 import {useAuth} from "../../../../api/auth/AuthContext";
@@ -24,6 +24,8 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                                                          setIsModalOpen,
                                                                          productId,
                                                                      }) => {
+    const theme = useTheme();
+    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const router = useRouter();
 
     const [product, setProduct] = useState<any | null>(null);
@@ -42,7 +44,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
             .catch((err) => console.log(err));
     };
 
-    const addItemToCart = (productId: string, quantity: number) => {
+    const addItemToCart = (productId: number, quantity: number) => {
         updateCartItemQuantity(productId, quantity);
     };
 
@@ -66,7 +68,6 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
         setIsModalOpen(false);
     };
 
-    const theme = useTheme();
 
     return (
         <BaseModal isModalOpen={isModalOpen} toggleModal={() => toggleModal(productId)}>
@@ -80,8 +81,12 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                         border: "1px solid #93B1A6"
                     }}>
                         <Box>
-                            <Box sx={{ display: "flex", flexDirection: "column" }}>
-                                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <Box sx={{display: "flex", flexDirection: "column"}}>
+                                <Box sx={{
+                                    display: "flex",
+                                    justifyContent: !smallScreenSize ? "space-between" : "center",
+                                }}
+                                >
 
                                     <Box>
                                         <img src={`${baseURL}${product.imageName}`}
@@ -93,15 +98,20 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                              }}
                                         />
                                     </Box>
+                                    {!smallScreenSize && (
+                                        <Box sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                            <QuantityInput
+                                                quantity={quantity}
+                                                onQuantityChanged={updateQuantity}
+                                            />
+                                        </Box>
+                                    )}
 
-                                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                        <QuantityInput
-                                            quantity={quantity}
-                                            onQuantityChanged={updateQuantity}
-                                        />
-                                    </Box>
                                 </Box>
-                                <Box sx={{mt: 1}}>
+                                <Box sx={{
+                                    mt: 1, display: smallScreenSize ? "flex" : "block",
+                                    justifyContent: smallScreenSize ? "center" : ""
+                                }}>
                                     <ProductRating
                                         rating={product.productRating}
                                         isRatingDisplayed={isRatingDisplayed}
@@ -113,7 +123,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                     justifyContent: "space-between",
                                     borderTop: "1px solid #93B1A6"
                                 }}>
-                                    <Box sx={{ mt: 1, mr: 2 }}>
+                                    <Box sx={{mt: 1, mr: 2}}>
                                         <Typography variant="h6" sx={{
                                             fontWeight: "bold",
                                             color: theme.palette.info.main,
@@ -125,12 +135,31 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                         </Typography>
 
                                     </Box>
-                                    <Box sx={{display: "flex", alignItems: "center"}}>
-                                        <Typography variant="body1" sx={{ color: theme.palette.info.main }}>
-                                            {(product.price * quantity).toFixed(2)} RON
-                                        </Typography>
-                                    </Box>
+                                    {!smallScreenSize && (
+                                        <Box sx={{display: "flex", alignItems: "center"}}>
+                                            <Typography variant="body1" sx={{color: theme.palette.info.main}}>
+                                                {(product.price * quantity).toFixed(2)} RON
+                                            </Typography>
+                                        </Box>
+                                    )}
+
+
                                 </Box>
+                                {smallScreenSize && (
+                                    <>
+                                        <Box sx={{display: "flex", mt: 2, alignItems: "center", justifyContent: "center"}}>
+                                            <QuantityInput
+                                                quantity={quantity}
+                                                onQuantityChanged={updateQuantity}
+                                            />
+                                        </Box>
+                                        <Box sx={{display: "flex", alignItems: "center", mt: 2}}>
+                                            <Typography variant="body1" sx={{color: theme.palette.info.main}}>
+                                                Total price: {(product.price * quantity).toFixed(2)} RON
+                                            </Typography>
+                                        </Box>
+                                    </>
+                                )}
                             </Box>
                         </Box>
                     </Box>

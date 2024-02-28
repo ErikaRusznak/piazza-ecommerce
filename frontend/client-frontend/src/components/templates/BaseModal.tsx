@@ -1,10 +1,7 @@
-import React, { FC, useRef } from 'react';
-import Dialog from '@mui/material/Dialog';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+import React, { FC } from 'react';
 import { Box, useTheme } from '@mui/system';
 import {Modal} from "@mui/base";
-import {Backdrop, Fade, Typography} from "@mui/material";
+import {Backdrop, Fade, useMediaQuery} from "@mui/material";
 
 type BaseModalProps = {
     children: React.ReactNode;
@@ -12,21 +9,21 @@ type BaseModalProps = {
     toggleModal: () => void;
 };
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 const BaseModal: FC<BaseModalProps> = ({ children, isModalOpen, toggleModal }) => {
 
     const theme = useTheme();
+    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: smallScreenSize ? 300 : 400,
+        boxShadow: 24,
+        p: 4,
+    };
 
     return (
         <div>

@@ -10,6 +10,7 @@ import useTheme from "@/theme/themes";
 import ProductRating from "@/components/moleculas/ProductRating";
 import {baseURL} from "../../../../api/ApiClient";
 import ProductInformation from "@/components/moleculas/ProductInformation";
+import ReviewItems from "@/components/organisms/reviews/ReviewItems";
 
 type ProductDetailsContentProps = {
     id: string;
@@ -57,11 +58,10 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
             {product && (
                 <Box sx={{
                     display: "flex", justifyContent: "center", alignItems: "center",
-                    flexDirection: "column",
-                    gap: 10,
+                    flexDirection: "column"
                 }}>
 
-                    <Box sx={{width: "full", }}>
+                    <Box>
                         <Box>
                             <Typography variant="h4" sx={{
                                 fontWeight: "",
@@ -90,7 +90,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                             <Box sx={{ [theme.breakpoints.down("md")]: {mt: 2,}}}>
                                 <Box sx={{
                                     display: "flex", justifyContent: "center",
-                                    width: "full", pr: 1, borderRight: "1px solid #93B1A6",
+                                    pr: 1, borderRight: "1px solid #93B1A6",
                                     [theme.breakpoints.down("md")]: {
                                         borderRight: "none", mt: 2, pr: 0,
                                     },
@@ -116,15 +116,17 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                         </Box>
                     </Box>
 
-                    {/*<div className="flex justify-center items-center w-full">*/}
-                    {/*    <div*/}
-                    {/*        className="w-full mt-10 sm:mt-8">*/}
-                    {/*        <ReviewItems*/}
-                    {/*            productId={product.id}*/}
-                    {/*            updateProductRating={updateProductRating}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <Box sx={{
+                        display: "flex", justifyContent: "center", alignItems: "center",
+                        width: "100%", maxWidth: "53rem", [theme.breakpoints.down("md")]: {maxWidth: "38rem"},
+                    }}>
+                        <Box sx={{ width: "100%", mt: 2}}>
+                            <ReviewItems
+                                productId={product.id}
+                                updateProductRating={updateProductRating}
+                            />
+                        </Box>
+                    </Box>
                 </Box>
             )}
         </MainLayout>

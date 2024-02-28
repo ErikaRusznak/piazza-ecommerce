@@ -2,8 +2,18 @@ import React from 'react'
 import BaseModal from "../../atoms/BaseModal";
 import {Form, Formik} from "formik";
 import TextInputWithError from "../../atoms/input/TextInputWithError";
-import {updateReviewApi} from "../../../api/entities/ReviewApi";
-import {editReviewSchema} from "../../../../../frontend/client-frontend/validators/editReviewSchema";
+import {number, object, string} from "yup";
+import {updateReviewApi} from "../../../../../frontend/client-frontend/api/entities/ReviewApi";
+
+const editReviewSchema = object().shape( {
+    description: string()
+        .required("Review Description Required"),
+    rating: number()
+        .required("Rating Required")
+        .min(1, "Rating can't be less than 0")
+        .max(5, "Rating can't be more then 5")
+
+})
 
 const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, review, updateReview}) => {
 

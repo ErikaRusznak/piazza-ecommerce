@@ -23,6 +23,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ClearIcon from '@mui/icons-material/Clear';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 export {
     ContentPasteIcon,
@@ -49,5 +50,6 @@ export {
     KeyboardArrowDownIcon,
     ClearIcon,
     FavoriteBorderIcon,
-    FavoriteIcon
+    FavoriteIcon,
+    EditNoteIcon,
 }

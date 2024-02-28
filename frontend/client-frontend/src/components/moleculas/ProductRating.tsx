@@ -1,7 +1,8 @@
 import React from 'react';
 import { styled } from '@mui/system';
-import { Typography } from '@mui/material';
+import {Typography, useMediaQuery} from '@mui/material';
 import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
+import useTheme from "@/theme/themes";
 
 type ProductRatingProps = {
     rating: number;
@@ -28,7 +29,10 @@ const ProductRating: React.FC<ProductRatingProps> = ({
             {isRatingDisplayed ? (
                 <div>
                     <div className="flex">
-                        <StarReviewsReadOnly rating={rating} />
+                        <StarReviewsReadOnly
+                            rating={rating}
+
+                        />
                         {(viewType === 'detailed' || viewType === 'extended') && (
                             <Typography
                                 variant="body2"

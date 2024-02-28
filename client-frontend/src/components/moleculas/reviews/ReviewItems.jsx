@@ -32,7 +32,6 @@ const ReviewItems = ({productId, updateProductRating}) => {
             updateProductRating(newProductRating)
         }
     };
-console.log(reviews);
     return (
         <div id="reviews">
             <div className="px-10 flex flex-col gap-2 p-5 text-zinc-800 border rounded-2xl border-indigo-300 shadow-md mt-10 mb-10">
