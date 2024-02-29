@@ -34,7 +34,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                 <img
                     src={`${baseURL}${seller.account.imageName}`}
                     alt={seller.account.imageName}
-                    onClick={() => router.push(`/${seller.alias}`)}
+                    onClick={() => router.push(`/sellers/${seller.alias}`)}
                     style={{ width: "150px", borderRadius: "14px", margin: 2, cursor: "pointer" }}
                 />
                 <Box
@@ -54,7 +54,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                                 cursor: "pointer",
                                 "&:hover": { textDecoration: "underline" },
                             }}
-                            onClick={() => router.push(`/${seller.alias}`)}
+                            onClick={() => router.push(`sellers/${seller.alias}`)}
                         >
                             {seller.alias}
                         </Typography>
