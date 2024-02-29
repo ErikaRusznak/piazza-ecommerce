@@ -59,28 +59,19 @@ const useTheme = () => createTheme({
             fontFamily: [`Open Sans`, `sans-serif`, `Roboto`].join(","),
             h1: {
                 fontSize: "5rem",
-                fontWeight:
-                    800,
             },
             h2: {
-                fontSize: "3.02rem", // 46px
-                fontWeight:
-                    300,
+                fontSize: "3.02rem",
             },
             h3: {
-                fontSize: "2.6rem", // 40px
-                fontWeight:
-                    800,
+                fontSize: "2.6rem",
             },
             h4: {
                 fontSize: "1.9rem",
-                fontWeight:
-                    800,
+
             },
             h5: {
                 fontSize: "1.78rem",
-                fontWeight:
-                    800,
             },
             h6: {
                 fontWeight: 600,

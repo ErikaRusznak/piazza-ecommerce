@@ -23,14 +23,15 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
     const [product, setProduct] = useState<any>(null);
     const [productRating, setProductRating] = useState<number | null>(null);
     const theme = useTheme();
+    const productName = product?.name;
 
     const downMedScreenSize = useMediaQuery(theme.breakpoints.down("md"));
     const widthForImage = downMedScreenSize ? "19rem" : "25rem";
-    const xsScreenSize = useMediaQuery(theme.breakpoints.only("xs"));
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
-        {label: "Register", link: "/register"}
+        {label: "Shop", link: "/shop"},
+        {label: productName, link: ""}
     ];
 
     const getProduct = (productId: number) => {
