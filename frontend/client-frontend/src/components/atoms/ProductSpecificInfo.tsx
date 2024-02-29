@@ -18,6 +18,7 @@ const ProductSpecificInfo = ({label, information}: ProductSpecificInfoProps) => 
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                mx: {xs: 1},
             }}>
                 <Typography variant="body1" sx={{
                     fontWeight: "bold", color: theme.palette.info.main

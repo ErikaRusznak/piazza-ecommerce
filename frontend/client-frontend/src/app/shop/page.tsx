@@ -248,8 +248,8 @@ const ProductsPage = () => {
                         toggleModal={(productId:number) => toggleModal(productId)}
                     />
                 </Box>
-                <Box sx={{display: "flex", justifyContent: "space-between", position: "relative", mt: 2}}>
-                    <Box sx={{position: "absolute", left: 0}}>
+                <Box sx={{display: "flex", justifyContent: "space-between",  mt: 2}}>
+                    <Box sx={{ left: 0}}>
                         <NumberOfPageSelect
                             handleItemsPerPageChange={handleItemsPerPageChange}
                         />

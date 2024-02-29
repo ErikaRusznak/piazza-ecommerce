@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {getReviewByIdApi} from "../../../../api/entities/ReviewApi";
 import ProductRating from "@/components/moleculas/ProductRating";
-import {Box, Typography} from "@mui/material";
+import {Box, Typography, useMediaQuery} from "@mui/material";
 import {EditNoteIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
 import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
@@ -30,6 +30,7 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
     const theme = useTheme();
     const firstLetterOfFirstName = review.buyer.firstName.charAt(0);
     const firstLetterOfLastName = review.buyer.lastName.charAt(0);
+    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
 
     const {isAuthenticated, username} = useAuth();
 
@@ -67,18 +68,42 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                 <Box sx={{
                     display: "flex", justifyContent: "space-between", borderRadius: "14px", alignItems: "center"
                 }}>
-                    <Box sx={{display: "flex", gap: 1, p: 4}}>
-                        <Box sx={{
-                            width: 3, textAlign: "center", color: theme.palette.info.main,
-                            backgroundColor: theme.palette.background.lighter,
-                        }}>
-                            <Typography sx={{textAlign: "center", alignItems: "center"}}>
-                                {firstLetterOfFirstName}{firstLetterOfLastName}
-                            </Typography>
-                        </Box>
-                        <Typography sx={{color: theme.palette.info.main}}>{review.buyer.firstName} {review.buyer.lastName}</Typography>
+                    <Box sx={{display: "flex", gap: 1, padding: theme.spacing(2,2,0,2)}}>
+                        {!smallScreenSize && (
+                            <Box sx={{
+                                width: "2rem",
+                                textAlign: "center",
+                                alignContent: "center",
+                                color: theme.palette.info.main,
+                                backgroundColor: theme.palette.background.lighter,
+                                borderRadius: "20px",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                            }}>
+                                <Typography variant="body2">
+                                    {firstLetterOfFirstName}{firstLetterOfLastName}
+                                </Typography>
+                            </Box>
+                        )}
+                        <Typography sx={{color: theme.palette.info.main, fontWeight: "bold"}}>{review.buyer.firstName} {review.buyer.lastName}</Typography>
+                        {(isAuthenticated && review.buyer.email===username) && (
+                            <Box sx={{
+                                display: "flex", justifyContent: "center", alignItems: "center"
+                            }}>
+                                <EditNoteIcon
+                                    sx={{
+                                        pl: 2,
+                                        color: theme.palette.primary.main,
+                                        "&:hover": {color: theme.palette.secondary.main},
+                                        cursor: "pointer",
+                                    }}
+                                    onClick={toggleModal}
+                                />
+                            </Box>
+                        )}
                     </Box>
-                    <Box sx={{display: "flex", gap: 1, pr: 2}}>
+                    <Box sx={{display: "flex", gap: 1, pr: 2, pt:2}}>
                         <ProductRating
                             rating={review.rating}
                             isRatingDisplayed={true}
@@ -99,18 +124,7 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                             <Typography sx={{color: theme.palette.info.main}}>{review.publishDate}</Typography>
                         </Box>
                     </Box>
-                    {(isAuthenticated && review.buyer.email===username) && (
-                        <Box>
-                            <EditNoteIcon
-                                sx={{ width: "10rem",
-                                    color: theme.palette.primary.main,
-                                    "&:hover": {color: theme.palette.secondary.main},
-                                    cursor: "pointer",
-                                }}
-                                onClick={toggleModal}
-                            />
-                        </Box>
-                    )}
+
 
                 </Box>
             </Box>

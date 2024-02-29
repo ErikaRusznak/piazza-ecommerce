@@ -26,6 +26,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
 
     const downMedScreenSize = useMediaQuery(theme.breakpoints.down("md"));
     const widthForImage = downMedScreenSize ? "19rem" : "25rem";
+    const xsScreenSize = useMediaQuery(theme.breakpoints.only("xs"));
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -67,12 +68,13 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                 fontWeight: "",
                                 color: theme.palette.info.main,
                                 mt: 2,
+                                ml: {xs: 2, sm: 0},
                             }}>
                                 {product.name}
                             </Typography>
                         </Box>
 
-                        <Box sx={{display: "block", mt: 1}}>
+                        <Box sx={{display: "block", mt: 1, ml: {xs: 2, sm: 0}}}>
                             <ProductRating
                                 rating={product.productRating}
                                 numReviews={product.numberReviews}
@@ -87,7 +89,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                     flexDirection: "column",
                                 },
                                 mt: 2}}>
-                            <Box sx={{ [theme.breakpoints.down("md")]: {mt: 2,}}}>
+                            <Box sx={{ [theme.breakpoints.down("md")]: {mt: 2}}}>
                                 <Box sx={{
                                     display: "flex", justifyContent: "center",
                                     pr: 1, borderRight: "1px solid #93B1A6",
@@ -103,7 +105,8 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                 </Box>
                             </Box>
                             <Box sx={{ml: 4,
-                                    [theme.breakpoints.down("md")]: {ml: 0}}}>
+                                    [theme.breakpoints.down("md")]: {mx: 1}
+                            }}>
                                 <ProductInformation
                                     description={product.description}
                                     price={product.price}

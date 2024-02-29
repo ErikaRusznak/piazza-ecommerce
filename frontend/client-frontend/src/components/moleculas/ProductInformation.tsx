@@ -61,11 +61,13 @@ const ProductInformation = ({description, price, category, producer, city, produ
                         sx={{
                             mt: 1,
                             color: theme.palette.info.main,
+                            ml: {xs: 1},
                         }}>
                 {description}
             </Typography>
             <Typography variant="h6"
-                        sx={{fontWeight: "bold", mt: 2, color: theme.palette.info.main}}
+                        sx={{fontWeight: "bold", mt: 2, color: theme.palette.info.main,
+                            ml: {xs: 1},}}
             >
                 {price} RON
             </Typography>
@@ -85,7 +87,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                 />
 
                 <Box>
-                    <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", mx: {xs: 1},}}>
                         <Typography variant="body1" sx={{fontWeight: "bold", color: theme.palette.info.main,}}>
                             Quantity
                         </Typography>
