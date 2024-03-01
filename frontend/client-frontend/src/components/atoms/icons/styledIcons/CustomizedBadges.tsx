@@ -18,11 +18,13 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 type CustomizedBadgesProps = {
     children: React.ReactNode;
     badgeContent: number;
+    onClick?: (event: any) => void;
+    sx?: any;
 };
 
-const CustomizedBadges = ({ children, badgeContent }: CustomizedBadgesProps) => {
+const CustomizedBadges = ({ children, badgeContent, sx, onClick }: CustomizedBadgesProps) => {
     return (
-        <IconButton>
+        <IconButton onClick={onClick} sx={sx}>
             <StyledBadge badgeContent={badgeContent}>
                 {children}
             </StyledBadge>
