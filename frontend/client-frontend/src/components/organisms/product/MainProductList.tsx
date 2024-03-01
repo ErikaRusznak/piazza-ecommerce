@@ -6,6 +6,7 @@ import useTheme from "@/theme/themes";
 type MainProductListProps = {
     products: any;
     toggleModal: (productId: number) => void;
+    border?: boolean;
 }
 
 const MainProductList = ({products, toggleModal}:MainProductListProps) => {

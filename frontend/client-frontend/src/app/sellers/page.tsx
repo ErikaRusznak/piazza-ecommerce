@@ -14,7 +14,7 @@ const SellersPage = () => {
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
-        {label: "Sellers", link: "/shop"},
+        {label: "Sellers", link: "/sellers"},
     ];
 
     const getAllSellers = () => {
