@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { Box, useTheme } from '@mui/system';
-import {Modal} from "@mui/base";
-import {Backdrop, Fade, useMediaQuery} from "@mui/material";
+import {Modal, Backdrop, Fade, useMediaQuery, Box} from "@mui/material";
+import useTheme from "@/theme/themes";
 
 type BaseModalProps = {
     children: React.ReactNode;
@@ -9,9 +8,7 @@ type BaseModalProps = {
     toggleModal: () => void;
 };
 
-
 const BaseModal: FC<BaseModalProps> = ({ children, isModalOpen, toggleModal }) => {
-
     const theme = useTheme();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -20,29 +17,27 @@ const BaseModal: FC<BaseModalProps> = ({ children, isModalOpen, toggleModal }) =
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
+    };
+
+    const modalStyle = {
         width: smallScreenSize ? 300 : 400,
-        boxShadow: 24,
         p: 4,
     };
 
     return (
-        <div>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={isModalOpen}
-                onClose={toggleModal}
-                closeAfterTransition
-                slots={{ backdrop: Backdrop }}
-            >
-                <Fade in={isModalOpen}>
-                    <Box sx={style}>
-                        {children}
-                    </Box>
-                </Fade>
-            </Modal>
-
-        </div>
+        <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={isModalOpen}
+            onClose={toggleModal}
+            closeAfterTransition
+        >
+            <Fade in={isModalOpen}>
+                <Box sx={{ ...style, ...modalStyle }}>
+                    {children}
+                </Box>
+            </Fade>
+        </Modal>
     );
 };
 

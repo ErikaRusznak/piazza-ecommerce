@@ -8,19 +8,23 @@ import {useCart} from "../../../../../contexts/CartContext";
 const StyledShoppingIcon = styled(ShoppingCartIcon)(({theme}) => ({
     fontSize: 24,
     color: themes().palette.info.main,
+    cursor: "pointer"
 }));
 
-const CartStyledIcon = () => {
+type CartStyledIconProps = {
+    onClick: () => void;
+}
+const CartStyledIcon = ({onClick}:CartStyledIconProps) => {
     // @ts-ignore
     const { numberOfCartItems } = useCart();
 
     return (
         numberOfCartItems ? (
-            <CustomizedBadges badgeContent={numberOfCartItems}>
-                <StyledShoppingIcon />
+            <CustomizedBadges badgeContent={numberOfCartItems} onClick={onClick}>
+                <StyledShoppingIcon onClick={onClick} />
             </CustomizedBadges>
         ) : (
-            <StyledShoppingIcon />
+            <StyledShoppingIcon onClick={onClick}/>
         )
     );
 };

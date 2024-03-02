@@ -14,6 +14,7 @@ const QuantityContainer = styled("div")({
     alignItems: "center",
     border: "1px solid #93B1A6",
     borderRadius: "0.375rem",
+
 });
 
 const QuantityButton = styled(Button)(({ theme }) => ({
@@ -25,6 +26,7 @@ const QuantityButton = styled(Button)(({ theme }) => ({
         color: themes().palette.background.default,
         backgroundColor: themes().palette.secondary.main,
     },
+    minWidth: "40px",
 }));
 
 const QuantityInput: React.FC<QuantityInput> = ({ quantity, onQuantityChanged }) => {
@@ -43,7 +45,7 @@ const QuantityInput: React.FC<QuantityInput> = ({ quantity, onQuantityChanged })
                 sx={{
                     backgroundColor: theme.palette.background.default,
                     height: "2.5rem",
-                    width: "4rem",
+                    width: "2.5rem",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

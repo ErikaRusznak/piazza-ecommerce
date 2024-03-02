@@ -75,7 +75,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                 <Box>
                     <Box sx={{
                         backgroundColor: theme.palette.background.lighter,
-                        px: 4, pb: 2, pt: 5,
+                        px: 4, py: 2,
                         borderTopLeftRadius: "14px",
                         borderTopRightRadius: "14px",
                         border: "1px solid #93B1A6"

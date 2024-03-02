@@ -107,7 +107,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                     {isAuthenticated && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteStyledIcon/>
-                            <CartStyledIcon/>
+                            <CartStyledIcon onClick={() => router.push("/shopping-cart")}/>
                         </Box>
                     )}
 
@@ -183,7 +183,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                     {(isAuthenticated && !mobileMenuOpen) && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteStyledIcon/>
-                            <CartStyledIcon/>
+                            <CartStyledIcon onClick={() => router.push("/shopping-cart")}/>
                         </Box>
                     )}
                     <HamburgerMenu

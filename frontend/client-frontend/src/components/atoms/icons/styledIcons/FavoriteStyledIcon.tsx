@@ -67,7 +67,7 @@ const FavoriteStyledIcon = () => {
                             borderRadius: "14px",
                         }}>
                             {allFavorites.map((item) => (
-                                <>
+                                <React.Fragment key={item.id}>
                                     <Box
                                         key={item.id}
                                         sx={{
@@ -132,7 +132,7 @@ const FavoriteStyledIcon = () => {
                                         </Delete>
                                     </Box>
                                     <Divider sx={{backgroundColor: theme.palette.primary.main}}/>
-                                </>
+                                </React.Fragment>
                             ))}
 
                         </Box>

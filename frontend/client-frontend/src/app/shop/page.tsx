@@ -60,7 +60,7 @@ const ProductsPage = () => {
     const [productId, setProductId] = useState<number>(0);
     const [isLoading, setLoading] = useState(true)
 
-    const toggleModal = (productId:number) => {
+    const toggleModal = (productId: number) => {
         setIsModalOpen(!isModalOpen);
         setProductId(productId);
     }
@@ -202,68 +202,71 @@ const ProductsPage = () => {
     ];
 
     return (
-        <MainLayout>
+        <>
+            <MainLayout>
+                <BreadcrumbsComponent links={breadcrumbsLinks}/>
+                <Box sx={{
+                    maxWidth: "872px",
+                    margin: "0 auto",
+                    mt: 1,
+                    [theme.breakpoints.only("lg")]: {
+                        maxWidth: "872px"
+                    },
+                    [theme.breakpoints.only("md")]: {
+                        maxWidth: "872px"
+                    },
+                    [theme.breakpoints.only("sm")]: {
+                        maxWidth: "567px",
+                    },
+                    [theme.breakpoints.only("xs")]: {
+                        maxWidth: "320px",
+                    },
+                }}>
+
+                    <Typography variant="h4" sx={{color: theme.palette.info.main}}>
+                        Check the products
+                    </Typography>
+                    <FilteringComponent
+                        filterOptions={filterOptions}
+                        onFilterChanged={handleOnFilterChanged}
+                        onSortChanged={handleSortChanged}/>
+
+                    <Box sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mt: 1
+                    }}>
+                        <MainProductList
+                            products={products}
+                            toggleModal={(productId: number) => toggleModal(productId)}
+                        />
+                    </Box>
+                    <Box sx={{display: "flex", justifyContent: "space-between", mt: 2}}>
+                        <Box sx={{left: 0}}>
+                            <NumberOfPageSelect
+                                handleItemsPerPageChange={handleItemsPerPageChange}
+                            />
+                        </Box>
+                        <Box sx={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
+                            <PaginationComponent
+                                numberOfPages={numberOfPages}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                            />
+                        </Box>
+                    </Box>
+                </Box>
+
+            </MainLayout>
             <ProductAddToCartModal
                 toggleModal={toggleModal}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
                 productId={productId}
             />
-            <BreadcrumbsComponent links={breadcrumbsLinks}/>
-            <Box sx={{
-                maxWidth: "872px",
-                margin: "0 auto",
-                mt: 1,
-                [theme.breakpoints.only("lg")]: {
-                    maxWidth: "872px"
-                },
-                [theme.breakpoints.only("md")]: {
-                    maxWidth: "872px"
-                },
-                [theme.breakpoints.only("sm")]: {
-                    maxWidth: "567px",
-                },
-                [theme.breakpoints.only("xs")]: {
-                    maxWidth: "320px",
-                },
-            }}>
-
-                <Typography variant="h4" sx={{color: theme.palette.info.main}}>
-                    Check the products
-                </Typography>
-                <FilteringComponent
-                    filterOptions={filterOptions}
-                    onFilterChanged={handleOnFilterChanged}
-                    onSortChanged={handleSortChanged}/>
-
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    mt: 1
-                }}>
-                    <MainProductList
-                        products={products}
-                        toggleModal={(productId:number) => toggleModal(productId)}
-                    />
-                </Box>
-                <Box sx={{display: "flex", justifyContent: "space-between",  mt: 2}}>
-                    <Box sx={{ left: 0}}>
-                        <NumberOfPageSelect
-                            handleItemsPerPageChange={handleItemsPerPageChange}
-                        />
-                    </Box>
-                    <Box sx={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
-                        <PaginationComponent
-                            numberOfPages={numberOfPages}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                        />
-                    </Box>
-                </Box>
-            </Box>
-        </MainLayout>
+        </>
     );
 };
 
