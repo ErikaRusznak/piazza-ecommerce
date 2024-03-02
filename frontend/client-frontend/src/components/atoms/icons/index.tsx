@@ -24,6 +24,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import EditIcon from '@mui/icons-material/Edit';
 
 export {
     ContentPasteIcon,
@@ -52,4 +53,5 @@ export {
     FavoriteBorderIcon,
     FavoriteIcon,
     EditNoteIcon,
+    EditIcon
 }
