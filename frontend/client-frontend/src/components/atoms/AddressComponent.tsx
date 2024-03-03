@@ -1,38 +1,35 @@
 import React from "react";
-import {EditIcon} from "@/components/atoms/icons";
+import { Box, Typography, IconButton } from "@mui/material";
+import { Edit as EditIcon } from "@mui/icons-material";
+import {ShippingAddressType} from "@/app/checkout/page";
+import useTheme from "@/theme/themes";
 
 type AddressComponentProps = {
-    item: any;
-    checked: boolean;
-    toggleModal: (item: any) => void;
-}
-const AddressComponent = ({item, checked, toggleModal}:AddressComponentProps) => {
+    item: ShippingAddressType;
+    toggleModal: (item: ShippingAddressType) => void;
+};
 
+const AddressComponent = ({ item, toggleModal }: AddressComponentProps) => {
+    const theme = useTheme();
     return (
-        <div
-            className={` ${!!checked ? 'border-blue-500 ring-1 ring-blue-500' : 'dark:border-none border-gray-100 hover:border-gray-200'} border flex items-center justify-between rounded-2xl bg-white dark:bg-[#192235] p-4 text-sm font-medium shadow-sm`}
-        >
-            <div className="flex items-center gap-2">
+        <Box sx={{ }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2, color: theme.palette.info.main }}>
+                <Box sx={{ flex: "1", ml:1}}>
+                    <Typography>{item.address.city}</Typography>
+                    <Typography>{item.address.addressLine1}</Typography>
+                    <Typography>{item.address.addressLine2}</Typography>
+                    <Typography>{`${item.firstName} ${item.lastName} ${item.telephone}`}</Typography>
+                </Box>
+            </Box>
 
-                <svg viewBox="0 0 24 24" className="h-5 w-5" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="#2563EB">
-                        <path d="m12 2a10 10 0 1 0 10 10 10 10 0 0 0 -10-10zm0 18a8 8 0 1 1 8-8 8 8 0 0 1 -8 8z"/>
-                        {!!checked &&
-                            <path d="m12 7a5 5 0 1 0 5 5 5 5 0 0 0 -5-5z"/>
-                        }
-                    </g>
-                </svg>
+            <IconButton onClick={() => toggleModal(item)} sx={{
+                position:"absolute",
+                top:"0", right: 0, p:2
+            }}>
+                <EditIcon sx={{color: theme.palette.info.main, "&:hover": {color: theme.palette.primary.main}}} />
+            </IconButton>
+        </Box>
 
-                <div className="flex flex-col ml-4">
-                    <p className="">{item.address.city}</p>
-                    <p className="">{item.address.addressLine1}</p>
-                    <p className="">{item.address.addressLine2}</p>
-                    <p className="">{item.firstName} {item.lastName} {item.telephone}</p>
-                </div>
-            </div>
-
-            <EditIcon onClick={() => toggleModal(item)} />
-        </div>
     );
 };
 

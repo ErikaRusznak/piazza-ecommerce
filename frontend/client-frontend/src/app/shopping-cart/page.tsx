@@ -30,8 +30,6 @@ const ShoppingCartPage = () => {
         {label: "Cart", link: ""},
     ];
 
-    console.log("numb", numberOfCartItems)
-
     return (
         <MainLayout>
             <BreadcrumbsComponent links={breadcrumbsLinks}/>

@@ -28,7 +28,7 @@ const FormTextField = ({name, control, label, type, required=true}:FormTextField
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     {...field}
-                    sx={{ my: 1, py: 1 }}
+                    sx={{ py: 1 }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         field.onChange(event);
                     }}

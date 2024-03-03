@@ -25,7 +25,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import EditIcon from '@mui/icons-material/Edit';
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 export {
     ContentPasteIcon,
     TuneIcon,
@@ -53,5 +53,6 @@ export {
     FavoriteBorderIcon,
     FavoriteIcon,
     EditNoteIcon,
-    EditIcon
+    EditIcon,
+    AddCircleOutlineIcon
 }

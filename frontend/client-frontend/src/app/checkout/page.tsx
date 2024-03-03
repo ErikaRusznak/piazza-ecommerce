@@ -6,22 +6,42 @@ import {useAuth} from "../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../api/entities/BuyerApi";
 import {submitOrder} from "../../../api/entities/OrderApi";
-import Link from "next/link";
 import CartItemCard from "@/components/moleculas/cart/CartItemCard";
 import CartSummary from "@/components/moleculas/cart/CartSummary";
 import ShippingAddressesComponent from "@/components/moleculas/ShippingAddressesComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
+import MainLayout from "@/components/templates/MainLayout";
+import {Button, Container, Grid, Typography, useMediaQuery} from "@mui/material";
+import useTheme from "@/theme/themes";
+import StyledButton from "@/components/atoms/StyledButton";
+import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 
+export type AddressType = {
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    country: string;
+    state: string;
+    zipCode: string;
+};
+export type ShippingAddressType = {
+    address: AddressType;
+    firstName: string;
+    id: number;
+    lastName: string;
+    telephone: string;
+}
 const CheckoutPage = () => {
     const {allCartItems, numberOfCartItems, cartTotalPrice, refreshCart} = useCart()
     // const {pushAlert, clearAlert} = useAlert()
 
-    const [shippingAddresses, setShippingAddresses] = useState([])
-    const [selectedShippingAddress, setSelectedShippingAddress] = useState<any>(null)
+    const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
+    const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType|null>(null);
     const shippingPrice = 10
 
     const {username} = useAuth()
     const router = useRouter();
+    const theme = useTheme();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,7 +54,7 @@ const CheckoutPage = () => {
             .then(
                 (response) => {
                     setShippingAddresses(response.data);
-                    // setSelectedShippingAddress(response.data[0])  //todo modify
+                    setSelectedShippingAddress(response.data[0])
                 }
             )
             .catch(
@@ -42,8 +62,10 @@ const CheckoutPage = () => {
             );
     };
 
-    const handleAddressSelected = (shippingAddress: any) => {
-        setSelectedShippingAddress(shippingAddress);
+    const handleAddressSelected = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const selectedId = parseInt(event.target.value, 10); // Convert the value to a number
+        const selectedAddress = shippingAddresses.find((address) => address.id === selectedId);
+        setSelectedShippingAddress(selectedAddress || null);
         // if (!!shippingAddress) {
         //     clearAlert()
         // }
@@ -122,58 +144,73 @@ const CheckoutPage = () => {
             getShippingAddresses();
         }
     }, [username]);
+    const belowMedSize = useMediaQuery(theme.breakpoints.down("md"));
+    const breadcrumbsLinks = [
+        {label: "Home", link: "/"},
+        {label: "Cart", link: ""},
+    ];
 
     return (
-        <div className="">
+        <MainLayout>
+            <Container>
+                <Grid container spacing={4}>
+                    <Grid item xs={12} md={6}>
+                        <BreadcrumbsComponent links={breadcrumbsLinks}/>
 
-            <div
-                className="sm:block flex justify-center mt-10 md:space-x-8 lg:space-x-8 xl:space-x-8 2xl:space-x-8 mx-8">
+                        <Typography variant="h5" fontWeight="bold" mt={2} color={theme.palette.info.main}>
+                            Order Summary
+                        </Typography>
+                        {numberOfCartItems !== 0 && (
+                            <Grid container spacing={2} mt={2}>
+                                {allCartItems?.map((item) => (
+                                    <Grid item key={item.id} xs={12}>
+                                        <CartItemCard item={item} isModifiable={false} />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        )}
+                    </Grid>
 
-                <div className="sm:mt-8 sm:w-full w-1/2 max-w-lg sm:mx-auto">
-                    <Link href="/shopping-cart" className="text-sm font-semibold leading-6 text-inherit dark:text-inherit">
-                        <span aria-hidden="true">&larr;</span> Cart
-                    </Link>
+                    {(shippingAddresses && selectedShippingAddress)&&(
+                        <Grid item xs={12} md={6}>
+                            <Grid container spacing={2} mt={belowMedSize? -3: 2}>
+                                <Grid item xs={12}>
+                                    <ShippingAddressesComponent
+                                        shippingAddresses={shippingAddresses}
+                                        selectedShippingAddress={selectedShippingAddress}
+                                        onAddressSelected={handleAddressSelected}
+                                        toggleModal={() => toggleModal()}
+                                        onAddAddress={handleAddAddress}
+                                    />
+                                </Grid>
 
-                    <p className="text-xl font-bold mt-4">Order Summary</p>
-                    {numberOfCartItems !== 0 &&
-                        <div className="mt-6">
-                            {allCartItems?.map((item) => (
-                                <CartItemCard key={item.id} item={item} isModifiable={false}/>
-                            ))}
-                        </div>
-                    }
-                </div>
+                                <Grid item xs={12}>
+                                    <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
+                                        <StyledButton
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{mt: 3}}
+                                            onClick={handlePlaceOrder}
+                                        >
+                                            Place order
+                                        </StyledButton>
+                                    </CartSummary>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    )}
 
-                <div className="w-1/2 max-w-lg sm:w-full sm:mx-auto sm:mt-10 relative">
+                </Grid>
 
-                    <div className="md:mt-6 lg:mt-6 xl:mt-6 2xl:mt-6">
-                        <ShippingAddressesComponent shippingAddresses={shippingAddresses}
-                                                    selectedShippingAddress={selectedShippingAddress}
-                                                    onAddressSelected={handleAddressSelected}
-                                                    // toggleModal={() => toggleModal(selectedShippingAddress)}
-                                                    toggleModal={() => toggleModal()}
-                                                    onAddAddress={handleAddAddress}
-                        />
-                    </div>
-
-                    <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
-                        <button onClick={handlePlaceOrder}
-                                className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Place
-                            Order
-                        </button>
-                    </CartSummary>
-
-                </div>
-            </div>
-
-            <AddressFormModal
-                toggleModal={toggleModal}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                onSaveForm={handleSaveForm}
-                shippingAddress={selectedShippingAddress}
-            />
-        </div>
+                <AddressFormModal
+                    toggleModal={toggleModal}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    onSaveForm={handleSaveForm}
+                    shippingAddress={selectedShippingAddress}
+                />
+            </Container>
+        </MainLayout>
     );
 };
 

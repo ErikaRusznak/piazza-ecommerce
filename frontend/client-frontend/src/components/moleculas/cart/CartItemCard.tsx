@@ -104,8 +104,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                                                 position: "absolute",
                                                 bottom: 0,
                                                 right: 0,
-                                                mr: 3,
-                                                mb: 3
+
                                             }}>
                                     Total: {totalPricePerItem} RON
                                 </Typography>
@@ -116,8 +115,6 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                                             position: "absolute",
                                             top: 0,
                                             right: 0,
-                                            mt: 2,
-                                            mr: 2,
                                             "&:hover": {
                                                 color: "red",
                                             },

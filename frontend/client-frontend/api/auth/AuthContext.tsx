@@ -3,6 +3,7 @@ import {createContext, ReactElement, useContext} from "react";
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
 import {getUserStatusByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
+import {useRouter} from "next/navigation";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -30,7 +31,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [token, setToken] = useSessionStorage("token", "");
-
+    const router = useRouter();
     const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) => {
         const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userStatus);
         if (status === 201) {
@@ -69,7 +70,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setToken(null);
         setAuthenticated(false);
         setUsername(null);
-        window.location.reload();
+        router.push("/login");
+        // window.location.reload();
     }
 
     return (

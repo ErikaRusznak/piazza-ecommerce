@@ -24,13 +24,6 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
         handleItemsPerPageChange(value);
     };
 
-    const isXSmallScreen = useMediaQuery(theme.breakpoints.between('xxs', 'xs'));
-    const isSmallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
-    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const isLargeScreen = useMediaQuery(theme.breakpoints.between('md', 'lg'));
-    const isXLargeScreen = useMediaQuery(theme.breakpoints.between('lg', 'xl'));
-    const isXXLargeScreen = useMediaQuery(theme.breakpoints.up('xl'));
-
     return (
         <FormControl fullWidth sx={{width: 200}} size={"small"}>
             <InputLabel
