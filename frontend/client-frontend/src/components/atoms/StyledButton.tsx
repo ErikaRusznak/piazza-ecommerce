@@ -6,7 +6,7 @@ const StyledButton = styled(Button, {
     "&.MuiButton-containedPrimary": {
         background: "linear-gradient(267.27deg, #2e7474 0%, #183D3D 100%)",
         // textTransform: "initial",
-        transition: "background 0.3s ease, color 0.3s ease",
+        transition: "background 1s ease, color 0.3;;;;;;;s ease",
         color: theme.palette.primary.contrastText,
     },
     "&:hover": {

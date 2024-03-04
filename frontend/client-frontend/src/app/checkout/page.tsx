@@ -11,7 +11,7 @@ import CartSummary from "@/components/moleculas/cart/CartSummary";
 import ShippingAddressesComponent from "@/components/moleculas/ShippingAddressesComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
-import {Button, Container, Grid, Typography, useMediaQuery} from "@mui/material";
+import { Container, Grid, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import StyledButton from "@/components/atoms/StyledButton";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
@@ -37,6 +37,8 @@ const CheckoutPage = () => {
 
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType|null>(null);
+    const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
+
     const shippingPrice = 10
 
     const {username} = useAuth()
@@ -44,7 +46,20 @@ const CheckoutPage = () => {
     const theme = useTheme();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const nullObject = {
+        id: 0,
+        address: {
+            country: "Romania",
+            state: "",
+            city: "",
+            addressLine1: "",
+            addressLine2: "",
+            zipCode: "",
+        },
+        firstName: "",
+        lastName: "",
+        telephone: ""
+    };
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
     }
@@ -70,40 +85,28 @@ const CheckoutPage = () => {
         //     clearAlert()
         // }
     };
-
-    const handleAddAddress = () => {
-        const obj = {
-            id: 0,
-            address: {
-                country: "Romania",
-                state: "",
-                city: "",
-                addressLine1: "",
-                addressLine2: "",
-                zipCode: "",
-            },
-            firstName: "",
-            lastName: "",
-            telephone: ""
-        }
-        setSelectedShippingAddress(obj);
+    const handleEditAddress = (address: ShippingAddressType) => {
+        setEditingAddress(address);
         toggleModal();
     };
 
-    const handleSaveForm = (values: any) => {
+    const handleAddAddress = () => {
+        setSelectedShippingAddress(nullObject);
+        toggleModal();
+    };
+
+    const handleSaveForm = (values: ShippingAddressType) => {
         if (values.id === 0) {
             addShippingAddress(values)
-                .then(() => {getShippingAddresses();}
-                )
+                .then(() => {getShippingAddresses()})
                 .catch((err) => console.log(err))
         } else if (JSON.stringify(values) !== JSON.stringify(selectedShippingAddress)) {
             updateShippingAddress(values)
-                .then(() => {getShippingAddresses()}
-                )
+                .then(() => {getShippingAddresses()})
                 .catch((err) => console.log(err))
         }
         setIsModalOpen(false);
-    }
+    };
 
     const handlePlaceOrder = ()=> {
         const checkoutItems = allCartItems?.map(item => {
@@ -181,6 +184,7 @@ const CheckoutPage = () => {
                                         onAddressSelected={handleAddressSelected}
                                         toggleModal={() => toggleModal()}
                                         onAddAddress={handleAddAddress}
+                                        onEdit={handleEditAddress}
                                     />
                                 </Grid>
 
@@ -207,8 +211,10 @@ const CheckoutPage = () => {
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                     onSaveForm={handleSaveForm}
-                    shippingAddress={selectedShippingAddress}
+                    shippingAddress={editingAddress ?? nullObject}
+                    setEditingAddress={setEditingAddress}
                 />
+
             </Container>
         </MainLayout>
     );

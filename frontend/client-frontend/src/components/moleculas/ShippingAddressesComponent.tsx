@@ -12,6 +12,7 @@ type ShippingAddressesComponentProps = {
     onAddressSelected: (event: any) => void;
     toggleModal: () => void;
     onAddAddress: () => void;
+    onEdit: (address: ShippingAddressType) => void;
 };
 
 const ShippingAddressesComponent = ({
@@ -20,6 +21,7 @@ const ShippingAddressesComponent = ({
                                         onAddressSelected,
                                         toggleModal,
                                         onAddAddress,
+                                        onEdit
                                     }: ShippingAddressesComponentProps) => {
     const theme = useTheme();
     const belowMedSize = useMediaQuery(theme.breakpoints.down("md"));
@@ -47,7 +49,7 @@ const ShippingAddressesComponent = ({
             </Box>
             <RadioGroup value={selectedShippingAddress.id} onChange={onAddressSelected}>
                 {shippingAddresses.map((item) => (
-                    <Box
+                    <Box key={item.id}
                         sx={{
                             border: `1px solid ${selectedShippingAddress?.id === item.id ? "#93B1A6" : theme.palette.background.default}`,
                             borderRadius: "16px",
@@ -69,6 +71,7 @@ const ShippingAddressesComponent = ({
                         control={<Radio  sx={{ color: "#93B1A6", '&.Mui-checked': { color: "#93B1A6"}}}/>}
                         label={<AddressComponent item={item}
                                                  toggleModal={toggleModal}
+                                                 onEdit={onEdit}
                         />}
                     />
                     </Box>

@@ -6,10 +6,11 @@ import useTheme from "@/theme/themes";
 
 type AddressComponentProps = {
     item: ShippingAddressType;
-    toggleModal: (item: ShippingAddressType) => void;
+    toggleModal: () => void;
+    onEdit: (address: ShippingAddressType) => void;
 };
 
-const AddressComponent = ({ item, toggleModal }: AddressComponentProps) => {
+const AddressComponent = ({ item, toggleModal, onEdit }: AddressComponentProps) => {
     const theme = useTheme();
     return (
         <Box sx={{ }}>
@@ -22,7 +23,7 @@ const AddressComponent = ({ item, toggleModal }: AddressComponentProps) => {
                 </Box>
             </Box>
 
-            <IconButton onClick={() => toggleModal(item)} sx={{
+            <IconButton onClick={() => onEdit(item)} sx={{
                 position:"absolute",
                 top:"0", right: 0, p:2
             }}>

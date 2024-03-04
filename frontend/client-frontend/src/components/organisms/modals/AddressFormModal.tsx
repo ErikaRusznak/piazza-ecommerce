@@ -1,14 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BaseModal from "@/components/templates/BaseModal";
 import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {COUNTRIES} from "@/components/atoms/countries";
 import {object, string} from "yup";
 import "yup-phone-lite";
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {AddressType} from "@/app/checkout/page";
-import {Grid} from "@mui/material";
+import {AddressType, ShippingAddressType} from "@/app/checkout/page";
+import {Grid, Typography} from "@mui/material";
 import FormTextField from "@/components/atoms/form/FormTextField";
 import CountrySelector from "@/components/atoms/CountrySelector";
 import StyledButton from "@/components/atoms/StyledButton";
@@ -47,67 +47,90 @@ const ShippingAddressSchema = object().shape({
 
 type AddressFormModalProps = {
     onSaveForm: (address: any) => void;
-    shippingAddress: any | null;
+    shippingAddress: ShippingAddressType | null;
     toggleModal: () => void;
     isModalOpen: boolean;
     setIsModalOpen: (value: boolean) => void;
-}
+    setEditingAddress: (value: ShippingAddressType|null) => void;
+};
 const AddressFormModal = ({
                               onSaveForm,
                               shippingAddress,
                               toggleModal,
                               setIsModalOpen,
-                              isModalOpen
+                              isModalOpen,
+                              setEditingAddress
                           }: AddressFormModalProps) => {
     const theme = useTheme();
 
     const [isOpen, setIsOpen] = useState(false);
     const [country, setCountry] = useState<string | undefined>(COUNTRIES?.find(option => option.title === shippingAddress?.address.country)?.title)
 
-    const defaultAddressValues = {
-        addressLine1: "",
-        addressLine2: "",
-        city: "",
-        country: "",
-        state: "",
-        zipCode: "",
-    };
+    const isEditing = shippingAddress?.id !== 0;
+
     const defaultValues = {
-        firstName: "",
-        lastName: "",
-        address: defaultAddressValues,
-        telephone: "",
+        firstName: shippingAddress?.firstName || "",
+        lastName: shippingAddress?.lastName || "",
+        address: {
+            addressLine1: shippingAddress?.address?.addressLine1 || "",
+            addressLine2: shippingAddress?.address?.addressLine2 || "",
+            city: shippingAddress?.address?.city || "",
+            country: shippingAddress?.address?.country || "" || undefined,
+            state: shippingAddress?.address?.state || "",
+            zipCode: shippingAddress?.address?.zipCode || "",
+        },
+        telephone: shippingAddress?.telephone || "",
     };
 
     const {
-        register,
         handleSubmit,
         control,
-        watch,
         setValue,
-        formState: {errors},
-        getValues,
+        reset
     } = useForm<ShippingAddressFormInput>({
         resolver: yupResolver(ShippingAddressSchema),
         defaultValues: defaultValues,
     });
 
-    const onSubmit = (values: any) => {
-        values.address.country = country;
-        const address = {...values, id: shippingAddress.id};
+    const onSubmit: SubmitHandler<ShippingAddressFormInput> = (values) => {
+        if (country) {
+            values.address.country = country;
+        }
+        const address = { ...values, id: shippingAddress?.id };
         onSaveForm(address);
+        setEditingAddress(null);
+        reset(defaultValues);
     };
+
+    useEffect(() => {
+        if (shippingAddress) {
+            setValue("firstName", shippingAddress.firstName);
+            setValue("lastName", shippingAddress.lastName);
+            setValue("telephone", shippingAddress.telephone);
+
+            setValue("address.addressLine1", shippingAddress.address.addressLine1);
+            setValue("address.addressLine2", shippingAddress.address.addressLine2);
+            setValue("address.country", shippingAddress.address.country);
+            setValue("address.city", shippingAddress.address.city);
+            setValue("address.state", shippingAddress.address.state);
+            setValue("address.zipCode", shippingAddress.address.zipCode);
+        }
+    }, [shippingAddress, setValue]);
+
+
     return (
         <BaseModal
             isModalOpen={isModalOpen}
-            toggleModal={toggleModal}
-            children={shippingAddress &&
+            toggleModal={toggleModal}>
                 <Box sx={{
                     backgroundColor: theme.palette.primary.main,
-                    px: 4, pb: 2,
+                    px: 4, py: 2,
                     borderRadius: "14px",
                     border: "1px solid #93B1A6"
                 }}>
+                    <Typography sx={{fontWeight: "bold"}} variant="h6" color={theme.palette.background.default}>
+                        {isEditing ? "Edit address" : "Add address"}
+                    </Typography>
                     <form style={{marginTop: 1}}>
                         <Grid container gap={1} mt={2}>
                             <Grid item xs>
@@ -154,7 +177,8 @@ const AddressFormModal = ({
                                     open={isOpen}
                                     onToggle={() => setIsOpen(!isOpen)}
                                     onChange={(val: string) => {
-                                        setCountry(COUNTRIES.find(option => option.value === val)?.title)
+                                        setCountry(COUNTRIES.find(option => option.value === val)?.title);
+                                        setValue('address.country', val);
                                     }}
                                     selectedValue={COUNTRIES.find(option => option.title === country)}
                                 />
@@ -183,13 +207,13 @@ const AddressFormModal = ({
                             sx={{mt: 2, mb: 2, backgroundColor: theme.palette.background.lighter}}
                             onClick={handleSubmit(onSubmit)}
                         >
-                            Save
+                            {isEditing ? "Update" : "Save"}
                         </StyledButton>
 
                     </form>
                 </Box>
-            }
-        />
+
+        </BaseModal>
     );
 };
 
