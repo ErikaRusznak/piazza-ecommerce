@@ -1,85 +1,102 @@
 "use client";
-import React, {useEffect, useState} from "react";
-import {getFullOrderByIdApi} from "../../../../api/entities/OrderApi";
+import React, { useEffect, useState } from "react";
+import { getFullOrderByIdApi } from "../../../../api/entities/OrderApi";
 import FullOrderInformation from "@/components/moleculas/fullOrder/FullOrderInformation";
 import FullOrderItems from "@/components/moleculas/fullOrder/FullOrderItems";
+import MainLayout from "@/components/templates/MainLayout";
+import {Box, Typography, useMediaQuery} from "@mui/material";
+import useTheme from "@/theme/themes";
+import {CheckCircleOutlineIcon} from "@/components/atoms/icons";
 
 type OrderSuccessfulPageProps = {
     params: {
         id: number;
-    }
+    };
 };
-const OrderSuccessfulPage = ({params}: OrderSuccessfulPageProps) => {
 
+const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
     const fullOrderId = params.id;
-    const [fullOrder, setFullOrder] = useState<any|null>(null);
-    // TODO - full order type and order type
+    const theme = useTheme();
+    const [fullOrder, setFullOrder] = useState<any | null>(null);
+
     const getFullOrder = (fullOrderId: number) => {
         getFullOrderByIdApi(fullOrderId)
             .then((res) => {
-                setFullOrder(res.data)
+                setFullOrder(res.data);
             })
-            .catch((err) => console.log(err))
-    }
+            .catch((err) => console.log(err));
+    };
 
     useEffect(() => {
         getFullOrder(fullOrderId);
     }, []);
 
-
-    const boxStyle = "flex border border-zinc-500 rounded-lg px-6 py-4 2xl:w-[30rem] xl:w-[30rem] lg:w-[25rem] md:w-[22rem]";
-
+    const smallerScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const variantForTitle = smallerScreen ? "h5" : "h4";
 
     return (
         fullOrder && (
-            <div className="mx-auto max-w-7xl  sm:w-full">
-                <div className="w-full">
+            <MainLayout>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <CheckCircleOutlineIcon sx={{color: "green", width: "45px"}}/>
+                        </Box>
 
-                    <div className="flex justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="green" viewBox="0 0 24 24" strokeWidth="1"
-                             stroke="currentColor" className="w-14 h-14">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
+                        <Typography
+                            variant={variantForTitle}
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mt: "5",
+                                color: theme.palette.info.main,
+                            }}
+                        >
+                            Thank you for your order!
+                        </Typography>
 
-
-                    <h1 className="flex justify-center text-3xl font-bold sm:text-2xl">
-                        Thank you for your order!
-                    </h1>
-
-                    <div className="w-full mt-5 ">
-                        <div
-                            className="grid grid-areas-[left_right] sm:grid-areas-[top_bottom] grid-cols-2 sm:grid-cols-1 gap-4">
-
-                            <div className="grid-in-[left] sm:grid-in-[top]">
-                                <div className={boxStyle}>
-                                    <FullOrderInformation
-                                        orderNumber={fullOrder.orderNumber}
-                                        date={fullOrder.publishDate}
-                                        shippingAddress={fullOrder.shippingAddress}
-                                        buyerEmail={fullOrder.buyerEmail}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="grid-in-[right] sm:grid-in-[bottom] ">
-                                <div className={boxStyle}>
-                                    <FullOrderItems
-                                        orders={fullOrder.orders}
-                                        totalPrice={fullOrder.totalPrice}
-                                        shippingPrice={10}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                        <Box sx={{
+                            backgroundColor: theme.palette.background.default,
+                            mt: 2,
+                            border:"1px solid #93B1A6",
+                            borderRadius: "14px",
+                            p:3, display: "flex",
+                            flexDirection: "row",
+                            [theme.breakpoints.down("sm")]: {flexDirection: "column"},
+                            gap: 3,
+                        }}>
+                            <Box>
+                                <FullOrderInformation
+                                    orderNumber={fullOrder.orderNumber}
+                                    date={fullOrder.publishDate}
+                                    shippingAddress={fullOrder.shippingAddress}
+                                    buyerEmail={fullOrder.buyerEmail}
+                                />
+                            </Box>
+                            <Box>
+                                <FullOrderItems
+                                    orders={fullOrder.orders}
+                                    totalPrice={fullOrder.totalPrice}
+                                    shippingPrice={10}
+                                />
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </MainLayout>
         )
     );
-
 };
 
 export default OrderSuccessfulPage;

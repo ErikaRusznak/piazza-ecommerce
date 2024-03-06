@@ -1,5 +1,8 @@
 import React from "react";
 import {baseURL} from "../../../../api/ApiClient";
+import {Box, Divider, Typography} from "@mui/material";
+import {styled} from "@mui/material/styles";
+import useTheme from "@/theme/themes";
 
 type FullOrderItemsProps = {
     orders: any[];
@@ -11,78 +14,55 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
 
     const fixedTotalPrice = parseFloat(totalPrice.toFixed(2));
     const finalPrice = fixedTotalPrice + shippingPrice;
+    const theme = useTheme();
 
     return (
         (orders && totalPrice) && (
-            <div className="w-full">
-                <div className="text-xl font-bold mb-3">
+            <Box sx={{ }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.5, color: theme.palette.primary.main }}>
                     Ordered Items
-                </div>
+                </Typography>
 
                 {orders.map((orderFromSeller) => (
                     <div key={orderFromSeller.id}>
-                        {orderFromSeller.orderItems.map((orderItem:any) => (
+                        {orderFromSeller.orderItems.map((orderItem: any) => (
                             <div key={orderItem.id}>
-                                <div className="flex justify-between mt-2 mb-2">
-
-                                    <div className="flex flex-row">
-
-                                        <img
-                                            src={`${baseURL}${orderItem.product.imageName}`}
-                                            alt={orderItem.product.name}
-                                            className="w-[5rem] "/>
-
-                                        <div className="ml-4">
-                                            <div className="font-bold text-lg">
+                                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1, mb: 1 }}>
+                                    <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                                        <img src={`${baseURL}${orderItem.product.imageName}`} alt={orderItem.product.name} style={{ width: "5rem" }} />
+                                        <Box sx={{ color: theme.palette.info.main }}>
+                                            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
                                                 {orderItem.product.name}
-                                            </div>
-                                            <div className="text-[15px]">
-                                                {orderItem.product.seller.alias}
-                                            </div>
-                                            <div className="text-[15px]">
-                                                x {orderItem.quantity}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        {orderItem.product.price * orderItem.quantity} RON
-                                    </div>
-                                </div>
-                                <hr/>
+                                            </Typography>
+                                            <Typography variant="caption">{orderItem.product.seller.alias}</Typography>
+                                            <Typography variant="caption">{`x ${orderItem.quantity}`}</Typography>
+                                        </Box>
+                                    </Box>
+                                    <Typography sx={{color: theme.palette.info.main}} variant="body1">{`${(orderItem.product.price * orderItem.quantity).toFixed(2)} RON`}</Typography>
+                                </Box>
+                                <Divider sx={{backgroundColor: theme.palette.primary.main}}/>
                             </div>
                         ))}
                     </div>
                 ))}
 
+                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, color: theme.palette.info.main }}>
+                    <Typography variant="subtitle1">Subtotal</Typography>
+                    <Typography variant="subtitle1">{`${fixedTotalPrice} RON`}</Typography>
+                </Box>
 
-                <div className="flex justify-between mt-2">
-                    <div>
-                        Subtotal
-                    </div>
-                    <div>
-                        {fixedTotalPrice} RON
-                    </div>
-                </div>
+                <Box sx={{ display: "flex", justifyContent: "space-between", color: theme.palette.info.main }}>
+                    <Typography variant="subtitle1">Shipping payment</Typography>
+                    <Typography variant="subtitle1">{`${shippingPrice} RON`}</Typography>
+                </Box>
 
-                <div className="flex justify-between mt-2">
-                    <div>
-                        Shipping payment
-                    </div>
-                    <div>
-                        {shippingPrice} RON
-                    </div>
-                </div>
-
-                <div className="flex justify-between mt-2">
-                    <div className="font-bold text-xl">
+                <Box sx={{ display: "flex", justifyContent: "space-between", color:theme.palette.info.main, mt:1 }}>
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                         Total
-                    </div>
-                    <div className="font-bold text-xl">
-                        {finalPrice} RON
-                    </div>
-                </div>
-            </div>
-
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>{`${finalPrice} RON`}</Typography>
+                </Box>
+            </Box>
         )
     );
 };
