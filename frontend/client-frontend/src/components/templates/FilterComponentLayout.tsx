@@ -11,13 +11,13 @@ const FilterComponentLayout = ({children, onClick}:FilterComponentLayoutProps) =
     return (
         <Box sx={{
             width: 250,
-            border: "1px solid #93B1A6",
+            border: "1px solid #a5b4fc",
             borderRadius: "14px",
             mt:2, p:2,
             position: "absolute",
             top: 20,
             zIndex: 1000,
-            backgroundColor: theme.palette.background.darker,
+            backgroundColor: theme.palette.background.default,
         }}
         onClick={onClick}
         >

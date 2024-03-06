@@ -26,13 +26,14 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                             color: theme.palette.info.main,
                         }}
                     >
+                        {/*TODO - create component for every box*/}
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.secondary.main,
+                                    backgroundColor: theme.palette.background.lighter,
                                 },
-                                py: "2px",
-                                borderBottom: "1px solid #93B1A6",
+                                pb: 1,
+                                borderBottom: "1px solid #a5b4fc",
                             }}
                             onClick={() => handleSortClick("productPrice", "asc")}
                         >
@@ -41,10 +42,10 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.secondary.main,
+                                    backgroundColor: theme.palette.background.lighter,
                                 },
-                                py: "2px",
-                                borderBottom: "1px solid #93B1A6",
+                                py: 1,
+                                borderBottom: "1px solid #a5b4fc",
                             }}
                             onClick={() => handleSortClick("productPrice", "desc")}
                         >
@@ -53,10 +54,10 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.secondary.main,
+                                    backgroundColor: theme.palette.background.lighter,
                                 },
-                                py: "2px",
-                                borderBottom: "1px solid #93B1A6",
+                                py: 1,
+                                borderBottom: "1px solid #a5b4fc",
                             }}
                             onClick={() => handleSortClick("productName", "asc")}
                         >
@@ -65,10 +66,9 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.secondary.main,
+                                    backgroundColor: theme.palette.background.lighter,
                                 },
-                                py: "2px",
-                                borderBottom: "1px solid #93B1A6",
+                                pt: 1,
                             }}
                             onClick={() => handleSortClick("productName", "desc")}
                         >

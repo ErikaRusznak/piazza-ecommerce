@@ -10,13 +10,40 @@ import "@fontsource/open-sans/500-italic.css";
 import "@fontsource/open-sans/600-italic.css";
 import "@fontsource/open-sans/700-italic.css";
 import "@fontsource/open-sans/800-italic.css";
-import {createTheme} from '@mui/material/styles';
+import {createTheme, TypeBackground} from '@mui/material/styles';
+import {palette} from "@mui/system";
+import {decl} from "postcss";
 
 declare module "@mui/material/styles" {
     interface TypeBackground {
         gradient: string;
         darker: string;
         lighter: string;
+    }
+
+}
+
+declare module "@mui/material/styles/createPalette" {
+    interface Palette {
+        tertiary: {
+            main: string;
+            contrastText: string;
+        };
+        lightColor: {
+            main: string;
+            contrastText: string;
+        }
+    }
+
+    interface PaletteOptions {
+        tertiary?: {
+            main?: string;
+            contrastText?: string;
+        };
+        lightColor?: {
+            main?: string;
+            contrastText?: string;
+        }
     }
 }
 
@@ -29,29 +56,39 @@ declare module '@mui/material/styles' {
         lg: true;
         xl: true;
     }
+
 }
 
 const useTheme = () => createTheme({
         palette: {
             background: {
                 paper: "#fff",
-                lighter: "#2e7474",
-                default: "#183D3D",
-                darker: "#143232",
+                lighter: "#1a2747",
+                default: "#0F172A",
+                darker: "#020617",
                 gradient:
-                    "linear-gradient(267.27deg, #2e7474 0%, #183D3D 100%)",
+                    "linear-gradient(267.27deg, #6366f1 0%, #4338ca 100%)",
+            },
+
+            tertiary: {
+                main: "#4338ca",
+                contrastText: "white"
             },
             secondary: {
-                main: "#5C8374",
+                main: "#4f46e5",
                 contrastText: "white",
             },
             primary: {
-                main: "#93B1A6",
+                main: "#6366f1",
                 contrastText: "white",
+            },
+            lightColor: {
+                main: "#a5b4fc",
+                contrastText: "black",
             },
             info: {
                 main: "#fff",
-                contrastText: "#143232",
+                contrastText: "#1e1b4b",
             },
         },
 

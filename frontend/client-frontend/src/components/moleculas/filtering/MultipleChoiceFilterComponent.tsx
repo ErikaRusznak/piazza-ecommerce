@@ -13,7 +13,14 @@ type MultipleChoiceFilterComponentProps = {
     getElementsNames: string[];
 }
 
-const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handleListChanged, filterName, getElementsNames}:MultipleChoiceFilterComponentProps) => {
+const MultipleChoiceFilterComponent = ({
+                                           onClickInside,
+                                           toggleFilter,
+                                           list,
+                                           handleListChanged,
+                                           filterName,
+                                           getElementsNames
+                                       }: MultipleChoiceFilterComponentProps) => {
 
     const theme = useTheme();
     const [checkedElements, setCheckedElements] = useState<string[]>(getElementsNames || []);
@@ -40,69 +47,68 @@ const MultipleChoiceFilterComponent = ({onClickInside, toggleFilter, list, handl
 
     return (
         <FilterComponentLayout
-            onClick={onClickInside}
-        >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    {list.map((item, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Checkbox
-                                value={item}
-                                color="primary"
-                                checked={checkedElements.includes(item)}
-                                onChange={handleCheck}
-                                sx={{
-                                    color: theme.palette.info.main,
-                                    '&.Mui-checked': {
-                                        color: theme.palette.primary.main,
-                                    },
-                                }}
-                            />
-                            <span
-                                style={{
-                                    marginLeft: '5px',
-                                    color: theme.palette.info.main,
-                                }}
-                            >
-                              {item}
-                            </span>
-                        </Box>
-                    ))}
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'start',
-                    }}
-                >
-                    <Button
-                        variant="outlined"
+            onClick={onClickInside}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                {list.map((item, index) => (
+                    <Box
+                        key={index}
                         sx={{
-                            borderColor: theme.palette.background.lighter,
-                            color: theme.palette.info.main,
-                            "&:hover": {
-                                borderColor: theme.palette.primary.main,
-                                color: theme.palette.primary.main
-                            },
-                            fontSize: { xs: "5px", sm: "10px", md: "15px" },
-                        }}
-                        onClick={() => {
-                            handleClickOnSave();
+                            display: 'flex',
+                            alignItems: 'center',
                         }}
                     >
-                        Save
-                    </Button>
-                </Box>
+                        <Checkbox
+                            value={item}
+                            color="primary"
+                            checked={checkedElements.includes(item)}
+                            onChange={handleCheck}
+                            sx={{
+                                color: theme.palette.lightColor.main,
+                                '&.Mui-checked': {
+                                    color: theme.palette.lightColor.main,
+                                },
+                            }}
+                        />
+                        <span
+                            style={{
+                                marginLeft: '5px',
+                                color: theme.palette.info.main,
+                            }}
+                        >
+                              {item}
+                            </span>
+                    </Box>
+                ))}
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'start',
+                }}
+            >
+                <Button
+                    variant="outlined"
+                    sx={{
+                        borderColor: theme.palette.lightColor.main,
+                        color: theme.palette.info.main,
+                        "&:hover": {
+                            borderColor: theme.palette.primary.main,
+                        },
+                        fontSize: {xs: "5px", sm: "10px", md: "15px"},
+                        ml: 1.5
+                    }}
+                    onClick={() => {
+                        handleClickOnSave();
+                    }}
+                >
+                    Save
+                </Button>
+            </Box>
         </FilterComponentLayout>
     );
 };

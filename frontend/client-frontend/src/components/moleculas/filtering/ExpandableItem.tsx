@@ -21,10 +21,10 @@ const ExpandableItem = ({ label, children, isOpen, onClick }:ExpandableItemProps
                         display: 'flex',
                         alignItems: 'center',
                         gap: 2,
-                        borderBottom: '1px solid #93B1A6',
+                        borderBottom: '1px solid #a5b4fc',
                         borderRadius: "5px",
                         '&:hover': {
-                            borderColor: theme.palette.secondary.main,
+                            borderColor: theme.palette.lightColor.main,
                         },
                         color: theme.palette.info.main,
                     }}

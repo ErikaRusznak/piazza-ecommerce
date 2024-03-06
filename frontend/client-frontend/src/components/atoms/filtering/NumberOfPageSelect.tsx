@@ -62,18 +62,19 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                 }}
             >
                 {/*TODO - try to put the menu item in a separate component, idk why it was not working*/}
+                {/*TODO - change style for selected menu item*/}
                 <MenuItem
                     value={6}
                     sx={{
                         backgroundColor: theme.palette.background.lighter,
                         color: "white",
                         '&:hover': {
-                            backgroundColor: theme.palette.primary.main,
+                            backgroundColor: theme.palette.tertiary.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,
                             "&:hover": {
-                                backgroundColor: theme.palette.primary.main,
+                                backgroundColor: theme.palette.tertiary.main,
                             }
                         },
                     }}
@@ -86,7 +87,7 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                         backgroundColor: theme.palette.background.lighter,
                         color: "white",
                         '&:hover': {
-                            backgroundColor: theme.palette.primary.main,
+                            backgroundColor: theme.palette.tertiary.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,
@@ -101,7 +102,7 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                         backgroundColor: theme.palette.background.lighter,
                         color: "white",
                         '&:hover': {
-                            backgroundColor: theme.palette.primary.main,
+                            backgroundColor: theme.palette.tertiary.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,

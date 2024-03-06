@@ -111,18 +111,20 @@ const FavoriteStyledIcon = () => {
                                                     variant="subtitle1"
                                                     sx={{fontWeight: "bold", color: theme.palette.info.main}}
                                                 >
-                                                    {item.name}</Typography>
+                                                    {item.name}
+                                                </Typography>
 
                                                 <Typography variant="subtitle2"
                                                             sx={{color: theme.palette.info.main}}
-                                                >{`${item.price} RON`}</Typography>
+                                                >{`${item.price} RON`}
+                                                </Typography>
 
                                             </Box>
                                         </Link>
 
                                         <Delete
                                             sx={{
-                                                color: theme.palette.background.darker, cursor: "pointer",
+                                                color: theme.palette.primary.main, cursor: "pointer",
                                                 "&:hover": {
                                                     color: "red",
                                                 },

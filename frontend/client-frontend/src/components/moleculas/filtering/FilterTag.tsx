@@ -36,7 +36,7 @@ const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
                 <Box
                     sx={{
                         backgroundColor: theme.palette.primary.main,
-                        border: "1px solid #93B1A6",
+                        border: "1px solid #a5b4fc",
                         borderRadius: "8px",
                         paddingY: "4px",
                         paddingX: "6px",
@@ -44,7 +44,7 @@ const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
                         alignItems: "center",
                         justifyContent: "space-between",
                         color: theme.palette.info.main,
-                        boxShadow: "0 1px 1px 1px #ffffffb2"
+                        boxShadow: "0 1px 1px 1px #4338ca"
                     }}
                 >
                     <Typography variant="body2">
@@ -55,7 +55,7 @@ const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
                             padding: 0,
                             pl: 1,
                             '&:hover': {
-                                color: theme.palette.secondary.main,
+                                color: theme.palette.primary.main,
                             },
                         }}
                         onClick={removeFilter}

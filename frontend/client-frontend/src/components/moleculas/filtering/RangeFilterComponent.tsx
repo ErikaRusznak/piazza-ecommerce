@@ -34,17 +34,18 @@ const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChan
                 value={value}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
-                sx={{color: theme.palette.primary.light}}
+                sx={{color: theme.palette.lightColor.main}}
             />
             <Typography sx={{color: theme.palette.info.main}}>Price from: {value[0]} RON</Typography>
             <Typography sx={{color: theme.palette.info.main}}>Price to: {value[1]} RON</Typography>
             <Button
                 variant="outlined"
                 sx={{
-                    borderColor: theme.palette.background.lighter,
+                    borderColor: theme.palette.lightColor.main,
                     color: theme.palette.info.main,
-                    "&:hover": { borderColor: theme.palette.background.default },
+                    "&:hover": { borderColor: theme.palette.primary.main },
                     fontSize: { xs: "5px", sm: "10px", md: "15px" },
+                    mt:1,
                 }}
                 onClick={() => {
                     handleRangeChanged(value[0], value[1]);

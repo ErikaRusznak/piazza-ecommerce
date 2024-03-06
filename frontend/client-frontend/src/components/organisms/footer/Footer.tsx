@@ -25,6 +25,7 @@ export default function Footer() {
             <Box
                 component="footer"
                 sx={{
+                    borderTop: "1px solid #020617",
                     backgroundColor: theme.palette.background.default,
                     bottom: 0,
                     height:"5rem",

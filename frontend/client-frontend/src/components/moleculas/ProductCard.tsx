@@ -12,11 +12,10 @@ import {useRouter} from "next/navigation";
 // TODO - make a type for product, not any
 type ProductCardProps = {
     product?: any;
-    onOpenChange?: () => void;
     toggleModal: (productId: number) => void;
 };
 
-const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => {
+const ProductCard = ({product, toggleModal}: ProductCardProps) => {
     const theme = useTheme();
     const router = useRouter();
     const {isAuthenticated} = useAuth();
@@ -74,7 +73,7 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                 padding: theme.spacing(2),
                 gap: 1,
                 backgroundColor: theme.palette.background.lighter,
-                border: "1px solid #93B1A6",
+                border: "0.5px solid #a5b4fc",
             }}
         >
             <Box
@@ -174,21 +173,21 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                         sx={{
                             borderRadius: "20px",
                             background: theme.palette.background.gradient,
-                            border: "1px solid #93B1A6",
+                            border: "1px solid #4f46e5",
                             "&:hover": {
-                                background: "linear-gradient(267.27deg, #183D3D 10%, #2e7474 90%)",
+                                background: "linear-gradient(267.27deg, #6366f1 10%, #4f46e5 90%)",
                                 border: "1px solid #93B1A6",
                             }
                         }}
                     >
                         {isAuthenticated ? (
                             isFavorite ? (
-                                <FavoriteIcon sx={{color: theme.palette.primary.main}}/>
+                                <FavoriteIcon sx={{color: theme.palette.lightColor.main}}/>
                             ) : (
-                                <FavoriteBorderIcon sx={{color: theme.palette.primary.main}}/>
+                                <FavoriteBorderIcon sx={{color: theme.palette.lightColor.main}}/>
                             )
                         ) : (
-                            <AddIcon sx={{color: theme.palette.primary.main}}/>
+                            <AddIcon sx={{color: theme.palette.lightColor.main}}/>
                         )}
 
                     </IconButton>
@@ -200,8 +199,8 @@ const ProductCard = ({product, toggleModal, onOpenChange}: ProductCardProps) => 
                         variant="contained"
                         sx={{
                             mt: 1,
-                            backgroundColor: theme.palette.background.lighter,
-                            border: "1px solid #93B1A6",
+                            height: "35px",
+                            border: "1px solid #4f46e5",
                             fontSize: "14px",
                             borderRadius: "12px"
                         }}

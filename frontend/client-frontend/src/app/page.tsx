@@ -56,9 +56,9 @@ const HomePage = () => {
                     <Button
                         variant="contained"
                         sx={{
-                            background: theme.palette.background.lighter,
+                            background: theme.palette.secondary.main,
                             color: theme.palette.info.main,
-                            "&:hover": { background: theme.palette.background.default },
+                            "&:hover": { background: theme.palette.tertiary.main },
                             fontSize: { xs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {
@@ -70,9 +70,9 @@ const HomePage = () => {
                     <Button
                         variant="outlined"
                         sx={{
-                            borderColor: theme.palette.background.lighter,
+                            borderColor: theme.palette.primary.main,
                             color: theme.palette.info.main,
-                            "&:hover": { borderColor: theme.palette.background.default },
+                            "&:hover": { borderColor: theme.palette.tertiary.main },
                             fontSize: { xs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {

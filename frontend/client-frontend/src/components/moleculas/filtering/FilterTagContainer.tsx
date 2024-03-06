@@ -17,7 +17,7 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
         <Box
             sx={{
                 backgroundColor: theme.palette.background.default,
-                border: "1px solid #93B1A6",
+                border: "1px solid #a5b4fc",
                 borderRadius: "16px",
                 display: "flex",
                 alignItems: "center",

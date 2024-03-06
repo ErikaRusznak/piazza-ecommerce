@@ -34,7 +34,7 @@ const MainLayout = ({
 
         main: {
             flex: "1 1 100%",
-            backgroundColor: themes().palette.background.darker,
+            backgroundColor: themes().palette.background.default,
             // backgroundSize: "cover",
             padding: theme.spacing(5, 2, 2, 2),
         },

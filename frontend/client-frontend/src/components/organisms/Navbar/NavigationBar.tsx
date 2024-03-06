@@ -78,6 +78,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
             sx={{
                 top: 0,
                 background: backgroundColor,
+                boxShadow: theme.shadows[3]
+                // borderBottom: "2px solid #020617"
             }}
         >
             <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
@@ -148,7 +150,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                     <List
                                         sx={{
                                             boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`, // Add a subtle box shadow
-                                            backgroundColor: "rgba(46,116,116, 0.7)",
+                                            backgroundColor: theme.palette.background.lighter,
                                         }}
                                     >
                                         <ListItemButton>
@@ -164,7 +166,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                             <ListItemText primary="Settings" sx={{ color: textColor, fontSize: "1rem" }} />
                                         </ListItemButton>
 
-                                        <Divider sx={{ background: theme.palette.background.lighter }} />
+                                        <Divider sx={{ background: theme.palette.primary.main }} />
 
                                         <ListItemButton onClick={() => auth.logout()}>
                                             <ListItemIcon>
