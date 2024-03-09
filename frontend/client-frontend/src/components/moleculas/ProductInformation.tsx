@@ -96,7 +96,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                             onQuantityChanged={updateQuantity}
                         />
                     </Box>
-                    <Divider sx={{backgroundColor: theme.palette.info.main, width: "full", my: 2}}/>
+                    <Divider sx={{backgroundColor: theme.palette.lightColor.main, width: "full", my: 2}}/>
                 </Box>
             </Box>
             <Box sx={{display: "flex", alignItems: "center", flexDirection: "column"}}>

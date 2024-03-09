@@ -46,10 +46,10 @@ export default function CountrySelector({id, open, disabled = false, onToggle, o
                         width: "100%",
                         display: "flex",
                         alignItems: "center",
-                        border: "1px solid #2e7474",
+                        border: "1px solid #1a2747",
                         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
                         height: "3.5rem",
-                        backgroundColor: theme.palette.primary.main,
+                        backgroundColor: "a5b4fc",
                         position: "relative",
                         cursor: "default",
                         "&:focus": {

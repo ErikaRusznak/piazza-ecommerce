@@ -69,7 +69,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
                         <Box sx={{
                             backgroundColor: theme.palette.background.default,
                             mt: 2,
-                            border:"1px solid #93B1A6",
+                            border:"1px solid #a5b4fc",
                             borderRadius: "14px",
                             p:3, display: "flex",
                             flexDirection: "row",

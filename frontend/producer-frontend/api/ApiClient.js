@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from "qs";
 
-export const baseURL = process.env.REACT_APP_BACKEND_URL
+export const baseURL = process.env.NEXT_PUBLIC_REACT_APP_BACKEND_URL
 
 export const api = axios.create(
     {

@@ -46,7 +46,7 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
             <Box sx={{
                 display: "flex", flexDirection: "column", gap: 1,
                 color: theme.palette.info.main,
-                border: "1px solid #93B1A6",
+                border: "1px solid #a5b4fc",
                 boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.2)',
                 p: 3, borderRadius: "14px", pt: 2,
             }}>

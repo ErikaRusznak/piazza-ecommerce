@@ -14,7 +14,7 @@ const CartSummary = ({ cartTotalPrice, shippingPrice, children }: CartSummaryPro
         <Paper sx={{
             borderRadius: "14px",
             p: 3,
-            border: "1px solid #93B1A6",
+            border: "1px solid #a5b4fc",
             boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
             backgroundColor: theme.palette.background.default,
         }}>
@@ -26,7 +26,7 @@ const CartSummary = ({ cartTotalPrice, shippingPrice, children }: CartSummaryPro
                 <Typography>Shipping</Typography>
                 <Typography>{shippingPrice} RON</Typography>
             </Box>
-            <Divider sx={{ my: 2, backgroundColor: theme.palette.info.main }} />
+            <Divider sx={{ my: 2, backgroundColor: theme.palette.lightColor.main }} />
             <Box sx={{ display: "flex", justifyContent: "space-between", color: theme.palette.info.main }}>
                 <Typography variant="h6" fontWeight="bold">
                     Total

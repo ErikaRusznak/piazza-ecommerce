@@ -91,7 +91,7 @@ const useTheme = () => createTheme({
                 contrastText: "#1e1b4b",
             },
         },
-
+// TODO - add light fontweight
         typography: {
             fontFamily: [`Open Sans`, `sans-serif`, `Roboto`].join(","),
             h1: {

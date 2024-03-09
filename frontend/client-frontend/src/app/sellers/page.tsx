@@ -54,7 +54,7 @@ const SellersPage = () => {
                                         sx={{
                                             width: "100%",
                                             borderRadius: "14px",
-                                            border: "1px solid #93B1A6",
+                                            border: "1px solid #a5b4fc",
                                             boxShadow: "0px 4px 10px rgba(255, 255, 255, 0.2)",
                                         }}
                                     >

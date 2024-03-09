@@ -19,7 +19,7 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
     return (
         (orders && totalPrice) && (
             <Box sx={{ }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.5, color: theme.palette.primary.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.5, color: theme.palette.lightColor.main }}>
                     Ordered Items
                 </Typography>
 
@@ -40,7 +40,7 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
                                     </Box>
                                     <Typography sx={{color: theme.palette.info.main}} variant="body1">{`${(orderItem.product.price * orderItem.quantity).toFixed(2)} RON`}</Typography>
                                 </Box>
-                                <Divider sx={{backgroundColor: theme.palette.primary.main}}/>
+                                <Divider sx={{backgroundColor: theme.palette.lightColor.main}}/>
                             </div>
                         ))}
                     </div>

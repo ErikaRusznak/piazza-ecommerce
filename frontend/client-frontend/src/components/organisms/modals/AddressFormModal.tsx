@@ -123,7 +123,7 @@ const AddressFormModal = ({
             isModalOpen={isModalOpen}
             toggleModal={toggleModal}>
                 <Box sx={{
-                    backgroundColor: theme.palette.primary.main,
+                    backgroundColor: "rgba(234, 235, 255)",
                     px: 4, py: 2,
                     borderRadius: "14px",
                     border: "1px solid #93B1A6"

@@ -93,7 +93,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                             <Box sx={{ [theme.breakpoints.down("md")]: {mt: 2}}}>
                                 <Box sx={{
                                     display: "flex", justifyContent: "center",
-                                    pr: 1, borderRight: "1px solid #93B1A6",
+                                    pr: 1, borderRight: "1px solid #a5b4fc",
                                     [theme.breakpoints.down("md")]: {
                                         borderRight: "none", mt: 2, pr: 0,
                                     },

@@ -1,2 +1,2 @@
-import NavigationBar from "@/components/organisms/Navbar/NavigationBar";
+import NavigationBar from "@/components/organisms/navbar/NavigationBar";
 export default NavigationBar;

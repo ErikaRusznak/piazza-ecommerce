@@ -26,7 +26,7 @@ const HomePage = () => {
                 <Typography
                     variant="h2"
                     sx={{
-                        color: theme.palette.primary.main,
+                        color: theme.palette.lightColor.main,
                         fontSize: { xs: "32px", sm: "40px", md: "50px" },
                         lineHeight: { xs: 1.2 },
                         mb: 2,

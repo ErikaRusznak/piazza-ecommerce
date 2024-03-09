@@ -41,7 +41,7 @@ const ProductSpecificInfo = ({label, information}: ProductSpecificInfoProps) => 
                     {information}
                 </Typography>
             </Box>
-            <Divider sx={{backgroundColor: theme.palette.primary.main, width: "full", my: 2}}/>
+            <Divider sx={{backgroundColor: theme.palette.lightColor.main, width: "full", my: 2}}/>
         </>
     );
 };

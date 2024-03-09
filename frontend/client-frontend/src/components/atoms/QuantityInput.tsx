@@ -12,7 +12,7 @@ type QuantityInput = {
 const QuantityContainer = styled("div")({
     display: "flex",
     alignItems: "center",
-    border: "1px solid #93B1A6",
+    border: "1px solid #a5b4fc",
     borderRadius: "0.375rem",
 
 });
@@ -21,7 +21,7 @@ const QuantityButton = styled(Button)(({ theme }) => ({
     color: themes().palette.background.default,
     lineHeight: 1.5,
     height: "60%",
-    backgroundColor: themes().palette.primary.main,
+    backgroundColor: themes().palette.lightColor.main,
     '&:hover': {
         color: themes().palette.background.default,
         backgroundColor: themes().palette.secondary.main,

@@ -150,7 +150,8 @@ const CheckoutPage = () => {
     const belowMedSize = useMediaQuery(theme.breakpoints.down("md"));
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
-        {label: "Cart", link: ""},
+        {label: "Cart", link: "/shopping-cart"},
+        {label: "Checkout", link: ""}
     ];
 
     return (

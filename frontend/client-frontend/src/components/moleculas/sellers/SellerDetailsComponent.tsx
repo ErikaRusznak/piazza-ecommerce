@@ -15,7 +15,7 @@ const SellerDetailsComponent = ({
     return (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box>
-                <Typography variant="h6" gutterBottom sx={{color: theme.palette.secondary.main, fontWeight: 600}}>
+                <Typography variant="h6" gutterBottom sx={{color: theme.palette.lightColor.main, fontWeight: 600}}>
                     Contact details
                 </Typography>
                 <Typography sx={{color: theme.palette.info.main}}>
@@ -42,7 +42,7 @@ const SellerDetailsComponent = ({
                 </Typography>
                 <Divider style={{ margin: "16px 0", backgroundColor: theme.palette.primary.main }} />
 
-                <Typography variant="h6" gutterBottom sx={{color: theme.palette.secondary.main, fontWeight: 600}}>
+                <Typography variant="h6" gutterBottom sx={{color: theme.palette.lightColor.main, fontWeight: 600}}>
                     Account details
                 </Typography>
                 {username === seller.account.email && (

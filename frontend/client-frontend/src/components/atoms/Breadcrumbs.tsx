@@ -12,16 +12,15 @@ type BreadcrumbsComponentProps = {
     links: LinksBreadcrumbType[];
 };
 
-const BreadcrumbsComponent = ({links}:BreadcrumbsComponentProps) => {
-
+const BreadcrumbsComponent = ({links}: BreadcrumbsComponentProps) => {
     const theme = useTheme();
 
     return (
         <Breadcrumbs aria-label="breadcrumb" sx={{ml:2}} color={theme.palette.info.main}>
-            {links.map((item) => (
-                <Link key={item.label} underline="hover"
-                      color="inherit"
-                      href={item.link}
+            {links.map((item:LinksBreadcrumbType) => (
+                <Link key={`${item.label}-${item.link}`}
+                      underline="hover"
+                      color="inherit" href={item.link}
                       sx={{textTransform: "uppercase", fontWeight: "light"}}>
                     {item.label}
                 </Link>
@@ -29,5 +28,6 @@ const BreadcrumbsComponent = ({links}:BreadcrumbsComponentProps) => {
         </Breadcrumbs>
     );
 };
+
 
 export default BreadcrumbsComponent;

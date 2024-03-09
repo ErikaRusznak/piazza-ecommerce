@@ -27,6 +27,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 export {
     ContentPasteIcon,
@@ -57,5 +58,6 @@ export {
     EditNoteIcon,
     EditIcon,
     AddCircleOutlineIcon,
-    CheckCircleOutlineIcon
+    CheckCircleOutlineIcon,
+    StarBorderIcon
 }

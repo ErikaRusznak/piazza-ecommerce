@@ -51,7 +51,7 @@ const ShippingAddressesComponent = ({
                 {shippingAddresses.map((item) => (
                     <Box key={item.id}
                         sx={{
-                            border: `1px solid ${selectedShippingAddress?.id === item.id ? "#93B1A6" : theme.palette.background.default}`,
+                            border: `1px solid ${selectedShippingAddress?.id === item.id ? "#a5b4fc" : theme.palette.background.lighter}`,
                             borderRadius: "16px",
                             p: 2,
                             mb:1,
@@ -59,7 +59,7 @@ const ShippingAddressesComponent = ({
                             shadow:  "none",
                             backgroundColor: theme.palette.background.default,
                             "&:hover": {
-                                border:  "1px solid #93B1A6" ,
+                                border:  "1px solid #a5b4fc" ,
                             },
                             position: "relative",
 
@@ -68,7 +68,7 @@ const ShippingAddressesComponent = ({
                     <FormControlLabel
                         key={item.id}
                         value={item.id}
-                        control={<Radio  sx={{ color: "#93B1A6", '&.Mui-checked': { color: "#93B1A6"}}}/>}
+                        control={<Radio  sx={{ color: "#a5b4fc", '&.Mui-checked': { color: "#a5b4fc"}}}/>}
                         label={<AddressComponent item={item}
                                                  toggleModal={toggleModal}
                                                  onEdit={onEdit}

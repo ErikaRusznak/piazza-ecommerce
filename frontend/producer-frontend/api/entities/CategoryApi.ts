@@ -4,7 +4,7 @@ export const getAllCategoriesApi = () => {
     return api.get("/categories")
 }
 
-export const getAllCategoriesByItemsPerPageAndPage = (page, itemsPerPage) => {
+export const getAllCategoriesByItemsPerPageAndPage = (page: number, itemsPerPage:number) => {
     return api.get("/categories", {params: { page: page, itemsPerPage: itemsPerPage }})
 }
 

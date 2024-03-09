@@ -27,7 +27,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
 
     return (
         <Box sx={{
-            border: "1px solid #93B1A6",
+            border: "1px solid #a5b4fc",
             boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
             backgroundColor: theme.palette.background.default,
             mb: 2,

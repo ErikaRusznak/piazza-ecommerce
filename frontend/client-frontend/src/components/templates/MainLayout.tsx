@@ -1,6 +1,6 @@
 'use client';
 import React, {PropsWithChildren, useState} from "react";
-import NavigationBar from "@/components/organisms/Navbar/NavigationBar";
+import NavigationBar from "@/components/organisms/navbar/NavigationBar";
 import AuthProvider from "../../../api/auth/AuthContext";
 import CartProvider from "../../../contexts/CartContext";
 import FavoriteProvider from "../../../contexts/FavoriteContext";
@@ -44,7 +44,7 @@ const MainLayout = ({
     let mainStyles: SxProps<Theme> = [styles.layoutPaddings, styles.main];
 
     return (
-        <>
+        <main>
             <NavigationBar />
             <Box sx={styles.root} id="root">
                 <Box component="main" sx={mainStyles}>
@@ -54,7 +54,7 @@ const MainLayout = ({
                     <Footer />
                 </Box>
             </Box>
-        </>
+        </main>
     );
 };
 

@@ -49,7 +49,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                             variant="h5"
                             sx={{
                                 fontWeight: "bold",
-                                color: theme.palette.primary.main,
+                                color: theme.palette.lightColor.main,
                                 mb: 1,
                                 cursor: "pointer",
                                 "&:hover": { textDecoration: "underline" },
@@ -58,7 +58,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                         >
                             {seller.alias}
                         </Typography>
-                        <Typography sx={{ fontWeight:600, mb: 1, color: theme.palette.secondary.main }}>
+                        <Typography sx={{ fontWeight:600, mb: 1, color: theme.palette.lightColor.main }}>
                             {seller.sellerType}
                         </Typography>
                     </Box>

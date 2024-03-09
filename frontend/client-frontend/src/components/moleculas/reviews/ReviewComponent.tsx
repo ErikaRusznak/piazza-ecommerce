@@ -61,7 +61,7 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
     return (
         <>
             <Box sx={{
-                display: "flex", flexDirection: "column", mb: 2, border: "1px solid #93B1A6",
+                display: "flex", flexDirection: "column", mb: 2, border: "1px solid #a5b4fc",
                 borderRadius: "14px",
                 boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
             }}>
@@ -75,7 +75,7 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                                 textAlign: "center",
                                 alignContent: "center",
                                 color: theme.palette.info.main,
-                                backgroundColor: theme.palette.background.lighter,
+                                backgroundColor: theme.palette.primary.main,
                                 borderRadius: "20px",
                                 display: "flex",
                                 flexDirection: "column",
@@ -93,9 +93,9 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                             }}>
                                 <EditNoteIcon
                                     sx={{
-                                        pl: 2,
-                                        color: theme.palette.primary.main,
-                                        "&:hover": {color: theme.palette.secondary.main},
+                                        pl: 1,
+                                        color: theme.palette.lightColor.main,
+                                        "&:hover": {color: theme.palette.primary.main},
                                         cursor: "pointer",
                                     }}
                                     onClick={toggleModal}
@@ -120,8 +120,8 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                             {review.description}
                         </Typography>
 
-                        <Box sx={{ display: "flex", justifyContent: "space-between", pt: 1.5}}>
-                            <Typography sx={{color: theme.palette.info.main}}>{review.publishDate}</Typography>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", pt: 1.5, }}>
+                            <Typography sx={{color: theme.palette.info.main, fontSize: "14px"}}>{review.publishDate}</Typography>
                         </Box>
                     </Box>
 

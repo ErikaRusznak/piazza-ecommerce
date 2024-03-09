@@ -124,9 +124,9 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                             sx={{
                                 borderRadius: "xl",
                                 overflow: "hidden",
-                                border: "1px solid #93B1A6",
+                                border: "1px solid #a5b4fc",
                                 boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
-                                backgroundColor: theme.palette.background.default,
+                                backgroundColor: theme.palette.background.lighter,
                             }}
                         >
                             <Box sx={{ p: 6, display: "flex", flexDirection: "row",
@@ -151,7 +151,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                         alignItems: "center", [theme.breakpoints.down("sm")]: {alignItems: "left"}
                                     }}>
                                         <Typography variant={fontSizeForAlias} gutterBottom
-                                                    sx={{color: theme.palette.primary.main, fontWeight: "bold",
+                                                    sx={{color: theme.palette.lightColor.main, fontWeight: "bold",
                                                     }}>
                                             {seller.alias}
                                         </Typography>
@@ -173,12 +173,11 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                             display: "flex",
                             flexDirection: "column",
                             gap: 2,
-                            color: "text.zinc800",
                         }}
                     >
                         <Box sx={{backgroundColor: theme.palette.background.default, p:2,
                             // boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
-                            border: "1px solid #93B1A6",
+                            border: "1px solid #a5b4fc",
                             borderRadius: "14px",
                         }}>
                             <Typography variant="h5" sx={{ fontWeight: "bold", color: theme.palette.info.main }}>

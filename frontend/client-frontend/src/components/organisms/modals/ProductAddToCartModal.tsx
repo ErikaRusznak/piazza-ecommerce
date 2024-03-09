@@ -78,7 +78,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                         px: 4, py: 2,
                         borderTopLeftRadius: "14px",
                         borderTopRightRadius: "14px",
-                        border: "1px solid #93B1A6"
+                        border: "1px solid #a5b4fc"
                     }}>
                         <Box>
                             <Box sx={{display: "flex", flexDirection: "column"}}>
@@ -87,7 +87,6 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                     justifyContent: !smallScreenSize ? "space-between" : "center",
                                 }}
                                 >
-
                                     <Box>
                                         <img src={`${baseURL}${product.imageName}`}
                                              alt=""
@@ -121,7 +120,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                 <Box sx={{
                                     display: "flex",
                                     justifyContent: "space-between",
-                                    borderTop: "1px solid #93B1A6"
+                                    borderTop: "1px solid #a5b4fc"
                                 }}>
                                     <Box sx={{mt: 1, mr: 2}}>
                                         <Typography variant="h6" sx={{
@@ -142,8 +141,6 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                             </Typography>
                                         </Box>
                                     )}
-
-
                                 </Box>
                                 {smallScreenSize && (
                                     <>
@@ -167,7 +164,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                         sx={{
                             display: "flex",
                             justifyContent: "flex-end",
-                            border: "1px solid #93B1A6",
+                            border: "1px solid #a5b4fc",
                             px: 2, py: 1,
                             backgroundColor: theme.palette.background.lighter,
                             borderBottomLeftRadius: "14px",
@@ -175,7 +172,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                         }}>
                         <StyledButton
                             variant="contained"
-                            sx={{backgroundColor: theme.palette.background.lighter, border: "1px solid #93B1A6"}}
+                            sx={{backgroundColor: theme.palette.background.lighter, border: "1px solid #a5b4fc"}}
                             onClick={handleAddToCart}
                         >
                             Add to cart

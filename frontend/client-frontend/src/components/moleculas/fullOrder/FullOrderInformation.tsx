@@ -32,7 +32,7 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
     return (
         buyer && (
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.primary.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.lightColor.main }}>
                     Order Information
                 </Typography>
 
@@ -42,7 +42,7 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
                 </Box>
                 <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
 
-                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.primary.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.lightColor.main }}>
                     Shipping Address
                 </Typography>
 
@@ -52,7 +52,7 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
                 </Box>
                 <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
 
-                <Typography variant="h6" sx={{ fontWeight: "bold", mt: 0.4, color: theme.palette.primary.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", mt: 0.4, color: theme.palette.lightColor.main }}>
                     Buyer Info
                 </Typography>
 

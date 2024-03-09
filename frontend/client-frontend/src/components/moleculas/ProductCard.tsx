@@ -106,65 +106,68 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                     width: "100%",
                     position: "relative",
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     alignItems: "flex-start",
-                    justifyContent: "flex-start",
+                    justifyContent: "space-between",
                     textAlign: "left",
                 })}
             >
-                <Box
-                    sx={theme => ({
-                        position: "relative",
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
-                        justifyContent: "center",
-                        gap: theme.spacing(1),
-                    })}
-                >
-                    <Typography
-                        sx={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: "2",
-                            alignSelf: "stretch",
+                <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                    <Box
+                        sx={theme => ({
                             position: "relative",
-                            minHeight: "2.5rem",
-                            fontSize: {
-                                xs: "18px",
-                                md: "20px"
-                            },
-                            color: theme.palette.info.main,
-                            "&:hover": {
-                                cursor: "pointer",
-                                textDecoration: "underline",
-                                color: theme.palette.primary.main,
-                            }
-                        }}
-                        onClick={() => router.push(`/shop/${product.id}`)}
-                    >
-                        {product.name}
-                    </Typography>
-                </Box>
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "center",
+                            gap: theme.spacing(1),
+                        })}>
+                        <Typography
+                            sx={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                display: "-webkit-box",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: "2",
+                                alignSelf: "stretch",
+                                position: "relative",
+                                minHeight: "2.5rem",
+                                fontSize: {
+                                    xs: "18px",
+                                    md: "20px"
+                                },
+                                color: theme.palette.info.main,
+                                "&:hover": {
+                                    cursor: "pointer",
+                                    textDecoration: "underline",
+                                    color: theme.palette.primary.main,
+                                }
+                            }}
+                            onClick={() => router.push(`/shop/${product.id}`)}
+                        >
+                            {product.name}
+                        </Typography>
+                    </Box>
 
-                <Box
-                    sx={{
-                        alignSelf: "stretch",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        fontSize: {
-                            xs: "16px",
-                            md: "18px"
-                        },
-                        color: theme.palette.info.main,
-                    }}
-                >
-                    <Typography>{product.price} RON</Typography>
+                    <Box
+                        sx={{
+                            alignSelf: "stretch",
+                            // display: "flex",
+                            // flexDirection: "row",
+                            alignItems: "center",
+                            // justifyContent: "space-between",
+
+                            color: theme.palette.info.main,
+                        }}>
+                        <Typography sx={{fontSize: "15px"}}>
+                            {product.price} RON
+                        </Typography>
+
+                    </Box>
+
+                </Box>
+                <Box>
                     <IconButton
                         onClick={(e) => {
                             isAuthenticated ? toggleFavorite() : toggleModal(product.id)
@@ -191,8 +194,8 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                         )}
 
                     </IconButton>
-
                 </Box>
+            </Box>
                 {isAuthenticated && (
                     <StyledButton
                         fullWidth
@@ -210,7 +213,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                     </StyledButton>
                 )}
 
-            </Box>
+
         </Card>
     );
 };

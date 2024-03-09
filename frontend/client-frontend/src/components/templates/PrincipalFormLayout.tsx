@@ -14,7 +14,7 @@ const PrincipalFormLayout = ({children, titleText="Complete form"}: PrincipalFor
             component="main"
             maxWidth="xs"
             sx={{
-                backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                backgroundColor: 'rgba(234, 235, 255, 0.6)',
                 borderRadius: theme.shape.borderRadius,
                 px: 3, py:5, mt: 5,
                 boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.4)'

@@ -23,7 +23,7 @@ import {
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import HamburgerMenu from "@/components/organisms/Navbar/HamburgerMenu";
+import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 
@@ -88,13 +88,19 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
                 <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
                     <Typography
-                        sx={{color: theme.palette.info.main, cursor: "pointer"}}
+                        sx={{color: theme.palette.info.main,
+                            cursor: "pointer",
+                            textTransform: "uppercase"
+                    }}
                         onClick={() => router.push("/shop")}
                     >
                         Shop
                     </Typography>
                     <Typography
-                        sx={{color: theme.palette.info.main, cursor: "pointer"}}
+                        sx={{color: theme.palette.info.main,
+                            cursor: "pointer",
+                            textTransform: "uppercase"
+                        }}
                         onClick={() => router.push("/sellers")}
                     >
                         Sellers
@@ -115,13 +121,15 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
                     <Box>
                         {!isAuthenticated ? (
-                            <Button variant="contained"
+                            <Button variant="outlined"
                                     sx={{
                                         color: theme.palette.info.main,
-                                        backgroundColor: theme.palette.background.lighter,
-                                        textTransform: "none",
+                                        borderColor: theme.palette.lightColor.main,
                                         fontSize: "16px",
-                                        "&:hover": {backgroundColor: theme.palette.secondary.main}
+                                        "&:hover": {
+                                            backgroundColor: theme.palette.lightColor.main,
+                                            borderColor: theme.palette.primary.main
+                                        }
                                     }}
                                     onClick={() => router.push("/login")}
                             >
@@ -149,7 +157,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                 >
                                     <List
                                         sx={{
-                                            boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`, // Add a subtle box shadow
+                                            boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
                                             backgroundColor: theme.palette.background.lighter,
                                         }}
                                     >
