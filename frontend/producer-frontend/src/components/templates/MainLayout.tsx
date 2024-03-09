@@ -1,12 +1,21 @@
-import React, { PropsWithChildren } from "react";
-import NavigationBar from "@/components/organisms/NavigationBar";
+"use client";
 
-const MainLayout = ({ children }: PropsWithChildren) => {
+import React from "react";
+import useTheme from "@/theme/themes";
+import Navigation from "@/components/moleculas/navigation/Navigation";
+
+type MainLayoutProps = {
+    children: React.ReactNode;
+}
+
+const MainLayout = ({ children }: MainLayoutProps) => {
+    const theme = useTheme();
+
     return (
-        <>
-            <NavigationBar />
+        <Navigation>
             {children}
-        </>
+        </Navigation>
     );
 };
+
 export default MainLayout;
