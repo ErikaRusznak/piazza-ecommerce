@@ -26,7 +26,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CategoryIcon from '@mui/icons-material/Category';
+import ChatIcon from '@mui/icons-material/Chat';
+import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 export {
     ContentPasteIcon,
     TuneIcon,
@@ -55,5 +60,11 @@ export {
     EditIcon,
     AddCircleOutlineIcon,
     CheckCircleOutlineIcon,
-    StarBorderIcon
+    StarBorderIcon,
+    ChevronRightIcon,
+    ChevronLeftIcon,
+    CategoryIcon,
+    ChatIcon,
+    PersonIcon,
+    NotificationsIcon,
 }

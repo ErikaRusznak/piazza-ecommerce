@@ -2,7 +2,7 @@
 
 import React from "react";
 import useTheme from "@/theme/themes";
-import Navigation from "@/components/moleculas/navigation/Navigation";
+import Navigation from "@/components/organisms/navigation/Navigation";
 
 type MainLayoutProps = {
     children: React.ReactNode;

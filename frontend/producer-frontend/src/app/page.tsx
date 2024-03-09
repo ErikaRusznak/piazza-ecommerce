@@ -2,11 +2,14 @@
 
 import React from "react";
 import MainLayout from "@/components/templates/MainLayout";
+import {Box} from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const Home = () => {
   return (
     <MainLayout>
-      THIS IS THE PAGEE
+        <Typography color={"white"}> page</Typography>
+
     </MainLayout>
   );
 }

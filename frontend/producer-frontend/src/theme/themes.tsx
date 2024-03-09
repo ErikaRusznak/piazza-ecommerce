@@ -10,9 +10,7 @@ import "@fontsource/open-sans/500-italic.css";
 import "@fontsource/open-sans/600-italic.css";
 import "@fontsource/open-sans/700-italic.css";
 import "@fontsource/open-sans/800-italic.css";
-import {createTheme, TypeBackground} from '@mui/material/styles';
-import {palette} from "@mui/system";
-import {decl} from "postcss";
+import {createTheme} from '@mui/material/styles';
 
 declare module "@mui/material/styles" {
     interface TypeBackground {

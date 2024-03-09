@@ -1,11 +1,21 @@
 import React from 'react';
-import { CSSObject, Theme } from '@mui/material/styles';
+import {CSSObject, styled, Theme} from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import DrawerHeader from "@/components/moleculas/navigation/DrawerHeader";
-import {Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText, SwipeableDrawer, SxProps} from "@mui/material";
+import {
+    Drawer,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    SwipeableDrawer,
+    SxProps,
+    useTheme
+} from "@mui/material";
 import {ArrowForwardIcon} from "@/components/atoms/icons";
-import useTheme from "@/theme/themes";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const drawerWidth = 240;
 
@@ -34,24 +44,28 @@ type DrawerComponentProps = {
     open: boolean;
     handleDrawerClose: () => void;
 }
+export const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+}));
+
 
 const DrawerComponent = ({ open, handleDrawerClose }:DrawerComponentProps) => {
     const theme = useTheme();
-
-    // @ts-ignore
-    const drawerStyles: SxProps<Theme> = {
-        '& .MuiDrawer-paper': {
-            ...(open ? openedMixin(theme) : closedMixin(theme)),
-        },
-    };
 
     return (
         <Drawer
             variant="permanent"
             open={open}
-            sx={drawerStyles}
         >
-            <DrawerHeader handleDrawerClose={handleDrawerClose} />
+            <DrawerHeader>
+                <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+            </DrawerHeader>
             <Divider />
             <List>
                 <List>
