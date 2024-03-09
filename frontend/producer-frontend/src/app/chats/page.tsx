@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
+import useTheme from "@/theme/themes";
 
-const NotificationsPage = () => {
+const ChatPage = () => {
 
     const theme = useTheme();
 
     return (
         <MainLayout>
-            <Typography>Notifications page</Typography>
+            <Typography>Chat page</Typography>
         </MainLayout>
     );
 };
 
-export default NotificationsPage;
+export default ChatPage;
