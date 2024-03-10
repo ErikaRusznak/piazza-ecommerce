@@ -16,7 +16,7 @@ const BreadcrumbsComponent = ({links}: BreadcrumbsComponentProps) => {
     const theme = useTheme();
 
     return (
-        <Breadcrumbs aria-label="breadcrumb" sx={{ml:2}} color={theme.palette.info.main}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{}} color={theme.palette.info.main}>
             {links.map((item:LinksBreadcrumbType) => (
                 <Link key={`${item.label}-${item.link}`}
                       underline="hover"

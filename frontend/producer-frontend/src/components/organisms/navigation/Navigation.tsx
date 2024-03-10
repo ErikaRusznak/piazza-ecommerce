@@ -23,7 +23,7 @@ import {
 } from "@/components/atoms/icons";
 import {Button, useMediaQuery} from "@mui/material";
 import {useEffect} from "react";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
 
 const drawerWidth = 240;
@@ -31,16 +31,16 @@ const drawerWidth = 240;
 const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.enteringScreen + 100,
     }),
     overflowX: 'hidden',
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
     transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.leavingScreen + 100,
     }),
     overflowX: 'hidden',
     width: `calc(${theme.spacing(7)} + 1px)`,
@@ -72,15 +72,15 @@ const AppBar = styled(MuiAppBar, {
 })<AppBarProps>(({theme, open}) => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        easing: theme.transitions.easing.easeInOut,
+        duration: theme.transitions.duration.leavingScreen + 100,
     }),
     ...(open && {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.easeInOut,
+            duration: theme.transitions.duration.enteringScreen + 100,
         }),
     }),
 }));
@@ -116,9 +116,11 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 export default function Navigation({children}: { children: React.ReactNode }) {
     const theme = useTheme();
     const smallerScreenSize = useMediaQuery(theme.breakpoints.down('sm'));
-    const [open, setOpen] = React.useState(!smallerScreenSize);
-    const router = useRouter();
+    const [open, setOpen] = React.useState(false);
+
     const {isAuthenticated, logout} = useAuth();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const informationList = [
         {label: "Products", icon: <CategoryIcon sx={{color: theme.palette.info.main}}/>, href: "/products"},
@@ -136,9 +138,6 @@ export default function Navigation({children}: { children: React.ReactNode }) {
         {label: "Settings", icon: <SettingsIcon sx={{color: theme.palette.info.main}}/>, href: "/settings"}
     ];
 
-    useEffect(() => {
-        setOpen(!smallerScreenSize);
-    }, [smallerScreenSize]);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -148,7 +147,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
     };
 
     return (
-        <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '100vh'}}>
+        <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '150vh'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
                 <Toolbar sx={{backgroundColor: theme.palette.background.lighter}}>
@@ -180,15 +179,21 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 </Box>
                 <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
                 <List>
-                    {informationList.map((listItem, index) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}>
+                    {informationList.map((listItem) => (
+                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
                                 }}
-                                onClick={() => router.push(listItem.href)}
+                                selected={pathname?.startsWith(listItem.href)}
+                                onClick={() => {
+                                    handleDrawerClose();
+                                    setTimeout(() => {
+                                        router.push(listItem.href);
+                                    }, 200);
+                                }}
                             >
                                 <ListItemIcon
                                     sx={{
@@ -207,15 +212,21 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 </List>
                 <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
                 <List>
-                    {profileList.map((listItem, index) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}>
+                    {profileList.map((listItem) => (
+                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
                                 }}
-                                onClick={() => router.push(listItem.href)}
+                                selected={pathname?.startsWith(listItem.href)}
+                                onClick={() => {
+                                    handleDrawerClose();
+                                    setTimeout(() => {
+                                        router.push(listItem.href);
+                                    }, 200);
+                                }}
                             >
                                 <ListItemIcon
                                     sx={{
@@ -234,11 +245,12 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 </List>
                 <Box sx={{position: 'absolute', bottom: 0, left: 0, right: 0, p: 2, textAlign: 'center'}}>
                     {open ? (
-                        <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                        <Box sx={{display: "flex", justifyContent: isAuthenticated ? "center" : "space-between"}}>
                             {isAuthenticated ? (
                                 <>
                                     <Button variant="contained" sx={{
                                         backgroundColor: theme.palette.primary.main,
+                                        justifyContent: "center",
                                         "&:hover": {
                                             backgroundColor: theme.palette.tertiary.main,
                                         }
@@ -279,6 +291,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
+
                                 }}
                                 onClick={() => logout()}
                             >

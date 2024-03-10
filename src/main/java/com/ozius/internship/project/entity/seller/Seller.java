@@ -73,6 +73,7 @@ public class Seller extends BaseEntity {
     @JoinColumn(name = Columns.ACCOUNT_ID, nullable = false)
     private UserAccount account;
 
+    // TODO - reviews should be put in products
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = Review.Columns.SELLER_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition =
             "FOREIGN KEY (" + Review.Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
