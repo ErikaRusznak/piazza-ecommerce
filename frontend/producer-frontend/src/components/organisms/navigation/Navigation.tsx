@@ -17,7 +17,7 @@ import useTheme from "@/theme/themes";
 import {
     CategoryIcon, ChatIcon,
     ChevronLeftIcon,
-    ChevronRightIcon, LoginIcon,
+    ChevronRightIcon, LoginIcon, LogoutIcon,
     MenuIcon, NotificationsIcon, PersonIcon, SettingsIcon,
     ShoppingCartCheckoutIcon
 } from "@/components/atoms/icons";
@@ -293,7 +293,10 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                     justifyContent: open ? 'initial' : 'center',
 
                                 }}
-                                onClick={() => logout()}
+                                onClick={() => {
+                                    logout();
+                                    router.push("/")
+                                }}
                             >
                                 <ListItemIcon
                                     sx={{
@@ -302,7 +305,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <LoginIcon sx={{color: theme.palette.info.main}}/>
+                                    <LogoutIcon sx={{color: theme.palette.info.main}}/>
                                 </ListItemIcon>
                                 <ListItemText primary={"Logout"} sx={{opacity: open ? 1 : 0}}/>
                             </ListItemButton>
