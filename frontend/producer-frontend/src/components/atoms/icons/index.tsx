@@ -32,6 +32,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ChatIcon from '@mui/icons-material/Chat';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 export {
     ContentPasteIcon,
     TuneIcon,
@@ -67,4 +69,5 @@ export {
     ChatIcon,
     PersonIcon,
     NotificationsIcon,
+    CloudUploadIcon
 }

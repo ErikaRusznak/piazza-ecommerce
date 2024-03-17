@@ -17,7 +17,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/FormTextFields";
+import FormTextField from "@/components/atoms/form/light/FormTextFields";
 import BreadcrumbsComponent from "@/components/atoms/BreadcrumbsComponent";
 
 type LoginFormInput = {

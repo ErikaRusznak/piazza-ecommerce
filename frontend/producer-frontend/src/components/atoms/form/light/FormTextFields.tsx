@@ -1,5 +1,5 @@
 import React from "react";
-import {CssTextField} from "@/components/atoms/CssTextField";
+import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 import {Controller} from "react-hook-form";
 import useTheme from "@/theme/themes";
 

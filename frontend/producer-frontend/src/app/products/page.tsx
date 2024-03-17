@@ -98,7 +98,7 @@ const ProductsPage = () => {
                         <Typography variant="h4" color={theme.palette.info.main}>
                             Products
                         </Typography>
-                        <StyledButton variant="contained" sx={{height: "3rem"}}>
+                        <StyledButton variant="contained" sx={{height: "3rem"}} onClick={() => router.push("/products/add")}>
                             <AddIcon sx={{mr:1}}/>
                             Add Product
                         </StyledButton>

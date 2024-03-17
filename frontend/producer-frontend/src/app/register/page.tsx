@@ -15,7 +15,7 @@ import {Grid} from "@mui/material";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/FormTextFields";
+import FormTextField from "@/components/atoms/form/light/FormTextFields";
 
 type RegisterFormInput = {
     firstName: string,
