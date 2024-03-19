@@ -1,17 +1,18 @@
 import { useState } from "react";
-import {Button, Typography} from "@mui/material";
-import { CloudUploadIcon } from "@/components/atoms/icons";
+import {Box, Button, Typography} from "@mui/material";
+import {UploadIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
-import {CloudUpload} from "@mui/icons-material";
 
 type FormUploadFieldDarkBackgroundProps = {
     onFileChange: (file: File) => void;
+    fileName: string;
+    setFileName: (newName: string) => void;
 };
 
+const UploadController = ({ onFileChange, fileName, setFileName }: FormUploadFieldDarkBackgroundProps) => {
+    const theme = useTheme();
 
-const UploadController = ({ onFileChange }: FormUploadFieldDarkBackgroundProps) => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+    const [displayedFileName, setDisplayedFileName] = useState<string>("");
     const handleButtonClick = () => {
         const fileInput = document.getElementById("file-input");
         if (fileInput) {
@@ -22,17 +23,29 @@ const UploadController = ({ onFileChange }: FormUploadFieldDarkBackgroundProps) 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
         if (file) {
-            setSelectedFile(file);
+            setDisplayedFileName(file.name);
             onFileChange(file);
         }
     };
 
+    const handleClear = () => {
+        setDisplayedFileName("");
+        setFileName("");
+        const fileInput = document.getElementById("file-input") as HTMLInputElement;
+        if (fileInput) {
+            fileInput.value = "";
+        }
+    };
+
     return (
-        <div className="py-2 flex flex-row gap-2">
+        <Box sx={{
+
+        }}>
             <Button
                 variant="contained"
                 color="primary"
-                startIcon={<CloudUpload />}
+                sx={{width: "30%"}}
+                startIcon={<UploadIcon />}
                 onClick={handleButtonClick}
             >
                 Upload File
@@ -45,19 +58,19 @@ const UploadController = ({ onFileChange }: FormUploadFieldDarkBackgroundProps) 
                     onChange={handleFileChange}
                 />
             </Button>
-            {selectedFile && (
+            {fileName && (
                 <div className="flex flex-row gap-2 items-center">
-                    <Typography>{selectedFile.name}</Typography>
+                    <Typography color={theme.palette.info.main}>{displayedFileName}</Typography>
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => setSelectedFile(null)}
+                        onClick={handleClear}
                     >
                         Clear
                     </Button>
                 </div>
             )}
-        </div>
+        </Box>
     );
 };
 

@@ -25,16 +25,18 @@ const FormSelectFieldDarkBackground = ({
         <Controller
             name={name}
             control={control}
-            render={({field, fieldState}) => (
+            render={({field}) => (
                 <CssTextFieldDarkBackground
                     id="outlined-select-currency-native"
                     select
                     fullWidth
                     label={label}
                     required={required}
-                    defaultValue="EUR"
+                    {...field}
+                    defaultValue={items[0].name}
                     SelectProps={{
                         native: true,
+
                     }}
                     InputProps={{
                         style: {
@@ -46,7 +48,12 @@ const FormSelectFieldDarkBackground = ({
                             color: theme.palette.info.main,
                         }
                     }}
-                    sx={{ py: 1, mt: 1 }}
+                    sx={{
+                        py: 1, mt: 1,
+                        '.MuiSvgIcon-root ': {
+                            fill: theme.palette.info.main,
+                        }
+                    }}
                 >
                     {items?.map((option) => (
                         <option key={option.name} value={option.name}>

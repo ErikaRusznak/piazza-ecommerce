@@ -33,6 +33,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import UploadIcon from '@mui/icons-material/Upload';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export {
     ContentPasteIcon,
@@ -69,5 +71,7 @@ export {
     ChatIcon,
     PersonIcon,
     NotificationsIcon,
-    CloudUploadIcon
+    CloudUploadIcon,
+    UploadIcon,
+    ArrowDropDownIcon
 }

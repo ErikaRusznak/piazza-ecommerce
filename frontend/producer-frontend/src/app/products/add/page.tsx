@@ -16,8 +16,8 @@ import {useAuth} from "../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {addImageApi} from "../../../../api/entities/ImageApi";
 import UploadController from "@/components/atoms/upload/UploadController";
-import FormTextField from "@/components/atoms/form/light/FormTextFields";
 import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
+import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 
 type AddProductInput = {
     name: string;
@@ -45,21 +45,16 @@ const UNIT_OF_MEASURES = [
     {id: 1, name: "GRAM"},
     {id: 2, name: "ONE_UNIT"},
 ];
-const categoryss = [
-    {id: 0, name: "KILOGRAM"},
-    {id: 1, name: "GRAM"},
-    {id: 2, name: "ONE_UNIT"},
-];
 
 const AddProductPage = () => {
 
     const theme = useTheme();
     const [categories, setCategories] = useState<any>();
-    const { sellerAlias } = useAuth();
+    const {isAuthenticated, sellerAlias} = useAuth();
     const router = useRouter();
 
-    const [file, setFile] = useState<any>(null);
-    const [fileName, setFileName] = useState();
+    const [fileName, setFileName] = useState<string>("");
+    const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
     const getCategoryList = () => {
         getAllCategoriesApi()
@@ -75,10 +70,14 @@ const AddProductPage = () => {
 
     const onSubmit: SubmitHandler<AddProductInput> = async (data, e) => {
         console.log("data:", data);
+        if (!fileName) {
+            setErrorImageMessage("Please upload an image before submitting.");
+            return;
+        }
         createProductApi({
             name: data.name,
             description: data.description,
-            // imageName: fileName,
+            imageName: fileName,
             price: data.price,
             category: data.category,
             seller: sellerAlias,
@@ -91,21 +90,21 @@ const AddProductPage = () => {
             .catch((err) => console.error(err));
     };
 
-    const handleAddImage = () => {
+    const handleAddImage = (file: File) => {
         addImageApi(file)
             .then((res) => {
-                console.log(res.data);
                 setFileName(res.data);
+                setErrorImageMessage("");
             })
             .catch((err) => {
                 console.log(err);
+                setErrorImageMessage("Failed to upload image. Please try again.")
             })
     };
-    const handleFileChange = (event: { target: { files: React.SetStateAction<null>[]; }; }) => {
-        setFile(event.target.files[0]);
+    const clearError = () => {
+        setErrorImageMessage(""); // Clear error message when user dismisses it
     };
 
-    console.log("file", file)
     console.log("filename", fileName)
 
     const {
@@ -126,59 +125,70 @@ const AddProductPage = () => {
             unitOfMeasure: "",
         }
     });
+    console.log("Form errors:", errors);
 
     return categories && (
         <MainLayout>
-            <Box sx={{display: "block", maxWidth: "25rem", margin: "auto"}}>
-                <Typography variant="h5" color={theme.palette.info.main} sx={{textAlign: "center"}}>Add product</Typography>
+            {isAuthenticated ? (
+                <Box sx={{display: "block", maxWidth: "25rem", margin: "auto"}}>
+                    <Typography variant="h5" color={theme.palette.info.main} sx={{textAlign: "center"}}>Add
+                        product</Typography>
 
-                <form style={{marginTop: "1rem"}} >
-                    <FormTextFieldDarkBackground
-                        name="name"
-                        control={control}
-                        label="Product name"
-                        type="text"/>
-                    <FormTextAreaDarkBackground
-                        name="description"
-                        control={control}
-                        label="Description"
-                        type="text"
-                    />
-                    <FormTextFieldDarkBackground
-                        name="price"
-                        control={control}
-                        label="Price"
-                        type="number"/>
-                    <FormSelectFieldDarkBackground
-                        name="category"
-                        control={control}
-                        label="Category"
-                        items={categories}
-                    />
-                    <FormSelectFieldDarkBackground
-                        name="unitOfMeasure"
-                        control={control}
-                        label="Unit of measure"
-                        items={UNIT_OF_MEASURES}
-                    />
+                    <form style={{marginTop: "1rem"}}>
+                        <FormTextFieldDarkBackground
+                            name="name"
+                            control={control}
+                            label="Product name"
+                            type="text"/>
+                        <FormTextAreaDarkBackground
+                            name="description"
+                            control={control}
+                            label="Description"
+                            type="text"
+                        />
+                        <FormTextFieldDarkBackground
+                            name="price"
+                            control={control}
+                            label="Price"
+                            type="number"/>
+                        <FormSelectFieldDarkBackground
+                            name="category"
+                            control={control}
+                            label="Category"
+                            items={categories}
+                        />
+                        <FormSelectFieldDarkBackground
+                            name="unitOfMeasure"
+                            control={control}
+                            label="Unit of measure"
+                            items={UNIT_OF_MEASURES}
+                        />
 
-                    <UploadController
-                        onFileChange={(file) => setFile(file)}
-                    />
+                        <UploadController
+                            onFileChange={handleAddImage}
+                            fileName={fileName}
+                            setFileName={setFileName}
+                        />
 
+                        {errorImageMessage && (
+                            <Typography variant="body2" color="error" sx={{ mt: 1 }}>{errorImageMessage}</Typography>
+                        )}
 
-                    <StyledButton
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{mt: 3, mb: 2, backgroundColor: theme.palette.background.lighter}}
-                        onClick={handleSubmit(onSubmit)}
-                    >
-                        Add product
-                    </StyledButton>
+                        <StyledButton
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2, backgroundColor: theme.palette.background.lighter}}
+                            onClick={handleSubmit(onSubmit)}
+                        >
+                            Add product
+                        </StyledButton>
 
-                </form>
-            </Box>
+                    </form>
+                </Box>
+            ) : (
+                <UnauthenticatedMessage/>
+            )}
+
         </MainLayout>
     );
 };
