@@ -35,6 +35,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import UploadIcon from '@mui/icons-material/Upload';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 export {
     ContentPasteIcon,
@@ -73,5 +74,6 @@ export {
     NotificationsIcon,
     CloudUploadIcon,
     UploadIcon,
-    ArrowDropDownIcon
+    ArrowDropDownIcon,
+    HighlightOffIcon
 }

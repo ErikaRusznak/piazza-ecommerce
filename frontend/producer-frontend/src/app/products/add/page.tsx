@@ -18,6 +18,7 @@ import {addImageApi} from "../../../../api/entities/ImageApi";
 import UploadController from "@/components/atoms/upload/UploadController";
 import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {getSellerByEmailApi} from "../../../../api/entities/SellerApi";
 
 type AddProductInput = {
     name: string;
@@ -40,6 +41,7 @@ const AddProductSchema = yup.object().shape({
         .required("You must choose a unit of measure"),
 });
 
+// todo - take unit of measures from the backend
 const UNIT_OF_MEASURES = [
     {id: 0, name: "KILOGRAM"},
     {id: 1, name: "GRAM"},
@@ -50,11 +52,30 @@ const AddProductPage = () => {
 
     const theme = useTheme();
     const [categories, setCategories] = useState<any>();
-    const {isAuthenticated, sellerAlias} = useAuth();
+    const {isAuthenticated, sellerAlias, username} = useAuth();
     const router = useRouter();
+    const [seller, setSeller] = useState<any>();
 
     const [fileName, setFileName] = useState<string>("");
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
+    const {
+        register,
+        handleSubmit,
+        control,
+        watch,
+        setValue,
+        formState: {errors},
+        getValues,
+    } = useForm<AddProductInput>({
+        resolver: yupResolver(AddProductSchema),
+        defaultValues: {
+            name: "",
+            description: "",
+            price: 0,
+            category: "",
+            unitOfMeasure: "",
+        }
+    });
 
     const getCategoryList = () => {
         getAllCategoriesApi()
@@ -63,10 +84,24 @@ const AddProductPage = () => {
             })
             .catch((err) => console.log(err));
     };
+    const getSellerByEmail = (email: string) => {
+        console.log("HERE")
+        if(email) {
+            getSellerByEmailApi(email)
+                .then((res) => {
+                    console.log("response", res)
+                    setSeller(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
+    }
 
     useEffect(() => {
         getCategoryList();
-    }, [])
+        getSellerByEmail(username);
+    }, [username])
+
+    console.log("seller", seller)
 
     const onSubmit: SubmitHandler<AddProductInput> = async (data, e) => {
         console.log("data:", data);
@@ -74,14 +109,16 @@ const AddProductPage = () => {
             setErrorImageMessage("Please upload an image before submitting.");
             return;
         }
+        const selectedCategory = categories?.find((category:any) => category.name === data.category);
+        const selectedUnitOfMeasure = (UNIT_OF_MEASURES.find(unit => unit.name === data.unitOfMeasure))?.name;
         createProductApi({
             name: data.name,
             description: data.description,
             imageName: fileName,
             price: data.price,
-            category: data.category,
-            seller: sellerAlias,
-            unitOfMeasure: data.unitOfMeasure
+            category: selectedCategory,
+            seller: seller,
+            unitOfMeasure: selectedUnitOfMeasure
         })
             .then((res) => {
                 console.log(res);
@@ -101,31 +138,6 @@ const AddProductPage = () => {
                 setErrorImageMessage("Failed to upload image. Please try again.")
             })
     };
-    const clearError = () => {
-        setErrorImageMessage(""); // Clear error message when user dismisses it
-    };
-
-    console.log("filename", fileName)
-
-    const {
-        register,
-        handleSubmit,
-        control,
-        watch,
-        setValue,
-        formState: {errors},
-        getValues,
-    } = useForm<AddProductInput>({
-        resolver: yupResolver(AddProductSchema),
-        defaultValues: {
-            name: "",
-            description: "",
-            price: 0,
-            category: "",
-            unitOfMeasure: "",
-        }
-    });
-    console.log("Form errors:", errors);
 
     return categories && (
         <MainLayout>

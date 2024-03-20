@@ -25,7 +25,7 @@ const FormSelectFieldDarkBackground = ({
         <Controller
             name={name}
             control={control}
-            render={({field}) => (
+            render={({field, fieldState}) => (
                 <CssTextFieldDarkBackground
                     id="outlined-select-currency-native"
                     select
@@ -33,6 +33,8 @@ const FormSelectFieldDarkBackground = ({
                     label={label}
                     required={required}
                     {...field}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
                     defaultValue={items[0].name}
                     SelectProps={{
                         native: true,
@@ -55,6 +57,10 @@ const FormSelectFieldDarkBackground = ({
                         }
                     }}
                 >
+                    {/*add another option to stop overlaping the label*/}
+                    <option key={"null"} value={""}>
+                        {""}
+                    </option>
                     {items?.map((option) => (
                         <option key={option.name} value={option.name}>
                             {option.name}

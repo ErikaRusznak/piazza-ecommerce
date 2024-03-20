@@ -1,7 +1,9 @@
-import { useState } from "react";
+import React, {useState} from "react";
 import {Box, Button, Typography} from "@mui/material";
-import {UploadIcon} from "@/components/atoms/icons";
+import {HighlightOffIcon, UploadIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
+import IconButton from "@mui/material/IconButton";
+import {baseURL} from "../../../../api/ApiClient";
 
 type FormUploadFieldDarkBackgroundProps = {
     onFileChange: (file: File) => void;
@@ -9,10 +11,11 @@ type FormUploadFieldDarkBackgroundProps = {
     setFileName: (newName: string) => void;
 };
 
-const UploadController = ({ onFileChange, fileName, setFileName }: FormUploadFieldDarkBackgroundProps) => {
+const UploadController = ({onFileChange, fileName, setFileName}: FormUploadFieldDarkBackgroundProps) => {
     const theme = useTheme();
 
     const [displayedFileName, setDisplayedFileName] = useState<string>("");
+
     const handleButtonClick = () => {
         const fileInput = document.getElementById("file-input");
         if (fileInput) {
@@ -37,38 +40,66 @@ const UploadController = ({ onFileChange, fileName, setFileName }: FormUploadFie
         }
     };
 
+    const buttonLabelText = displayedFileName ? "Uploaded image" : "Upload image";
+
     return (
         <Box sx={{
-
+            width: "full", mt: 1,
         }}>
             <Button
-                variant="contained"
-                color="primary"
-                sx={{width: "30%"}}
-                startIcon={<UploadIcon />}
+                variant="outlined"
+                disabled={displayedFileName !== ""}
+                sx={{
+                    color: theme.palette.lightColor.main,
+                    borderColor: theme.palette.lightColor.main,
+                    padding: "8px 16px",
+                    '&:hover': {
+                        color: theme.palette.primary.main,
+                        borderColor: theme.palette.primary.main,
+                    },
+                    '&:disabled': {
+                        background: theme.palette.tertiary.main,
+                        color: theme.palette.info.main,
+                    },
+
+                }}
+                startIcon={!displayedFileName ? <UploadIcon/> : null}
                 onClick={handleButtonClick}
             >
-                Upload File
-                <input
-                    id="file-input"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    style={{ visibility: "hidden" }}
-                    onChange={handleFileChange}
-                />
+                {buttonLabelText}
             </Button>
+            <input
+                id="file-input"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                style={{display: "none"}} // Set display to none instead of hidden
+                onChange={handleFileChange}
+            />
+
+
             {fileName && (
-                <div className="flex flex-row gap-2 items-center">
-                    <Typography color={theme.palette.info.main}>{displayedFileName}</Typography>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={handleClear}
-                    >
-                        Clear
-                    </Button>
-                </div>
+                <Box sx={{display: "flex", gap: 2, alignItems: "center", mt: 1}}>
+                    <img src={`${baseURL}${fileName}`} alt={fileName}
+                         style={{width: '100%', height: 'auto', maxWidth: '100px'}}/>
+                    <Box sx={{display: "flex", gap: 1}}>
+                        <Typography
+                            color={theme.palette.info.main}
+                        >
+                            {displayedFileName}
+                        </Typography>
+                        <HighlightOffIcon
+                            onClick={handleClear}
+                            sx={{
+                                color: theme.palette.info.main,
+                                cursor: "pointer",
+                                "&:hover": {
+                                    color: theme.palette.lightColor.main
+                                }
+                            }}/>
+                    </Box>
+                </Box>
+
             )}
         </Box>
     );
