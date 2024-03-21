@@ -43,7 +43,8 @@ const ProductsPage = () => {
             case 'Actions':
                 return (
                     <>
-                        <Button size="small" sx={{color: theme.palette.lightColor.main}}>
+                        <Button size="small" sx={{color: theme.palette.lightColor.main}}
+                                onClick={() => router.push(`/products/${item.id}`)}>
                             View
                         </Button>
                         <Button size="small" color="primary" onClick={() => router.push(`/products/edit/${item.id}`)}>
