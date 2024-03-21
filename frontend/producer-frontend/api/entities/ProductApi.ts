@@ -22,7 +22,7 @@ export const createProductApi = (product:any) => {
     );
 }
 
-export const deleteProductByIdApi = (productId:string) => {
+export const deleteProductByIdApi = (productId:number) => {
     return api.delete(`/products/${productId}`)
 }
 
