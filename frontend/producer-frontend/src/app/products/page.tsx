@@ -24,6 +24,7 @@ const tableCellLabels = ["Image", "Name", "Category", "Price", "Actions"];
 
 const renderCell = (item:any, key: string) => {
     const theme = useTheme();
+    const router = useRouter();
     switch (key) {
         case 'Image':
             return (
@@ -41,7 +42,7 @@ const renderCell = (item:any, key: string) => {
                     <Button size="small" sx={{color:theme.palette.lightColor.main}}>
                         View
                     </Button>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={() => router.push(`/products/edit/${item.id}`)}>
                         Edit
                     </Button>
                     <Button size="small" color="error">

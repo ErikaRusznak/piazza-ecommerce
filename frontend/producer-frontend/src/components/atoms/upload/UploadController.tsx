@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Button, Typography} from "@mui/material";
 import {HighlightOffIcon, UploadIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
-import IconButton from "@mui/material/IconButton";
 import {baseURL} from "../../../../api/ApiClient";
 
 type FormUploadFieldDarkBackgroundProps = {
@@ -14,8 +13,6 @@ type FormUploadFieldDarkBackgroundProps = {
 const UploadController = ({onFileChange, fileName, setFileName}: FormUploadFieldDarkBackgroundProps) => {
     const theme = useTheme();
 
-    const [displayedFileName, setDisplayedFileName] = useState<string>("");
-
     const handleButtonClick = () => {
         const fileInput = document.getElementById("file-input");
         if (fileInput) {
@@ -26,13 +23,12 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
         if (file) {
-            setDisplayedFileName(file.name);
+            setFileName(file.name);
             onFileChange(file);
         }
     };
 
     const handleClear = () => {
-        setDisplayedFileName("");
         setFileName("");
         const fileInput = document.getElementById("file-input") as HTMLInputElement;
         if (fileInput) {
@@ -40,7 +36,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
         }
     };
 
-    const buttonLabelText = displayedFileName ? "Uploaded image" : "Upload image";
+    const buttonLabelText = fileName ? "Uploaded image" : "Upload image";
 
     return (
         <Box sx={{
@@ -48,7 +44,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
         }}>
             <Button
                 variant="outlined"
-                disabled={displayedFileName !== ""}
+                disabled={fileName !== ""}
                 sx={{
                     color: theme.palette.lightColor.main,
                     borderColor: theme.palette.lightColor.main,
@@ -63,7 +59,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
                     },
 
                 }}
-                startIcon={!displayedFileName ? <UploadIcon/> : null}
+                startIcon={!fileName ? <UploadIcon/> : null}
                 onClick={handleButtonClick}
             >
                 {buttonLabelText}
@@ -86,7 +82,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
                         <Typography
                             color={theme.palette.info.main}
                         >
-                            {displayedFileName}
+                            {fileName}
                         </Typography>
                         <HighlightOffIcon
                             onClick={handleClear}
