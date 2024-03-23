@@ -48,6 +48,8 @@ public class Order extends BaseEntity {
         String SERIAL_NUMBER = "SERIAL_NUMBER";
         String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
+        String FULL_ORDER_ID = "FULL_ORDER_ID";
+        String ORDER_NUMBER = "ORDER_NUMBER";
     }
 
     @Enumerated(EnumType.STRING)
@@ -68,6 +70,10 @@ public class Order extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = Columns.BUYER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.BUYER_ID + ") REFERENCES " + Buyer.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
     private Buyer buyer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Columns.FULL_ORDER_ID)
+    private FullOrder fullOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.SELLER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
@@ -105,6 +111,9 @@ public class Order extends BaseEntity {
     @Column(name = Columns.BUYER_FIRST_NAME, nullable = false)
     private String buyerFirstName;
 
+    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    private String orderNumber;
+
     @Column(name = Columns.BUYER_LAST_NAME, nullable = false)
     private String buyerLastName;
 
@@ -120,6 +129,35 @@ public class Order extends BaseEntity {
     protected Order() {
     }
 
+    public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone, FullOrder fullOrder) {
+        this.orderStatus = OrderStatus.DRAFT;
+
+        this.shippingAddress = shippingAddress;
+
+        this.buyerFirstName = buyerFirstName;
+        this.buyerLastName = buyerLastName;
+
+        this.buyer = buyer;
+        this.seller = seller;
+
+        this.orderItems = new HashSet<>();
+
+        this.sellerEmail = seller.getAccount().getEmail();
+        this.sellerAlias = seller.getAlias();
+        this.legalDetails = seller.getLegalDetails();
+        this.sellerType = seller.getSellerType();
+
+        this.buyerEmail = buyerEmail;
+        this.orderDate = LocalDateTime.now();
+
+        this.telephone = buyerTelephone;
+
+        this.totalPrice = 0f;
+
+        this.orderNumber = fullOrder.getOrderNumber();
+    }
+
+    // TODO - delete this eventually AND change tests
     public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone) {
         this.orderStatus = OrderStatus.DRAFT;
 
@@ -185,9 +223,9 @@ public class Order extends BaseEntity {
         return shippingAddress;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
+//    public Buyer getBuyer() {
+//        return buyer;
+//    }
 
     public Seller getSeller() {
         return seller;
@@ -236,6 +274,8 @@ public class Order extends BaseEntity {
     public String getBuyerLastName() {
         return buyerLastName;
     }
+
+    public String getOrderNumber() { return orderNumber; }
 
     public void submit() {
         if (this.orderStatus != OrderStatus.DRAFT) {

@@ -3,6 +3,7 @@ package com.ozius.internship.project.service;
 import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.CheckoutItemDto;
 import com.ozius.internship.project.dto.FullOrderDTO;
+import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.entity.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
@@ -11,6 +12,7 @@ import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.repository.FullOrderRepository;
+import com.ozius.internship.project.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -29,12 +32,14 @@ public class OrderService {
     private final BuyerService buyerService;
     private final CartService cartService;
     private final FullOrderRepository fullOrderRepository;
+    private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
-    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, ModelMapper modelMapper) {
+    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, OrderRepository orderRepository, ModelMapper modelMapper) {
         this.buyerService = buyerService;
         this.cartService = cartService;
         this.fullOrderRepository = fullOrderRepository;
+        this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -47,6 +52,12 @@ public class OrderService {
         FullOrder fullOrder = fullOrderRepository.findById(id).orElseThrow();
         return fullOrder.getBuyerEmail();
     }
+
+    public String getSellerEmailFromOrder(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        return order.getSellerEmail();
+    }
+
 
     @Transactional
     public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products) {
@@ -76,7 +87,7 @@ public class OrderService {
 
             //retrieve order or create order if not found one in the map
             Order orderPersisted = sellersToOrder.computeIfAbsent(seller, k -> {
-                Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone);
+                Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone, fullOrder);
                 em.persist(order);
                 fullOrder.addOrder(order);
                 return order;
@@ -102,5 +113,17 @@ public class OrderService {
         return modelMapper.map(fullOrder, FullOrderDTO.class);
     }
 
+    @Transactional
+    public List<OrderDTO> getAllOrdersForSeller(String sellerEmail) {
+        List<Order> orders = orderRepository.findBySellerEmailOrderByOrderDateDesc(sellerEmail);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList());
+    }
 
+    @Transactional
+    public OrderDTO getOrderById(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        return modelMapper.map(order, OrderDTO.class);
+    }
 }

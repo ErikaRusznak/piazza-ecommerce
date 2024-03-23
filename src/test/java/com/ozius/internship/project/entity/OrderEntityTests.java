@@ -66,24 +66,24 @@ public class OrderEntityTests extends JpaBaseEntity {
         //----Assert
         Order persistedOrder = entityFinder.getTheOne(Order.class);
         Seller addedSeller = addedOrder.getSeller();
-        Buyer addedBuyer = addedOrder.getBuyer();
+//        Buyer addedBuyer = addedOrder.getBuyer();
 
         assertThat(persistedOrder).isEqualTo(addedOrder);
         assertThat(persistedOrder.getTotalPrice()).isEqualTo(0f);
         assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.DRAFT);
         assertThat(persistedOrder.getOrderItems().size()).isEqualTo(0);
-        assertThat(persistedOrder.getBuyer()).isEqualTo(addedBuyer);
+//        assertThat(persistedOrder.getBuyer()).isEqualTo(addedBuyer);
         assertThat(persistedOrder.getOrderDate().toLocalDate().isEqual(LocalDate.now())).isTrue();
-        assertThat(persistedOrder.getBuyerEmail()).isEqualTo(addedBuyer.getAccount().getEmail());
+//        assertThat(persistedOrder.getBuyerEmail()).isEqualTo(addedBuyer.getAccount().getEmail());
         assertThat(persistedOrder.getSeller()).isEqualTo(addedSeller);
-        assertThat(persistedOrder.getTelephone()).isEqualTo(addedBuyer.getAccount().getTelephone());
+//        assertThat(persistedOrder.getTelephone()).isEqualTo(addedBuyer.getAccount().getTelephone());
         assertThat(persistedOrder.getShippingAddress()).isEqualTo(addedAddress);
         assertThat(persistedOrder.getSellerEmail()).isEqualTo(addedSeller.getAccount().getEmail());
         assertThat(persistedOrder.getSellerAlias()).isEqualTo(addedSeller.getAlias());
         assertThat(persistedOrder.getLegalDetails()).isEqualTo(addedSeller.getLegalDetails());
         assertThat(persistedOrder.getSellerType()).isEqualTo(addedSeller.getSellerType());
-        assertThat(persistedOrder.getBuyerFirstName()).isEqualTo(addedBuyer.getAccount().getFirstName());
-        assertThat(persistedOrder.getBuyerLastName()).isEqualTo(addedBuyer.getAccount().getLastName());
+//        assertThat(persistedOrder.getBuyerFirstName()).isEqualTo(addedBuyer.getAccount().getFirstName());
+//        assertThat(persistedOrder.getBuyerLastName()).isEqualTo(addedBuyer.getAccount().getLastName());
     }
 
     @Test

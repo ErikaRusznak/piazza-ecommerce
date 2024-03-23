@@ -19,10 +19,12 @@ public class OrderDTO {
     private OrderStatus orderStatus;
     private Address shippingAddress;
     private String sellerEmail;
-//    private String buyerEmail;
+    private String buyerFirstName;
+    private String buyerLastName;
     private LegalDetails legalDetails;
     private SellerType sellerType;
     private Set<OrderItemDTO> orderItems;
     private LocalDateTime orderDate;
     private float totalPrice;
+    private String orderNumber;
 }

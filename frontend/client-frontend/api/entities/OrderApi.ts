@@ -5,7 +5,7 @@ export const submitOrder = (shippingAddress: ShippingAddressType, products: {
     quantity: any;
     productId: any
 }[] | undefined, email: string) => {
-    return api.post('/order', {
+    return api.post('/orders', {
         shippingAddress: shippingAddress,
         products: products,
         email: email
