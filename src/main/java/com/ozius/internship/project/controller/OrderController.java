@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,14 @@ public class OrderController {
         return ResponseEntity.ok(fullOrderDTO);
     }
 
+    @GetMapping("/fullOrder")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<List<FullOrderDTO>> getFullOrdersForBuyer(Principal principal) {
+        String buyerEmail = principal.getName();
+        List<FullOrderDTO> fullOrderDTOs = orderService.getFullOrdersForBuyerEmail(buyerEmail);
+        return ResponseEntity.ok(fullOrderDTOs);
+    }
+
     @GetMapping("/fullOrder/{id}")
     @PreAuthorize("hasRole('CLIENT') and @orderService.canAccessOrder(authentication.name, #id)")
     public ResponseEntity<FullOrderDTO> getFullOrderById(@PathVariable long id) {
@@ -58,7 +67,7 @@ public class OrderController {
 
     @PutMapping("/orders/{id}/processing")
     @PreAuthorize("hasRole('ADMIN')")
-    public void c(@PathVariable long id) {
+    public void markOrderAsProcessing(@PathVariable long id) {
         orderService.markOrderAsProcessing(id);
     }
 

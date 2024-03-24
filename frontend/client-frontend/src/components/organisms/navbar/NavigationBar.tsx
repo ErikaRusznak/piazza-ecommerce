@@ -161,7 +161,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                             backgroundColor: theme.palette.background.lighter,
                                         }}
                                     >
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => router.push("/orders")}>
                                             <ListItemIcon>
                                                 <ShoppingCartCheckoutIcon sx={{color: textColor}} />
                                             </ListItemIcon>

@@ -15,3 +15,7 @@ export const submitOrder = (shippingAddress: ShippingAddressType, products: {
 export const getFullOrderByIdApi = (fullOrderId: number) => {
     return api.get(`/fullOrder/${fullOrderId}`)
 }
+
+export const getFullOrdersForBuyer = () => {
+    return api.get(`fullOrder`)
+}

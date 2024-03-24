@@ -90,19 +90,19 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                     ))}
                                 </List>
                             </Collapse>
-                            <ListItemButton>
-                                <ListItemText primary="Shop" sx={{color: textColor}} onClick={() => router.push("/shop")}/>
+                            <ListItemButton onClick={() => router.push("/shop")}>
+                                <ListItemText primary="Shop" sx={{color: textColor}} />
                             </ListItemButton>
-                            <ListItemButton>
-                                <ListItemText primary="Sellers" sx={{color: textColor}} onClick={() => router.push("/sellers")}/>
+                            <ListItemButton onClick={() => router.push("/sellers")}>
+                                <ListItemText primary="Sellers" sx={{color: textColor}} />
                             </ListItemButton>
 
                             <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>
 
                             {isAuthenticated && (
                                 <>
-                                    <ListItemButton>
-                                        <ListItemText primary="Orders" sx={{color: textColor}}/>
+                                    <ListItemButton onClick={() => router.push("/orders")}>
+                                        <ListItemText primary="Orders" sx={{color: textColor}} />
                                     </ListItemButton>
                                     <ListItemButton>
                                         <ListItemText primary="Settings" sx={{color: textColor}}/>

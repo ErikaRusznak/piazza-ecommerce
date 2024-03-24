@@ -114,6 +114,14 @@ public class OrderService {
     }
 
     @Transactional
+    public List<FullOrderDTO> getFullOrdersForBuyerEmail(String email) {
+        List<FullOrder> fullOrders = fullOrderRepository.findAllByBuyerEmail(email);
+        return fullOrders.stream()
+                .map(fullOrder -> modelMapper.map(fullOrder, FullOrderDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public List<OrderDTO> getAllOrdersForSeller(String sellerEmail) {
         List<Order> orders = orderRepository.findBySellerEmailOrderByOrderDateDesc(sellerEmail);
         return orders.stream()

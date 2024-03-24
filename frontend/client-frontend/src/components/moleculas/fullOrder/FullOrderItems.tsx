@@ -35,7 +35,7 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
                                                 {orderItem.product.name}
                                             </Typography>
                                             <Typography variant="caption">{orderItem.product.seller.alias}</Typography>
-                                            <Typography variant="caption">{`x ${orderItem.quantity}`}</Typography>
+                                            <Typography variant="caption">{` x ${orderItem.quantity}`}</Typography>
                                         </Box>
                                     </Box>
                                     <Typography sx={{color: theme.palette.info.main}} variant="body1">{`${(orderItem.product.price * orderItem.quantity).toFixed(2)} RON`}</Typography>
