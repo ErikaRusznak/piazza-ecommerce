@@ -273,6 +273,10 @@ public class Order extends BaseEntity {
 
     public String getOrderNumber() { return orderNumber; }
 
+    public String getBuyerTelephone() {
+        return buyer.getTelephone();
+    }
+
     public void markedAsProcessing() {
         if (this.orderStatus != OrderStatus.PENDING) {
             throw new IllegalOrderState("order state can only be pending if you want to submit");

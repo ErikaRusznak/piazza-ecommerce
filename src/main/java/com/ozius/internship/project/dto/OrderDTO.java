@@ -21,6 +21,8 @@ public class OrderDTO {
     private String sellerEmail;
     private String buyerFirstName;
     private String buyerLastName;
+    private String buyerEmail;
+    private String buyerTelephone;
     private LegalDetails legalDetails;
     private SellerType sellerType;
     private Set<OrderItemDTO> orderItems;
