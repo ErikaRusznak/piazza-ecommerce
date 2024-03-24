@@ -126,4 +126,29 @@ public class OrderService {
         Order order = orderRepository.findById(id).orElseThrow();
         return modelMapper.map(order, OrderDTO.class);
     }
+
+    @Transactional
+    public void markOrderAsProcessing(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.markedAsProcessing();
+    }
+
+    @Transactional
+    public void markOrderAsShipping(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.markedAsShipped();
+    }
+
+    @Transactional
+    public void markOrderAsDelivered(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.markedAsDelivered();
+    }
+
+    @Transactional
+    public void markOrderAsCanceled(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.markedAsCanceled();
+    }
+
 }

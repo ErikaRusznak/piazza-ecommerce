@@ -1,8 +1,6 @@
 import React from 'react';
-import { styled } from '@mui/system';
-import {Typography, useMediaQuery} from '@mui/material';
+import {Typography} from '@mui/material';
 import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
-import useTheme from "@/theme/themes";
 
 type ProductRatingProps = {
     rating: number;

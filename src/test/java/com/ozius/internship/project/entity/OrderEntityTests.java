@@ -70,7 +70,7 @@ public class OrderEntityTests extends JpaBaseEntity {
 
         assertThat(persistedOrder).isEqualTo(addedOrder);
         assertThat(persistedOrder.getTotalPrice()).isEqualTo(0f);
-        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.DRAFT);
+        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.PENDING);
         assertThat(persistedOrder.getOrderItems().size()).isEqualTo(0);
 //        assertThat(persistedOrder.getBuyer()).isEqualTo(addedBuyer);
         assertThat(persistedOrder.getOrderDate().toLocalDate().isEqual(LocalDate.now())).isTrue();
@@ -217,7 +217,7 @@ public class OrderEntityTests extends JpaBaseEntity {
     }
 
     @Test
-    void test_submit_order_if_order_not_draft(){
+    void test_submit_order_if_order_not_pending(){
 
         //----Arrange
         Order addedOrder = doTransaction(em -> {
@@ -240,14 +240,14 @@ public class OrderEntityTests extends JpaBaseEntity {
 
             Order orderMerged = em.merge(addedOrder);
 
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
             orderMerged.markedAsShipped();
 
-            return assertThrows(IllegalOrderState.class, orderMerged::submit);
+            return assertThrows(IllegalOrderState.class, orderMerged::markedAsProcessing);
         });
 
         //----Assert
-        assertTrue(exception.getMessage().contains("order state can only be draft if you want to submit"));
+        assertTrue(exception.getMessage().contains("order state can only be pending if you want to submit"));
     }
 
     @Test
@@ -273,7 +273,7 @@ public class OrderEntityTests extends JpaBaseEntity {
 
             Order orderMerged = em.merge(addedOrder);
 
-            return assertThrows(IllegalOrderState.class, orderMerged::submit);
+            return assertThrows(IllegalOrderState.class, orderMerged::markedAsProcessing);
         });
 
         //----Assert
@@ -302,17 +302,17 @@ public class OrderEntityTests extends JpaBaseEntity {
         //----Act
         doTransaction(em -> {
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
         });
 
         //----Assert
         Order persistedOrder = entityFinder.getTheOne(Order.class);
 
-        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.SUBMITTED);
+        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.PROCESSING);
     }
 
     @Test
-    void test_marked_shipped_if_order_not_submitted(){
+    void test_marked_shipping_if_order_not_processed(){
 
         //----Arrange
         Order addedOrder = doTransaction(em -> {
@@ -339,11 +339,11 @@ public class OrderEntityTests extends JpaBaseEntity {
         });
 
         //----Assert
-        assertTrue(exception.getMessage().contains("order state can only be submitted if you want to ship"));
+        assertTrue(exception.getMessage().contains("order state can only be processing if you want to ship"));
     }
 
     @Test
-    void test_check_shipped_order(){
+    void test_check_shipping_order(){
 
         //----Arrange
         Order addedOrder = doTransaction(em -> {
@@ -364,18 +364,18 @@ public class OrderEntityTests extends JpaBaseEntity {
         //----Act
         doTransaction(em -> {
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
             orderMerged.markedAsShipped();
         });
 
         //----Assert
         Order persistedOrder = entityFinder.getTheOne(Order.class);
 
-        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.SHIPPED);
+        assertThat(persistedOrder.getOrderStatus()).isEqualTo(OrderStatus.SHIPPING);
     }
 
     @Test
-    void test_marked_delivered_if_order_not_submitted(){
+    void test_marked_delivered_if_order_not_processed(){
 
         //----Arrange
         Order addedOrder = doTransaction(em -> {
@@ -428,7 +428,7 @@ public class OrderEntityTests extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
 
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
 
             return assertThrows(IllegalOrderState.class, orderMerged::markedAsDelivered);
         });
@@ -459,7 +459,7 @@ public class OrderEntityTests extends JpaBaseEntity {
         //----Act
         doTransaction(em -> {
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
             orderMerged.markedAsShipped();
             orderMerged.markedAsDelivered();
         });
@@ -471,7 +471,7 @@ public class OrderEntityTests extends JpaBaseEntity {
     }
 
     @Test
-    void test_add_order_item_if_order_submitted(){
+    void test_add_order_item_if_order_processed(){
 
         //----Arrange
         Order addedOrder = doTransaction(em -> {
@@ -495,7 +495,7 @@ public class OrderEntityTests extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
 
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
 
             Seller sellerMerged = em.merge(seller1);
             Category categoryMerged = em.merge(category1);
@@ -535,7 +535,7 @@ public class OrderEntityTests extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
 
             Order orderMerged = em.merge(addedOrder);
-            orderMerged.submit();
+            orderMerged.markedAsProcessing();
 
             Seller sellerMerged = em.merge(seller2);//added other seller and creates a new product
             Category categoryMerged = em.merge(category1);
@@ -615,7 +615,7 @@ public class OrderEntityTests extends JpaBaseEntity {
     @Test
     void search_by_status(){
         emb.createQuery("select o from Order o where o.orderStatus = :orderStatus", Order.class)
-                .setParameter("orderStatus", OrderStatus.SUBMITTED)
+                .setParameter("orderStatus", OrderStatus.PROCESSING)
                 .getResultList();
     }
 }

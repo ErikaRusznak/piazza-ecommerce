@@ -12,6 +12,7 @@ import Delete from "@mui/icons-material/Delete";
 import InfoIcon from '@mui/icons-material/Info';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PendingIcon from '@mui/icons-material/Pending';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
@@ -36,6 +37,9 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import UploadIcon from '@mui/icons-material/Upload';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SyncIcon from '@mui/icons-material/Sync';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export {
     ContentPasteIcon,
@@ -75,5 +79,9 @@ export {
     CloudUploadIcon,
     UploadIcon,
     ArrowDropDownIcon,
-    HighlightOffIcon
+    HighlightOffIcon,
+    PendingIcon,
+    SyncIcon,
+    LocalShippingIcon,
+    CancelIcon
 }

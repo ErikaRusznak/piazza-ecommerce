@@ -34,7 +34,10 @@ const OrdersPage = () => {
                 return (
                     <>
                         <Button size="small" sx={{color: theme.palette.lightColor.main}}
-                                onClick={() => router.push(`/orders/${item.id}`)}>
+                                onClick={() => {
+                                    console.log(item);
+                                    router.push(`/orders/${item.id}`)
+                                }}>
                             View
                         </Button>
                     </>
@@ -62,6 +65,7 @@ const OrdersPage = () => {
     }, [username]);
 
     const displayOrders = orders?.map((order: any) => ({
+        id: order.id,
         buyerName: order.buyerFirstName + " " + order.buyerLastName,
         orderNumber: "# "+order.orderNumber,
         orderDate: order.orderDate,

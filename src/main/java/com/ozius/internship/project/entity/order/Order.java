@@ -72,10 +72,6 @@ public class Order extends BaseEntity {
     private Buyer buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.FULL_ORDER_ID)
-    private FullOrder fullOrder;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.SELLER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
     private Seller seller;
 
@@ -130,7 +126,7 @@ public class Order extends BaseEntity {
     }
 
     public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone, FullOrder fullOrder) {
-        this.orderStatus = OrderStatus.DRAFT;
+        this.orderStatus = OrderStatus.PENDING;
 
         this.shippingAddress = shippingAddress;
 
@@ -159,7 +155,7 @@ public class Order extends BaseEntity {
 
     // TODO - delete this eventually AND change tests
     public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone) {
-        this.orderStatus = OrderStatus.DRAFT;
+        this.orderStatus = OrderStatus.PENDING;
 
         this.shippingAddress = shippingAddress;
 
@@ -194,8 +190,8 @@ public class Order extends BaseEntity {
             throw new IllegalItemException("can't add this item, it belongs to different seller");
         }
 
-        if (this.orderStatus == OrderStatus.SUBMITTED ||
-                this.orderStatus == OrderStatus.SHIPPED ||
+        if (this.orderStatus == OrderStatus.PROCESSING ||
+                this.orderStatus == OrderStatus.SHIPPING ||
                 this.orderStatus == OrderStatus.DELIVERED) {
             throw new IllegalOrderState("can't add item, order already processed");
         }
@@ -277,27 +273,31 @@ public class Order extends BaseEntity {
 
     public String getOrderNumber() { return orderNumber; }
 
-    public void submit() {
-        if (this.orderStatus != OrderStatus.DRAFT) {
-            throw new IllegalOrderState("order state can only be draft if you want to submit");
+    public void markedAsProcessing() {
+        if (this.orderStatus != OrderStatus.PENDING) {
+            throw new IllegalOrderState("order state can only be pending if you want to submit");
         } else if (this.orderItems.isEmpty()) {
             throw new IllegalOrderState("order doesn't have any items, please add items to submit");
         }
-        this.orderStatus = OrderStatus.SUBMITTED;
+        this.orderStatus = OrderStatus.PROCESSING;
     }
 
     public void markedAsShipped() {
-        if (this.orderStatus != OrderStatus.SUBMITTED) {
-            throw new IllegalOrderState("order state can only be submitted if you want to ship");
+        if (this.orderStatus != OrderStatus.PROCESSING) {
+            throw new IllegalOrderState("order state can only be processing if you want to ship");
         }
-        this.orderStatus = OrderStatus.SHIPPED;
+        this.orderStatus = OrderStatus.SHIPPING;
     }
 
     public void markedAsDelivered() {
-        if (this.orderStatus != OrderStatus.SHIPPED) {
+        if (this.orderStatus != OrderStatus.SHIPPING) {
             throw new IllegalOrderState("order state can only be shipped if you want to deliver");
         }
         this.orderStatus = OrderStatus.DELIVERED;
+    }
+
+    public void markedAsCanceled() {
+        this.orderStatus = OrderStatus.CANCELED;
     }
 
     @Override

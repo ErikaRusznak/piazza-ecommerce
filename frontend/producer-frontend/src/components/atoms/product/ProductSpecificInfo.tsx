@@ -16,15 +16,17 @@ const ProductSpecificInfo = ({label, information, rating} : ProductSpecificInfoP
     const router = useRouter();
 
     const ratingColor = () => {
-        switch (true) {
-            case (rating >= 0 && rating <= 2.5):
-                return "red";
-            case (rating > 2.5 && rating < 4):
-                return "orange";
-            case (rating >= 4):
-                return "green";
-            default:
-                return theme.palette.info.main;
+        if(rating) {
+            switch (true) {
+                case (rating >= 0 && rating <= 2.5):
+                    return "red";
+                case (rating > 2.5 && rating < 4):
+                    return "orange";
+                case (rating >= 4):
+                    return "green";
+                default:
+                    return theme.palette.info.main;
+            }
         }
     };
 
@@ -44,16 +46,8 @@ const ProductSpecificInfo = ({label, information, rating} : ProductSpecificInfoP
                 <Typography
                     sx={{
                         color: rating ? ratingColor() : theme.palette.info.main,
-                        cursor: label === 'Producer' ? 'pointer' : 'default',
-                        '&:hover': {
-                            textDecoration: label === 'Producer' ? 'underline' : 'none',
-                        },
                     }}
-                    onClick={() => {
-                        if (label === "Producer") {
-                            router.push(`/${information}`)
-                        }
-                    }}>
+                   >
                     {information}
                 </Typography>
             </Box>

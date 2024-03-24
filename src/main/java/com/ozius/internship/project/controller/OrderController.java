@@ -55,4 +55,28 @@ public class OrderController {
         OrderDTO orderDTO = orderService.getOrderById(id);
         return ResponseEntity.ok(orderDTO);
     }
+
+    @PutMapping("/orders/{id}/processing")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void c(@PathVariable long id) {
+        orderService.markOrderAsProcessing(id);
+    }
+
+    @PutMapping("/orders/{id}/shipping")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void markOrderAsShipping(@PathVariable long id) {
+        orderService.markOrderAsShipping(id);
+    }
+
+    @PutMapping("/orders/{id}/delivered")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void markOrderAsDelivered(@PathVariable long id) {
+        orderService.markOrderAsDelivered(id);
+    }
+
+    @PutMapping("/orders/{id}/canceled")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void markOrderAsCanceled(@PathVariable long id) {
+        orderService.markOrderAsCanceled(id);
+    }
 }
