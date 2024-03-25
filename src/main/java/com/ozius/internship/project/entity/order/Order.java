@@ -48,6 +48,8 @@ public class Order extends BaseEntity {
         String SERIAL_NUMBER = "SERIAL_NUMBER";
         String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
+        String FULL_ORDER_ID = "FULL_ORDER_ID";
+        String ORDER_NUMBER = "ORDER_NUMBER";
     }
 
     @Enumerated(EnumType.STRING)
@@ -105,6 +107,9 @@ public class Order extends BaseEntity {
     @Column(name = Columns.BUYER_FIRST_NAME, nullable = false)
     private String buyerFirstName;
 
+    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    private String orderNumber;
+
     @Column(name = Columns.BUYER_LAST_NAME, nullable = false)
     private String buyerLastName;
 
@@ -120,8 +125,37 @@ public class Order extends BaseEntity {
     protected Order() {
     }
 
+    public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone, FullOrder fullOrder) {
+        this.orderStatus = OrderStatus.PENDING;
+
+        this.shippingAddress = shippingAddress;
+
+        this.buyerFirstName = buyerFirstName;
+        this.buyerLastName = buyerLastName;
+
+        this.buyer = buyer;
+        this.seller = seller;
+
+        this.orderItems = new HashSet<>();
+
+        this.sellerEmail = seller.getAccount().getEmail();
+        this.sellerAlias = seller.getAlias();
+        this.legalDetails = seller.getLegalDetails();
+        this.sellerType = seller.getSellerType();
+
+        this.buyerEmail = buyerEmail;
+        this.orderDate = LocalDateTime.now();
+
+        this.telephone = buyerTelephone;
+
+        this.totalPrice = 0f;
+
+        this.orderNumber = fullOrder.getOrderNumber();
+    }
+
+    // TODO - delete this eventually AND change tests
     public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone) {
-        this.orderStatus = OrderStatus.DRAFT;
+        this.orderStatus = OrderStatus.PENDING;
 
         this.shippingAddress = shippingAddress;
 
@@ -156,8 +190,8 @@ public class Order extends BaseEntity {
             throw new IllegalItemException("can't add this item, it belongs to different seller");
         }
 
-        if (this.orderStatus == OrderStatus.SUBMITTED ||
-                this.orderStatus == OrderStatus.SHIPPED ||
+        if (this.orderStatus == OrderStatus.PROCESSING ||
+                this.orderStatus == OrderStatus.SHIPPING ||
                 this.orderStatus == OrderStatus.DELIVERED) {
             throw new IllegalOrderState("can't add item, order already processed");
         }
@@ -185,9 +219,9 @@ public class Order extends BaseEntity {
         return shippingAddress;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
+//    public Buyer getBuyer() {
+//        return buyer;
+//    }
 
     public Seller getSeller() {
         return seller;
@@ -237,27 +271,37 @@ public class Order extends BaseEntity {
         return buyerLastName;
     }
 
-    public void submit() {
-        if (this.orderStatus != OrderStatus.DRAFT) {
-            throw new IllegalOrderState("order state can only be draft if you want to submit");
+    public String getOrderNumber() { return orderNumber; }
+
+    public String getBuyerTelephone() {
+        return buyer.getTelephone();
+    }
+
+    public void markedAsProcessing() {
+        if (this.orderStatus != OrderStatus.PENDING) {
+            throw new IllegalOrderState("order state can only be pending if you want to submit");
         } else if (this.orderItems.isEmpty()) {
             throw new IllegalOrderState("order doesn't have any items, please add items to submit");
         }
-        this.orderStatus = OrderStatus.SUBMITTED;
+        this.orderStatus = OrderStatus.PROCESSING;
     }
 
     public void markedAsShipped() {
-        if (this.orderStatus != OrderStatus.SUBMITTED) {
-            throw new IllegalOrderState("order state can only be submitted if you want to ship");
+        if (this.orderStatus != OrderStatus.PROCESSING) {
+            throw new IllegalOrderState("order state can only be processing if you want to ship");
         }
-        this.orderStatus = OrderStatus.SHIPPED;
+        this.orderStatus = OrderStatus.SHIPPING;
     }
 
     public void markedAsDelivered() {
-        if (this.orderStatus != OrderStatus.SHIPPED) {
+        if (this.orderStatus != OrderStatus.SHIPPING) {
             throw new IllegalOrderState("order state can only be shipped if you want to deliver");
         }
         this.orderStatus = OrderStatus.DELIVERED;
+    }
+
+    public void markedAsCanceled() {
+        this.orderStatus = OrderStatus.CANCELED;
     }
 
     @Override
