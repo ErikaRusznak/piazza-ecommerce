@@ -8,6 +8,8 @@ import com.ozius.internship.project.entity.cart.CartItem;
 import com.ozius.internship.project.entity.exception.NotFoundException;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
+import com.ozius.internship.project.entity.user.UserAccount;
+import com.ozius.internship.project.entity.user.UserRole;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,7 +221,7 @@ public class CartEntityTest extends JpaBaseEntity {
         Buyer savedBuyer = doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Cart cart = entityFinder.getTheOne(Cart.class);
-            Buyer buyer = createBuyer(em, new UserAccount("Marcel", "Danila", "marceldanila@gmail.com","/src/image90","0777777635", UserStatus.CLIENT));
+            Buyer buyer = createBuyer(em, new UserAccount("Marcel", "Danila", "marceldanila@gmail.com","/src/image90","0777777635", UserRole.CLIENT));
             cart.assignBuyerToCart(buyer);
 
             return buyer;

@@ -10,6 +10,9 @@ import com.ozius.internship.project.entity.exception.IllegalItemException;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.entity.user.Address;
+import com.ozius.internship.project.entity.user.UserAccount;
+import com.ozius.internship.project.entity.user.UserRole;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
     void test_add_buyer(){
         //----Act
         doTransaction(em -> {
-            Buyer buyer = new Buyer(new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT));
+            Buyer buyer = new Buyer(new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT));
             em.persist(buyer);
         });
 
@@ -54,7 +57,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
         assertThat(persistedBuyer.getAccount().getEmail()).isEqualTo("cosminamaria@gmail.com");
         assertThat(persistedBuyer.getAccount().getImageName()).isEqualTo("/src/image2");
         assertThat(persistedBuyer.getAccount().getTelephone()).isEqualTo("0735897635");
-        assertThat(persistedBuyer.getAccount().getUserStatus()).isEqualTo(UserStatus.CLIENT);
+        assertThat(persistedBuyer.getAccount().getUserRole()).isEqualTo(UserRole.CLIENT);
         assertThat(persistedBuyer.getFavoriteProducts()).isEmpty();
     }
 
@@ -63,7 +66,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer addedBuyer = doTransaction(em -> {
-            Buyer buyer = new Buyer(new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT));
+            Buyer buyer = new Buyer(new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT));
             em.persist(buyer);
             return buyer;
         });
@@ -85,7 +88,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             return TestDataCreator.createBuyer(em, account);
         });
 
@@ -117,7 +120,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             return TestDataCreator.createBuyer(em, account);
         });
 
@@ -141,7 +144,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
             Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
@@ -179,7 +182,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             account.setInitialPassword(passwordEncoder.encode("1234"));
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
@@ -209,7 +212,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         assertThat(persistedBuyer.getAccount().getFirstName()).isEqualTo("Vara");
         assertThat(persistedBuyer.getAccount().getLastName()).isEqualTo("Maria");
-        assertThat(persistedBuyer.getAccount().getUserStatus()).isEqualTo(UserStatus.CLIENT);
+        assertThat(persistedBuyer.getAccount().getUserRole()).isEqualTo(UserRole.CLIENT);
         assertTrue(passwordEncoder.matches("1234", persistedBuyer.getAccount().getPasswordHash()));
         assertThat(persistedBuyer.getAccount().getImageName()).isEqualTo("/src/image2");
         assertThat(persistedBuyer.getAccount().getTelephone()).isEqualTo("0735897635");
@@ -235,7 +238,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             TestDataCreator.createCategoriesBaseData(em);
             Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
             Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
@@ -265,7 +268,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
             Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
@@ -298,7 +301,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             TestDataCreator.createCategoriesBaseData(em);
             TestDataCreator.createProductsBaseData(em);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
 
             return TestDataCreator.createBuyer(em, account);
         });
@@ -331,7 +334,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             TestDataCreator.createCategoriesBaseData(em);
             Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             TestDataCreator.createBuyer(em, account);
 
             return product;
@@ -366,7 +369,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             TestDataCreator.createCategoriesBaseData(em);
             Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
 
             addedBuyer.addFavorite(product);
@@ -395,7 +398,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             TestDataCreator.createCategoriesBaseData(em);
             Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
 
             addedBuyer.addFavorite(product);
@@ -428,7 +431,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             Product product1 = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM);
             Product product2 = TestDataCreator.createProduct(em, "grau", "pentru paine", "src/image20", 8f, category1, seller1, UnitOfMeasure.KILOGRAM);
 
-            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserStatus.CLIENT);
+            UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
 
             addedBuyer.addFavorite(product1);

@@ -1,7 +1,5 @@
 package com.ozius.internship.project.security.jwt;
 
-import com.ozius.internship.project.entity.UserAccount;
-import com.ozius.internship.project.entity.UserStatus;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 
 @RestController
 public class JwtAuthenticationResource {

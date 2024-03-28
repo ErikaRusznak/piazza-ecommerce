@@ -2,7 +2,7 @@ package com.ozius.internship.project.service;
 
 import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.BuyerDTO;
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.buyer.BuyerAddress;
 import com.ozius.internship.project.entity.product.Product;

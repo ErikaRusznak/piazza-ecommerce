@@ -4,7 +4,7 @@ import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.CheckoutItemDto;
 import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.order.FullOrder;

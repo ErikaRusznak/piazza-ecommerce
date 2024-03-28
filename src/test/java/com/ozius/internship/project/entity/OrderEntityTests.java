@@ -11,6 +11,7 @@ import com.ozius.internship.project.entity.order.OrderStatus;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.entity.user.Address;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
