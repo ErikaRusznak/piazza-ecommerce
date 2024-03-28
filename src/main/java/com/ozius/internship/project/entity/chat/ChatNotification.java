@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Table(name = UserAccount.TABLE_NAME)
+@Table(name = ChatNotification.TABLE_NAME)
 public class ChatNotification extends BaseEntity {
 
     public static final String TABLE_NAME = "chat_notification";
@@ -21,8 +21,8 @@ public class ChatNotification extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Setter
-//    @JoinColumn(name = Columns.CHAT_ROOM_CODE, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.CHAT_ROOM_CODE + ") REFERENCES " + ChatRoom.TABLE_NAME + " (" + ChatRoom.Columns.CHAT_ROOM_CODE + ") ON DELETE SET NULL"))
-    @JoinColumn(name = Columns.CHAT_ROOM_CODE, nullable = false)
+    @JoinColumn(name = Columns.CHAT_ROOM_CODE, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.CHAT_ROOM_CODE + ") REFERENCES " + ChatRoom.TABLE_NAME + " (" + ChatRoom.Columns.CHAT_ROOM_CODE + ") ON DELETE SET NULL"))
+//    @JoinColumn(name = Columns.CHAT_ROOM_CODE, nullable = false)
     private ChatRoom chatRoom;
 
     @Column(name = Columns.CONTENT, nullable = false)

@@ -36,6 +36,7 @@ public class WebConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/sellerAlias/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/sellers/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/users/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/socket.io/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()

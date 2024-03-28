@@ -6,7 +6,8 @@
     "dev": "next dev -p 3000",
     "build": "next build -p 3000",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "node server"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -27,6 +28,8 @@
     "react-phone-number-input": "^3.3.9",
     "react-router-dom": "^6.22.0",
     "react-search-bar": "^2.2.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "yup": "^1.3.3",
     "yup-phone-lite": "^2.0.1"
   },

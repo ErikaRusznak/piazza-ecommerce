@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = UserAccount.TABLE_NAME)
+@Table(name = ChatRoom.TABLE_NAME)
 public class ChatRoom extends BaseEntity {
 
     public static final String TABLE_NAME = "chat_room";
@@ -21,32 +21,32 @@ public class ChatRoom extends BaseEntity {
     @Column(name = Columns.CHAT_ROOM_CODE, nullable = false)
     private String chatRoomCode;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = Columns.SENDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SENDER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Columns.SENDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SENDER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
 //    @JoinColumn(name = Columns.SENDER_ID, nullable = false)
-//    private UserAccount sender;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = Columns.RECEIVER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECEIVER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
+    private UserAccount sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Columns.RECEIVER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECEIVER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
 //    @JoinColumn(name = Columns.RECEIVER_ID, nullable = false)
-//    private UserAccount receiver;
+    private UserAccount receiver;
 
     protected ChatRoom() {
 
     }
 
-    public ChatRoom(String chatRoomCode) {
+    public ChatRoom(String chatRoomCode, UserAccount sender, UserAccount receiver) {
         this.chatRoomCode = chatRoomCode;
-//        this.sender = sender;
-//        this.receiver = receiver;
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
     @Override
     public String toString() {
         return "ChatRoom{" +
                 "chatId='" + chatRoomCode + '\'' +
-//                ", sender=" + sender.getEmail() +
-//                ", receiver=" + receiver.getEmail() +
+                ", sender=" + sender.getEmail() +
+                ", receiver=" + receiver.getEmail() +
                 '}';
     }
 }
