@@ -44,11 +44,11 @@ public class UserAccount extends BaseEntity {
     @Column(name=Columns.USER_ROLE, nullable = false)
     private UserRole userRole;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = Columns.USER_STATUS)
-//    @Getter
-//    @Setter
-//    private UserStatus userStatus;
+    @Enumerated(EnumType.STRING)
+    @Column(name = Columns.USER_STATUS)
+    @Getter
+    @Setter
+    private UserStatus userStatus;
 
     protected UserAccount() {
     }

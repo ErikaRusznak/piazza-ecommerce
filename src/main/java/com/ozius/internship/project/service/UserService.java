@@ -12,28 +12,28 @@ import java.util.List;
 @Service
 public class UserService {
 
-//    public final UserAccountRepository userAccountRepository;
-//
-//    public UserService(UserAccountRepository userAccountRepository) {
-//        this.userAccountRepository = userAccountRepository;
-//    }
-//
-//    public void saveUser(UserAccount user) {
-//        user.setUserStatus(UserStatus.ONLINE);
-//        userAccountRepository.save(user);
-//    }
-//
-//    public void disconnect(UserAccount user) {
-//        UserAccount userAccount = userAccountRepository.findById(user.getId()).orElse(null);
-//        if (userAccount != null) {
-//            userAccount.setUserStatus(UserStatus.OFFLINE);
-//            userAccountRepository.save(userAccount);
-//        }
-//    }
-//
-//    public List<UserAccount> findConnectedUsers() {
-//        return userAccountRepository.findAllByStatus(UserStatus.ONLINE);
-//    }
+    public final UserAccountRepository userAccountRepository;
+
+    public UserService(UserAccountRepository userAccountRepository) {
+        this.userAccountRepository = userAccountRepository;
+    }
+
+    public void saveUser(UserAccount user) {
+        user.setUserStatus(UserStatus.ONLINE);
+        userAccountRepository.save(user);
+    }
+
+    public void disconnect(UserAccount user) {
+        UserAccount userAccount = userAccountRepository.findById(user.getId()).orElse(null);
+        if (userAccount != null) {
+            userAccount.setUserStatus(UserStatus.OFFLINE);
+            userAccountRepository.save(userAccount);
+        }
+    }
+
+    public List<UserAccount> findConnectedUsers() {
+        return userAccountRepository.findAllByUserStatus(UserStatus.ONLINE);
+    }
 
 }
 

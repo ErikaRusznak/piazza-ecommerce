@@ -43,23 +43,23 @@ public class UserController {
     }
 
     // maybe can delete these
-//    @MessageMapping("/users/addUser")
-//    @SendTo("/user/topic")
-//    public UserAccount addUser(UserAccount userAccount) {
-//        userService.saveUser(userAccount);
-//        return userAccount;
-//    }
-//
-//    @MessageMapping("/users/disconnectUser")
-//    @SendTo("/user/topic")
-//    public UserAccount disconnect(@Payload UserAccount userAccount) {
-//        userService.disconnect(userAccount);
-//        return userAccount;
-//    }
-//
-//    @GetMapping("/connectedUsers")
-//    public ResponseEntity<List<UserAccount>> findConnectedUsers() {
-//        return ResponseEntity.ok(userService.findConnectedUsers());
-//    }
+    @MessageMapping("/users/addUser")
+    @SendTo("/user/topic")
+    public UserAccount addUser(UserAccount userAccount) {
+        userService.saveUser(userAccount);
+        return userAccount;
+    }
+
+    @MessageMapping("/users/disconnectUser")
+    @SendTo("/user/topic")
+    public UserAccount disconnect(@Payload UserAccount userAccount) {
+        userService.disconnect(userAccount);
+        return userAccount;
+    }
+
+    @GetMapping("/connectedUsers")
+    public ResponseEntity<List<UserAccount>> findConnectedUsers() {
+        return ResponseEntity.ok(userService.findConnectedUsers());
+    }
 
 }

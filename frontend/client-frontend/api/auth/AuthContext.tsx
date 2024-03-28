@@ -4,6 +4,9 @@ import {executeJwtAuthenticationService, registerApiService} from "./Authenticat
 import {getUserStatusByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
+import {getBuyerByEmailApi} from "../entities/BuyerApi";
+const Stomp = require ("stompjs");
+const SockJS = require("sockjs-client");
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -32,6 +35,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const [username, setUsername] = useSessionStorage("username", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
+
+    let stompClient: { connect: (arg0: {}, arg1: () => void, arg2: () => void) => void; subscribe: (arg0: string) => void; } | null = null;
+
     const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) => {
         const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userStatus);
         if (status === 201) {
@@ -52,6 +58,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
                 setUsername(username);
+
+                // const socket = new SockJS('/ws');
+                // stompClient = Stomp.over(socket);
+                // stompClient?.connect({}, onConnected, onError);
                 return true;
             } else {
                 logout();
@@ -64,6 +74,20 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             setUsername(null);
             return false;
         }
+    }
+
+    // const onConnected = () => {
+    //     getBuyerByEmailApi(username)
+    //         .then((res) => {
+    //             stompClient?.subscribe(`/user/${res.data.id}/queue/messages`, onMessageReceived);
+    //         })
+    // }
+    const onError = () => {
+
+    }
+
+    const onMessageReceived = () => {
+
     }
 
     const logout = () => {

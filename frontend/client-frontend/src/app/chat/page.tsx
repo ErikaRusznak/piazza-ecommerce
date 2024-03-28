@@ -49,37 +49,7 @@ const ChatPage = () => {
 
     return (
         <MainLayout>
-            <h2>
-                One to one chat
-            </h2>
-            <div>
-                <h4>Enter chatroom</h4>
-                <form>
-                    <label htmlFor="nickname">Nick:</label>
-                    <input type="text" id="nickname" name="nickname" required/>
 
-                    <label htmlFor="fullname">Real name:</label>
-                    <input type="text" id="fullname" name="realname" required/>
-
-                    <button type={"submit"}>enter chatroom</button>
-                </form>
-            </div>
-            <div>
-                <div>
-                    <div>
-                        <h3>online users</h3>
-                        <ul>
-                            <li>user 1</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p>conn user</p>
-                        <a href={()=>logout()}>Logout</a>
-                    </div>
-                </div>
-
-
-            </div>
         </MainLayout>
     );
 };
