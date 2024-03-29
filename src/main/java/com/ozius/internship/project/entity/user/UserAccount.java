@@ -62,6 +62,16 @@ public class UserAccount extends BaseEntity {
         this.userRole = userRole;
     }
 
+    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone, UserRole userRole, UserStatus userStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.imageName = imageName;
+        this.telephone = telephone;
+        this.userRole = userRole;
+        this.userStatus = userStatus;
+    }
+
     public void updateAccount(String firstName, String lastName, String email, String image, String telephone){
         this.firstName = firstName;
         this.lastName = lastName;

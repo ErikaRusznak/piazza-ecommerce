@@ -4,9 +4,7 @@ import {executeJwtAuthenticationService, registerApiService} from "./Authenticat
 import {getUserStatusByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
-import {getBuyerByEmailApi} from "../entities/BuyerApi";
-const Stomp = require ("stompjs");
-const SockJS = require("sockjs-client");
+
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -14,7 +12,8 @@ type AuthContextType = {
     token: string;
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
-    registerUser: (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userStatus: string) => Promise<boolean>;
+    registerUser: (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userRole: string) => Promise<boolean>;
+
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,8 +34,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const [username, setUsername] = useSessionStorage("username", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
-
-    let stompClient: { connect: (arg0: {}, arg1: () => void, arg2: () => void) => void; subscribe: (arg0: string) => void; } | null = null;
 
     const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) => {
         const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userStatus);
@@ -59,9 +56,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
                 setToken(newToken);
                 setUsername(username);
 
-                // const socket = new SockJS('/ws');
-                // stompClient = Stomp.over(socket);
-                // stompClient?.connect({}, onConnected, onError);
                 return true;
             } else {
                 logout();
@@ -75,21 +69,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             return false;
         }
     }
-
-    // const onConnected = () => {
-    //     getBuyerByEmailApi(username)
-    //         .then((res) => {
-    //             stompClient?.subscribe(`/user/${res.data.id}/queue/messages`, onMessageReceived);
-    //         })
-    // }
-    const onError = () => {
-
-    }
-
-    const onMessageReceived = () => {
-
-    }
-
     const logout = () => {
         setToken(null);
         setAuthenticated(false);

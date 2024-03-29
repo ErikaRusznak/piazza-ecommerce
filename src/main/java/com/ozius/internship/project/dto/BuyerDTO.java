@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BuyerDTO {
+    protected long id;
     private String firstName;
     private String lastName;
     private String imageName;

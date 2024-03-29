@@ -21,12 +21,12 @@ public class ChatRoom extends BaseEntity {
     @Column(name = Columns.CHAT_ROOM_CODE, nullable = false)
     private String chatRoomCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = Columns.SENDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SENDER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
 //    @JoinColumn(name = Columns.SENDER_ID, nullable = false)
     private UserAccount sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = Columns.RECEIVER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECEIVER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
 //    @JoinColumn(name = Columns.RECEIVER_ID, nullable = false)
     private UserAccount receiver;
@@ -39,6 +39,26 @@ public class ChatRoom extends BaseEntity {
         this.chatRoomCode = chatRoomCode;
         this.sender = sender;
         this.receiver = receiver;
+    }
+
+    public String getSenderFirstName() {
+        return sender.getFirstName();
+    }
+    public String getSenderLastName() {
+        return sender.getLastName();
+    }
+    public String getSenderEmail() {
+        return sender.getEmail();
+    }
+
+    public String getReceiverFirstName() {
+        return receiver.getFirstName();
+    }
+    public String getReceiverLastName() {
+        return receiver.getLastName();
+    }
+    public String getReceiverEmail() {
+        return receiver.getEmail();
     }
 
     @Override

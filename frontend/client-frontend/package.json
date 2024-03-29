@@ -17,6 +17,8 @@
     "@mkyy/mui-search-bar": "^0.5.2",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
+    "@types/sockjs-client": "^1.5.4",
+    "@types/stompjs": "^2.3.9",
     "axios": "^1.6.7",
     "install": "^0.13.0",
     "moment": "^2.30.1",

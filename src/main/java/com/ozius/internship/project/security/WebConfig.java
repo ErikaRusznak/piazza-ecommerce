@@ -24,7 +24,7 @@ public class WebConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/authenticate")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register-client/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/register-client")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/users/{email}/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/images/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/categories/**")).permitAll()
@@ -37,6 +37,8 @@ public class WebConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/sellers/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/users/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/socket.io/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/ws/info")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/ws/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()

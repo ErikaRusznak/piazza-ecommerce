@@ -1,7 +1,6 @@
 package com.ozius.internship.project.entity.chat;
 
 import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.user.UserAccount;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +36,16 @@ public class ChatMessage extends BaseEntity {
     protected ChatMessage() {
     }
 
-    public ChatMessage(ChatRoom chatRoom, String content, LocalDateTime date) {
+    public ChatMessage(ChatRoom chatRoom, String content) {
         this.chatRoom = chatRoom;
         this.content = content;
-        this.date = date;
+        this.date = LocalDateTime.now();
+    }
+
+    public long getSenderId() {
+        return this.chatRoom.getSender().getId();
+    }
+    public long getReceiverId() {
+        return this.chatRoom.getReceiver().getId();
     }
 }
