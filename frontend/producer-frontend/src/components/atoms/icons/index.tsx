@@ -40,6 +40,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CancelIcon from '@mui/icons-material/Cancel';
+import SendIcon from '@mui/icons-material/Send';
 
 export {
     ContentPasteIcon,
@@ -83,5 +84,6 @@ export {
     PendingIcon,
     SyncIcon,
     LocalShippingIcon,
-    CancelIcon
+    CancelIcon,
+    SendIcon
 }

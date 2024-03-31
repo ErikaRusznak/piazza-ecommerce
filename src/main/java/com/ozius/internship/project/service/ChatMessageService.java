@@ -1,17 +1,14 @@
 package com.ozius.internship.project.service;
 
-import com.ozius.internship.project.dto.ChatRoomDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatRoom;
 import com.ozius.internship.project.repository.ChatMessageRepository;
 import com.ozius.internship.project.repository.ChatRoomRepository;
 import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ChatMessageService {
@@ -19,13 +16,11 @@ public class ChatMessageService {
     private final ChatMessageRepository chatMessageRepository;
     private final ChatRoomService chatRoomService;
     private final ChatRoomRepository chatRoomRepository;
-    private final ModelMapper modelMapper;
 
-    public ChatMessageService(ChatMessageRepository chatMessageRepository, ChatRoomService chatRoomService, ChatRoomRepository chatRoomRepository, ModelMapper modelMapper) {
+    public ChatMessageService(ChatMessageRepository chatMessageRepository, ChatRoomService chatRoomService, ChatRoomRepository chatRoomRepository) {
         this.chatMessageRepository = chatMessageRepository;
         this.chatRoomService = chatRoomService;
         this.chatRoomRepository = chatRoomRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Transactional
@@ -33,9 +28,7 @@ public class ChatMessageService {
         String chatRoomCode = chatRoomService.getChatRoomCode(senderId, receiverId, true)
                 .orElseThrow(() -> new IllegalStateException("Chat room code not found"));
 
-        ChatRoom cr = chatRoomRepository.findAllByChatRoomCode(chatRoomCode)
-                .stream()
-                .findFirst()
+        ChatRoom cr = chatRoomRepository.findByChatRoomCodeAndSenderAndReceiver(senderId, receiverId, chatRoomCode)
                 .orElseThrow(() -> new IllegalStateException("Chat room not found"));
 
         ChatMessage chatMessage = new ChatMessage(cr, content);

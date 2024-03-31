@@ -18,6 +18,8 @@ public class ChatMessage extends BaseEntity {
         String CHAT_ROOM_CODE = "CHAT_ROOM_CODE";
         String CONTENT = "CONTENT";
         String DATE = "DATE";
+        String SENDER_ID = "SENDER_ID";
+        String RECEIVER_ID = "RECEIVER_ID";
     }
 
 
@@ -32,6 +34,12 @@ public class ChatMessage extends BaseEntity {
 
     @Column(name = Columns.DATE, nullable = false)
     private LocalDateTime date;
+
+    @Column(name = Columns.SENDER_ID, nullable = false)
+    private long senderId;
+
+    @Column(name = Columns.RECEIVER_ID, nullable = false)
+    private long receiverId;
 
     protected ChatMessage() {
     }

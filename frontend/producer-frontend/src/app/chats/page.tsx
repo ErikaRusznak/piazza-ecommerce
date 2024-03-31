@@ -9,12 +9,13 @@ import SockJS from "sockjs-client";
 import {getAllUsersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import {baseURL} from "../../../api/ApiClient";
 import {getMessagesForSenderAndReceiverApi} from "../../../api/entities/ChatApi";
-import {Box} from "@mui/material";
+import {Box, Container, useMediaQuery} from "@mui/material";
+import {SendIcon} from "@/components/atoms/icons";
 
 const ChatPage = () => {
 
     const theme = useTheme();
-    const [id, setId] = useState<number>();
+    const [id, setId] = useState<number>(0);
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<any>("");
     const [receiverId, setReceiverId] = useState<number>();
@@ -106,51 +107,119 @@ const ChatPage = () => {
         }
     }
 
-    console.log("id", id)
-    console.log("rec", receiverId)
+    const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
     return (
         (connectedUsers && id) && (
-            // <MainLayout>
-            <div>
-
-                <div>
-                    <h2>Connected users: </h2>
-                    <Box sx={{display: "flex", gap: 3, cursor: "pointer"}}>
-                        {connectedUsers?.map((user: any) => (
-
-                            <Box sx={{border: "1px solid black"}} key={user.id} onClick={() => fetchChatHistory(user.id)}>
-                                <p>{user.id}</p>
-                                <p>{user.email}</p>
+            <MainLayout>
+                <Container>
+                    <Box sx={{
+                        // boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+                        boxShadow: '-5px 5px 15px rgba(255,255,255, 0.5)',
+                        borderRadius: '14px', overflow: 'hidden' }}>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: isXs ? 'column' : 'row',
+                            height: '75vh',
+                        }}>
+                            <Box sx={{
+                                flex: isXs ? '1' : '1 1 25%',
+                                py: 2,
+                                // boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
+                                boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
+                                '& > *': {
+                                    // borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+                                    boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
+                                    padding: '10px 0',
+                                },
+                            }}>
+                                <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px:2, boxShadow: '0px 5px  15px rgba(255,255,255, 0.1)', }}>
+                                    Connected users
+                                </Typography>
+                                <Box sx={{display: "flex", flexDirection: "column",}}>
+                                    {connectedUsers?.map((user: any) => (
+                                        <Box
+                                            key={user.id}
+                                            sx={{
+                                                color: "white",
+                                                p: 1,
+                                                cursor: 'pointer',
+                                                '&:hover': {
+                                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                                },
+                                            }}
+                                            onClick={() => fetchChatHistory(user.id)}
+                                        >
+                                            <Typography>{user.id}</Typography>
+                                            <Typography>{user.email}</Typography>
+                                        </Box>
+                                    ))}
+                                </Box>
                             </Box>
+                            <Box sx={{
+                                flex: isXs ? '1' : '1 1 75%',
+                                py: 2,
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}>
+                                {receiverId && (
+                                    <>
+                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2.3, py:"10px" ,boxShadow: '0px 5px 100px rgba(255,255,255, 0.15)' }}>
+                                            Chat with user
+                                        </Typography>
+                                        <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
+                                            {messages.slice(0).reverse().map((mess, index) => ( // Reverse the array before mapping
+                                                <Box key={`${mess.senderId}-${mess.receiverId}-${index}`}  sx={{
+                                                    display: 'flex',
+                                                    justifyContent: mess.senderId === id ? 'flex-end' : 'flex-start',
+                                                    flexDirection: 'column',
+                                                    textAlign: mess.senderId === id ? 'right' : 'left',
+                                                    alignItems: mess.senderId === id ? 'flex-end' : 'flex-start',
 
+                                                }}>
+                                                    <Typography sx={{ color: "white", maxWidth: "60%",
+                                                        p: 1, borderRadius: "16px",
+                                                        background: mess.senderId === id ? theme.palette.primary.main : theme.palette.background.lighter,
+                                                    }}>{mess.content}</Typography>
+                                                </Box>
+                                            ))}
+                                        </Box>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", mt: 1, px:2, gap: 2 }}>
+                                            <input
+                                                style={{
+                                                    flex: 1,
+                                                    padding: "8px 16px",
+                                                    borderRadius: "14px",
+                                                    border: `0.1px solid ${theme.palette.lightColor.main}`,
+                                                    marginRight: 1,
+                                                    background: theme.palette.background.lighter,
+                                                    outline: "none",
+                                                    color: theme.palette.info.main,
+                                                }}
+                                                type="text"
+                                                placeholder="Send message..."
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        e.preventDefault();
+                                                        sendMessage();
+                                                    }
+                                                }}
+                                                value={message} onChange={(e) => setMessage(e.target.value)} />
+                                            <SendIcon
+                                                sx={{color: theme.palette.primary.main, cursor: "pointer", "&:hover": {
+                                                        color: theme.palette.lightColor.main}}}
+                                                onClick={sendMessage}/>
+                                        </Box>
+                                    </>
+                                )}
 
-                        ))}
-                    </Box>
-                </div>
-                {receiverId && (
-                    <Box>
-                        <h2>User chat</h2>
-
-                        {messages?.map((mess, index) => (
-                            <Box sx={{border: "1px solid blue"}} key={`${mess.senderId}-${mess.receiverId}-${index}`}>
-                                <p>text sent by: {mess.senderId} to {mess.receiverId}</p>
-                                <div> {mess.content}</div>
                             </Box>
-
-                        ))}
-                        <input
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                        />
-                        <button onClick={sendMessage}>Send</button>
+                        </Box>
                     </Box>
-                )}
-
-            </div>)
-            // </MainLayout>
-        );
+                </Container>
+            </MainLayout>
+        )
+    );
 };
 
 export default ChatPage;
