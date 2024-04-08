@@ -15,3 +15,7 @@ export const getAllConnectedUsers = () => {
 export const getAllUsersApi = () => {
     return api.get("/users");
 }
+
+export const getAllUserSellersApi = () => {
+    return api.get("/users/sellers");
+}

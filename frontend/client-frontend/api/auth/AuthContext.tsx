@@ -1,7 +1,7 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
-import {getUserStatusByEmail} from "../entities/UserAccount";
+import {getUserAccountByEmail, getUserStatusByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
 
@@ -13,7 +13,7 @@ type AuthContextType = {
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
     registerUser: (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userRole: string) => Promise<boolean>;
-
+    id: number;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,6 +32,7 @@ type AuthProviderProps = {
 const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
+    const [id, setId] = useSessionStorage("id", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
 
@@ -49,12 +50,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
             const { data } = await getUserStatusByEmail(username);
-            if (status === 200 && data === "CLIENT") {
+            const user = await getUserAccountByEmail(username);
+            if (status === 200 && data === "CLIENT" && user) {
 
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
                 setUsername(username);
+                setId(user.data.id)
 
                 return true;
             } else {
@@ -78,7 +81,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token, id }}>
             {children}
         </AuthContext.Provider>
     );

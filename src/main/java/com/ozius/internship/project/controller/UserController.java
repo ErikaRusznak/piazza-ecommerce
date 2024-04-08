@@ -1,5 +1,6 @@
 package com.ozius.internship.project.controller;
 
+import com.ozius.internship.project.dto.SimpleSellerDTO;
 import com.ozius.internship.project.dto.UserAccountDto;
 import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.repository.UserAccountRepository;
@@ -50,6 +51,15 @@ public class UserController {
         UserAccount userAccount = userAccountRepository.findByEmail(email);
         if(userAccount!=null) {
             return ResponseEntity.ok(userAccount.getUserRole().toString());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/users/sellers")
+    public ResponseEntity<List<SimpleSellerDTO>> retrieveSellerUsers() {
+        List<SimpleSellerDTO> simpleSellerDTOS = userService.getAllAdminUsersWithSellerAlias();
+        if(simpleSellerDTOS != null) {
+            return ResponseEntity.ok(simpleSellerDTOS);
         }
         return ResponseEntity.notFound().build();
     }
