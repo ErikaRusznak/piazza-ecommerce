@@ -7,5 +7,5 @@ public class ChatMessageDTO {
 
     protected String content;
     protected long senderId;
-    protected long receiverId;
+    protected long recipientId;
 }

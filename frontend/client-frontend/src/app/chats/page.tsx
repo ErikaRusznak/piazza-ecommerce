@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getMessagesForSenderAndReceiverApi } from "../../../api/entities/ChatApi";
+import { getMessagesForSenderAndRecipientApi } from "../../../api/entities/ChatApi";
 import {getAllUsersApi, getAllUserSellersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 
@@ -17,14 +17,14 @@ const ChatPage = () => {
     const [id, setId] = useState<number>(0);
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<string>("");
-    const [receiverId, setReceiverId] = useState<number>();
+    const [recipientId, setRecipientId] = useState<number>();
     const [connectedUsers, setConnectedUsers] = useState<any>();
 
     const {sendMessage, connectToWebSocket} = useWebSocket();
     const onMessageReceived = (message: string) => {
         console.log("in message received", message)
         // const message = JSON.parse(payload.body);
-        // if (receiverId && receiverId === message.senderId) {
+        // if (recipientId && recipientId === message.senderId) {
         //     setMessages(prevMessages => [...prevMessages, message]);
         // }
     };
@@ -40,8 +40,8 @@ const ChatPage = () => {
 
 
     const getAllSellers = () => {
-        // getAllUserSellersApi()
-        getAllUsersApi()
+        getAllUserSellersApi()
+        // getAllUsersApi()
             .then((res) => {
                 setConnectedUsers(res.data);
             })
@@ -60,14 +60,14 @@ const ChatPage = () => {
 
 
     const sendMessageInternal = () => {
-        const chatMessage = sendMessage(message, id, receiverId!);
+        const chatMessage = sendMessage(message, id, recipientId!);
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
 
-    const fetchChatHistory = async (receiverId: number) => {
-        setReceiverId(receiverId);
-        await getMessagesForSenderAndReceiverApi(id, receiverId)
+    const fetchChatHistory = async (recipientId: number) => {
+        setRecipientId(recipientId);
+        await getMessagesForSenderAndRecipientApi(id, recipientId)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -155,7 +155,7 @@ const ChatPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                             }}>
-                                {receiverId && (
+                                {recipientId && (
                                     <>
                                         <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2.3, py: "10px", boxShadow: '0px 5px 100px rgba(255,255,255, 0.15)' }}>
                                             Chat with user
@@ -163,7 +163,7 @@ const ChatPage = () => {
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
                                             {messages.slice(0).reverse().map((mess, index) => ( // Reverse the array before mapping
 
-                                                <Box key={`${mess.senderId}-${mess.receiverId}-${index}`} sx={{
+                                                <Box key={`${mess.senderId}-${mess.recipientId}-${index}`} sx={{
                                                     display: 'flex',
                                                     justifyContent: mess.senderId === id ? 'flex-end' : 'flex-start',
                                                     flexDirection: 'column',

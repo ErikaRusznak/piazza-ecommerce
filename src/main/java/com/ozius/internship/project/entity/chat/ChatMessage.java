@@ -19,7 +19,7 @@ public class ChatMessage extends BaseEntity {
         String CONTENT = "CONTENT";
         String DATE = "DATE";
         String SENDER_ID = "SENDER_ID";
-        String RECEIVER_ID = "RECEIVER_ID";
+        String RECIPIENT_ID = "RECIPIENT_ID";
     }
 
 
@@ -47,7 +47,7 @@ public class ChatMessage extends BaseEntity {
     public long getSenderId() {
         return this.chatRoom.getSender().getId();
     }
-    public long getReceiverId() {
-        return this.chatRoom.getReceiver().getId();
+    public long getRecipientId() {
+        return this.chatRoom.getRecipient().getId();
     }
 }

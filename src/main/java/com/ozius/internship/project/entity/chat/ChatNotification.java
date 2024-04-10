@@ -1,10 +1,7 @@
 package com.ozius.internship.project.entity.chat;
 
-import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.user.UserAccount;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
@@ -18,7 +15,7 @@ public class ChatNotification {
         String ID = "ID";
         String CONTENT = "CONTENT";
         String SENDER_ID = "SENDER_ID";
-        String RECEIVER_ID = "RECEIVER_ID";
+        String RECIPIENT_ID = "RECIPIENT_ID";
     }
 
 
@@ -38,16 +35,16 @@ public class ChatNotification {
     @Column(name = Columns.SENDER_ID, nullable = false)
     private long senderId;
 
-    @Column(name = Columns.RECEIVER_ID, nullable = false)
-    private long receiverId;
+    @Column(name = Columns.RECIPIENT_ID, nullable = false)
+    private long recipientId;
 
     protected ChatNotification(){
     }
 
-    public ChatNotification(long id, String content, long senderId, long receiverId) {
+    public ChatNotification(long id, String content, long senderId, long recipientId) {
         this.id = id;
         this.content = content;
         this.senderId = senderId;
-        this.receiverId = receiverId;
+        this.recipientId = recipientId;
     }
 }

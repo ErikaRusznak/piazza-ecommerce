@@ -1,4 +1,5 @@
 import AuthProvider from "../../api/auth/AuthContext";
+import WebSocketProvider from "../../contexts/WebSocketContext";
 
 export const metadata = {
   title: 'Next.js',
@@ -12,11 +13,13 @@ export default function RootLayout({
 }) {
   return (
       <AuthProvider>
+          <WebSocketProvider>
             <html lang="en" style={{margin: 0, padding: 0}}>
               <body style={{margin: 0, padding: 0}}>
                 {children}
               </body>
             </html>
+          </WebSocketProvider>
       </AuthProvider>
   )
 }

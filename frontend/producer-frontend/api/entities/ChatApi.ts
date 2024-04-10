@@ -1,5 +1,5 @@
 import {api} from "../ApiClient";
 
-export const getMessagesForSenderAndReceiverApi = (senderId: number, receiverId: number) => {
-    return api.get(`/messages/${senderId}/${receiverId}`)
+export const getMessagesForSenderAndRecipientApi = (senderId: number, recipientId: number) => {
+    return api.get(`/messages/${senderId}/${recipientId}`)
 }

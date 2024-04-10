@@ -1,9 +1,10 @@
 "use client";
 
-import {createContext, useContext} from "react";
+import {createContext, useContext, useEffect, useRef} from "react";
 import SockJS from "sockjs-client";
 import {baseURL} from "../api/ApiClient";
 import * as Stomp from "stompjs";
+import {deDE} from "@mui/material/locale";
 
 interface WebSocketContextType {
     sendMessage: (message: string, id: number, recipientId: number) => any;

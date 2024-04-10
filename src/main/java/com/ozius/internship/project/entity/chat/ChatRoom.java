@@ -15,7 +15,7 @@ public class ChatRoom extends BaseEntity {
     interface Columns{
         String CHAT_ROOM_CODE = "CHAT_ROOM_CODE";
         String SENDER_ID = "SENDER_ID";
-        String RECEIVER_ID = "RECEIVER_ID";
+        String RECIPIENT_ID = "RECIPIENT_ID";
     }
 
     @Column(name = Columns.CHAT_ROOM_CODE, nullable = false)
@@ -27,18 +27,18 @@ public class ChatRoom extends BaseEntity {
     private UserAccount sender;
 
     @ManyToOne
-    @JoinColumn(name = Columns.RECEIVER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECEIVER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
-//    @JoinColumn(name = Columns.RECEIVER_ID, nullable = false)
-    private UserAccount receiver;
+    @JoinColumn(name = Columns.RECIPIENT_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECIPIENT_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
+//    @JoinColumn(name = Columns.RECIPIENT_ID, nullable = false)
+    private UserAccount recipient;
 
     protected ChatRoom() {
 
     }
 
-    public ChatRoom(String chatRoomCode, UserAccount sender, UserAccount receiver) {
+    public ChatRoom(String chatRoomCode, UserAccount sender, UserAccount recipient) {
         this.chatRoomCode = chatRoomCode;
         this.sender = sender;
-        this.receiver = receiver;
+        this.recipient = recipient;
     }
 
     public String getSenderFirstName() {
@@ -51,14 +51,14 @@ public class ChatRoom extends BaseEntity {
         return sender.getEmail();
     }
 
-    public String getReceiverFirstName() {
-        return receiver.getFirstName();
+    public String getRecipientFirstName() {
+        return recipient.getFirstName();
     }
-    public String getReceiverLastName() {
-        return receiver.getLastName();
+    public String getRecipientLastName() {
+        return recipient.getLastName();
     }
-    public String getReceiverEmail() {
-        return receiver.getEmail();
+    public String getRecipientEmail() {
+        return recipient.getEmail();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ChatRoom extends BaseEntity {
         return "ChatRoom{" +
                 "chatId='" + chatRoomCode + '\'' +
                 ", sender=" + sender.getEmail() +
-                ", receiver=" + receiver.getEmail() +
+                ", recipient=" + recipient.getEmail() +
                 '}';
     }
 }

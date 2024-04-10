@@ -20,14 +20,14 @@ public class ChatRoomService {
         this.userAccountRepository = userAccountRepository;
     }
 
-    public Optional<String> getChatRoomCode(long senderId, long receiverId, boolean createNewRoomIfNotExists) {
-        ChatRoom existingRoom = chatRoomRepository.findBySender_IdAndReceiver_Id(senderId, receiverId);
+    public Optional<String> getChatRoomCode(long senderId, long recipientId, boolean createNewRoomIfNotExists) {
+        ChatRoom existingRoom = chatRoomRepository.findBySender_IdAndRecipient_Id(senderId, recipientId);
 
         if (existingRoom != null) {
             return Optional.of(existingRoom.getChatRoomCode());
         } else {
             if (createNewRoomIfNotExists) {
-                String chatId = createChatCode(senderId, receiverId);
+                String chatId = createChatCode(senderId, recipientId);
                 return Optional.of(chatId);
             } else {
                 return Optional.empty();
@@ -35,15 +35,15 @@ public class ChatRoomService {
         }
     }
 
-    private String createChatCode(long senderId, long receiverId) {
+    private String createChatCode(long senderId, long recipientId) {
 
-        var chatCode = String.format("%d_%d", senderId, receiverId); // should be something like 2_3
+        var chatCode = String.format("%d_%d", senderId, recipientId); // should be something like 2_3
         UserAccount sender = userAccountRepository.findById(senderId).orElseThrow();
-        UserAccount receiver = userAccountRepository.findById(receiverId).orElseThrow();
-        ChatRoom senderReceiver = new ChatRoom(chatCode, sender, receiver);
-        ChatRoom receiverSender = new ChatRoom(chatCode, receiver, sender);
-        chatRoomRepository.save(senderReceiver);
-        chatRoomRepository.save(receiverSender);
+        UserAccount recipient = userAccountRepository.findById(recipientId).orElseThrow();
+        ChatRoom senderRecipient = new ChatRoom(chatCode, sender, recipient);
+        ChatRoom recipientSender = new ChatRoom(chatCode, recipient, sender);
+        chatRoomRepository.save(senderRecipient);
+        chatRoomRepository.save(recipientSender);
         return chatCode;
     }
 }

@@ -101,6 +101,9 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
 
                             {isAuthenticated && (
                                 <>
+                                    <ListItemButton onClick={() => router.push("/chats")}>
+                                        <ListItemText primary="Chats" sx={{color: textColor}} />
+                                    </ListItemButton>
                                     <ListItemButton onClick={() => router.push("/orders")}>
                                         <ListItemText primary="Orders" sx={{color: textColor}} />
                                     </ListItemButton>

@@ -9,7 +9,7 @@ public class ChatRoomDTO {
     protected String senderFirstName;
     protected String senderLastName;
     protected String senderEmail;
-    protected String receiverFirstName;
-    protected String receiverLastName;
-    protected String receiverEmail;
+    protected String recipientFirstName;
+    protected String recipientLastName;
+    protected String recipientEmail;
 }

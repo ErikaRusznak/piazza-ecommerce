@@ -24,11 +24,11 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public ChatMessage saveChatMessage(long senderId, long receiverId, String content) {
-        String chatRoomCode = chatRoomService.getChatRoomCode(senderId, receiverId, true)
+    public ChatMessage saveChatMessage(long senderId, long recipientId, String content) {
+        String chatRoomCode = chatRoomService.getChatRoomCode(senderId, recipientId, true)
                 .orElseThrow(() -> new IllegalStateException("Chat room code not found"));
 
-        ChatRoom cr = chatRoomRepository.findByChatRoomCodeAndSenderAndReceiver(senderId, receiverId, chatRoomCode)
+        ChatRoom cr = chatRoomRepository.findByChatRoomCodeAndSenderAndRecipient(senderId, recipientId, chatRoomCode)
                 .orElseThrow(() -> new IllegalStateException("Chat room not found"));
 
         ChatMessage chatMessage = new ChatMessage(cr, content);
@@ -37,8 +37,8 @@ public class ChatMessageService {
         return chatMessage;
     }
 
-    public List<ChatMessage> findChatMessages(long senderId, long receiverId) {
-        var chatRoomCodeOptional = chatRoomService.getChatRoomCode(senderId, receiverId, false);
+    public List<ChatMessage> findChatMessages(long senderId, long recipientId) {
+        var chatRoomCodeOptional = chatRoomService.getChatRoomCode(senderId, recipientId, false);
         if (chatRoomCodeOptional.isPresent()) {
             String chatRoomCode = chatRoomCodeOptional.get();
             List<ChatMessage> chatMessages = chatMessageRepository.findAllByChatRoomCode(chatRoomCode);
