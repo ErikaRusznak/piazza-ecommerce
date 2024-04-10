@@ -9,15 +9,25 @@ import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";
 import { SendIcon } from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
+import {useRouter, useSearchParams} from "next/navigation";
 
 const ChatPage = () => {
     const theme = useTheme();
+    const router = useRouter();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const createQueryString = (name: string, value: string) => {
+        const params = new URLSearchParams();
+        params.set("private", "true");
+        params.set(name, value);
+
+        return params.toString();
+    };
+    const searchParams = useSearchParams();
     const [id, setId] = useState<number>(0);
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<string>("");
-    const [recipientId, setRecipientId] = useState<number>();
+    const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
     const [connectedUsers, setConnectedUsers] = useState<any>();
 
     const {sendMessage, connectToWebSocket} = useWebSocket();
@@ -57,6 +67,11 @@ const ChatPage = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if(recipientId && id) {
+            fetchChatHistory(recipientId);
+        }
+    }, [recipientId, id]);
 
 
     const sendMessageInternal = () => {
@@ -114,7 +129,10 @@ const ChatPage = () => {
                                                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                                                 },
                                             }}
-                                            onClick={() => fetchChatHistory(user.id)}
+                                            onClick={() => {
+                                                fetchChatHistory(user.id);
+                                                router.push(`/chats?${createQueryString("recipientId", user.id)}`)
+                                            }}
                                         >
                                             <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
                                                 <Box sx={{
