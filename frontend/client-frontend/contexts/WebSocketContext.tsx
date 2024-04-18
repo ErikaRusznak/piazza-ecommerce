@@ -25,15 +25,13 @@ let stompClient: Stomp.Client | null = null;
 
 const WebSocketProvider = ({ children}: any) => {
 
-
-
     const connectToWebSocket = (userId: number, onMessageReceived: Function) => {
         const socket = new SockJS(`${baseURL}/ws`);
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, () => onConnected(onMessageReceived, userId), onError);
+        stompClient.connect({}, () => onConnected(userId, onMessageReceived), onError);
     };
 
-    const onConnected = (onMessageReceived: Function, userId: number) => {
+    const onConnected = (userId: number, onMessageReceived: Function) => {
         stompClient?.subscribe(
             `/user/${userId}/queue/messages`,
             (payload) => {
@@ -55,6 +53,7 @@ const WebSocketProvider = ({ children}: any) => {
                 senderId: id,
                 recipientId: recipientId,
                 content: message,
+                date: new Date().toISOString()
             };
             stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

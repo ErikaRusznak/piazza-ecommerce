@@ -21,6 +21,21 @@ const ChatPage = () => {
     const [message, setMessage] = useState<any>("");
     const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        return `${day} ${month}, ${year}`;
+    };
+
+    const formatHour = (dateString: string) => {
+        const date = new Date(dateString);
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        return `${hour < 10 ? "0"+hour : hour}:${minute < 10 ? "0"+minute : minute}`
+    };
+
     const createQueryString = (name: string, value: string) => {
         const params = new URLSearchParams();
         params.set("private", "true");
@@ -178,27 +193,59 @@ const ChatPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                             }}>
-                                {recipientId && (
+                                {recipientId ? (
                                     <>
                                         <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2.3, py:"10px" ,boxShadow: '0px 5px 100px rgba(255,255,255, 0.15)' }}>
                                             Chat with user
                                         </Typography>
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
-                                            {messages.slice(0).reverse().map((mess, index) => ( // Reverse the array before mapping
-                                                <Box key={`${mess.senderId}-${mess.recipientId}-${index}`}  sx={{
-                                                    display: 'flex',
-                                                    justifyContent: mess.senderId === id ? 'flex-end' : 'flex-start',
-                                                    flexDirection: 'column',
-                                                    textAlign: mess.senderId === id ? 'right' : 'left',
-                                                    alignItems: mess.senderId === id ? 'flex-end' : 'flex-start',
+                                            {messages.slice(0).reverse().map((mess, index, array) => {
+                                                const messageDate = formatDate(mess.date);
+                                                let shouldDisplayDateHeader = false;
+                                                if (index === array.length - 1) {
+                                                    shouldDisplayDateHeader = true; // Always display date for last message
+                                                } else {
+                                                    const nextMessageDate = formatDate(array[index + 1].date);
+                                                    shouldDisplayDateHeader = messageDate !== nextMessageDate;
+                                                }
+                                                return (
+                                                    <Box key={`${mess.senderId}-${mess.recipientId}-${index}`} sx={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                    }}>
+                                                        {shouldDisplayDateHeader && (
+                                                            <Typography sx={{ textAlign: 'center', mb: 1, color: theme.palette.info.main, fontSize: "0.8rem", }}>
+                                                                {messageDate}
+                                                            </Typography>
+                                                        )}
+                                                        <Box sx={{
+                                                            display: 'flex',
+                                                            justifyContent: mess.senderId === id ? 'flex-end' : 'flex-start',
+                                                            textAlign: mess.senderId === id ? 'right' : 'left',
+                                                        }}>
+                                                            <Box sx={{
+                                                                color: "white",
+                                                                maxWidth: "60%",
+                                                                p: 1,
+                                                                borderRadius: "16px",
+                                                                background: mess.senderId === id ? theme.palette.primary.main : theme.palette.background.lighter,
+                                                            }}>
+                                                                <Typography sx={{
 
-                                                }}>
-                                                    <Typography sx={{ color: "white", maxWidth: "60%",
-                                                        p: 1, borderRadius: "16px",
-                                                        background: mess.senderId === id ? theme.palette.primary.main : theme.palette.background.lighter,
-                                                    }}>{mess.content}</Typography>
-                                                </Box>
-                                            ))}
+                                                                }}>
+                                                                    {mess.content}
+                                                                </Typography>
+                                                                <Typography sx={{
+                                                                    fontSize: "0.8rem", color: "lightgrey"
+                                                                }}>
+                                                                    {formatHour(mess.date)}
+                                                                </Typography>
+                                                            </Box>
+
+                                                        </Box>
+                                                    </Box>
+                                                );
+                                            })}
                                         </Box>
                                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", mt: 1, px:2, gap: 2 }}>
                                             <input
@@ -215,7 +262,7 @@ const ChatPage = () => {
                                                 type="text"
                                                 placeholder="Send message..."
                                                 onKeyDown={(e) => {
-                                                    if (e.key === 'Enter') {
+                                                    if (e.key === 'Enter' && message !== '') {
                                                         e.preventDefault();
                                                         sendMessageInternal();
                                                     }
@@ -227,7 +274,7 @@ const ChatPage = () => {
                                                 onClick={sendMessageInternal}/>
                                         </Box>
                                     </>
-                                )}
+                                ) : null}
 
                             </Box>
                         </Box>

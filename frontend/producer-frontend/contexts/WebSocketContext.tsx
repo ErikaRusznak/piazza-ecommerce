@@ -1,10 +1,9 @@
 "use client";
 
-import {createContext, useContext, useEffect, useRef} from "react";
+import {createContext, useContext, } from "react";
 import SockJS from "sockjs-client";
 import {baseURL} from "../api/ApiClient";
 import * as Stomp from "stompjs";
-import {deDE} from "@mui/material/locale";
 
 interface WebSocketContextType {
     sendMessage: (message: string, id: number, recipientId: number) => any;
@@ -56,6 +55,7 @@ const WebSocketProvider = ({ children}: any) => {
                 senderId: id,
                 recipientId: recipientId,
                 content: message,
+                date: new Date().toISOString()
             };
             stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

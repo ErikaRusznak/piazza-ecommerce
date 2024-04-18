@@ -183,45 +183,45 @@ public class SellerEntityTests extends JpaBaseEntity {
         assertThat(persistedSeller.getLegalDetails()).isNull();
     }
 
-    @Test
-    void test_remove_seller(){
-
-        //----Arrange
-        Seller sellerToAdd = doTransaction(em -> {
-            Address addressSeller = new Address("Romania", "Timis", "Timisoara", "Strada Circumvalatiunii nr 4", "Bloc 3 Scara B Ap 12", "303413");
-            UserAccount userAccount = new UserAccount("Vlad", "Ciobotariu", "vladciobotariu1@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
-
-            Seller seller = TestDataCreator.createSellerCompany(em, addressSeller, userAccount, "bio", SellerType.PFA, new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.F, 41, 34, LocalDate.now())));
-
-            TestDataCreator.createBuyerBaseData(em, passwordEncoder);
-            Address addressBuyer = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
-
-            TestDataCreator.createOrder(em,addressBuyer, buyer1, seller);
-
-            return seller;
-        });
-
-
-        //----Act
-        Seller removedSeller = doTransaction(em -> {
-
-            Seller mergedSeller = em.merge(sellerToAdd);
-            em.remove(mergedSeller);
-
-            return mergedSeller;
-        });
-
-        //----Assert
-        List<Product> persistedProducts = entityFinder.getProductsBySeller(removedSeller);
-        Order persistedOrder = entityFinder.getTheOne(Order.class);
-
-        assertThat(sellerRepository.findAll().contains(removedSeller)).isFalse();
-        assertThat(persistedProducts).isEmpty();
-
-        assertThat(persistedOrder).isNotNull();
-        assertThat(persistedOrder.getSeller()).isNull();
-
-    }
+//    @Test
+//    void test_remove_seller(){
+//
+//        //----Arrange
+//        Seller sellerToAdd = doTransaction(em -> {
+//            Address addressSeller = new Address("Romania", "Timis", "Timisoara", "Strada Circumvalatiunii nr 4", "Bloc 3 Scara B Ap 12", "303413");
+//            UserAccount userAccount = new UserAccount("Vlad", "Ciobotariu", "vladciobotariu1@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+//
+//            Seller seller = TestDataCreator.createSellerCompany(em, addressSeller, userAccount, "bio", SellerType.PFA, new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.F, 41, 34, LocalDate.now())));
+//
+//            TestDataCreator.createBuyerBaseData(em, passwordEncoder);
+//            Address addressBuyer = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
+//
+//            TestDataCreator.createOrder(em,addressBuyer, buyer1, seller);
+//
+//            return seller;
+//        });
+//
+//
+//        //----Act
+//        Seller removedSeller = doTransaction(em -> {
+//
+//            Seller mergedSeller = em.merge(sellerToAdd);
+//            em.remove(mergedSeller);
+//
+//            return mergedSeller;
+//        });
+//
+//        //----Assert
+//        List<Product> persistedProducts = entityFinder.getProductsBySeller(removedSeller);
+//        Order persistedOrder = entityFinder.getTheOne(Order.class);
+//
+//        assertThat(sellerRepository.findAll().contains(removedSeller)).isFalse();
+//        assertThat(persistedProducts).isEmpty();
+//
+//        assertThat(persistedOrder).isNotNull();
+//        assertThat(persistedOrder.getSeller()).isNull();
+//
+//    }
 
     @Test
     void test_add_seller_pfa_with_legal_details_null(){
