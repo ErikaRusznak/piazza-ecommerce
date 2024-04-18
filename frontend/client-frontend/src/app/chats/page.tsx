@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { getMessagesForSenderAndRecipientApi } from "../../../api/entities/ChatApi";
 import {getAllUserSellersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
@@ -20,7 +20,7 @@ const ChatPage = () => {
     const [id, setId] = useState<number>(0);
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<string>("");
-
+    const [lastMessages, setLastMessages] = useState<{[key: number]: string}>({});
 
     const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
     const [connectedUsers, setConnectedUsers] = useState<any>();
@@ -83,7 +83,15 @@ const ChatPage = () => {
         if (usernameWithoutQuotes) {
             getBuyerByEmail(usernameWithoutQuotes);
         }
+
     }, []);
+
+    useEffect(() => {
+        connectedUsers?.forEach((user: any) => {
+            fetchLastMessage(id, user.id);
+        });
+    }, [connectedUsers, messages]);
+
 
     useEffect(() => {
         if(recipientId && id) {
@@ -107,6 +115,20 @@ const ChatPage = () => {
             .catch((err) => console.error(err));
     };
 
+    const fetchLastMessage = (id: number, recipientId: number) => {
+        getMessagesForSenderAndRecipientApi(id, recipientId)
+            .then((res) => {
+                if (res.data.length > 0) {
+                    const lastMessage = res.data[res.data.length - 1].content;
+                    setLastMessages(prevState => ({
+                        ...prevState,
+                        [recipientId]: lastMessage,
+                    }));
+                }
+            })
+            .catch((err) => console.error(err));
+    };
+
     return (
         (connectedUsers && id) && (
             <MainLayout>
@@ -121,7 +143,8 @@ const ChatPage = () => {
                             flexDirection: isSm ? 'column' : 'row',
                             height: '75vh',
                         }}>
-                            <Box sx={{
+                            <Box
+                                sx={{
                                 flex: isSm ? '1' : '1 1 25%',
                                 py: 2,
                                 // boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
@@ -146,13 +169,14 @@ const ChatPage = () => {
                                                 '&:hover': {
                                                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                                                 },
+
                                             }}
                                             onClick={() => {
                                                 fetchChatHistory(user.id);
                                                 router.push(`/chats?${createQueryString("recipientId", user.id)}`)
                                             }}
                                         >
-                                            <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
+                                            <Box sx={{display: "flex", alignItems: "center", gap: 1,  width: "100%"}}>
                                                 <Box sx={{
                                                     width: "2rem",
                                                     height: "2rem",
@@ -170,14 +194,20 @@ const ChatPage = () => {
                                                     </Typography>
 
                                                 </Box>
-                                                <Box>
+                                                <Box sx={{width: "100%"}}>
                                                     <Typography sx={{
                                                         fontWeight: "bold",
                                                     }}>{user.sellerAlias}</Typography>
                                                     <Typography sx={{
                                                         fontSize: "13px",
                                                         fontWeight: "10px",
-                                                    }}>Last message ...</Typography>
+                                                        maxWidth: "200px",
+                                                        overflow: "hidden",
+                                                        textOverflow: "ellipsis",
+                                                        whiteSpace: "nowrap",
+                                                    }}>
+                                                        {lastMessages[user.id]}
+                                                    </Typography>
                                                 </Box>
                                             </Box>
 
@@ -199,7 +229,7 @@ const ChatPage = () => {
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
                                             {messages.slice(0).reverse().map((mess, index, array) => {
                                                 const messageDate = formatDate(mess.date);
-                                                let shouldDisplayDateHeader: boolean;
+                                                let shouldDisplayDateHeader = false;
                                                 if (index === array.length - 1) {
                                                     shouldDisplayDateHeader = true; // Always display date for last message
                                                 } else {

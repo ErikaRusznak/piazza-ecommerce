@@ -20,6 +20,7 @@ const ChatPage = () => {
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<any>("");
     const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
+    const [lastMessages, setLastMessages] = useState<{[key: number]: string}>({});
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -93,6 +94,13 @@ const ChatPage = () => {
     }, [recipientId, id]);
 
 
+    useEffect(() => {
+        connectedUsers?.forEach((user: any) => {
+                fetchLastMessage(id, user.id);
+        });
+    }, [connectedUsers, messages]);
+
+
     const sendMessageInternal = () => {
         const chatMessage = sendMessage(message, id, recipientId!);
         setMessages(prevMessages => [...prevMessages, chatMessage]);
@@ -108,6 +116,19 @@ const ChatPage = () => {
             .catch((err) => console.error(err));
     };
 
+    const fetchLastMessage = (id: number, recipientId: number) => {
+        getMessagesForSenderAndRecipientApi(id, recipientId)
+            .then((res) => {
+                if (res.data.length > 0) {
+                    const lastMessage = res.data[res.data.length - 1].content;
+                    setLastMessages(prevState => ({
+                        ...prevState,
+                        [recipientId]: lastMessage,
+                    }));
+                }
+            })
+            .catch((err) => console.error(err));
+    };
 
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -124,7 +145,8 @@ const ChatPage = () => {
                             flexDirection: isXs ? 'column' : 'row',
                             height: '75vh',
                         }}>
-                            <Box sx={{
+                            <Box
+                                sx={{
                                 flex: isXs ? '1' : '1 1 25%',
                                 py: 2,
                                 // boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
@@ -180,7 +202,13 @@ const ChatPage = () => {
                                                     <Typography sx={{
                                                         fontSize: "13px",
                                                         fontWeight: "10px",
-                                                    }}>Last message ...</Typography>
+                                                        maxWidth: "200px",
+                                                        overflow: "hidden",
+                                                        textOverflow: "ellipsis",
+                                                        whiteSpace: "nowrap",
+                                                    }}>
+                                                        {lastMessages[user.id]}
+                                                    </Typography>
                                                 </Box>
                                             </Box>
                                         </Box>
