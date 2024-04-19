@@ -1,6 +1,6 @@
 package com.ozius.internship.project.entity.buyer;
 
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
 

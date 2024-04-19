@@ -1,6 +1,6 @@
 package com.ozius.internship.project.security.user;
 
-import com.ozius.internship.project.entity.UserAccount;
+import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.repository.BuyerRepository;
@@ -41,7 +41,7 @@ public class RegistrationResource {
                 userAccountDto.getEmail(),
                 userAccountDto.getImage(),
                 userAccountDto.getTelephone(),
-                userAccountDto.getUserStatus()
+                userAccountDto.getUserRole()
         );
 
         user.setInitialPassword(passwordEncoder.encode(userAccountDto.getPassword()));

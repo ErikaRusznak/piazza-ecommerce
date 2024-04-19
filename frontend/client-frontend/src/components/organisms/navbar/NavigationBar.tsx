@@ -18,7 +18,7 @@ import useTheme from "@/theme/themes";
 import {
     CartStyledIcon,
     FavoriteStyledIcon,
-    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon,
+    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon, ChatIcon,
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
@@ -150,17 +150,24 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                         vertical: 'top',
                                         horizontal: 'right',
                                     }}
-                                    sx={{mt: 1,
+                                    sx={{
                                         borderRadius: theme.shape.borderRadius,
-
+                                        mt:1
                                     }}
                                 >
                                     <List
                                         sx={{
                                             boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
-                                            backgroundColor: theme.palette.background.lighter,
+                                            backgroundColor: theme.palette.lightColor.main,
+                                            // backgroundColor: theme.palette.background.lighter,
                                         }}
                                     >
+                                        <ListItemButton onClick={() => router.push("/chats")}>
+                                            <ListItemIcon>
+                                                <ChatIcon sx={{color: textColor}} />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Chats" sx={{ color: textColor, fontSize: "1rem" }} />
+                                        </ListItemButton>
                                         <ListItemButton onClick={() => router.push("/orders")}>
                                             <ListItemIcon>
                                                 <ShoppingCartCheckoutIcon sx={{color: textColor}} />

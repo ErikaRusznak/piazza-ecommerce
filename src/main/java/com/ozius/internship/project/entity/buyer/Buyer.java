@@ -1,9 +1,9 @@
 package com.ozius.internship.project.entity.buyer;
 
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.product.Product;
-import com.ozius.internship.project.entity.UserAccount;
+import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.exception.IllegalAddressException;
 import com.ozius.internship.project.entity.exception.IllegalItemException;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package com.ozius.internship.project.dto;
 
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import lombok.Data;
 
 import java.time.LocalDate;

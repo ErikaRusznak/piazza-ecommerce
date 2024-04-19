@@ -1,10 +1,13 @@
-package com.ozius.internship.project.entity;
+package com.ozius.internship.project.entity.user;
 
+import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = UserAccount.TABLE_NAME)
-public class UserAccount extends BaseEntity{
+public class UserAccount extends BaseEntity {
 
     public static final String TABLE_NAME = "user_account";
 
@@ -15,6 +18,7 @@ public class UserAccount extends BaseEntity{
         String PASSWORD_HASH = "PASSWORD_HASH";
         String IMAGE_NAME = "IMAGE_NAME";
         String TELEPHONE = "TELEPHONE";
+        String USER_ROLE = "USER_ROLE";
         String USER_STATUS = "USER_STATUS";
     }
 
@@ -37,18 +41,34 @@ public class UserAccount extends BaseEntity{
     private String telephone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name=Columns.USER_STATUS, nullable = false)
+    @Column(name=Columns.USER_ROLE, nullable = false)
+    private UserRole userRole;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = Columns.USER_STATUS)
+    @Getter
+    @Setter
     private UserStatus userStatus;
 
     protected UserAccount() {
     }
 
-    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone, UserStatus userStatus) {
+    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.imageName = imageName;
         this.telephone = telephone;
+        this.userRole = userRole;
+    }
+
+    public UserAccount(String firstName, String lastName, String email, String imageName, String telephone, UserRole userRole, UserStatus userStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.imageName = imageName;
+        this.telephone = telephone;
+        this.userRole = userRole;
         this.userStatus = userStatus;
     }
 
@@ -95,8 +115,8 @@ public class UserAccount extends BaseEntity{
         return telephone;
     }
 
-    public UserStatus getUserStatus() {
-        return userStatus;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
     @Override
@@ -107,7 +127,6 @@ public class UserAccount extends BaseEntity{
                 ", email='" + email + '\'' +
                 ", imageName='" + imageName + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", userStatus='" + userStatus.toString() + '\'' +
                 '}';
     }
 }

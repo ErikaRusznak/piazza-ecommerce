@@ -7,8 +7,10 @@ import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.seller.*;
+import com.ozius.internship.project.entity.user.Address;
+import com.ozius.internship.project.entity.user.UserAccount;
+import com.ozius.internship.project.entity.user.UserRole;
 import jakarta.persistence.EntityManager;
-import jakarta.servlet.Registration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -43,7 +45,7 @@ public class TestDataCreator {
                 "erikarusznak@gmail.com",
                 "none",
                 "0747871208",
-                UserStatus.CLIENT);
+                UserRole.CLIENT);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer1 = createBuyer(em, account1);
 
@@ -53,7 +55,7 @@ public class TestDataCreator {
                 "alexdulfu@gmail.com",
                 "none",
                 "0758418097",
-                UserStatus.CLIENT);
+                UserRole.CLIENT);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer2 = createBuyer(em, account2);
 
@@ -63,7 +65,7 @@ public class TestDataCreator {
                 "giulialucaciu@gmail.com",
                 "none",
                 "0796854752",
-                UserStatus.CLIENT);
+                UserRole.CLIENT);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer3 = createBuyer(em, account3);
 
@@ -108,7 +110,7 @@ public class TestDataCreator {
                 "alex.dulfu@gmail.com",
                 "/images/magazine.jpg",
                 "0734896512",
-                UserStatus.ADMIN);
+                UserRole.ADMIN);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller1 = createSellerFarmer(em,
                 new Address("Romania",
@@ -126,7 +128,7 @@ public class TestDataCreator {
                 "rusznak65@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserStatus.ADMIN);
+                UserRole.ADMIN);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller2 = createSellerFarmer(em,
                 new Address("Romania",
@@ -144,7 +146,7 @@ public class TestDataCreator {
                 "ozius123@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserStatus.ADMIN);
+                UserRole.ADMIN);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller3 = createSellerCompany(em,
                 new Address("Romania",

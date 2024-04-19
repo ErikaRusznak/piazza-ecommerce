@@ -25,7 +25,7 @@ export const addFavorite = (productId: number) => {
     })
 }
 
-export const removeFavorite = (productId: string) => {
+export const removeFavorite = (productId: number) => {
     return api.delete('/my-favorites',{
         params:{
             productId

@@ -2,7 +2,9 @@ package com.ozius.internship.project.service;
 
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.SellerDTO;
+import com.ozius.internship.project.dto.SimpleSellerDTO;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.entity.user.UserRole;
 import com.ozius.internship.project.repository.SellerRepository;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
@@ -10,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,4 +49,6 @@ public class SellerService {
                 .map(seller -> modelMapper.map(seller, SellerDTO.class))
                 .collect(Collectors.toList());
     }
+
+
 }

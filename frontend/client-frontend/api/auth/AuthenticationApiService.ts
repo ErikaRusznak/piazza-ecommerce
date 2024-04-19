@@ -4,7 +4,7 @@ export function executeJwtAuthenticationService(username: string, password: stri
     return api.post(`/authenticate`,{username, password})
 }
 
-export function registerApiService(email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:any){
+export function registerApiService(email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:any){
     return api.post('/register-client',
         {
             firstName: firstName,
@@ -13,6 +13,6 @@ export function registerApiService(email: string, password:string, firstName:str
             telephone: telephone,
             image: image,
             password: password,
-            userStatus: userStatus,
+            userRole: userRole,
         })
 }

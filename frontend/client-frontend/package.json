@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
-    "build": "next build -p 3000",
+    "build": "next build ",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "node server"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -16,10 +17,16 @@
     "@mkyy/mui-search-bar": "^0.5.2",
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
+    "@stomp/stompjs": "^7.0.0",
+    "@types/sockjs-client": "^1.5.4",
+    "@types/stompjs": "^2.3.9",
     "axios": "^1.6.7",
+    "install": "^0.13.0",
     "moment": "^2.30.1",
     "mui-tel-input": "^5.0.0",
+    "net": "^1.0.2",
     "next": "14.1.0",
+    "npm": "^10.5.0",
     "qs": "^6.11.2",
     "react": "^18",
     "react-dom": "^18",
@@ -27,6 +34,10 @@
     "react-phone-number-input": "^3.3.9",
     "react-router-dom": "^6.22.0",
     "react-search-bar": "^2.2.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "yup": "^1.3.3",
     "yup-phone-lite": "^2.0.1"
   },

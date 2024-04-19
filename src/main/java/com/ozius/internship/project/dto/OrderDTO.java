@@ -1,6 +1,6 @@
 package com.ozius.internship.project.dto;
 
-import com.ozius.internship.project.entity.Address;
+import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.order.OrderStatus;
 import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.seller.SellerType;
