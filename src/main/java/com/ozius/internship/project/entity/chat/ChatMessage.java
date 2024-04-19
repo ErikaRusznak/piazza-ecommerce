@@ -18,8 +18,7 @@ public class ChatMessage extends BaseEntity {
         String CHAT_ROOM_CODE = "CHAT_ROOM_CODE";
         String CONTENT = "CONTENT";
         String DATE = "DATE";
-        String SENDER_ID = "SENDER_ID";
-        String RECIPIENT_ID = "RECIPIENT_ID";
+        String IS_READ = "IS_READ";
     }
 
 
@@ -35,6 +34,10 @@ public class ChatMessage extends BaseEntity {
     @Column(name = Columns.DATE, nullable = false)
     private LocalDateTime date;
 
+    @Column(name = Columns.IS_READ, nullable = false)
+    @Setter
+    private boolean isRead;
+
     protected ChatMessage() {
     }
 
@@ -42,6 +45,7 @@ public class ChatMessage extends BaseEntity {
         this.chatRoom = chatRoom;
         this.content = content;
         this.date = LocalDateTime.now();
+        this.isRead = false;
     }
 
     public long getSenderId() {

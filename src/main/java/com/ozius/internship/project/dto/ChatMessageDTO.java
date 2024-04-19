@@ -11,4 +11,5 @@ public class ChatMessageDTO {
     protected long senderId;
     protected long recipientId;
     protected LocalDateTime date;
+    protected boolean isRead;
 }

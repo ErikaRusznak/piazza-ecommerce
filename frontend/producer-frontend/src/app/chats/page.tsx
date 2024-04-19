@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import useTheme from "@/theme/themes";
 import {getAllUsersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
-import {getMessagesForSenderAndRecipientApi} from "../../../api/entities/ChatApi";
+import {getMessagesForSenderAndRecipientApi, markMessagesAsReadApi} from "../../../api/entities/ChatApi";
 import {Box, Container, useMediaQuery} from "@mui/material";
 import {SendIcon} from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
@@ -20,7 +20,7 @@ const ChatPage = () => {
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<any>("");
     const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
-    const [lastMessages, setLastMessages] = useState<{[key: number]: string}>({});
+    const [lastMessages, setLastMessages] = useState<{[key: number]: any}>({});
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -120,7 +120,7 @@ const ChatPage = () => {
         getMessagesForSenderAndRecipientApi(id, recipientId)
             .then((res) => {
                 if (res.data.length > 0) {
-                    const lastMessage = res.data[res.data.length - 1].content;
+                    const lastMessage = res.data[res.data.length - 1];
                     setLastMessages(prevState => ({
                         ...prevState,
                         [recipientId]: lastMessage,
@@ -128,6 +128,23 @@ const ChatPage = () => {
                 }
             })
             .catch((err) => console.error(err));
+    };
+
+    const markMessagesAsRead = (id: number, recipientId: number) => {
+        markMessagesAsReadApi(id, recipientId)
+            .then((res) => {
+                return;
+            })
+            .catch((err)=>console.log(err));
+    }
+
+    const fontWeightForLastMessage = (recipientId: number) => {
+        console.log("recip", lastMessages[recipientId])
+        if (!lastMessages[recipientId] || lastMessages[recipientId].read || lastMessages[recipientId].senderId === id) {
+            return "normal";
+        } else {
+            return "bold";
+        }
     };
 
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
@@ -174,6 +191,7 @@ const ChatPage = () => {
                                             }}
                                             onClick={() => {
                                                 fetchChatHistory(user.id);
+                                                markMessagesAsRead(id, user.id);
                                                 router.push(`/chats?${createQueryString("recipientId", user.id)}`)
                                             }}
                                         >
@@ -184,7 +202,7 @@ const ChatPage = () => {
                                                     textAlign: "center",
                                                     alignContent: "center",
                                                     color: theme.palette.info.main,
-                                                    backgroundColor: theme.palette.lightColor.main,
+                                                    backgroundColor: fontWeightForLastMessage(user.id) === "bold" ? theme.palette.primary.main : theme.palette.lightColor.main,
                                                     borderRadius: "20px",
                                                     display: "flex",
                                                     flexDirection: "column",
@@ -197,17 +215,18 @@ const ChatPage = () => {
                                                 </Box>
                                                 <Box>
                                                     <Typography sx={{
-                                                        fontWeight: "bold",
+                                                        fontWeight: fontWeightForLastMessage(user.id),
                                                     }}>{user.firstName + " " + user.lastName}</Typography>
                                                     <Typography sx={{
                                                         fontSize: "13px",
-                                                        fontWeight: "10px",
                                                         maxWidth: "200px",
                                                         overflow: "hidden",
                                                         textOverflow: "ellipsis",
                                                         whiteSpace: "nowrap",
+                                                        color: "lightgrey",
+                                                        fontWeight: fontWeightForLastMessage(user.id),
                                                     }}>
-                                                        {lastMessages[user.id]}
+                                                        {lastMessages[user.id]?.content}
                                                     </Typography>
                                                 </Box>
                                             </Box>

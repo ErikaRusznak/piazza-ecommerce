@@ -37,14 +37,26 @@ public class ChatMessageService {
         return chatMessage;
     }
 
+    @Transactional
     public List<ChatMessage> findChatMessages(long senderId, long recipientId) {
         var chatRoomCodeOptional = chatRoomService.getChatRoomCode(senderId, recipientId, false);
         if (chatRoomCodeOptional.isPresent()) {
             String chatRoomCode = chatRoomCodeOptional.get();
             List<ChatMessage> chatMessages = chatMessageRepository.findAllByChatRoomCode(chatRoomCode);
+
             return chatMessages.isEmpty() ? Collections.emptyList() : chatMessages;
         } else {
             return Collections.emptyList();
+        }
+    }
+
+    @Transactional
+    public void markChatAsRead(long senderId, long recipientId) {
+        var chatRoomCodeOptional = chatRoomService.getChatRoomCode(senderId, recipientId, false);
+        if (chatRoomCodeOptional.isPresent()) {
+            String chatRoomCode = chatRoomCodeOptional.get();
+            List<ChatMessage> chatMessages = chatMessageRepository.findAllByChatRoomCode(chatRoomCode);
+            chatMessages.forEach(message -> message.setRead(true));
         }
     }
 

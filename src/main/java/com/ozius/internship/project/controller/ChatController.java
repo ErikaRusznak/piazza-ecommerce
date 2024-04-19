@@ -12,6 +12,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -63,5 +64,12 @@ public class ChatController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(chatMessageDTOS);
+    }
+
+    @PutMapping("/messages/markAsRead/{senderId}/{recipientId}")
+    public void markAsRead(@PathVariable("senderId") long senderId,
+                           @PathVariable("recipientId") long recipientId) {
+
+        chatMessageService.markChatAsRead(senderId, recipientId);
     }
 }
