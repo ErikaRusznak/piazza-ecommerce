@@ -8,7 +8,7 @@ import {ShippingAddressType} from "@/app/checkout/page";
 
 type ShippingAddressesComponentProps = {
     shippingAddresses: ShippingAddressType[];
-    selectedShippingAddress: ShippingAddressType;
+    selectedShippingAddress: ShippingAddressType | null;
     onAddressSelected: (event: any) => void;
     toggleModal: () => void;
     onAddAddress: () => void;
@@ -47,6 +47,7 @@ const ShippingAddressesComponent = ({
                     <Typography sx={{textTransform: "none"}}>Add address</Typography>
                 </StyledButton>
             </Box>
+            {(shippingAddresses && selectedShippingAddress) ? (
             <RadioGroup value={selectedShippingAddress.id} onChange={onAddressSelected}>
                 {shippingAddresses.map((item) => (
                     <Box key={item.id}
@@ -77,6 +78,11 @@ const ShippingAddressesComponent = ({
                     </Box>
                 ))}
             </RadioGroup>
+            ) : (
+                <Typography color="error">
+                    Provide an address in order to place an order!
+                </Typography>
+            )}
         </>
     );
 };

@@ -23,10 +23,10 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
                     Ordered Items
                 </Typography>
 
-                {orders.map((orderFromSeller) => (
-                    <div key={orderFromSeller.id}>
-                        {orderFromSeller.orderItems.map((orderItem: any) => (
-                            <div key={orderItem.id}>
+                {orders.map((orderFromSeller, index) => (
+                    <div key={index}>
+                        {orderFromSeller.orderItems.map((orderItem: any, index1: number) => (
+                            <div key={index1}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1, mb: 1 }}>
                                     <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
                                         <img src={`${baseURL}${orderItem.product.imageName}`} alt={orderItem.product.name} style={{ width: "5rem" }} />
