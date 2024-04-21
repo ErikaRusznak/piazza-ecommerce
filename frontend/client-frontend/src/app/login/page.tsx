@@ -16,7 +16,7 @@ import {useAuth} from "../../../api/auth/AuthContext";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import * as yup from "yup";
-import FormTextField from "@/components/atoms/form/FormTextField";
+import FormTextField from "@/components/atoms/form/light/FormTextField";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 

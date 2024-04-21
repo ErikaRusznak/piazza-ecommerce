@@ -3,8 +3,7 @@ package com.ozius.internship.project.controller;
 import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
-import com.ozius.internship.project.dto.ReviewDTO;
-import com.ozius.internship.project.entity.order.Order;
+
 import com.ozius.internship.project.repository.OrderRepository;
 import com.ozius.internship.project.service.OrderService;
 import org.modelmapper.ModelMapper;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 public class OrderController {

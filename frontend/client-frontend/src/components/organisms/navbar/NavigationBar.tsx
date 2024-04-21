@@ -174,11 +174,11 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                             </ListItemIcon>
                                             <ListItemText primary="Orders" sx={{ color: textColor, fontSize: "1rem" }} />
                                         </ListItemButton>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => router.push("/profile")}>
                                             <ListItemIcon>
                                                 <SettingsIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Settings" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Manage profile" sx={{ color: textColor, fontSize: "1rem" }} />
                                         </ListItemButton>
 
                                         <Divider sx={{ background: theme.palette.primary.main }} />

@@ -9,7 +9,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {AddressType, ShippingAddressType} from "@/app/checkout/page";
 import {Grid, Typography} from "@mui/material";
-import FormTextField from "@/components/atoms/form/FormTextField";
+import FormTextField from "@/components/atoms/form/light/FormTextField";
 import CountrySelector from "@/components/atoms/CountrySelector";
 import StyledButton from "@/components/atoms/StyledButton";
 

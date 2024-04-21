@@ -107,8 +107,8 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                     <ListItemButton onClick={() => router.push("/orders")}>
                                         <ListItemText primary="Orders" sx={{color: textColor}} />
                                     </ListItemButton>
-                                    <ListItemButton>
-                                        <ListItemText primary="Settings" sx={{color: textColor}}/>
+                                    <ListItemButton onClick={() => router.push("/profile")}>
+                                        <ListItemText primary="Manage profile" sx={{color: textColor}}/>
                                     </ListItemButton>
                                 </>
                             )}

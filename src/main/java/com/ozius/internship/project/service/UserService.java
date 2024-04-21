@@ -10,6 +10,7 @@ import com.ozius.internship.project.repository.SellerRepository;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,7 +71,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    @PreAuthorize("hasRole('CLIENT')")
+    // TODO - add access only to the principal
+    public UserAccountDto updateUserAccount(long id, String firstName, String lastName, String email, String image, String telephone) {
+        UserAccount userAccount = userAccountRepository.findById(id).orElseThrow();
+        userAccount.updateAccount(firstName, lastName, email, image, telephone);
 
+        return modelMapper.map(userAccount, UserAccountDto.class);
+
+    }
 
 }
 
