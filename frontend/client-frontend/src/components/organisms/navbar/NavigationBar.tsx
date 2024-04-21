@@ -28,6 +28,7 @@ import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
 import {baseURL} from "../../../../api/ApiClient";
+import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -45,14 +46,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const {isAuthenticated, username, logout} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const [user, setUser] = useState<any>(null);
-    const getBuyerByEmail = (email: string) => {
-        getBuyerByEmailApi(email)
-            .then((res) => {
-                setUser(res.data);
-            })
-            .catch((err) => console.log(err));
-    };
+    const {profilePictureUrl} = useProfilePicture();
+    console.log("profile", profilePictureUrl)
 
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
@@ -80,14 +75,9 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     useEffect(() => {
         getCategoryList();
-        const email = sessionStorage.getItem("username");
-        if (email) {
-            const newEmail = JSON.parse(email);
-            getBuyerByEmail(newEmail);
-        }
+
     }, []);
 
-    console.log(user);
     return (
         <AppBar
             color="default"
@@ -155,18 +145,16 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             </Button>
                         ) : (
                             <>
-                                {(user && user.imageName) ? (
+                                {(profilePictureUrl) ? (
                                     <>
                                         <Avatar
-                                            alt={user.imageName}
-                                            src={`${baseURL}${user.imageName}`}
+                                            alt={profilePictureUrl}
+                                            src={`${baseURL}${profilePictureUrl}`}
                                             aria-describedby={id}
                                             onClick={(event: any) => handleClick(event)}
                                             style={{width: 30, height: 30, transition: "filter 0.3s ease-in-out", cursor: "pointer"}}
                                         />
-
                                     </>
-
                                 ):(
                                     <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
                                 )}

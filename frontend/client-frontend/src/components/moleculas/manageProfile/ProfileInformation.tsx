@@ -78,10 +78,6 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
         },
     });
 
-    const updateUserAccount = (id: number) => {
-
-    }
-
     const onSubmit: SubmitHandler<ProfileInformationFormInput> = async (values:any) => {
         console.log("values", values)
         updateUserAccountApi(user.id, values.firstName, values.lastName, values.email, user.imageName, values.telephone)
@@ -96,7 +92,7 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
 
     return user ? (
         <Box sx={{padding: theme.spacing(2), border: "1px solid #a5b4fc", borderRadius: "14px"}}>
-            <Typography variant="h5" sx={{color: theme.palette.info.main, mb:1}}>Profile Information</Typography>
+            <Typography variant="h5" sx={{color: theme.palette.info.main, mb:2}}>Profile Information</Typography>
             <form onSubmit={handleSubmit(onSubmit)} style={{}}>
                 <FormTextFieldDarkBackground
                     name="firstName"

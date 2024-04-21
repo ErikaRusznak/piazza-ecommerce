@@ -11,7 +11,6 @@ import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture"
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {getBuyerByEmailApi} from "../../../api/entities/BuyerApi";
-import {addImageApi} from "../../../api/entities/ImageApi";
 
 const ManageProfilePage = () => {
 
@@ -34,14 +33,6 @@ const ManageProfilePage = () => {
     }, []);
 
     const [addresses, setAddresses] = useState<any>([]);
-    const [profileData, setProfileData] = useState<any>({
-        firstName: "",
-        lastName: "",
-        email: "",
-        telephone: "",
-        newProfilePicture: null,
-    });
-
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -68,9 +59,7 @@ const ManageProfilePage = () => {
 
                     </Grid>
                 </Grid>
-                <AddressManagement
-                    addresses={addresses || []}
-                />
+                <AddressManagement />
                 <AccountManagement/>
             </Container>
         </MainLayout>

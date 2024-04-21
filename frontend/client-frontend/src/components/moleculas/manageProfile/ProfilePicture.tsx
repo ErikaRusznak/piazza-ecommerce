@@ -7,6 +7,7 @@ import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation"
 import {baseURL} from "../../../../api/ApiClient";
 import {SubmitHandler} from "react-hook-form";
 import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
+import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
 type ProfilePictureProps = {
     setUser: (data: UserType)=>void;
@@ -18,6 +19,8 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
 
     const [fileName, setFileName] = useState<string>(user.imageName);
     const [hovered, setHovered] = useState<boolean>(false);
+
+    const {profilePictureUrl, setProfilePictureUrl} = useProfilePicture();
 
     const handleButtonClick = () => {
         const fileInput = document.getElementById("file-input");
@@ -38,6 +41,7 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
         try {
             const res = await addImageApi(file);
             setFileName(res.data);
+            setProfilePictureUrl(res.data);
             return res.data;
         } catch (err) {
             console.error(err);
@@ -54,7 +58,6 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
                 console.error(err);
             })
     };
-    console.log(fileName)
 
     return (
         <Box sx={{border: "1px solid #a5b4fc", borderRadius: "14px"}}>
@@ -82,8 +85,8 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
 
                     >
                         <Avatar
-                            alt={fileName}
-                            src={`${baseURL}${fileName}` || user.imageName}
+                            alt={profilePictureUrl ?? "profile-pic"}
+                            src={ `${baseURL}${fileName}` || user.imageName  }
                             sx={{width: 150, height: 150, transition: "filter 0.3s ease-in-out",}}
                         />
                         {hovered && (
