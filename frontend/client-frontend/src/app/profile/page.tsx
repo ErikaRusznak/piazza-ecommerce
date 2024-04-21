@@ -11,6 +11,7 @@ import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture"
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {getBuyerByEmailApi} from "../../../api/entities/BuyerApi";
+import {addImageApi} from "../../../api/entities/ImageApi";
 
 const ManageProfilePage = () => {
 
@@ -19,7 +20,6 @@ const ManageProfilePage = () => {
     const getBuyerByEmail = (email: string) => {
         getBuyerByEmailApi(email)
             .then((res) => {
-                console.log("res", res.data);
                 setUser(res.data);
             })
             .catch((err) => console.log(err));
@@ -42,25 +42,6 @@ const ManageProfilePage = () => {
         newProfilePicture: null,
     });
 
-    const handleProfileUpdate = () => {
-        // Implement profile update functionality
-        // Use profileData state to update user profile information
-    };
-
-
-    const handleProfilePictureChange = (event: any) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setProfileData((prevState: any) => ({
-                ...prevState,
-                newProfilePicture: reader.result,
-            }));
-        };
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    };
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -75,9 +56,8 @@ const ManageProfilePage = () => {
 
                     <Grid item xs={12} md={4}>
                         <ProfilePicture
-                            handleProfilePictureChange={handleProfileUpdate}
-                            profileData={profileData}
                             user={user}
+                            setUser={setUser}
                         />
                     </Grid>
                     <Grid item xs={12} md={8}>

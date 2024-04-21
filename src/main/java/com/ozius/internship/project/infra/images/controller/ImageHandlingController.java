@@ -19,7 +19,6 @@ public class ImageHandlingController {
     }
 
     @PostMapping("/images")
-    @PreAuthorize("hasRole('ADMIN')")
     public String upload(@RequestParam("file") MultipartFile file) throws FileNotFoundException {
         return imageService.upload(file);
     }

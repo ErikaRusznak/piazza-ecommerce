@@ -1,42 +1,114 @@
-import React from "react";
-import {Avatar, Grid, IconButton, Paper} from "@mui/material";
-import {PhotoCamera} from "@mui/icons-material";
+import React, {useState} from "react";
+import {Avatar, Box, Grid, IconButton, Paper} from "@mui/material";
+import {Edit, PhotoCamera} from "@mui/icons-material";
 import useTheme from "@/theme/themes";
+import {addImageApi} from "../../../../api/entities/ImageApi";
+import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation";
+import {baseURL} from "../../../../api/ApiClient";
+import {SubmitHandler} from "react-hook-form";
+import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
 
 type ProfilePictureProps = {
-    handleProfilePictureChange: () => void;
-    profileData: any;
-    user: any;
+    setUser: (data: UserType)=>void;
+    user: UserType;
 }
-const ProfilePicture = ({handleProfilePictureChange, profileData, user}:ProfilePictureProps) => {
+const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
 
     const theme = useTheme();
+
+    const [fileName, setFileName] = useState<string>(user.imageName);
+    const [hovered, setHovered] = useState<boolean>(false);
+
+    const handleButtonClick = () => {
+        const fileInput = document.getElementById("file-input");
+        if (fileInput) {
+            fileInput.click();
+        }
+    };
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+        if (file) {
+            const fileName = await handleProfilePicUpdate(file);
+            updateUser(user, fileName);
+        }
+    };
+
+    const handleProfilePicUpdate = async (file: File) => {
+        try {
+            const res = await addImageApi(file);
+            setFileName(res.data);
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            return "";
+        }
+    };
+
+    const updateUser = (user: UserType, fileName: string) => {
+        updateUserAccountApi(user.id, user.firstName, user.lastName, user.email, fileName, user.telephone)
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    };
+
     return (
-        <Paper elevation={3} style={{padding: theme.spacing(2)}}>
-            <Grid container justifyContent="center" alignItems="center">
-                <input
-                    accept="image/*"
-                    id="icon-button-file"
-                    type="file"
-                    style={{display: "none"}}
-                    onChange={handleProfilePictureChange}
-                />
+        <Box sx={{border: "1px solid #a5b4fc", borderRadius: "14px"}}>
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+            >
                 <label htmlFor="icon-button-file">
                     <IconButton
                         color="primary"
                         aria-label="upload picture"
                         component="span"
+                        onClick={handleButtonClick}
+                        sx={{
+                            "&:hover": {
+                                "& > .MuiAvatar-root": {
+                                    filter: "brightness(50%)",
+                                    transition: "filter 0.3s ease-in-out",
+                                },
+                            },
+                        }}
+
                     >
                         <Avatar
-                            alt="Profile Picture"
-                            src={profileData.newProfilePicture || user?.imageName}
-                            sx={{width: 150, height: 150}}
+                            alt={fileName}
+                            src={`${baseURL}${fileName}` || user.imageName}
+                            sx={{width: 150, height: 150,     transition: "filter 0.3s ease-in-out",}}
                         />
-                        <PhotoCamera fontSize="large"/>
+                        {hovered && (
+                            <Edit
+                                sx={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    color: theme.palette.common.white,
+                                    opacity: 0.8,
+                                    transition: "opacity 0.3s ease-in-out",
+                                }}
+                            />
+                        )}
                     </IconButton>
                 </label>
+                <input
+                    id="file-input"
+                    type="file"
+                    accept="image/*"
+                    style={{display: "none"}}
+                    onChange={handleFileChange}
+                />
             </Grid>
-        </Paper>
+        </Box>
     );
 };
 
