@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {
-    AppBar,
+    AppBar, Avatar,
     Button, Divider, List,
     ListItemButton,
     ListItemIcon,
@@ -26,6 +26,8 @@ import {useAuth} from "../../../../api/auth/AuthContext";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
+import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
+import {baseURL} from "../../../../api/ApiClient";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -42,6 +44,16 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     const {isAuthenticated, username, logout} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const [user, setUser] = useState<any>(null);
+    const getBuyerByEmail = (email: string) => {
+        getBuyerByEmailApi(email)
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => console.log(err));
+    };
+
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     }
@@ -68,8 +80,14 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     useEffect(() => {
         getCategoryList();
+        const email = sessionStorage.getItem("username");
+        if (email) {
+            const newEmail = JSON.parse(email);
+            getBuyerByEmail(newEmail);
+        }
     }, []);
 
+    console.log(user);
     return (
         <AppBar
             color="default"
@@ -137,7 +155,22 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             </Button>
                         ) : (
                             <>
-                                <AccountCircleIcon sx={{color: textColor, cursor: "pointer"}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                {(user && user.imageName) ? (
+                                    <>
+                                        <Avatar
+                                            alt={user.imageName}
+                                            src={`${baseURL}${user.imageName}`}
+                                            aria-describedby={id}
+                                            onClick={(event: any) => handleClick(event)}
+                                            style={{width: 30, height: 30, transition: "filter 0.3s ease-in-out", cursor: "pointer"}}
+                                        />
+
+                                    </>
+
+                                ):(
+                                    <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                )}
+
                                 <Popover
                                     id={id} open={open}
                                     anchorEl={anchorEl}

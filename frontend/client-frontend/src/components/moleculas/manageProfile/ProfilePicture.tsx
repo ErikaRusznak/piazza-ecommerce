@@ -54,6 +54,7 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
                 console.error(err);
             })
     };
+    console.log(fileName)
 
     return (
         <Box sx={{border: "1px solid #a5b4fc", borderRadius: "14px"}}>
@@ -83,7 +84,7 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
                         <Avatar
                             alt={fileName}
                             src={`${baseURL}${fileName}` || user.imageName}
-                            sx={{width: 150, height: 150,     transition: "filter 0.3s ease-in-out",}}
+                            sx={{width: 150, height: 150, transition: "filter 0.3s ease-in-out",}}
                         />
                         {hovered && (
                             <Edit
