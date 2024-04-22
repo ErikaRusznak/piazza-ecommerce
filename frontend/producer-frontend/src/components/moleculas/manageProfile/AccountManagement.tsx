@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import {Button} from "@mui/material";
+import {Button, Paper, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
-import {deleteAccountForBuyerByIdApi} from "../../../../api/entities/UserAccount";
 import {useRouter} from "next/navigation";
 import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
 import {useAuth} from "../../../../api/auth/AuthContext";
@@ -23,12 +22,12 @@ const AccountManagement = ({user}:AccountManagementProps) => {
     }
 
     const handleDelete = () => {
-        deleteAccountForBuyerByIdApi(user.id)
-            .then(res => {
-                logout();
-                router.push("/login");
-            })
-            .catch(err => console.log(err))
+        // deleteAccountForBuyerByIdApi(user.id)
+        //     .then(res => {
+        //         logout();
+        //         router.push("/login");
+        //     })
+        //     .catch(err => console.log(err))
 
     };
 

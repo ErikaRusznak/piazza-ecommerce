@@ -10,8 +10,12 @@ import {Box, Container, useMediaQuery} from "@mui/material";
 import {SendIcon} from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
 import {useRouter, useSearchParams} from "next/navigation";
+import {useAuth} from "../../../api/auth/AuthContext";
+import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 
 const ChatPage = () => {
+
+    const {isAuthenticated} = useAuth();
 
     const theme = useTheme();
     const router = useRouter();
@@ -150,9 +154,10 @@ const ChatPage = () => {
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
     return (
-        (connectedUsers && id) && (
-            <MainLayout>
-                <Container>
+        <MainLayout>
+            {isAuthenticated ? (
+                (connectedUsers && id) && (
+                    <Container>
                     <Box sx={{
                         // boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
                         boxShadow: '-5px 5px 15px rgba(255,255,255, 0.5)',
@@ -326,9 +331,12 @@ const ChatPage = () => {
                             </Box>
                         </Box>
                     </Box>
-                </Container>
-            </MainLayout>
-        )
+                    </Container>
+                )
+            ) : (
+                <UnauthenticatedMessage />
+            )}
+        </MainLayout>
     );
 };
 
