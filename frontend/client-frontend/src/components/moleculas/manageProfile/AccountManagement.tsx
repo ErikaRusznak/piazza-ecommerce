@@ -1,25 +1,53 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Paper, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
+import {deleteAccountByIdApi} from "../../../../api/entities/UserAccount";
+import {useRouter} from "next/navigation";
+import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
 
-const AccountManagement = () => {
+type AccountManagementProps = {
+    user: any;
+}
+
+const AccountManagement = ({user}:AccountManagementProps) => {
 
     const theme = useTheme();
-    const handleAccountDelete = () => {
+    const router = useRouter();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    }
+
+    const handleDelete = () => {
+        deleteAccountByIdApi(user.id)
+            .then(res => {
+                router.push("/login");
+
+            })
+            .catch(err => console.log(err))
 
     };
 
     return (
-        <Paper elevation={3} style={{padding: theme.spacing(2), marginTop: 20}}>
-            <Typography variant="h4">Account Management</Typography>
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleAccountDelete}
-            >
-                Delete Account
-            </Button>
-        </Paper>
+        <>
+        <Button
+            variant="contained"
+            color="error"
+            sx={{mt: 2}}
+            onClick={toggleModal}
+        >
+            Delete Account
+        </Button>
+
+        <DeleteAccountModal
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+            setIsModalOpen={setIsModalOpen}
+            onDelete={handleDelete}
+            userId={user.id} />
+        </>
     );
 };
 

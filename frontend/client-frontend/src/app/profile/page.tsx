@@ -58,7 +58,8 @@ const ManageProfilePage = () => {
                     </Grid>
                 </Grid>
                 <AddressManagement/>
-                <AccountManagement/>
+                <AccountManagement
+                    user={user}/>
             </Container>
         </MainLayout>
     );

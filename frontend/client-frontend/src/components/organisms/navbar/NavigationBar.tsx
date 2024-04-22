@@ -47,7 +47,6 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const {profilePictureUrl} = useProfilePicture();
-    console.log("profile", profilePictureUrl)
 
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);

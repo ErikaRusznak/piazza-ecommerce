@@ -29,3 +29,7 @@ export const updateUserAccountApi = (id: number, firstName: string, lastName: st
         telephone: telephone,
     })
 };
+
+export const deleteAccountByIdApi = (accountId:string) => {
+    return api.delete(`/users/${accountId}`)
+}

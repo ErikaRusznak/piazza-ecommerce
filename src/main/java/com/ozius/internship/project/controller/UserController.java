@@ -88,4 +88,8 @@ public class UserController {
         return ResponseEntity.ok(newUserAccount);
     }
 
+    @DeleteMapping("/users/{id}")
+    public void deleteProductById(@PathVariable long id) {
+        userService.deleteAccount(id);
+    }
 }
