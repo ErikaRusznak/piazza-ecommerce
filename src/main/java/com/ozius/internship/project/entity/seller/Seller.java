@@ -196,8 +196,14 @@ public class Seller extends BaseEntity {
         return reviewNew;
     }
 
-    public void updateSeller(LegalDetails legalDetails, Address legalAddress ){
+    public void updateSeller(LegalDetails legalDetails, Address legalAddress) {
+        this.legalAddress = legalAddress;
         this.legalDetails = legalDetails;
+    }
+    public void updateSellerLegalDetails(LegalDetails legalDetails){
+        this.legalDetails = legalDetails;
+    }
+    public void updateSellerAddress(Address legalAddress) {
         this.legalAddress = legalAddress;
     }
 

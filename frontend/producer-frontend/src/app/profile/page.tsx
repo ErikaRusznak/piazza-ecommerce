@@ -34,12 +34,6 @@ const ManageProfilePage = () => {
         }
     }, []);
 
-
-    const breadcrumbsLinks = [
-        {label: "Home", link: "/"},
-        {label: "Profile", link: ""},
-    ];
-
     return (
         <MainLayout>
             {isAuthenticated ? (
@@ -61,7 +55,8 @@ const ManageProfilePage = () => {
                                     />
                                 </Grid>
                             </Grid>
-                            <AddressManagement/>
+                            <AddressManagement
+                            />
                             <AccountManagement
                                 user={user}/>
                         </Container>

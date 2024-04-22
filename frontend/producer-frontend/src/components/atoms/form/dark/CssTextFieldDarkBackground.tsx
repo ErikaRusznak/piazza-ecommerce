@@ -18,6 +18,16 @@ export const CssTextFieldDarkBackground = styled(
             '&.Mui-focused fieldset': {
                 borderColor: theme.palette.primary.main,
             },
+            '&.Mui-disabled': {
+                '& fieldset': {
+                    borderColor: theme.palette.lightColor.main,
+                },
+            },
+        },
+        '& .MuiInputBase-input': {
+            '&.Mui-disabled': {
+                color: theme.palette.info.main,
+            },
         },
     };
 });

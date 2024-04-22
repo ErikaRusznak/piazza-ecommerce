@@ -76,7 +76,7 @@ public class UserService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT') and hasRole('ADMIN')")
     // TODO - add access only to the principal
     public UserAccountDto updateUserAccount(long id, String firstName, String lastName, String email, String image, String telephone) {
         UserAccount userAccount = userAccountRepository.findById(id).orElseThrow();
@@ -84,6 +84,20 @@ public class UserService {
 
         return modelMapper.map(userAccount, UserAccountDto.class);
 
+    }
+
+    @Transactional
+    public void deleteAccountForSeller(long accountId) {
+        UserAccount userAccount = userAccountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException("User account not found"));
+
+        Seller seller = sellerRepository.findSellerByAccount_Id(accountId);
+
+        if (seller != null) {
+            sellerRepository.delete(seller);
+        } else {
+            userAccountRepository.delete(userAccount);
+        }
     }
 
     @Transactional
@@ -98,7 +112,6 @@ public class UserService {
         } else {
             userAccountRepository.delete(userAccount);
         }
-
     }
 
 }

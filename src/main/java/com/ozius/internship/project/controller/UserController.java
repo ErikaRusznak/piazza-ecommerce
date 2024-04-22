@@ -88,8 +88,13 @@ public class UserController {
         return ResponseEntity.ok(newUserAccount);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/users-buyer/{id}")
     public void deleteAccountForBuyerById(@PathVariable long id) {
         userService.deleteAccountForBuyer(id);
+    }
+
+    @DeleteMapping("/users-seller/{id}")
+    public void deleteAccountForSellerById(@PathVariable long id) {
+        userService.deleteAccountForSeller(id);
     }
 }

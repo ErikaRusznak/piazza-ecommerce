@@ -4,6 +4,7 @@ import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
 import {useAuth} from "../../../../api/auth/AuthContext";
+import {deleteAccountForSellerByIdApi} from "../../../../api/entities/UserAccount";
 
 type AccountManagementProps = {
     user: any;
@@ -22,12 +23,12 @@ const AccountManagement = ({user}:AccountManagementProps) => {
     }
 
     const handleDelete = () => {
-        // deleteAccountForBuyerByIdApi(user.id)
-        //     .then(res => {
-        //         logout();
-        //         router.push("/login");
-        //     })
-        //     .catch(err => console.log(err))
+        deleteAccountForSellerByIdApi(user.id)
+            .then(res => {
+                logout();
+                router.push("/login");
+            })
+            .catch(err => console.log(err))
 
     };
 

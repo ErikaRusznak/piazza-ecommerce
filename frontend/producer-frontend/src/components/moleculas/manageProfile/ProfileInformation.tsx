@@ -76,7 +76,6 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
     });
 
     const onSubmit: SubmitHandler<ProfileInformationFormInput> = async (values:any) => {
-        console.log("values", values)
         updateUserAccountApi(user.id, values.firstName, values.lastName, values.email, user.imageName, values.telephone)
             .then((res) => {
                 setUser(res.data);

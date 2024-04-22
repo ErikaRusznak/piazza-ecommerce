@@ -31,5 +31,5 @@ export const updateUserAccountApi = (id: number, firstName: string, lastName: st
 };
 
 export const deleteAccountForBuyerByIdApi = (accountId:string) => {
-    return api.delete(`/users/${accountId}`)
+    return api.delete(`/users-buyer/${accountId}`)
 }

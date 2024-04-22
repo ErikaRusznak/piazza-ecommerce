@@ -21,3 +21,15 @@ export const updateUserAccountApi = (id: number, firstName: string, lastName: st
         telephone: telephone,
     })
 };
+
+export const deleteAccountForSellerByIdApi = (accountId:string) => {
+    return api.delete(`/users-seller/${accountId}`)
+};
+
+export const updateSellerLegalDetailsApi = (id:number, legalDetails:any) => {
+    return api.put(`/sellers/legal-details/${id}`, legalDetails);
+};
+
+export const updateSellerAddressApi = (id: number, address: any) => {
+    return api.put(`/seller/legal-address/${id}`, address)
+}
