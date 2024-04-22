@@ -65,8 +65,6 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
                 container
                 justifyContent="center"
                 alignItems="center"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
             >
                 <label htmlFor="icon-button-file">
                     <IconButton
@@ -82,7 +80,8 @@ const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
                                 },
                             },
                         }}
-
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
                     >
                         <Avatar
                             alt={profilePictureUrl ?? "profile-pic"}

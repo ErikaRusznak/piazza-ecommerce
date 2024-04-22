@@ -59,15 +59,12 @@ const profileInformationSchema = object().shape({
 const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
 
     const theme = useTheme();
+    // TODO - add alert when profile is updated successfully
 
     const {
-        register,
         handleSubmit,
         control,
-        watch,
-        setValue,
         formState: {errors},
-        getValues,
     } = useForm<ProfileInformationFormInput>({
         resolver: yupResolver(profileInformationSchema) as Resolver<ProfileInformationFormInput>,
         defaultValues: {
@@ -82,7 +79,6 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
         console.log("values", values)
         updateUserAccountApi(user.id, values.firstName, values.lastName, values.email, user.imageName, values.telephone)
             .then((res) => {
-                console.log("Successful", res.data);
                 setUser(res.data);
             })
             .catch((err) => {

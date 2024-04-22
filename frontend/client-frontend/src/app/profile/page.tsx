@@ -32,7 +32,6 @@ const ManageProfilePage = () => {
         }
     }, []);
 
-    const [addresses, setAddresses] = useState<any>([]);
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -56,10 +55,9 @@ const ManageProfilePage = () => {
                             user={user}
                             setUser={setUser}
                         />
-
                     </Grid>
                 </Grid>
-                <AddressManagement />
+                <AddressManagement/>
                 <AccountManagement/>
             </Container>
         </MainLayout>

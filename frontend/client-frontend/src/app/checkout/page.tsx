@@ -39,7 +39,7 @@ const CheckoutPage = () => {
     const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType | null>(null);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
 
-    const shippingPrice = 10
+    const shippingPrice = 10;
 
     const {username} = useAuth()
     const router = useRouter();
@@ -160,8 +160,6 @@ const CheckoutPage = () => {
         {label: "Checkout", link: ""}
     ];
 
-    console.log(!selectedShippingAddress)
-
     return (
         <MainLayout>
             <Container>
@@ -218,7 +216,6 @@ const CheckoutPage = () => {
                 <AddressFormModal
                     toggleModal={toggleModal}
                     isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}
                     onSaveForm={handleSaveForm}
                     shippingAddress={editingAddress ?? nullObject}
                     setEditingAddress={setEditingAddress}

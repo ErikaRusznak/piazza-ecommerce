@@ -50,14 +50,12 @@ type AddressFormModalProps = {
     shippingAddress: ShippingAddressType | null;
     toggleModal: () => void;
     isModalOpen: boolean;
-    setIsModalOpen: (value: boolean) => void;
     setEditingAddress: (value: ShippingAddressType|null) => void;
 };
 const AddressFormModal = ({
                               onSaveForm,
                               shippingAddress,
                               toggleModal,
-                              setIsModalOpen,
                               isModalOpen,
                               setEditingAddress
                           }: AddressFormModalProps) => {
