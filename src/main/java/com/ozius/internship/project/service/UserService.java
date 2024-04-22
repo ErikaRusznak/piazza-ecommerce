@@ -87,7 +87,7 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteAccount(long accountId) {
+    public void deleteAccountForBuyer(long accountId) {
         UserAccount userAccount = userAccountRepository.findById(accountId)
                 .orElseThrow(() -> new IllegalArgumentException("User account not found"));
 

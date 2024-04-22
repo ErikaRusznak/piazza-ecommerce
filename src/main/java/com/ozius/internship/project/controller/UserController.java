@@ -89,7 +89,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteProductById(@PathVariable long id) {
-        userService.deleteAccount(id);
+    public void deleteAccountForBuyerById(@PathVariable long id) {
+        userService.deleteAccountForBuyer(id);
     }
 }

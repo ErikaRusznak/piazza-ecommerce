@@ -11,13 +11,14 @@ import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture"
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {getBuyerByEmailApi} from "../../../api/entities/BuyerApi";
+import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
 
 const ManageProfilePage = () => {
 
     const [user, setUser] = useState<any>(null);
 
     const getBuyerByEmail = (email: string) => {
-        getBuyerByEmailApi(email)
+        getUserAccountByEmail(email)
             .then((res) => {
                 setUser(res.data);
             })
