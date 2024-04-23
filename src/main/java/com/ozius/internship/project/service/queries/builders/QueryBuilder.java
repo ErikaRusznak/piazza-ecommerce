@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.buiders;
+package com.ozius.internship.project.service.queries.builders;
 
 import com.ozius.internship.project.service.queries.filter.FilterCriteria;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;

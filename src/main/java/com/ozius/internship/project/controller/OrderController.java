@@ -6,9 +6,14 @@ import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
 import com.ozius.internship.project.repository.OrderRepository;
 import com.ozius.internship.project.service.OrderService;
+import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
+import com.ozius.internship.project.service.queries.filter.FilterSpecs;
+import com.ozius.internship.project.service.queries.sort.SortSpecs;
+import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -21,11 +26,13 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
+    private final EntityManager entityManager;
 
-    public OrderController(OrderService orderService, OrderRepository orderRepository, ModelMapper modelMapper) {
+    public OrderController(OrderService orderService, OrderRepository orderRepository, ModelMapper modelMapper, EntityManager entityManager) {
         this.orderService = orderService;
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
+        this.entityManager = entityManager;
     }
 
     @PostMapping("/orders")
@@ -57,6 +64,25 @@ public class OrderController {
         List<OrderDTO> orders = orderService.getAllOrdersForSeller(sellerEmail);
         return ResponseEntity.ok(orders);
     }
+
+    @GetMapping("/orders-try")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiPaginationResponse<List<OrderDTO>> getOrdersByFilter(
+            @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs) {
+
+        OrderPaginationSearchQuery query = new OrderPaginationSearchQuery(modelMapper, entityManager)
+                .filterBy(filterSpecs);
+
+        int numOfTotalProds = query.getResultList().size();
+
+        List<OrderDTO> orderDTOS = query.getPagingResultList(itemsPerPage, page-1);
+
+        return new ApiPaginationResponse<>(page, itemsPerPage, numOfTotalProds, orderDTOS);
+    }
+//    http://localhost:8080/orders-try?filter=%5B%22orderStatus%5Beq%5DPENDING%22%2C%22sellerAlias%5Beq%5DMega%20Fresh%22%5D
+
 
     @GetMapping("/order/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable long id) {
