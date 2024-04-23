@@ -59,8 +59,8 @@ const ManageProfilePage = () => {
                                 user={user}
                                 setUser={setUser}
                             />
-                            <AccountManagement
-                                user={user}/>
+                            {/*<AccountManagement*/}
+                            {/*    user={user}/>*/}
                         </Container>
                     </>
                 )
