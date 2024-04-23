@@ -11,7 +11,10 @@ const StyledButton = styled(Button, {
     },
     "&:hover": {
         background: "linear-gradient(267.27deg, #4338ca 10%, #5879EF 90%)",
-    }
+    },
+    '&:disabled': {
+        background: '#BBBBBB',
+    },
 }));
 
 export default StyledButton;

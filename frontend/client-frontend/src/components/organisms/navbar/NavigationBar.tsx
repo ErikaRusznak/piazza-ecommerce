@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {
-    AppBar,
+    AppBar, Avatar,
     Button, Divider, List,
     ListItemButton,
     ListItemIcon,
@@ -26,6 +26,9 @@ import {useAuth} from "../../../../api/auth/AuthContext";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
+import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
+import {baseURL} from "../../../../api/ApiClient";
+import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -42,6 +45,9 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     const {isAuthenticated, username, logout} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const {profilePictureUrl} = useProfilePicture();
+
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     }
@@ -68,6 +74,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     useEffect(() => {
         getCategoryList();
+
     }, []);
 
     return (
@@ -137,7 +144,20 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             </Button>
                         ) : (
                             <>
-                                <AccountCircleIcon sx={{color: textColor, cursor: "pointer"}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                {(profilePictureUrl) ? (
+                                    <>
+                                        <Avatar
+                                            alt={profilePictureUrl}
+                                            src={`${baseURL}${profilePictureUrl}`}
+                                            aria-describedby={id}
+                                            onClick={(event: any) => handleClick(event)}
+                                            style={{width: 30, height: 30, transition: "filter 0.3s ease-in-out", cursor: "pointer"}}
+                                        />
+                                    </>
+                                ):(
+                                    <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                )}
+
                                 <Popover
                                     id={id} open={open}
                                     anchorEl={anchorEl}
@@ -174,11 +194,11 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                             </ListItemIcon>
                                             <ListItemText primary="Orders" sx={{ color: textColor, fontSize: "1rem" }} />
                                         </ListItemButton>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => router.push("/profile")}>
                                             <ListItemIcon>
                                                 <SettingsIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Settings" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Manage profile" sx={{ color: textColor, fontSize: "1rem" }} />
                                         </ListItemButton>
 
                                         <Divider sx={{ background: theme.palette.primary.main }} />

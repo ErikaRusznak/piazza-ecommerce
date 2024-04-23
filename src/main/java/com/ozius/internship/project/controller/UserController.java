@@ -10,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -84,4 +82,19 @@ public class UserController {
         return ResponseEntity.ok(userService.findConnectedUsers());
     }
 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserAccountDto> updateUserAccount(@PathVariable long id, @RequestBody UserAccount userAccount) {
+        UserAccountDto newUserAccount = userService.updateUserAccount(id, userAccount.getFirstName(), userAccount.getLastName(), userAccount.getEmail(), userAccount.getImageName(), userAccount.getTelephone());
+        return ResponseEntity.ok(newUserAccount);
+    }
+
+    @DeleteMapping("/users-buyer/{id}")
+    public void deleteAccountForBuyerById(@PathVariable long id) {
+        userService.deleteAccountForBuyer(id);
+    }
+
+    @DeleteMapping("/users-seller/{id}")
+    public void deleteAccountForSellerById(@PathVariable long id) {
+        userService.deleteAccountForSeller(id);
+    }
 }

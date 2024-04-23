@@ -135,7 +135,6 @@ export default function Navigation({children}: { children: React.ReactNode }) {
             icon: <NotificationsIcon sx={{color: theme.palette.info.main}}/>,
             href: "/notifications"
         },
-        {label: "Settings", icon: <SettingsIcon sx={{color: theme.palette.info.main}}/>, href: "/settings"}
     ];
 
     const handleDrawerOpen = () => {

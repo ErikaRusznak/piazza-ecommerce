@@ -9,7 +9,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {AddressType, ShippingAddressType} from "@/app/checkout/page";
 import {Grid, Typography} from "@mui/material";
-import FormTextField from "@/components/atoms/form/FormTextField";
+import FormTextField from "@/components/atoms/form/light/FormTextField";
 import CountrySelector from "@/components/atoms/CountrySelector";
 import StyledButton from "@/components/atoms/StyledButton";
 
@@ -50,14 +50,12 @@ type AddressFormModalProps = {
     shippingAddress: ShippingAddressType | null;
     toggleModal: () => void;
     isModalOpen: boolean;
-    setIsModalOpen: (value: boolean) => void;
     setEditingAddress: (value: ShippingAddressType|null) => void;
 };
 const AddressFormModal = ({
                               onSaveForm,
                               shippingAddress,
                               toggleModal,
-                              setIsModalOpen,
                               isModalOpen,
                               setEditingAddress
                           }: AddressFormModalProps) => {

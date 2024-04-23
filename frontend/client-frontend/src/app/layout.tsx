@@ -6,6 +6,7 @@ import Footer from "@/components/organisms/footer/Footer";
 import WebSocketProvider from "../../contexts/WebSocketContext";
 import SockJS from "sockjs-client";
 import {baseURL} from "../../api/ApiClient";
+import ProfilePictureProvider from "../../contexts/ProfilePictureContext";
 
 export const metadata = {
     title: 'Next.js',
@@ -23,13 +24,15 @@ export default function RootLayout({
             <WebSocketProvider>
                 <CartProvider>
                     <FavoriteProvider>
-                        <html lang="en" style={{margin: 0, padding: 0}}>
-                        <body style={{margin: 0, padding: 0}}>
-                        {/*<NavigationBar />*/}
-                        {children}
-                        {/*<Footer />*/}
-                        </body>
-                        </html>
+                        <ProfilePictureProvider>
+                            <html lang="en" style={{margin: 0, padding: 0}}>
+                            <body style={{margin: 0, padding: 0}}>
+                            {/*<NavigationBar />*/}
+                            {children}
+                            {/*<Footer />*/}
+                            </body>
+                            </html>
+                        </ProfilePictureProvider>
                     </FavoriteProvider>
                 </CartProvider>
             </WebSocketProvider>

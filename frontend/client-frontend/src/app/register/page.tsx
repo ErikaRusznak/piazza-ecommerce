@@ -12,7 +12,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import {Grid} from "@mui/material";
-import FormTextField from "@/components/atoms/form/FormTextField";
+import FormTextField from "@/components/atoms/form/light/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
