@@ -56,6 +56,8 @@ const ManageProfilePage = () => {
                                 </Grid>
                             </Grid>
                             <AddressManagement
+                                user={user}
+                                setUser={setUser}
                             />
                             <AccountManagement
                                 user={user}/>

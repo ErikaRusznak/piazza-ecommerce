@@ -76,7 +76,6 @@ public class UserService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('CLIENT') and hasRole('ADMIN')")
     // TODO - add access only to the principal
     public UserAccountDto updateUserAccount(long id, String firstName, String lastName, String email, String image, String telephone) {
         UserAccount userAccount = userAccountRepository.findById(id).orElseThrow();
