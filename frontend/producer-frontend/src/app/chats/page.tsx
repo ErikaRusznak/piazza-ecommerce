@@ -85,9 +85,9 @@ const ChatPage = () => {
     useEffect(() => {
         getAllBuyers();
         let usernameFromStorage = sessionStorage.getItem("username");
-        const usernameWithoutQuotes = usernameFromStorage?.replace(/^"(.*)"$/, '$1');
-        if (usernameWithoutQuotes) {
-            getSellerByEmail(usernameWithoutQuotes);
+        if (usernameFromStorage) {
+            const newUsername = JSON.parse(usernameFromStorage)
+            getSellerByEmail(newUsername);
         }
     }, []);
 
