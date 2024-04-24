@@ -12,6 +12,7 @@ import moment from 'moment';
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 
 ;
 
@@ -73,10 +74,9 @@ const OrdersPage = () => {
     const {username, isAuthenticated, sellerAlias} = useAuth();
     const [orders, setOrders] = useState([]);
 
-    const [itemsPerPage, setItemsPerPage] = useState(8);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalNumberOfOrders, setTotalNumberOfOrders] = useState(0);
-    const numberOfPages = Math.ceil(totalNumberOfOrders / itemsPerPage);
     const [orderSort, setOrderSort] = useState<SortFilter>({criteria: null, orderSort: null});
 
     const [filterOptions, setFilterOptions] = useState(buildFilterOptionsFromQueryParams(new URLSearchParams()));
@@ -87,7 +87,6 @@ const OrdersPage = () => {
         setItemsPerPage(newItemsPerPage);
         getOrdersApi(page, newItemsPerPage, sortSpecs, filterSpecs)
             .then((res) => {
-                console.log("res", res.data)
                 setOrders(res.data.data);
                 setTotalNumberOfOrders(res.data.numberOfElements);
             })
@@ -142,9 +141,7 @@ const OrdersPage = () => {
 
     const buildSortSpecs = () => {
         const sortSpecs = [];
-        if (orderSort.criteria && orderSort.orderSort) {
-            sortSpecs.push(createSortCriteria("orderDate", "desc"));
-        }
+        sortSpecs.push(createSortCriteria("orderDate", "desc"));
         return sortSpecs;
     }
 
@@ -186,7 +183,6 @@ const OrdersPage = () => {
             newQueryParams.set(key, value);
         }
     };
-    console.log('orders', orders)
     const displayOrders = orders?.map((order: any) => ({
         id: order.id,
         buyerName: order.buyerFirstName + " " + order.buyerLastName,
@@ -212,6 +208,7 @@ const OrdersPage = () => {
                                 value={selectedStatusFilter || ""}
                                 onChange={handleFilterChange}
                             >
+                                <MenuItem value="ALL">All</MenuItem>
                                 <MenuItem value="PENDING">Pending</MenuItem>
                                 <MenuItem value="PROCESSING">Processing</MenuItem>
                                 <MenuItem value="SHIPPING">Shipping</MenuItem>
@@ -223,6 +220,13 @@ const OrdersPage = () => {
                             items={displayOrders}
                             tableCellLabels={tableCellLabels}
                             renderCell={renderCell}
+                        />
+                        <TablePaginationComponent
+                            totalNumberOfProducts={totalNumberOfOrders}
+                            currentPage={currentPage}
+                            itemsPerPage={itemsPerPage}
+                            setCurrentPage={setCurrentPage}
+                            setItemsPerPage={setItemsPerPage}
                         />
                     </Container>
                 ) : (
