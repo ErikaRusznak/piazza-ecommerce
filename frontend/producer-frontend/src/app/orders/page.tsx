@@ -24,10 +24,6 @@ export type SortFilter = {
     orderSort: "asc" | "desc" | null;
 };
 
-export type FilterOptions = {
-    orderStatus: null | string;
-};
-
 const buildFilterOptionsFromQueryParams = (queryParams: any) => {
     return {
         orderStatus: queryParams.get("orderStatus") ? queryParams.get("orderStatus") : null,
@@ -71,7 +67,7 @@ const OrdersPage = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const {username, isAuthenticated, sellerAlias} = useAuth();
+    const {isAuthenticated, sellerAlias} = useAuth();
     const [orders, setOrders] = useState([]);
 
     const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -94,10 +90,10 @@ const OrdersPage = () => {
     }
 
     useEffect(() => {
-        if(sellerAlias) {
+        if (sellerAlias) {
             const filterSpecs: string[] = buildFilterSpecs();
             const sortSpecs: string[] = buildSortSpecs();
-            setOrRemoveQueryParameters(filterOptions, sortSpecs);
+            setOrRemoveQueryParameters(sortSpecs);
             if (selectedStatusFilter) {
                 filterSpecs.push(`orderStatus[eq]${selectedStatusFilter}`);
             }
@@ -109,14 +105,6 @@ const OrdersPage = () => {
     useEffect(() => {
         setFilterOptions(buildFilterOptionsFromQueryParams(searchParams));
     }, [searchParams]);
-
-    const handleItemsPerPageChange = (itemsPerPage: number) => {
-        const filterSpecs = buildFilterSpecs();
-        const sortSpecs = buildSortSpecs();
-        setCurrentPage(1);
-        getOrdersForSeller(1, itemsPerPage, sortSpecs, filterSpecs);
-    };
-
 
     const handleFilterChange = (event: { target: { value: string; }; }) => {
         setSelectedStatusFilter(event.target.value as string);
@@ -135,7 +123,6 @@ const OrdersPage = () => {
         if (filterOptions.orderStatus) {
             filterSearchSpec.push(createFilterCriteria("orderStatus", "eq", filterOptions.orderStatus));
         }
-
         return filterSearchSpec;
     }
 
@@ -145,26 +132,11 @@ const OrdersPage = () => {
         return sortSpecs;
     }
 
-    const setOrRemoveQueryParameters = (filterOptions: {
-                                            [x: string]: any;
-                                            priceFrom?: number | null;
-                                            priceTo?: number | null;
-                                            categoryName?: string[];
-                                            cityName?: string[];
-                                            productName?: string;
-                                        },
-                                        sortSpecs: string[]) => {
+    const setOrRemoveQueryParameters = (sortSpecs: string[]) => {
         const newQueryParams = new URLSearchParams();
-        for (let key in filterOptions) {
-            const value = filterOptions[key];
-            if (value !== null && value !== '' && (Array.isArray(value) ? value.length > 0 : true)) {
-                setSearchQueryParameters(key, value, newQueryParams);
-            } else {
-                newQueryParams.delete(key);
-            }
+        if (selectedStatusFilter) {
+            newQueryParams.set('orderStatus', selectedStatusFilter!);
         }
-
-        // for sorting
         if (sortSpecs.length > 0) {
             newQueryParams.set('sort', sortSpecs[0]);
         } else {
@@ -174,19 +146,11 @@ const OrdersPage = () => {
         router.push(pathname + "?" + newQueryParams.toString());
     };
 
-    const setSearchQueryParameters = (key: string, value: string | string[], newQueryParams: URLSearchParams) => {
-        if (Array.isArray(value)) {
-            for (let val of value) {
-                newQueryParams.append(key, val);
-            }
-        } else {
-            newQueryParams.set(key, value);
-        }
-    };
+
     const displayOrders = orders?.map((order: any) => ({
         id: order.id,
         buyerName: order.buyerFirstName + " " + order.buyerLastName,
-        orderNumber: "# "+order.orderNumber,
+        orderNumber: "# " + order.orderNumber,
         orderDate: order.orderDate,
         totalPrice: order.totalPrice,
         orderStatus: order.orderStatus,
@@ -201,14 +165,14 @@ const OrdersPage = () => {
                         <Typography variant="h4" color={theme.palette.info.main} sx={{mb: 2}}>
                             Orders
                         </Typography>
-                        <FormControl sx={{ mb: 2, width: "200px" }}>
+                        <FormControl sx={{mb: 2, width: "200px"}}>
                             <CssTextFieldDarkBackground
                                 label="Status"
                                 select
                                 value={selectedStatusFilter || ""}
                                 onChange={handleFilterChange}
                             >
-                                <MenuItem value="ALL">All</MenuItem>
+                                {/*<MenuItem value="ALL">All</MenuItem>*/}
                                 <MenuItem value="PENDING">Pending</MenuItem>
                                 <MenuItem value="PROCESSING">Processing</MenuItem>
                                 <MenuItem value="SHIPPING">Shipping</MenuItem>

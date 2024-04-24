@@ -58,14 +58,7 @@ public class OrderController {
         return ResponseEntity.ok(fullOrderDTO);
     }
 
-    @GetMapping("/orders/{sellerEmail}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<OrderDTO>> getOrdersBySellerAlias(@PathVariable String sellerEmail) {
-        List<OrderDTO> orders = orderService.getAllOrdersForSeller(sellerEmail);
-        return ResponseEntity.ok(orders);
-    }
-
-    @GetMapping("/orders-try")
+    @GetMapping("/orders")
     @PreAuthorize("hasRole('ADMIN')")
     public ApiPaginationResponse<List<OrderDTO>> getOrdersByFilter(
             @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
