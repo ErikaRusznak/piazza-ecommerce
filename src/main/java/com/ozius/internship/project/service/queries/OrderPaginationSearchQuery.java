@@ -21,6 +21,7 @@ public class OrderPaginationSearchQuery extends PagingJpaQueryBuilder<Order, Ord
 
         mapCriteriaToPropertyPath("orderStatus", "o.orderStatus");
         mapCriteriaToPropertyPath("sellerAlias", "o.seller.alias");
+        mapCriteriaToPropertyPath("orderDate", "o.orderDate");
     }
 
     @Override

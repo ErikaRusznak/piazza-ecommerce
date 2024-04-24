@@ -70,10 +70,13 @@ public class OrderController {
     public ApiPaginationResponse<List<OrderDTO>> getOrdersByFilter(
             @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
             @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs) {
+            @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs,
+            @RequestParam(name = "sort", required = false) SortSpecs sortSpecs
+    ) {
 
         OrderPaginationSearchQuery query = new OrderPaginationSearchQuery(modelMapper, entityManager)
-                .filterBy(filterSpecs);
+                .filterBy(filterSpecs)
+                .orderBy(sortSpecs);
 
         int numOfTotalProds = query.getResultList().size();
 

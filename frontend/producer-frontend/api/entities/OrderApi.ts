@@ -4,6 +4,17 @@ export const getOrdersForSellerApi = (sellerEmail: string) => {
     return api.get(`/orders/${sellerEmail}`)
 }
 
+export const getOrdersApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
+    return api.get(`/orders-try`, {
+        params: {
+            page: page,
+            itemsPerPage: itemsPerPage,
+            sort: JSON.stringify(sortSpecs),
+            filter: JSON.stringify(filterSpecs)
+        }
+    })
+}
+
 export const getOrderByIdApi = (id: number) => {
     return api.get(`/order/${id}`)
 }
