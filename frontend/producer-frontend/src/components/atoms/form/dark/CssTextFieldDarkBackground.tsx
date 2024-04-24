@@ -25,9 +25,13 @@ export const CssTextFieldDarkBackground = styled(
             },
         },
         '& .MuiInputBase-input': {
+            color: theme.palette.info.main,
             '&.Mui-disabled': {
                 color: theme.palette.info.main,
             },
+        },
+        '& .MuiInputLabel-root': {
+            color: theme.palette.common.white,
         },
     };
 });

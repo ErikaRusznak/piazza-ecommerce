@@ -2,7 +2,7 @@ package com.ozius.internship.project.service.queries;
 
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.entity.order.Order;
-import com.ozius.internship.project.service.queries.buiders.PagingJpaQueryBuilder;
+import com.ozius.internship.project.service.queries.builders.PagingJpaQueryBuilder;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
 import com.ozius.internship.project.service.queries.sort.SortSpecs;
 import com.ozius.internship.project.service.queries.transformers.ModelMapperBasedResultTransformer;
@@ -20,6 +20,8 @@ public class OrderPaginationSearchQuery extends PagingJpaQueryBuilder<Order, Ord
         this.modelMapper = modelMapper;
 
         mapCriteriaToPropertyPath("orderStatus", "o.orderStatus");
+        mapCriteriaToPropertyPath("sellerAlias", "o.seller.alias");
+        mapCriteriaToPropertyPath("orderDate", "o.orderDate");
     }
 
     @Override
