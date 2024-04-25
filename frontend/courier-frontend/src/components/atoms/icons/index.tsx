@@ -1,8 +1,6 @@
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import TuneIcon from '@mui/icons-material/Tune';
 import MenuIcon from '@mui/icons-material/Menu';
-import CartStyledIcon from './styledIcons/CartStyledIcon';
-import FavoriteStyledIcon from "./styledIcons/FavoriteStyledIcon";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import LoginIcon from '@mui/icons-material/Login';
@@ -14,6 +12,7 @@ import Delete from "@mui/icons-material/Delete";
 import InfoIcon from '@mui/icons-material/Info';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PendingIcon from '@mui/icons-material/Pending';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,15 +27,25 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import SendIcon from '@mui/icons-material/Send';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CategoryIcon from '@mui/icons-material/Category';
 import ChatIcon from '@mui/icons-material/Chat';
+import PersonIcon from '@mui/icons-material/Person';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import UploadIcon from '@mui/icons-material/Upload';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SyncIcon from '@mui/icons-material/Sync';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SendIcon from '@mui/icons-material/Send';
 
 export {
     ContentPasteIcon,
     TuneIcon,
     MenuIcon,
-    CartStyledIcon,
-    FavoriteStyledIcon,
     AccountCircleIcon,
     ArrowForwardIcon,
     LoginIcon,
@@ -62,6 +71,19 @@ export {
     AddCircleOutlineIcon,
     CheckCircleOutlineIcon,
     StarBorderIcon,
-    SendIcon,
-    ChatIcon
+    ChevronRightIcon,
+    ChevronLeftIcon,
+    CategoryIcon,
+    ChatIcon,
+    PersonIcon,
+    NotificationsIcon,
+    CloudUploadIcon,
+    UploadIcon,
+    ArrowDropDownIcon,
+    HighlightOffIcon,
+    PendingIcon,
+    SyncIcon,
+    LocalShippingIcon,
+    CancelIcon,
+    SendIcon
 }

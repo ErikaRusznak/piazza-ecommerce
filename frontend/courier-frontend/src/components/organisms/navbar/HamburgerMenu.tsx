@@ -17,18 +17,13 @@ type HamburgerMenuProps = {
     isAuthenticated: boolean;
     mobileMenuOpen: boolean;
     onMenuIconClick: () => void;
-    categoryList: CategoryType[] | null | undefined;
 };
 
-const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, categoryList}: HamburgerMenuProps) => {
+const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: HamburgerMenuProps) => {
 
     const theme = useTheme();
     const router = useRouter();
     const auth = useAuth();
-    const [openCategories, setOpenCategories] = useState(false);
-    const handleOpenCategories = () => {
-        setOpenCategories(!openCategories);
-    };
 
     const buttonStyle = {
         m: 1,
@@ -69,50 +64,16 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
 
                     <Box sx={{mb: 2}}>
                         <List>
-                            <ListItemButton onClick={handleOpenCategories}>
-                                <ListItemText sx={{color: textColor}} primary="Categories"/>
-                                {openCategories ? <ExpandLess sx={{color: textColor}}/> :
-                                    <ExpandMore sx={{color: textColor}}/>}
-                            </ListItemButton>
-                            <Collapse in={openCategories} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    {categoryList?.map((item) => (
-                                        <ListItemButton key={item.id} sx={{pl: 4}}>
-                                            <img
-                                                src={`${baseURL}${item.imageName}`}
-                                                alt={item.name}
-                                                width={30}
-                                                height={30}
-                                                style={{filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)'}}
-                                            />
-                                            <ListItemText sx={{pl: 2, color: textColor}} primary={item.name}/>
-                                        </ListItemButton>
-                                    ))}
-                                </List>
-                            </Collapse>
-                            <ListItemButton onClick={() => router.push("/shop")}>
-                                <ListItemText primary="Shop" sx={{color: textColor}} />
-                            </ListItemButton>
-                            <ListItemButton onClick={() => router.push("/sellers")}>
-                                <ListItemText primary="Sellers" sx={{color: textColor}} />
-                            </ListItemButton>
-
-                            <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>
-
                             {isAuthenticated && (
                                 <>
                                     <ListItemButton onClick={() => router.push("/chats")}>
                                         <ListItemText primary="Chats" sx={{color: textColor}} />
-                                    </ListItemButton>
-                                    <ListItemButton onClick={() => router.push("/orders")}>
-                                        <ListItemText primary="Orders" sx={{color: textColor}} />
                                     </ListItemButton>
                                     <ListItemButton onClick={() => router.push("/profile")}>
                                         <ListItemText primary="Manage profile" sx={{color: textColor}}/>
                                     </ListItemButton>
                                 </>
                             )}
-
                         </List>
                     </Box>
 
@@ -176,7 +137,6 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             </Button>
                         )}
                     </Box>
-
                 </Box>
             </Drawer>
         </>

@@ -1,21 +1,22 @@
 import {api} from "../ApiClient";
-import {ShippingAddressType} from "@/app/checkout/page";
 
-export const submitOrder = (shippingAddress: ShippingAddressType, products: {
-    quantity: any;
-    productId: any
-}[] | undefined, email: string) => {
-    return api.post('/orders', {
-        shippingAddress: shippingAddress,
-        products: products,
-        email: email
-    })
+
+export const getOrderByIdApi = (id: number) => {
+    return api.get(`/order/${id}`)
 }
 
-export const getFullOrderByIdApi = (fullOrderId: number) => {
-    return api.get(`/fullOrder/${fullOrderId}`)
+export const markOrderAsProcessingApi = (id: number) => {
+    return api.put(`/orders/${id}/processing`)
 }
 
-export const getFullOrdersForBuyer = () => {
-    return api.get(`fullOrder`)
+export const markOrderAsShippingApi = (id: number) => {
+    return api.put(`/orders/${id}/shipping`)
+}
+
+export const markOrderAsDeliveredApi = (id: number) => {
+    return api.put(`/orders/${id}/delivered`)
+}
+
+export const markOrderAsCanceledApi = (id: number) => {
+    return api.put(`/orders/${id}/canceled`)
 }

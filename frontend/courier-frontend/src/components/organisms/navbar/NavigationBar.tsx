@@ -2,12 +2,8 @@
 
 import React, {useEffect, useState} from "react";
 import {
-    AppBar, Avatar,
-    Button, Divider, List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Popover,
+    AppBar,
+    Button,
     SxProps,
     Theme,
     Toolbar,
@@ -16,19 +12,12 @@ import {
 import {Box} from "@mui/system";
 import useTheme from "@/theme/themes";
 import {
-    CartStyledIcon,
-    FavoriteStyledIcon,
-    AccountCircleIcon, ShoppingCartCheckoutIcon, SettingsIcon, LogoutIcon, ChatIcon,
+    AccountCircleIcon
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
-import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
-import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
-import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
-import {baseURL} from "../../../../api/ApiClient";
-import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -40,13 +29,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const router = useRouter();
     const backgroundColor = theme.palette.background.default;
 
-    const [categories, setCategories] = useState([]);
-    const auth = useAuth();
-
     const {isAuthenticated, username, logout} = useAuth();
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-    const {profilePictureUrl} = useProfilePicture();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);;
 
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
@@ -63,19 +47,6 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const id = open ? 'simple-popover' : undefined;
 
     const textColor = theme.palette.info.main;
-
-    const getCategoryList = () => {
-        getAllCategoriesApi()
-            .then((res: { data: { data: React.SetStateAction<never[]>; }; }) => {
-                setCategories(res.data.data);
-            })
-            .catch((err: any) => console.log(err));
-    };
-
-    useEffect(() => {
-        getCategoryList();
-
-    }, []);
 
     return (
         <AppBar
@@ -99,33 +70,22 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             cursor: "pointer",
                             textTransform: "uppercase"
                     }}
-                        onClick={() => router.push("/shop")}
+                        onClick={() => router.push("/chats")}
                     >
-                        Shop
+                        Chats
                     </Typography>
                     <Typography
                         sx={{color: theme.palette.info.main,
                             cursor: "pointer",
                             textTransform: "uppercase"
                         }}
-                        onClick={() => router.push("/sellers")}
+                        onClick={() => router.push("/profile")}
                     >
-                        Sellers
+                        Profile
                     </Typography>
-                    <SimpleMenu
-                        text="Categories"
-                        menuItems={categories}
-                    />
                 </Box>
 
                 <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
-                    {isAuthenticated && (
-                        <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
-                            <FavoriteStyledIcon/>
-                            <CartStyledIcon onClick={() => router.push("/shopping-cart")}/>
-                        </Box>
-                    )}
-
                     <Box>
                         {!isAuthenticated ? (
                             <Button variant="outlined"
@@ -143,91 +103,16 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                 Login
                             </Button>
                         ) : (
-                            <>
-                                {(profilePictureUrl) ? (
-                                    <>
-                                        <Avatar
-                                            alt={profilePictureUrl}
-                                            src={`${baseURL}${profilePictureUrl}`}
-                                            aria-describedby={id}
-                                            onClick={(event: any) => handleClick(event)}
-                                            style={{width: 30, height: 30, transition: "filter 0.3s ease-in-out", cursor: "pointer"}}
-                                        />
-                                    </>
-                                ):(
-                                    <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
-                                )}
-
-                                <Popover
-                                    id={id} open={open}
-                                    anchorEl={anchorEl}
-                                    onClose={handleClose}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'center',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    sx={{
-                                        borderRadius: theme.shape.borderRadius,
-                                        mt:1
-                                    }}
-                                >
-                                    <List
-                                        sx={{
-                                            boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
-                                            backgroundColor: theme.palette.lightColor.main,
-                                            // backgroundColor: theme.palette.background.lighter,
-                                        }}
-                                    >
-                                        <ListItemButton onClick={() => router.push("/chats")}>
-                                            <ListItemIcon>
-                                                <ChatIcon sx={{color: textColor}} />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Chats" sx={{ color: textColor, fontSize: "1rem" }} />
-                                        </ListItemButton>
-                                        <ListItemButton onClick={() => router.push("/orders")}>
-                                            <ListItemIcon>
-                                                <ShoppingCartCheckoutIcon sx={{color: textColor}} />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Orders" sx={{ color: textColor, fontSize: "1rem" }} />
-                                        </ListItemButton>
-                                        <ListItemButton onClick={() => router.push("/profile")}>
-                                            <ListItemIcon>
-                                                <SettingsIcon sx={{color: textColor}}/>
-                                            </ListItemIcon>
-                                            <ListItemText primary="Manage profile" sx={{ color: textColor, fontSize: "1rem" }} />
-                                        </ListItemButton>
-
-                                        <Divider sx={{ background: theme.palette.primary.main }} />
-
-                                        <ListItemButton onClick={() => auth.logout()}>
-                                            <ListItemIcon>
-                                                <LogoutIcon sx={{color: textColor}} />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Logout" sx={{ color: textColor, fontSize: "1rem" }} />
-                                        </ListItemButton>
-                                    </List>
-                                </Popover>
-                            </>
+                             <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
                         )}
                     </Box>
                 </Box>
 
                 <Box sx={{display: {xs: "flex", sm: "none"}}}>
-                    {(isAuthenticated && !mobileMenuOpen) && (
-                        <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
-                            <FavoriteStyledIcon/>
-                            <CartStyledIcon onClick={() => router.push("/shopping-cart")}/>
-                        </Box>
-                    )}
                     <HamburgerMenu
                         isAuthenticated={isAuthenticated}
                         mobileMenuOpen={mobileMenuOpen}
                         onMenuIconClick={onMenuIconClick}
-                        categoryList={categories}
                     />
                 </Box>
             </Toolbar>
