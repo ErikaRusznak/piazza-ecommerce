@@ -13,7 +13,6 @@ public class Courier extends BaseEntity {
 
     interface Columns {
         String ACCOUNT_ID = "ACCOUNT_ID";
-        String COURIER_ID = "COURIER_ID";
     }
 
     @Getter

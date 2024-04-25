@@ -1,5 +1,6 @@
 package com.ozius.internship.project.entity.order;
 
+import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.buyer.Buyer;
@@ -10,6 +11,7 @@ import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.seller.SellerType;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -29,6 +31,7 @@ public class Order extends BaseEntity {
         String BUYER_LAST_NAME = "BUYER_LAST_NAME";
         String SELLER_ID = "SELLER_ID";
         String BUYER_ID = "BUYER_ID";
+        String COURIER_ID = "COURIER_ID";
         String TELEPHONE = "TELEPHONE";
         String ORDER_STATUS = "ORDER_STATUS";
         String ORDER_DATE = "ORDER_DATE";
@@ -52,10 +55,12 @@ public class Order extends BaseEntity {
         String ORDER_NUMBER = "ORDER_NUMBER";
     }
 
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = Columns.ORDER_STATUS, nullable = false)
     private OrderStatus orderStatus;
 
+    @Getter
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "country", column = @Column(name = Columns.COUNTRY, nullable = false)),
@@ -71,16 +76,26 @@ public class Order extends BaseEntity {
     @JoinColumn(name = Columns.BUYER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.BUYER_ID + ") REFERENCES " + Buyer.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
     private Buyer buyer;
 
+    @Getter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = Columns.COURIER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.COURIER_ID + ") REFERENCES " + Courier.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
+    private Courier courier;
+
+
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.SELLER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
     private Seller seller;
 
+    @Getter
     @Column(name = Columns.SELLER_EMAIL, nullable = false)
     private String sellerEmail;
 
+    @Getter
     @Column(name = Columns.SELLER_ALIAS, nullable = false)
     private String sellerAlias;
 
+    @Getter
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "name", column = @Column(name = Columns.COMPANY_NAME)),
@@ -92,6 +107,7 @@ public class Order extends BaseEntity {
     })
     private LegalDetails legalDetails;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = Columns.SELLER_TYPE)
     private SellerType sellerType;
@@ -101,24 +117,31 @@ public class Order extends BaseEntity {
             "FOREIGN KEY (" + OrderItem.Columns.ORDER_ID + ") REFERENCES " + Order.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Set<OrderItem> orderItems;
 
+    @Getter
     @Column(name = Columns.BUYER_EMAIL, nullable = false)
     private String buyerEmail;
 
+    @Getter
     @Column(name = Columns.BUYER_FIRST_NAME, nullable = false)
     private String buyerFirstName;
 
+    @Getter
     @Column(name = Columns.ORDER_NUMBER, nullable = false)
     private String orderNumber;
 
+    @Getter
     @Column(name = Columns.BUYER_LAST_NAME, nullable = false)
     private String buyerLastName;
 
+    @Getter
     @Column(name = Columns.ORDER_DATE, nullable = false)
     private LocalDateTime orderDate;
 
+    @Getter
     @Column(name = Columns.TELEPHONE, nullable = false, length = 12)
     private String telephone;
 
+    @Getter
     @Column(name = Columns.TOTAL_PRICE, nullable = false)
     private float totalPrice;
 
@@ -211,67 +234,9 @@ public class Order extends BaseEntity {
         return orderItem.getQuantity() * orderItem.getItemPrice();
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-//    public Buyer getBuyer() {
-//        return buyer;
-//    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
     public Set<OrderItem> getOrderItems() {
         return Collections.unmodifiableSet(orderItems);
     }
-
-    public String getBuyerEmail() {
-        return buyerEmail;
-    }
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public String getSellerEmail() {
-        return sellerEmail;
-    }
-
-    public String getSellerAlias(){
-        return sellerAlias;
-    }
-
-    public LegalDetails getLegalDetails() {
-        return legalDetails;
-    }
-
-    public SellerType getSellerType() {
-        return sellerType;
-    }
-
-    public String getBuyerFirstName() {
-        return buyerFirstName;
-    }
-
-    public String getBuyerLastName() {
-        return buyerLastName;
-    }
-
-    public String getOrderNumber() { return orderNumber; }
 
     public String getBuyerTelephone() {
         return buyer.getTelephone();
@@ -303,6 +268,13 @@ public class Order extends BaseEntity {
     public void markedAsCanceled() {
         this.orderStatus = OrderStatus.CANCELED;
     }
+
+    public void assignRandomCourier(EntityManager em) {
+        TypedQuery<Courier> query = em.createQuery("SELECT c FROM Courier c ORDER BY RAND()", Courier.class);
+        query.setMaxResults(1);
+        this.courier = query.getSingleResult();
+    }
+
 
     @Override
     public String toString() {

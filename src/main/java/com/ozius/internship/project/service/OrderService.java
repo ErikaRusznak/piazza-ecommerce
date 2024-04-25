@@ -88,6 +88,7 @@ public class OrderService {
             //retrieve order or create order if not found one in the map
             Order orderPersisted = sellersToOrder.computeIfAbsent(seller, k -> {
                 Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone, fullOrder);
+                order.assignRandomCourier(em);
                 em.persist(order);
                 fullOrder.addOrder(order);
                 return order;
