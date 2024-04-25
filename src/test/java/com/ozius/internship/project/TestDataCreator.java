@@ -3,6 +3,7 @@ package com.ozius.internship.project;
 import com.ozius.internship.project.entity.*;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
+import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
@@ -35,6 +36,13 @@ public class TestDataCreator {
         em.persist(buyer);
 
         return buyer;
+    }
+
+    public static Courier createCourier(EntityManager em, UserAccount account) {
+        Courier courier = new Courier(account);
+        em.persist(courier);
+
+        return courier;
     }
 
     public static void createBuyerBaseData(EntityManager em, PasswordEncoder passwordEncoder){
@@ -87,6 +95,60 @@ public class TestDataCreator {
         Buyer mergedBuyer3 = em.merge(Buyers.buyer3);
         Address address4 = new Address("Romania", "Bucuresti", "Bucuresti", "Strada Luceafarului", "nr 4", "300012");
         mergedBuyer3.addAddress(address4, "Giulia", "Lucaciu", "+40796854752");
+    }
+
+    public static void createCourierBaseData(EntityManager em, PasswordEncoder passwordEncoder){
+
+        UserAccount account1 = new UserAccount(
+                "Andrei",
+                "Pop",
+                "andreipop@gmail.com",
+                "none",
+                "0787523948",
+                UserRole.COURIER);
+        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Couriers.courier1 = createCourier(em, account1);
+
+        UserAccount account2 = new UserAccount(
+                "Monica",
+                "Rusznak",
+                "monicarusznak@gmail.com",
+                "none",
+                "0758418047",
+                UserRole.COURIER);
+        account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Couriers.courier2 = createCourier(em, account2);
+
+        UserAccount account3 = new UserAccount(
+                "Mihai",
+                "Rusu",
+                "mihairusu@gmail.com",
+                "none",
+                "0796859752",
+                UserRole.COURIER);
+        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Couriers.courier3 = createCourier(em, account3);
+
+        UserAccount account4 = new UserAccount(
+                "Vlad",
+                "Popesescu",
+                "vladpopescu@gmail.com",
+                "none",
+                "0736859752",
+                UserRole.COURIER);
+        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Couriers.courier4 = createCourier(em, account4);
+
+        UserAccount account5 = new UserAccount(
+                "Stefania",
+                "Osan",
+                "stefiosan@gmail.com",
+                "none",
+                "0776859752",
+                UserRole.COURIER);
+        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Couriers.courier5 = createCourier(em, account5);
+
     }
 
     public static Seller createSellerFarmer(EntityManager em, Address address, UserAccount account, String alias){
@@ -267,6 +329,14 @@ public class TestDataCreator {
         public static Buyer buyer1;
         public static Buyer buyer2;
         public static Buyer buyer3;
+    }
+
+    public static class Couriers {
+        public static Courier courier1;
+        public static Courier courier2;
+        public static Courier courier3;
+        public static Courier courier4;
+        public static Courier courier5;
     }
 
     public static class Sellers{
