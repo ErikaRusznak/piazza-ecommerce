@@ -250,9 +250,15 @@ public class Order extends BaseEntity {
         this.orderStatus = OrderStatus.PROCESSING;
     }
 
-    public void markedAsShipped() {
+    public void markAsReadyToShip() {
         if (this.orderStatus != OrderStatus.PROCESSING) {
-            throw new IllegalOrderState("order state can only be processing if you want to ship");
+            throw new IllegalOrderState("order state can only be processing if you want to be ready to ship");
+        }
+        this.orderStatus = OrderStatus.READY_TO_SHIP;
+    }
+    public void markedAsShipping() {
+        if (this.orderStatus != OrderStatus.READY_TO_SHIP) {
+            throw new IllegalOrderState("order state can only be ready to ship if you want to ship");
         }
         this.orderStatus = OrderStatus.SHIPPING;
     }

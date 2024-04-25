@@ -4,7 +4,6 @@ import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
-import com.ozius.internship.project.repository.OrderRepository;
 import com.ozius.internship.project.service.OrderService;
 import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
@@ -89,14 +88,20 @@ public class OrderController {
         orderService.markOrderAsProcessing(id);
     }
 
-    @PutMapping("/orders/{id}/shipping")
+    @PutMapping("/orders/{id}/ready-to-ship")
     @PreAuthorize("hasRole('ADMIN')")
+    public void markOrderAsReadyToShip(@PathVariable long id) {
+        orderService.markOrderAsReadyToShip(id);
+    }
+
+    @PutMapping("/orders/{id}/shipping")
+    @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsShipping(@PathVariable long id) {
         orderService.markOrderAsShipping(id);
     }
 
     @PutMapping("/orders/{id}/delivered")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsDelivered(@PathVariable long id) {
         orderService.markOrderAsDelivered(id);
     }
