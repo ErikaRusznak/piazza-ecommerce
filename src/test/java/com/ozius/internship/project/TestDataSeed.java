@@ -29,6 +29,7 @@ public class TestDataSeed {
 
             TestDataCreator.createBuyerBaseData(em, passwordEncoder);
             TestDataCreator.createSellerBaseData(em, passwordEncoder);
+            TestDataCreator.createCourierBaseData(em, passwordEncoder);
             TestDataCreator.createCategoriesBaseData(em);
             TestDataCreator.createProductsBaseData(em);
             TestDataCreator.createReviewsBaseData(em);

@@ -131,6 +131,14 @@ public class OrderService {
     }
 
     @Transactional
+    public List<OrderDTO> getOrdersByCourier(String courierEmail) {
+        List<Order> orders = orderRepository.findByCourierEmail(courierEmail);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public OrderDTO getOrderById(long id) {
         Order order = orderRepository.findById(id).orElseThrow();
         return modelMapper.map(order, OrderDTO.class);

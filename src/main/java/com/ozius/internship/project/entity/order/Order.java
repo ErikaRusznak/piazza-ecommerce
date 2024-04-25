@@ -51,7 +51,6 @@ public class Order extends BaseEntity {
         String SERIAL_NUMBER = "SERIAL_NUMBER";
         String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
-        String FULL_ORDER_ID = "FULL_ORDER_ID";
         String ORDER_NUMBER = "ORDER_NUMBER";
     }
 
@@ -272,9 +271,12 @@ public class Order extends BaseEntity {
     public void assignRandomCourier(EntityManager em) {
         TypedQuery<Courier> query = em.createQuery("SELECT c FROM Courier c ORDER BY RAND()", Courier.class);
         query.setMaxResults(1);
-        this.courier = query.getSingleResult();
+        try {
+            this.courier = query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new RuntimeException("No courier found in the database", e);
+        }
     }
-
 
     @Override
     public String toString() {

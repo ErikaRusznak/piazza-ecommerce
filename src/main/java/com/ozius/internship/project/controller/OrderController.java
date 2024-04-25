@@ -13,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -24,13 +23,11 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
     private final EntityManager entityManager;
 
-    public OrderController(OrderService orderService, OrderRepository orderRepository, ModelMapper modelMapper, EntityManager entityManager) {
+    public OrderController(OrderService orderService, ModelMapper modelMapper, EntityManager entityManager) {
         this.orderService = orderService;
-        this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.entityManager = entityManager;
     }
@@ -108,5 +105,12 @@ public class OrderController {
     @PreAuthorize("hasRole('ADMIN')")
     public void markOrderAsCanceled(@PathVariable long id) {
         orderService.markOrderAsCanceled(id);
+    }
+
+    @GetMapping("/orders/{courierEmail}")
+    @PreAuthorize("hasRole('COURIER')")
+    public ResponseEntity<List<OrderDTO>> getOrdersByCourierEmail(@PathVariable String courierEmail) {
+        List<OrderDTO> orderDTOS = orderService.getOrdersByCourier(courierEmail);
+        return ResponseEntity.ok(orderDTOS);
     }
 }

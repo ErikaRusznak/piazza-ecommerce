@@ -10,4 +10,7 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findBySellerEmailOrderByOrderDateDesc(String sellerEmail);
+
+    @Query("SELECT o FROM Order o WHERE o.courier.account.email = :courierEmail")
+    List<Order> findByCourierEmail(@Param("courierEmail") String courierEmail);
 }
