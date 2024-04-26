@@ -38,7 +38,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: Hambu
                 color="inherit"
                 aria-label="open drawer"
                 onClick={onMenuIconClick}
-                sx={{color: "white", pl: 4}}
+                sx={{color: theme.palette.info.main, }}
             >
                 <MenuIcon/>
             </IconButton>
@@ -66,6 +66,9 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: Hambu
                         <List>
                             {isAuthenticated && (
                                 <>
+                                    <ListItemButton onClick={() => router.push("/orders")}>
+                                        <ListItemText primary="Orders" sx={{color: textColor}} />
+                                    </ListItemButton>
                                     <ListItemButton onClick={() => router.push("/chats")}>
                                         <ListItemText primary="Chats" sx={{color: textColor}} />
                                     </ListItemButton>
@@ -95,7 +98,10 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: Hambu
                                             ...buttonStyle,
                                             borderColor: theme.palette.background.lighter,
                                             color: theme.palette.info.main,
-                                            "&:hover": {borderColor: theme.palette.background.darker}
+                                            "&:hover": {
+                                                borderColor: theme.palette.secondary.main,
+                                                color: theme.palette.secondary.main,
+                                            }
                                         }}
                                         onClick={() => {
                                             router.push("/register");
@@ -107,9 +113,9 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: Hambu
                                 <Button variant="contained"
                                         sx={{
                                             ...buttonStyle,
-                                            background: theme.palette.background.lighter,
-                                            color: theme.palette.info.main,
-                                            "&:hover": {background: theme.palette.background.darker}
+                                            background: theme.palette.primary.main,
+                                            color: "white",
+                                            "&:hover": {background: theme.palette.secondary.main}
                                         }}
                                         onClick={() => {
                                             router.push("/login");
@@ -123,10 +129,10 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick}: Hambu
                             <Button variant="contained"
                                     sx={{
                                         ...buttonStyle,
-                                        background: theme.palette.background.lighter,
-                                        color: theme.palette.info.main,
+                                        background: theme.palette.primary.main,
+                                        color: "white",
                                         width: "100%",
-                                        "&:hover": {background: theme.palette.background.darker}
+                                        "&:hover": {background: theme.palette.secondary.main}
                                     }}
                                     onClick={() => {
                                         onMenuIconClick();

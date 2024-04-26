@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {
     AppBar,
-    Button,
+    Button, List, ListItemButton, ListItemIcon, ListItemText, Popover,
     SxProps,
     Theme,
     Toolbar,
@@ -18,6 +18,7 @@ import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -28,6 +29,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const theme = useTheme();
     const router = useRouter();
     const backgroundColor = theme.palette.background.default;
+    const auth = useAuth();
 
     const {isAuthenticated, username, logout} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);;
@@ -69,6 +71,15 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                         sx={{color: theme.palette.info.main,
                             cursor: "pointer",
                             textTransform: "uppercase"
+                        }}
+                        onClick={() => router.push("/orders")}
+                    >
+                        Orders
+                    </Typography>
+                    <Typography
+                        sx={{color: theme.palette.info.main,
+                            cursor: "pointer",
+                            textTransform: "uppercase"
                     }}
                         onClick={() => router.push("/chats")}
                     >
@@ -105,6 +116,39 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                         ) : (
                              <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
                         )}
+                        <Popover
+                            id={id} open={open}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            sx={{
+                                borderRadius: theme.shape.borderRadius,
+                                mt:1
+                            }}
+                        >
+                            <List
+                                sx={{
+                                    boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
+                                    backgroundColor: theme.palette.background.default,
+                                    color: theme.palette.info.contrastText,
+                                    // backgroundColor: theme.palette.background.lighter,
+                                }}
+                            >
+                                <ListItemButton onClick={() => auth.logout()}>
+                                    <ListItemIcon>
+                                        <LogoutIcon sx={{color: textColor}} />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Logout" sx={{ color: textColor, fontSize: "1rem" }} />
+                                </ListItemButton>
+                            </List>
+                        </Popover>
                     </Box>
                 </Box>
 

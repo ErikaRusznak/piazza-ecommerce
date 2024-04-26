@@ -64,8 +64,10 @@ const useTheme = () => createTheme({
             background: {
                 paper: "#fff",
                 lighter: "#1a2747",
-                default: "#0F172A",
-                darker: "#020617",
+                // default: "#0F172A",
+                default: "white",
+                darker: "white",
+                // darker: "#020617",
                 gradient:
                     "linear-gradient(267.27deg, #6366f1 0%, #4338ca 100%)",
             },
@@ -87,7 +89,8 @@ const useTheme = () => createTheme({
                 contrastText: "black",
             },
             info: {
-                main: "#fff",
+                // main: "#fff",
+                main: "#020617",
                 contrastText: "#1e1b4b",
             },
         },
