@@ -9,7 +9,6 @@ type OrderStatusPopoverProps = {
     handleClose: () => void;
     markedAsMessage: string;
     handleChange: () => void;
-    markAsCancelled: () => void;
 };
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -30,6 +29,7 @@ const StyledMenu = styled((props: MenuProps) => (
         '& .MuiPaper-root': {
             borderRadius: 6,
             minWidth: 280,
+            border: `1px solid ${theme.palette.primary.main}`,
             backgroundColor: theme.palette.background.lighter,
             boxShadow: `
                 rgba(255, 255, 255, 0.2) 1px 1px 2px 1px,
@@ -43,7 +43,7 @@ const StyledMenu = styled((props: MenuProps) => (
     };
 });
 
-const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handleChange, markAsCancelled}: OrderStatusPopoverProps) => {
+const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handleChange}: OrderStatusPopoverProps) => {
 
     const theme = useTheme();
 
@@ -51,12 +51,6 @@ const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handl
         handleChange();
         handleClose();
     };
-
-    const handleCancel = () => {
-        markAsCancelled();
-        handleClose();
-    };
-
 
     return (
         <StyledMenu
@@ -68,11 +62,11 @@ const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handl
             open={open}
             onClose={handleClose}
             TransitionComponent={Fade}
+            sx={{border: `1px solid ${theme.palette.lightColor.main}`}}
         >
-            <MenuItem sx={{"&:hover": {backgroundColor: "#121b32"}}} onClick={handleStatusChange}>
+            <MenuItem sx={{"&:hover": {backgroundColor: theme.palette.lightColor.main}}} onClick={handleStatusChange}>
                 {markedAsMessage}
             </MenuItem>
-            <MenuItem sx={{"&:hover": {backgroundColor: "#121b32"}}} onClick={handleCancel}>Cancel the order</MenuItem>
         </StyledMenu>
     );
 };

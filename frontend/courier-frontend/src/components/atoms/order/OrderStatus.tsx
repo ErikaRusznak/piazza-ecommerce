@@ -6,9 +6,7 @@ import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon, Sync
 import OrderStatusPopover from "@/components/atoms/order/OrderStatusPopover";
 import {
     getOrderByIdApi,
-    markOrderAsCanceledApi,
     markOrderAsDeliveredApi,
-    markOrderAsProcessingApi,
     markOrderAsShippingApi
 } from "../../../../api/entities/OrderApi";
 
@@ -41,17 +39,11 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
 
     const getOrderStatusInfo: getStatusOrderInfoType = (status: string, orderId: number) => {
         switch (status) {
-            case "PENDING":
-                return {
-                    message: "Mark as Processing",
-                    handleChange: () => markOrderAsProcessingApi(orderId),
-                    icon: <PendingIcon sx={{color: theme.palette.lightColor.main}}/>,
-                };
-            case "PROCESSING":
+            case "READY_TO_SHIP":
                 return {
                     message: "Mark as Shipping",
                     handleChange: () => markOrderAsShippingApi(orderId),
-                    icon: <SyncIcon sx={{color: theme.palette.lightColor.main}}/>,
+                    icon: <LocalShippingIcon color="warning"/>,
                 };
             case "SHIPPING":
                 return {
@@ -97,10 +89,6 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
         orderId
     );
 
-    const markOrderAsCanceled = () => {
-        markOrderAsCanceledApi(orderId).then(res => updateStatus("CANCELLED"));
-    }
-
     return (
         <Box sx={{display: "flex", gap: 1,}}>
 
@@ -123,7 +111,6 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
                     handleClose={handleClose}
                     markedAsMessage={message}
                     handleChange={handleChangeStatus}
-                    markAsCancelled={() => markOrderAsCanceled()}
                 />
             )}
 

@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import useTheme from "@/theme/themes";
 import {useAuth} from "../../../api/auth/AuthContext";
-import {getOrdersApi, getOrdersForSellerApi} from "../../../api/entities/OrderApi";
+import {getOrdersApi} from "../../../api/entities/OrderApi";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {Button, Container, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import moment from 'moment';
@@ -14,7 +14,6 @@ import TableContainerComponent from "@/components/moleculas/table/TableContainer
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 
-;
 
 const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Total Price", "Status", "Actions"];
 
@@ -61,7 +60,8 @@ const OrdersPage = () => {
             default:
                 return null;
         }
-    }
+    };
+
     const theme = useTheme();
     const router = useRouter();
     const pathname = usePathname();

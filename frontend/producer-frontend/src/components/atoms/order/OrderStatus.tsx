@@ -5,11 +5,9 @@ import useTheme from "@/theme/themes";
 import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon, SyncIcon} from "@/components/atoms/icons";
 import OrderStatusPopover from "@/components/atoms/order/OrderStatusPopover";
 import {
-    getOrderByIdApi,
+    getOrderByIdApi, markAsReadyToShip,
     markOrderAsCanceledApi,
-    markOrderAsDeliveredApi,
     markOrderAsProcessingApi,
-    markOrderAsShippingApi
 } from "../../../../api/entities/OrderApi";
 
 type OrderStatusProps = {
@@ -49,14 +47,20 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
                 };
             case "PROCESSING":
                 return {
-                    message: "Mark as Shipping",
-                    handleChange: () => markOrderAsShippingApi(orderId),
+                    message: "Mark as Ready To Ship",
+                    handleChange:  () => markAsReadyToShip(orderId),
                     icon: <SyncIcon sx={{color: theme.palette.lightColor.main}}/>,
+                };
+            case "READY_TO_SHIP":
+                return {
+                    message: "Mark as Ready To Ship",
+                    handleChange: () => {},
+                    icon: <LocalShippingIcon color="warning"/>,
                 };
             case "SHIPPING":
                 return {
-                    message: "Mark as delivered",
-                    handleChange: () => markOrderAsDeliveredApi(orderId),
+                    message: "",
+                    handleChange: () => {},
                     icon: <LocalShippingIcon color="warning"/>,
                 };
             case "DELIVERED":
@@ -116,7 +120,7 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
                 Status: {orderStatus}
             </Typography>
             {icon}
-            {id && orderStatus !== "DELIVERED" && orderStatus !== "CANCELED"  && (
+            {id && orderStatus !== "DELIVERED" && orderStatus !== "CANCELED" && orderStatus !== "READY_TO_SHIP" && orderStatus !== "SHIPPING"  && (
                 <OrderStatusPopover
                     open={open}
                     anchorEl={anchorEl}
