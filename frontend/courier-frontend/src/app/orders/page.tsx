@@ -95,7 +95,7 @@ const OrdersPage = () => {
 
     const displayOrders = orders?.filter(order => {
         if (!selectedStatusFilter || selectedStatusFilter === "ALL") {
-            return true; // Show all orders if no filter selected or "All" selected
+            return true;
         }
         return order.orderStatus === selectedStatusFilter;
     }).map(order => ({

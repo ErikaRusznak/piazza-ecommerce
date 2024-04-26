@@ -24,7 +24,7 @@ public class CourierService {
     @Transactional
     public CourierDTO getCourierByEmailDTO(String email) {
         long userId = userAccountRepository.findByEmail(email).getId();
-        Courier courier = courierRepository.findCouriersByAccount_Id(userId);
+        Courier courier = courierRepository.findCourierByAccount_Id(userId);
         return modelMapper.map(courier, CourierDTO.class);
     }
 }

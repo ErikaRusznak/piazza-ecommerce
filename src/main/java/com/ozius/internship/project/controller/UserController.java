@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -96,5 +97,10 @@ public class UserController {
     @DeleteMapping("/users-seller/{id}")
     public void deleteAccountForSellerById(@PathVariable long id) {
         userService.deleteAccountForSeller(id);
+    }
+
+    @DeleteMapping("/users-courier/{id}")
+    public void deleteAccountForCourierById(@PathVariable long id) {
+        userService.deleteAccountForCourier(id);
     }
 }
