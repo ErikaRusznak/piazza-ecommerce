@@ -13,7 +13,24 @@ import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFi
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import MenuItem from "@mui/material/MenuItem";
 
-const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Total Price", "Status", "Actions"];
+type OrderType = {
+    buyerEmail: string;
+    buyerFirstName: string;
+    buyerLastName: string;
+    buyerTelephone: string;
+    id: number;
+    legalDetails: null | any;
+    orderDate: Date | string;
+    orderNumber: string;
+    orderItems: any[];
+    orderStatus: string;
+    sellerEmail: string;
+    sellerType: string;
+    shippingAddress: any;
+    totalPrice: number;
+};
+
+const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Seller Email", "Total Price", "Status", "Actions"];
 
 const OrdersPage = () => {
 
@@ -25,6 +42,8 @@ const OrdersPage = () => {
                 return item.orderNumber;
             case 'Buyer Name':
                 return item.buyerName;
+            case 'Seller Email':
+                return item.sellerEmail;
             case 'Order Date':
                 return moment(item.orderDate).format("YYYY-MM-DD HH:mm");
             case 'Total Price':
@@ -52,7 +71,7 @@ const OrdersPage = () => {
     const [selectedStatusFilter, setSelectedStatusFilter] = useState<string | null>(null);
 
     const {isAuthenticated, username} = useAuth();
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState<OrderType[]>([]);
 
     const getOrdersForCourier = (email: string) => {
         getOrdersForCourierApi(email)
@@ -74,9 +93,15 @@ const OrdersPage = () => {
         setSelectedStatusFilter(event.target.value as string);
     };
 
-    const displayOrders = orders?.map((order: any) => ({
+    const displayOrders = orders?.filter(order => {
+        if (!selectedStatusFilter || selectedStatusFilter === "ALL") {
+            return true; // Show all orders if no filter selected or "All" selected
+        }
+        return order.orderStatus === selectedStatusFilter;
+    }).map(order => ({
         id: order.id,
         buyerName: order.buyerFirstName + " " + order.buyerLastName,
+        sellerEmail: order.sellerEmail,
         orderNumber: "# " + order.orderNumber,
         orderDate: order.orderDate,
         totalPrice: order.totalPrice,
@@ -98,7 +123,7 @@ const OrdersPage = () => {
                                 value={selectedStatusFilter || ""}
                                 onChange={handleFilterChange}
                             >
-                                {/*<MenuItem value="ALL">All</MenuItem>*/}
+                                <MenuItem value="ALL">All</MenuItem>
                                 <MenuItem value="READY_TO_SHIP">Ready To Ship</MenuItem>
                                 <MenuItem value="SHIPPING">Shipping</MenuItem>
                                 <MenuItem value="DELIVERED">Delivered</MenuItem>
