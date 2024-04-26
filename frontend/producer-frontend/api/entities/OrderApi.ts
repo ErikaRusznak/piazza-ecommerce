@@ -19,12 +19,8 @@ export const markOrderAsProcessingApi = (id: number) => {
     return api.put(`/orders/${id}/processing`)
 }
 
-export const markOrderAsShippingApi = (id: number) => {
-    return api.put(`/orders/${id}/shipping`)
-}
-
-export const markOrderAsDeliveredApi = (id: number) => {
-    return api.put(`/orders/${id}/delivered`)
+export const markAsReadyToShip = (id: number) => {
+    return api.put(`/orders/${id}/ready-to-ship`)
 }
 
 export const markOrderAsCanceledApi = (id: number) => {

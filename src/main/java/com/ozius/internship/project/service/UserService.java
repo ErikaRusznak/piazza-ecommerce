@@ -3,16 +3,17 @@ package com.ozius.internship.project.service;
 import com.ozius.internship.project.dto.SimpleSellerDTO;
 import com.ozius.internship.project.dto.UserAccountDto;
 import com.ozius.internship.project.entity.buyer.Buyer;
+import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.user.UserRole;
 import com.ozius.internship.project.entity.user.UserStatus;
 import com.ozius.internship.project.repository.BuyerRepository;
+import com.ozius.internship.project.repository.CourierRepository;
 import com.ozius.internship.project.repository.SellerRepository;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +27,14 @@ public class UserService {
     public final ModelMapper modelMapper;
     public final SellerRepository sellerRepository;
     public final BuyerRepository buyerRepository;
+    public final CourierRepository courierRepository;
 
-    public UserService(UserAccountRepository userAccountRepository, ModelMapper modelMapper, SellerRepository sellerRepository, BuyerRepository buyerRepository) {
+    public UserService(UserAccountRepository userAccountRepository, ModelMapper modelMapper, SellerRepository sellerRepository, BuyerRepository buyerRepository, CourierRepository courierRepository) {
         this.userAccountRepository = userAccountRepository;
         this.modelMapper = modelMapper;
         this.sellerRepository = sellerRepository;
         this.buyerRepository = buyerRepository;
+        this.courierRepository = courierRepository;
     }
 
     public void saveUser(UserAccount user) {
@@ -108,6 +111,20 @@ public class UserService {
 
         if (buyer != null) {
             buyerRepository.delete(buyer);
+        } else {
+            userAccountRepository.delete(userAccount);
+        }
+    }
+
+    @Transactional
+    public void deleteAccountForCourier(long accountId) {
+        UserAccount userAccount = userAccountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException("User account not found"));
+
+        Courier courier = courierRepository.findCourierByAccount_Id(accountId);
+
+        if (courier != null) {
+            courierRepository.delete(courier);
         } else {
             userAccountRepository.delete(userAccount);
         }

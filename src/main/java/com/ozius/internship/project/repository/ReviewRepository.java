@@ -1,5 +1,8 @@
 package com.ozius.internship.project.repository;
 
+import com.ozius.internship.project.entity.courier.Courier;
+import com.ozius.internship.project.entity.order.Order;
+import com.ozius.internship.project.entity.order.OrderStatus;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Review;
 import org.springframework.data.jpa.repository.JpaRepository;

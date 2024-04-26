@@ -30,8 +30,6 @@ const OrderPage = ({ params }: OrderPageProps) => {
     const [changeOrder, setChangeOrder] = useState<string>();
 
     const renderCell = (item: any, key: string) => {
-        const theme = useTheme();
-        const router = useRouter();
         switch (key) {
             case 'Image':
                 return (

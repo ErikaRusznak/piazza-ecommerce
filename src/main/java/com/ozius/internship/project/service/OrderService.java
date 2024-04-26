@@ -4,6 +4,8 @@ import com.ozius.internship.project.dto.BuyerAddressDto;
 import com.ozius.internship.project.dto.CheckoutItemDto;
 import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
+import com.ozius.internship.project.entity.courier.Courier;
+import com.ozius.internship.project.entity.order.OrderStatus;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
@@ -11,6 +13,7 @@ import com.ozius.internship.project.entity.order.FullOrder;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Seller;
+import com.ozius.internship.project.repository.CourierRepository;
 import com.ozius.internship.project.repository.FullOrderRepository;
 import com.ozius.internship.project.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
@@ -19,9 +22,7 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,13 +34,15 @@ public class OrderService {
     private final CartService cartService;
     private final FullOrderRepository fullOrderRepository;
     private final OrderRepository orderRepository;
+    private final CourierRepository courierRepository;
     private final ModelMapper modelMapper;
 
-    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, OrderRepository orderRepository, ModelMapper modelMapper) {
+    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, OrderRepository orderRepository, CourierRepository courierRepository, ModelMapper modelMapper) {
         this.buyerService = buyerService;
         this.cartService = cartService;
         this.fullOrderRepository = fullOrderRepository;
         this.orderRepository = orderRepository;
+        this.courierRepository = courierRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -88,6 +91,7 @@ public class OrderService {
             //retrieve order or create order if not found one in the map
             Order orderPersisted = sellersToOrder.computeIfAbsent(seller, k -> {
                 Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone, fullOrder);
+                order.assignRandomCourier(em);
                 em.persist(order);
                 fullOrder.addOrder(order);
                 return order;
@@ -130,6 +134,19 @@ public class OrderService {
     }
 
     @Transactional
+    public List<OrderDTO> getOrdersByCourier(String courierEmail) {
+
+        Courier courier = courierRepository.findCourierByAccount_Email(courierEmail).orElseThrow();
+
+        List<OrderStatus> allowedStatuses = Arrays.asList(OrderStatus.READY_TO_SHIP, OrderStatus.SHIPPING, OrderStatus.DELIVERED);
+        List<Order> orders = orderRepository.findOrdersForCourierWithStatus(courier, allowedStatuses);
+
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
     public OrderDTO getOrderById(long id) {
         Order order = orderRepository.findById(id).orElseThrow();
         return modelMapper.map(order, OrderDTO.class);
@@ -142,9 +159,15 @@ public class OrderService {
     }
 
     @Transactional
+    public void markOrderAsReadyToShip(long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.markAsReadyToShip();;
+    }
+
+    @Transactional
     public void markOrderAsShipping(long id) {
         Order order = orderRepository.findById(id).orElseThrow();
-        order.markedAsShipped();
+        order.markedAsShipping();
     }
 
     @Transactional

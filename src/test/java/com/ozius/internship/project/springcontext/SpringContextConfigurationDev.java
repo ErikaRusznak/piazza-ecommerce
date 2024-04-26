@@ -35,6 +35,8 @@ public class SpringContextConfigurationDev {
     private String FRONT_END_URL_CLIENT;
     @Value("${frontend.url.producer}")
     private String FRONT_END_URL_PRODUCER;
+    @Value("${frontend.url.courier}")
+    private String FRONT_END_URL_COURIER;
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -44,7 +46,7 @@ public class SpringContextConfigurationDev {
                 if (registry == null) throw new AssertionError();
                 registry.addMapping("/**")
                         .allowedMethods("*")
-                        .allowedOrigins(FRONT_END_URL_CLIENT, FRONT_END_URL_PRODUCER);
+                        .allowedOrigins(FRONT_END_URL_CLIENT, FRONT_END_URL_PRODUCER, FRONT_END_URL_COURIER);
             }
         };
     }

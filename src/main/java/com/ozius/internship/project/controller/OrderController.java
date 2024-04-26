@@ -4,7 +4,6 @@ import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
-import com.ozius.internship.project.repository.OrderRepository;
 import com.ozius.internship.project.service.OrderService;
 import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
@@ -13,7 +12,6 @@ import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -24,13 +22,11 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
     private final EntityManager entityManager;
 
-    public OrderController(OrderService orderService, OrderRepository orderRepository, ModelMapper modelMapper, EntityManager entityManager) {
+    public OrderController(OrderService orderService, ModelMapper modelMapper, EntityManager entityManager) {
         this.orderService = orderService;
-        this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.entityManager = entityManager;
     }
@@ -92,14 +88,20 @@ public class OrderController {
         orderService.markOrderAsProcessing(id);
     }
 
-    @PutMapping("/orders/{id}/shipping")
+    @PutMapping("/orders/{id}/ready-to-ship")
     @PreAuthorize("hasRole('ADMIN')")
+    public void markOrderAsReadyToShip(@PathVariable long id) {
+        orderService.markOrderAsReadyToShip(id);
+    }
+
+    @PutMapping("/orders/{id}/shipping")
+    @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsShipping(@PathVariable long id) {
         orderService.markOrderAsShipping(id);
     }
 
     @PutMapping("/orders/{id}/delivered")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsDelivered(@PathVariable long id) {
         orderService.markOrderAsDelivered(id);
     }
@@ -108,5 +110,12 @@ public class OrderController {
     @PreAuthorize("hasRole('ADMIN')")
     public void markOrderAsCanceled(@PathVariable long id) {
         orderService.markOrderAsCanceled(id);
+    }
+
+    @GetMapping("/orders/{courierEmail}")
+    @PreAuthorize("hasRole('COURIER')")
+    public ResponseEntity<List<OrderDTO>> getOrdersByCourierEmail(@PathVariable String courierEmail) {
+        List<OrderDTO> orderDTOS = orderService.getOrdersByCourier(courierEmail);
+        return ResponseEntity.ok(orderDTOS);
     }
 }
