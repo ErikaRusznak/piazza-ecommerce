@@ -11,4 +11,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
 
     @Query("SELECT cm FROM ChatMessage cm WHERE cm.chatRoom.chatRoomCode = :chatRoomCode")
     List<ChatMessage> findAllByChatRoomCode(@Param("chatRoomCode") String chatRoomCode);
+
+    @Query("SELECT cm FROM ChatMessage cm WHERE cm.groupChatRoom.groupRoomCode = :groupRoomCode")
+    List<ChatMessage> findAllByGroupChatRoomCode(@Param("groupRoomCode") String groupRoomCode);
 }

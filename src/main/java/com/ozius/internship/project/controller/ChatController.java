@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,9 +50,36 @@ public class ChatController {
         chatNotificationRepository.save(cn);
 //         john/queue/messages
         messagingTemplate.convertAndSendToUser(Long.toString(chatMessageDTO.getRecipientId()),
-                "/queue/message", cn);
+                "/queue/messages", cn);
+    }
 
+    @MessageMapping("/group-chat") // app/group-chat
+    public void processMessageGroupChat(@Payload ChatMessageDTO chatMessageDTO) {
+        ChatMessage savedMessage = chatMessageService.saveChatMessageForGroupChat(
+                chatMessageDTO.getBuyerId(),
+                chatMessageDTO.getCourierId(),
+                chatMessageDTO.getSellerId(),
+                chatMessageDTO.getOrderId(),
+                chatMessageDTO.getContent()
+                );
+        broadcastGroupChatMessage(savedMessage);
+    }
 
+    private void broadcastGroupChatMessage(ChatMessage groupChatMessage) {
+        // Retrieve all participants of the group chat
+        List<Long> participantIds = Arrays.asList(
+                groupChatMessage.getBuyerId(),
+                groupChatMessage.getCourierId(),
+                groupChatMessage.getSellerId()
+        );
+
+        // Broadcast the message to each participant
+        for (Long participantId : participantIds) {
+            messagingTemplate.convertAndSendToUser(
+                    String.valueOf(participantId),
+                    "/queue/group-messages",
+                    groupChatMessage);
+        }
     }
 
     @GetMapping("/messages/{senderId}/{recipientId}")
@@ -64,6 +92,23 @@ public class ChatController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(chatMessageDTOS);
+    }
+
+    @GetMapping("/group-messages/{buyerId}/{courierId}/{sellerId}/{orderId}")
+    public ResponseEntity<List<ChatMessageDTO>> findChatMessagesForGroupChat(
+            @PathVariable("buyerId") long buyerId,
+            @PathVariable("courierId") long courierId,
+            @PathVariable("sellerId") long sellerId,
+            @PathVariable("orderId") long orderId) {
+
+        List<ChatMessage> groupChatMessages = chatMessageService.findChatMessagesForGroupChat(
+                buyerId, courierId, sellerId, orderId);
+
+        List<ChatMessageDTO> groupChatMessageDTOs = groupChatMessages.stream()
+                .map(groupChatMessage -> modelMapper.map(groupChatMessage, ChatMessageDTO.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(groupChatMessageDTOs);
     }
 
     @PutMapping("/messages/markAsRead/{senderId}/{recipientId}")

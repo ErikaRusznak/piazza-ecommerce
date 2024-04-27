@@ -12,4 +12,8 @@ public class ChatMessageDTO {
     protected long recipientId;
     protected LocalDateTime date;
     protected boolean isRead;
+    protected long buyerId;
+    protected long courierId;
+    protected long sellerId;
+    protected long orderId;
 }

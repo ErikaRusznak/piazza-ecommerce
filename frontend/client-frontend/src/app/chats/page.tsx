@@ -146,8 +146,6 @@ const ChatPage = () => {
         }
     };
 
-    console.log("l", lastMessages)
-
     return (
         (connectedUsers && id) && (
             <MainLayout>

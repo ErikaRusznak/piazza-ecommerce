@@ -143,7 +143,6 @@ const ChatPage = () => {
     }
 
     const fontWeightForLastMessage = (recipientId: number) => {
-        console.log("recip", lastMessages[recipientId])
         if (!lastMessages[recipientId] || lastMessages[recipientId].read || lastMessages[recipientId].senderId === id) {
             return "normal";
         } else {
