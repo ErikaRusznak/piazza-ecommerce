@@ -274,15 +274,18 @@ public class Order extends BaseEntity {
         this.orderStatus = OrderStatus.CANCELED;
     }
 
-    public void assignRandomCourier(EntityManager em) {
+    public Long assignRandomCourier(EntityManager em) {
         TypedQuery<Courier> query = em.createQuery("SELECT c FROM Courier c ORDER BY RAND()", Courier.class);
         query.setMaxResults(1);
         try {
-            this.courier = query.getSingleResult();
+            Courier selectedCourier = query.getSingleResult();
+            this.courier = selectedCourier;
+            return selectedCourier.getAccount().getId();
         } catch (NoResultException e) {
             throw new RuntimeException("No courier found in the database", e);
         }
     }
+
 
     @Override
     public String toString() {

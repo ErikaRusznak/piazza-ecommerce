@@ -62,21 +62,25 @@ public class ChatMessage extends BaseEntity {
     }
 
     public long getSenderId() {
-        return this.chatRoom.getSender().getId();
+        return this.chatRoom != null ? this.chatRoom.getSender().getId() : -1;
     }
+
     public long getRecipientId() {
-        return this.chatRoom.getRecipient().getId();
+        return this.chatRoom != null ? this.chatRoom.getRecipient().getId() : -1;
     }
     public long getBuyerId() {
-        return this.groupChatRoom.getBuyer().getId();
+        return this.groupChatRoom != null ? this.groupChatRoom.getBuyerId() : -1;
     }
+
     public long getCourierId() {
-        return this.groupChatRoom.getCourier().getId();
+        return this.groupChatRoom != null ? this.groupChatRoom.getCourierId() : -1;
     }
+
     public long getSellerId() {
-        return this.groupChatRoom.getSeller().getId();
+        return this.groupChatRoom != null ? this.groupChatRoom.getSellerId() : -1;
     }
+
     public long getOrderId() {
-        return this.groupChatRoom.getOrder().getId();
+        return this.groupChatRoom != null ? this.groupChatRoom.getOrderId() : -1;
     }
 }

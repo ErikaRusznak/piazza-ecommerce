@@ -7,6 +7,13 @@ import * as Stomp from "stompjs";
 
 interface WebSocketContextType {
     sendMessage: (message: string, id: number, recipientId: number) => any;
+    sendMessageToGroupChat: (
+        message: string,
+        buyerId: number,
+        courierId: number,
+        sellerId: number,
+        orderId: number
+    ) => any;
     connectToWebSocket: (userId: number, onMessageReceived: Function) => void;
 }
 
@@ -39,14 +46,20 @@ const WebSocketProvider = ({ children}: any) => {
                 onMessageReceived(message);
             }
         );
+        stompClient?.subscribe(
+            `/group/${userId}/queue/group-messages`,
+            (payload) => {
+                const message = JSON.parse(payload.body);
+                onMessageReceived(message);
+            }
+        )
     };
 
     const onError = (error: any) => {
         console.log(error);
     }
 
-
-    const sendMessage = (message: string, id: number, recipientId: number, ) => {
+    const sendMessage = (message: string, id: number, recipientId: number) => {
 
         if (message && stompClient) {
             const chatMessage = {
@@ -58,11 +71,25 @@ const WebSocketProvider = ({ children}: any) => {
             stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
             return chatMessage;
         }
-
     };
 
+    const sendMessageToGroupChat = (message: string, buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        if(message && stompClient) {
+            const chatMessage = {
+                buyerId: buyerId,
+                courierId: courierId,
+                sellerId: sellerId,
+                orderId: orderId,
+                content: message,
+                date: new Date().toISOString()
+            };
+            stompClient.send("/app/group-chat", {}, JSON.stringify(chatMessage));
+            return chatMessage;
+        }
+    }
+
     return (
-        <WebSocketContext.Provider value={{ sendMessage, connectToWebSocket}} >
+        <WebSocketContext.Provider value={{ sendMessage, sendMessageToGroupChat, connectToWebSocket}} >
             {children}
         </WebSocketContext.Provider>
     )

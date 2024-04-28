@@ -1,6 +1,7 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.ChatMessageDTO;
+import com.ozius.internship.project.dto.GroupChatDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatNotification;
 import com.ozius.internship.project.repository.ChatNotificationRepository;
@@ -66,14 +67,12 @@ public class ChatController {
     }
 
     private void broadcastGroupChatMessage(ChatMessage groupChatMessage) {
-        // Retrieve all participants of the group chat
         List<Long> participantIds = Arrays.asList(
                 groupChatMessage.getBuyerId(),
                 groupChatMessage.getCourierId(),
                 groupChatMessage.getSellerId()
         );
 
-        // Broadcast the message to each participant
         for (Long participantId : participantIds) {
             messagingTemplate.convertAndSendToUser(
                     String.valueOf(participantId),

@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
-@Getter
 @Table(name = GroupChatRoom.TABLE_NAME)
 public class GroupChatRoom extends BaseEntity {
 
@@ -21,6 +20,7 @@ public class GroupChatRoom extends BaseEntity {
         String ORDER_ID = "ORDER_ID";
     }
 
+    @Getter
     @Column(name = Columns.GROUP_ROOM_CODE, nullable = false)
     private String groupRoomCode;
 
@@ -29,15 +29,15 @@ public class GroupChatRoom extends BaseEntity {
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.COURIER_ID, nullable = false)
+    @JoinColumn(name = Columns.COURIER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.COURIER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
     private UserAccount courier;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.SELLER_ID, nullable = false)
+    @JoinColumn(name = Columns.SELLER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
     private UserAccount seller;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.BUYER_ID, nullable = false)
+    @JoinColumn(name = Columns.BUYER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.BUYER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
     private UserAccount buyer;
 
     protected GroupChatRoom() {
@@ -51,6 +51,9 @@ public class GroupChatRoom extends BaseEntity {
         this.buyer = buyer;
     }
 
+    public long getBuyerId() {
+        return buyer.getId();
+    }
     public String getBuyerFirstName() {
         return buyer.getFirstName();
     }
@@ -59,6 +62,10 @@ public class GroupChatRoom extends BaseEntity {
     }
     public String getBuyerEmail() {
         return buyer.getEmail();
+    }
+
+    public long getSellerId() {
+        return seller.getId();
     }
 
     public String getSellerFirstName() {
@@ -71,6 +78,9 @@ public class GroupChatRoom extends BaseEntity {
         return seller.getEmail();
     }
 
+    public long getCourierId() {
+        return courier.getId();
+    }
     public String getCourierFirstName() {
         return courier.getFirstName();
     }
@@ -81,6 +91,9 @@ public class GroupChatRoom extends BaseEntity {
         return courier.getEmail();
     }
 
+    public long getOrderId() {
+        return order.getId();
+    }
     public String getOrderNumber() {
         return order.getOrderNumber();
     }
