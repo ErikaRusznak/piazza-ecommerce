@@ -53,12 +53,10 @@ const ChatPage = () => {
 
     const {sendMessage, connectToWebSocket} = useWebSocket();
 
-    const onMessageReceived = (message: string) => {
-        console.log("in message received", message)
-        // const message = JSON.parse(payload.body);
-        // if (recipientId && recipientId === message.senderId) {
-        //     setMessages(prevMessages => [...prevMessages, message]);
-        // }
+    const onMessageReceived = (message: any) => {
+        if (recipientId && recipientId === message.senderId) {
+            setMessages(prevMessages => [...prevMessages, { ...message, date: new Date().toISOString() }]);
+        }
     };
 
     const getSellerByEmail = (username: string) => {

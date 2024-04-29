@@ -1,7 +1,6 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.ChatMessageDTO;
-import com.ozius.internship.project.dto.GroupChatDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatNotification;
 import com.ozius.internship.project.entity.chat.GroupChatNotification;
