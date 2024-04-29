@@ -4,6 +4,7 @@ import com.ozius.internship.project.dto.ChatMessageDTO;
 import com.ozius.internship.project.dto.GroupChatDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatNotification;
+import com.ozius.internship.project.entity.chat.GroupChatNotification;
 import com.ozius.internship.project.repository.ChatNotificationRepository;
 import com.ozius.internship.project.service.ChatMessageService;
 import org.modelmapper.ModelMapper;
@@ -63,21 +64,24 @@ public class ChatController {
                 chatMessageDTO.getOrderId(),
                 chatMessageDTO.getContent()
                 );
-        broadcastGroupChatMessage(savedMessage);
-    }
-
-    private void broadcastGroupChatMessage(ChatMessage groupChatMessage) {
         List<Long> participantIds = Arrays.asList(
-                groupChatMessage.getBuyerId(),
-                groupChatMessage.getCourierId(),
-                groupChatMessage.getSellerId()
+                savedMessage.getBuyerId(),
+                savedMessage.getCourierId(),
+                savedMessage.getSellerId()
         );
 
         for (Long participantId : participantIds) {
+            GroupChatNotification cn = new GroupChatNotification(
+                    savedMessage.getId(),
+                    savedMessage.getContent(),
+                    savedMessage.getBuyerId(),
+                    savedMessage.getCourierId(),
+                    savedMessage.getSellerId()
+            );
             messagingTemplate.convertAndSendToUser(
                     String.valueOf(participantId),
                     "/queue/group-messages",
-                    groupChatMessage);
+                    cn);
         }
     }
 

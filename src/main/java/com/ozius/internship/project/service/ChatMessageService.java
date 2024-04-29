@@ -1,5 +1,6 @@
 package com.ozius.internship.project.service;
 
+import com.ozius.internship.project.dto.GroupChatDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatRoom;
 import com.ozius.internship.project.entity.chat.GroupChatRoom;
@@ -7,6 +8,7 @@ import com.ozius.internship.project.repository.ChatMessageRepository;
 import com.ozius.internship.project.repository.ChatRoomRepository;
 import com.ozius.internship.project.repository.GroupChatRoomRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,7 +21,7 @@ public class ChatMessageService {
     private final ChatRoomService chatRoomService;
     private final ChatRoomRepository chatRoomRepository;
     private final GroupChatRoomRepository groupChatRoomRepository;
-    private final GroupChatRoomService groupChatRoomService;
+    private final GroupChatRoomService groupChatRoomService;;
 
     public ChatMessageService(ChatMessageRepository chatMessageRepository, ChatRoomService chatRoomService, ChatRoomRepository chatRoomRepository, GroupChatRoomRepository groupChatRoomRepository, GroupChatRoomService groupChatRoomService) {
         this.chatMessageRepository = chatMessageRepository;
@@ -48,9 +50,11 @@ public class ChatMessageService {
         String chatRoomCode = groupChatRoomService.getGroupChatRoomCode(buyerId, courierId, sellerId, orderId, true)
                 .orElseThrow(() -> new IllegalStateException("Group chat room code not found"));
 
-        GroupChatRoom cr = groupChatRoomRepository.findByChatRoomCode(buyerId, courierId, sellerId, orderId, chatRoomCode)
-                .orElseThrow(() -> new IllegalStateException("Group chat room not found"));
+        GroupChatRoom cr = groupChatRoomRepository.findByGroupRoomCode(chatRoomCode);
 
+        if(cr == null) {
+            throw new IllegalStateException("Group chat room not found");
+        }
         ChatMessage chatMessage = new ChatMessage(cr, content);
         chatMessageRepository.save(chatMessage);
 

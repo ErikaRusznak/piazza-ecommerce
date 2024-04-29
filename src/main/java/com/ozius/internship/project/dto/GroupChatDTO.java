@@ -20,6 +20,5 @@ public class GroupChatDTO {
     protected String sellerLastName;
     protected String sellerEmail;
     protected long orderId;
-    protected String orderNumber;
 
 }

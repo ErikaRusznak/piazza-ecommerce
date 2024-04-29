@@ -94,9 +94,6 @@ public class GroupChatRoom extends BaseEntity {
     public long getOrderId() {
         return order.getId();
     }
-    public String getOrderNumber() {
-        return order.getOrderNumber();
-    }
 
     @Override
     public String toString() {

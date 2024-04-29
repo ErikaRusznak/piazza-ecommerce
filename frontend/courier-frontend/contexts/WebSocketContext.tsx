@@ -39,7 +39,7 @@ const WebSocketProvider = ({ children}: any) => {
 
     const onConnected = (userId: number, onMessageReceived: Function) => {
         stompClient?.subscribe(
-            `/group/${userId}/queue/group-messages`,
+            `/user/${userId}/queue/group-messages`,
             (payload) => {
                 const message = JSON.parse(payload.body);
                 onMessageReceived(message);
