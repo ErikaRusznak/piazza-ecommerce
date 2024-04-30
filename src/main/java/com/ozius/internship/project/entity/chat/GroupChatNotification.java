@@ -1,5 +1,6 @@
 package com.ozius.internship.project.entity.chat;
 
+import com.ozius.internship.project.entity.user.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -16,6 +17,7 @@ public class GroupChatNotification {
         String BUYER_ID = "BUYER_ID";
         String COURIER_ID = "COURIER_ID";
         String SELLER_ID = "SELLER_ID";
+        String SENDER_ROLE = "SENDER_ROLE";
     }
 
     @Id
@@ -34,15 +36,20 @@ public class GroupChatNotification {
     @Column(name = Columns.SELLER_ID, nullable = false)
     private long sellerId;
 
+    @Column(name = ChatMessage.Columns.SENDER_ROLE)
+    @Enumerated(EnumType.STRING)
+    private UserRole senderRole;
+
     protected GroupChatNotification(){
     }
 
-    public GroupChatNotification(long id, String content, long buyerId, long courierId, long sellerId) {
+    public GroupChatNotification(long id, String content, long buyerId, long courierId, long sellerId, UserRole senderRole) {
         this.id = id;
         this.content = content;
         this.buyerId = buyerId;
         this.courierId = courierId;
         this.sellerId = sellerId;
+        this.senderRole = senderRole;
     }
 
 }

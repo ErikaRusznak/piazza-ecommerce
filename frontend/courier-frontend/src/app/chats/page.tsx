@@ -53,12 +53,8 @@ const ChatPage = () => {
     const {sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
     const onMessageReceived = (message: any) => {
-        console.log("in message received", message)
-        console.log("buyerid", buyerId)
-        console.log("sellerid", sellerId)
-        console.log("courierid", courierId)
-        if (buyerId === message.buyerId && sellerId === message.sellerId) {
-            setMessages(prevMessages => [...prevMessages, {message, senderId: courierId}]);
+        if (message.senderRole !== "COURIER") {
+            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
 

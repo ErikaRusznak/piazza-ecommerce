@@ -78,7 +78,8 @@ public class ChatController {
                     savedMessage.getContent(),
                     savedMessage.getBuyerId(),
                     savedMessage.getCourierId(),
-                    savedMessage.getSellerId()
+                    savedMessage.getSellerId(),
+                    savedMessage.getSenderRole()
             );
             messagingTemplate.convertAndSendToUser(
                     String.valueOf(participantId),

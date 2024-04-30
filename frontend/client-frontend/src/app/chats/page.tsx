@@ -74,13 +74,12 @@ const ChatPage = () => {
     const {sendMessage, sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
     const onMessageReceived = (message: any) => {
-        console.log("reci", recipientId)
-        console.log("courierid", courierId)
         if (recipientId && recipientId === message.senderId) {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            return;
         }
-        if (courierId === message.courierId && sellerId === message.sellerId) {
-            setMessages(prevMessages => [...prevMessages, message]);
+        if (message.senderRole !== "CLIENT") {
+            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
 
@@ -184,12 +183,17 @@ const ChatPage = () => {
     };
 
     const sendMessageToGroupChatInternal = () => {
-        const chatMessage = sendMessageToGroupChat(message, buyerId, courierId, sellerId, orderId);
+        const chatMessage = sendMessageToGroupChat(message, buyerId!, courierId!, sellerId!, orderId!);
+        console.log("chat message", chatMessage)
+        console.log("buyerid,", buyerId)
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
 
     const fetchChatHistoryForGroupChat = async (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        setRecipientId(null);
+        console.log("cccc", courierId)
+        setBuyerId(buyerId);
         setCourierId(courierId);
         setSellerId(sellerId);
         setOrderId(orderId);
@@ -263,13 +267,13 @@ const ChatPage = () => {
 
                                                 }}
                                                 onClick={() => {
-                                                    fetchChatHistory(user.id);
                                                     markMessagesAsRead(id, user.id);
                                                     setSelectPrivateChat(true);
                                                     setBuyerId(null);
                                                     setCourierId(null);
                                                     setSellerId(null);
                                                     setOrderId(null);
+                                                    fetchChatHistory(user.id);
                                                     router.push(`/chats?${createQueryString("recipientId", user.id)}`)
                                                 }}
                                             >
@@ -344,7 +348,6 @@ const ChatPage = () => {
                                                     },
                                                 }}
                                                 onClick={() => {
-                                                    setRecipientId(null);
                                                     fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
                                                     router.push(`/chats?${createQueryString("orderId", chat.orderId)}`)
                                                 }}
@@ -560,7 +563,7 @@ const ChatPage = () => {
                                                                         maxWidth: "60%",
                                                                         p: 1,
                                                                         borderRadius: "16px",
-                                                                        background: mess.senderId === id ? theme.palette.primary.main : theme.palette.background.lighter,
+                                                                        background: mess.senderRole === "CLIENT" ? theme.palette.primary.main : theme.palette.background.lighter,
                                                                     }}>
                                                                         <Typography sx={{}}>
                                                                             {mess.content}
