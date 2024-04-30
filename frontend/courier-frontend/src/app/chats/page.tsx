@@ -5,13 +5,14 @@ import {
     getGroupChatsForCourierApi, getMessagesForGroupChatApi,
 } from "../../../api/entities/ChatApi";
 import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
-import { Box, Container, Typography, useMediaQuery } from "@mui/material";
+import {Box, Collapse, Container, Typography, useMediaQuery} from "@mui/material";
 
 import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";
-import { SendIcon } from "@/components/atoms/icons";
+import {KeyboardArrowDownIcon, KeyboardArrowRightIcon, SendIcon} from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
 import {useRouter} from "next/navigation";
+import IconButton from "@mui/material/IconButton";
 
 const ChatPage = () => {
     const theme = useTheme();
@@ -21,12 +22,18 @@ const ChatPage = () => {
     const [messages, setMessages] = useState<any[]>([]);
     const [message, setMessage] = useState<string>("");
 
-    const [courierId, setCourierId] = useState<number>(0);
-    const [buyerId, setBuyerId] = useState<number>(0);
-    const [sellerId, setSellerId] = useState<number>(0);
-    const [orderId, setOrderId] = useState<number>(0);
+    const [courierId, setCourierId] = useState<number|null>(null);
+    const [buyerId, setBuyerId] = useState<number|null>(null);
+    const [sellerId, setSellerId] = useState<number|null>(null);
+    const [orderId, setOrderId] = useState<number|null>(null);
 
     const [groupChats, setGroupChats] = useState<any>();
+
+    const [showGroupChats, setShowGroupChats] = useState(false);
+
+    const toggleGroupChats = () => {
+        setShowGroupChats((prev) => !prev);
+    };
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -45,14 +52,17 @@ const ChatPage = () => {
 
     const {sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
-    const onMessageReceived = (message: string) => {
+    const onMessageReceived = (message: any) => {
         console.log("in message received", message)
-        // const message = JSON.parse(payload.body);
-        // if (recipientId && recipientId === message.senderId) {
-        //     setMessages(prevMessages => [...prevMessages, message]);
-        // }
+        console.log("buyerid", buyerId)
+        console.log("sellerid", sellerId)
+        console.log("courierid", courierId)
+        if (buyerId === message.buyerId && sellerId === message.sellerId) {
+            setMessages(prevMessages => [...prevMessages, {message, senderId: courierId}]);
+        }
     };
 
+    console.log(buyerId)
     const getCourierByEmail = (username: string) => {
         getUserAccountByEmail(username)
             .then((res) => {
@@ -81,8 +91,6 @@ const ChatPage = () => {
 
     }, []);
 
-    console.log("group chats", groupChats)
-
 
     useEffect(() => {
         if(courierId && sellerId && buyerId && orderId) {
@@ -92,7 +100,8 @@ const ChatPage = () => {
 
 
     const sendMessageInternal = () => {
-        const chatMessage = sendMessageToGroupChat(message, buyerId, courierId, sellerId, orderId);
+        const chatMessage = sendMessageToGroupChat(message, buyerId!, courierId!, sellerId!, orderId!);
+        console.log("chat message", chatMessage)
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
@@ -108,7 +117,7 @@ const ChatPage = () => {
             .catch((err) => console.error(err));
     };
 
-
+console.log("chat", messages)
     return (
         (courierId) && (
             <MainLayout>
@@ -129,15 +138,30 @@ const ChatPage = () => {
                                     py: 2,
                                     boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
                                     // boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
-                                    '& > *': {
-                                        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-                                        boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
-                                        padding: '10px 0',
-                                    },
                                 }}>
-                                <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2, boxShadow: '0px 5px  15px rgba(255,255,255, 0.1)', }}>
-                                    Group chats
+                                <Typography
+                                    color={theme.palette.info.main}
+                                    sx={{ textTransform: 'uppercase', mb: 2, p: 1, borderBottom: `1px solid ${theme.palette.lightColor.main}` }}
+                                >
+                                    Group Chats
                                 </Typography>
+                                <Typography>
+                                    <IconButton
+                                        sx={{
+                                            color: theme.palette.info.main,
+                                            "&:hover": {
+                                                color: theme.palette.lightColor.main,
+                                            }
+                                        }}
+                                        onClick={toggleGroupChats}
+                                    >
+                                        <Typography variant="body1" sx={{ fontSize: "13px" }}>
+                                            Group chats
+                                        </Typography>
+                                        {showGroupChats ? <KeyboardArrowDownIcon sx={{ fontSize: "13px" }}/> : <KeyboardArrowRightIcon sx={{ fontSize: "13px" }}/>}
+                                    </IconButton>
+                                </Typography>
+                                <Collapse in={showGroupChats}>
                                 <Box sx={{ display: "flex", flexDirection: "column", }}>
                                     {groupChats?.map((chat: any) => (
                                         <Box
@@ -192,6 +216,7 @@ const ChatPage = () => {
                                         </Box>
                                     ))}
                                 </Box>
+                                </Collapse>
                             </Box>
                             <Box sx={{
                                 flex: isSm ? '1' : '1 1 75%',
@@ -201,8 +226,8 @@ const ChatPage = () => {
                             }}>
                                 {buyerId && sellerId && orderId ? (
                                     <>
-                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2.3, py: "10px", boxShadow: '0px 5px 100px rgba(255,255,255, 0.15)' }}>
-                                           Group chat
+                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 1, py:1, borderBottom: `1px solid ${theme.palette.lightColor.main}` }}>
+                                            Chat with users
                                         </Typography>
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
                                             {messages.slice(0).reverse().map((mess, index, array) => {
@@ -226,15 +251,15 @@ const ChatPage = () => {
                                                         )}
                                                         <Box sx={{
                                                             display: 'flex',
-                                                            justifyContent: mess.courierId === courierId ? 'flex-end' : 'flex-start',
-                                                            textAlign: mess.courierId === courierId ? 'right' : 'left',
+                                                            justifyContent: mess.senderRole === "COURIER" ? 'flex-end' : 'flex-start',
+                                                            textAlign: mess.senderRole === "COURIER" ? 'right' : 'left',
                                                         }}>
                                                             <Box sx={{
                                                                 color: "white",
                                                                 maxWidth: "60%",
                                                                 p: 1,
                                                                 borderRadius: "16px",
-                                                                background: mess.courierId === courierId ? theme.palette.primary.main : theme.palette.background.lighter,
+                                                                background: mess.senderRole === "COURIER" ? theme.palette.primary.main : "grey",
                                                             }}>
                                                                 <Typography sx={{
 
@@ -261,7 +286,7 @@ const ChatPage = () => {
                                                     borderRadius: "14px",
                                                     border: `0.1px solid ${theme.palette.lightColor.main}`,
                                                     marginRight: 1,
-                                                    background: theme.palette.background.lighter,
+                                                    background: "#DDDDDD",
                                                     outline: "none",
                                                     color: theme.palette.info.main,
                                                 }}

@@ -4,6 +4,7 @@ import com.ozius.internship.project.dto.ChatMessageDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatNotification;
 import com.ozius.internship.project.entity.chat.GroupChatNotification;
+import com.ozius.internship.project.entity.user.UserRole;
 import com.ozius.internship.project.repository.ChatNotificationRepository;
 import com.ozius.internship.project.service.ChatMessageService;
 import org.modelmapper.ModelMapper;
@@ -37,6 +38,7 @@ public class ChatController {
 
     @MessageMapping("/chat") // app/chat
     public void processMessage(@Payload ChatMessageDTO chatMessageDTO) {
+
         ChatMessage savedMessage = chatMessageService.saveChatMessage(
                 chatMessageDTO.getSenderId(),
                 chatMessageDTO.getRecipientId(),
@@ -61,7 +63,8 @@ public class ChatController {
                 chatMessageDTO.getCourierId(),
                 chatMessageDTO.getSellerId(),
                 chatMessageDTO.getOrderId(),
-                chatMessageDTO.getContent()
+                chatMessageDTO.getContent(),
+                chatMessageDTO.getSenderRole()
                 );
         List<Long> participantIds = Arrays.asList(
                 savedMessage.getBuyerId(),

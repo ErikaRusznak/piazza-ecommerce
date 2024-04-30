@@ -4,6 +4,7 @@ import com.ozius.internship.project.dto.GroupChatDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatRoom;
 import com.ozius.internship.project.entity.chat.GroupChatRoom;
+import com.ozius.internship.project.entity.user.UserRole;
 import com.ozius.internship.project.repository.ChatMessageRepository;
 import com.ozius.internship.project.repository.ChatRoomRepository;
 import com.ozius.internship.project.repository.GroupChatRoomRepository;
@@ -46,7 +47,7 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public ChatMessage saveChatMessageForGroupChat(long buyerId, long courierId, long sellerId, long orderId, String content) {
+    public ChatMessage saveChatMessageForGroupChat(long buyerId, long courierId, long sellerId, long orderId, String content, UserRole senderRole) {
         String chatRoomCode = groupChatRoomService.getGroupChatRoomCode(buyerId, courierId, sellerId, orderId, true)
                 .orElseThrow(() -> new IllegalStateException("Group chat room code not found"));
 
@@ -55,7 +56,7 @@ public class ChatMessageService {
         if(cr == null) {
             throw new IllegalStateException("Group chat room not found");
         }
-        ChatMessage chatMessage = new ChatMessage(cr, content);
+        ChatMessage chatMessage = new ChatMessage(cr, content, senderRole);
         chatMessageRepository.save(chatMessage);
 
         return chatMessage;

@@ -11,7 +11,7 @@ interface WebSocketContextType {
         buyerId: number,
         courierId: number,
         sellerId: number,
-        orderId: number
+        orderId: number,
     ) => any;
     connectToWebSocket: (userId: number, onMessageReceived: Function) => void;
 }
@@ -59,7 +59,8 @@ const WebSocketProvider = ({ children}: any) => {
                 sellerId: sellerId,
                 orderId: orderId,
                 content: message,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                senderRole: "COURIER"
             };
             stompClient.send("/app/group-chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

@@ -6,12 +6,13 @@ import Typography from "@mui/material/Typography";
 import useTheme from "@/theme/themes";
 import {getAllUsersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import {getMessagesForSenderAndRecipientApi, markMessagesAsReadApi} from "../../../api/entities/ChatApi";
-import {Box, Container, useMediaQuery} from "@mui/material";
-import {SendIcon} from "@/components/atoms/icons";
+import {Box, Collapse, Container, useMediaQuery} from "@mui/material";
+import {KeyboardArrowDownIcon, KeyboardArrowRightIcon, SendIcon} from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import IconButton from "@mui/material/IconButton";
 
 const ChatPage = () => {
 
@@ -25,6 +26,13 @@ const ChatPage = () => {
     const [message, setMessage] = useState<any>("");
     const [recipientId, setRecipientId] = useState<number |null>(Number(searchParams.get("recipientId")) ?? null);
     const [lastMessages, setLastMessages] = useState<{[key: number]: any}>({});
+
+    const [showConnectedUsers, setShowConnectedUsers] = useState(false);
+
+    const toggleConnectedUsers = () => {
+        setShowConnectedUsers((prev) => !prev);
+    };
+
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -74,7 +82,7 @@ const ChatPage = () => {
         getAllUsersApi()
             .then((res) => {
                 let connectedUsers = res.data;
-                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "ADMIN");
+                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "ADMIN" && user.userRole !== "COURIER");
                 setConnectedUsers(connectedUsers);
             })
             .catch((err) => console.log(err))
@@ -170,22 +178,36 @@ const ChatPage = () => {
                                 py: 2,
                                 // boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
                                 boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
-                                '& > *': {
-                                    // borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-                                    boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
-                                    padding: '10px 0',
-                                },
                             }}>
-                                <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px:2, boxShadow: '0px 5px  15px rgba(255,255,255, 0.1)', }}>
-                                    Connected users
+                                <Typography
+                                    color={theme.palette.info.main}
+                                    sx={{ textTransform: 'uppercase', mb: 2, p: 1, borderBottom: `1px solid ${theme.palette.lightColor.main}`, }}
+                                >
+                                    Chats
                                 </Typography>
-                                <Box sx={{display: "flex", flexDirection: "column",}}>
+                                <Typography>
+                                    <IconButton
+                                        sx={{
+                                            color: theme.palette.info.main,
+                                            "&:hover": {
+                                                color: theme.palette.lightColor.main,
+                                            }
+                                        }}
+                                        onClick={toggleConnectedUsers}
+                                    >
+                                        <Typography variant="body1" sx={{ fontSize: "13px" }}>
+                                            Chat Messages
+                                        </Typography>
+                                        {showConnectedUsers ? <KeyboardArrowDownIcon sx={{ fontSize: "13px" }}/> : <KeyboardArrowRightIcon sx={{ fontSize: "13px" }}/>}
+                                    </IconButton>
+                                </Typography>
+                                <Collapse in={showConnectedUsers}>
+                                <Box sx={{display: "flex", flexDirection: "column", p:0}}>
                                     {connectedUsers?.map((user: any) => (
                                         <Box
                                             key={user.id}
                                             sx={{
-                                                color: "white",
-                                                p: 1,
+                                                color: "white", p: 1,
                                                 cursor: 'pointer',
                                                 '&:hover': {
                                                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -235,6 +257,7 @@ const ChatPage = () => {
                                         </Box>
                                     ))}
                                 </Box>
+                                </Collapse>
                             </Box>
                             <Box sx={{
                                 flex: isXs ? '1' : '1 1 75%',
@@ -244,7 +267,7 @@ const ChatPage = () => {
                             }}>
                                 {recipientId ? (
                                     <>
-                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 2.3, py:"10px" ,boxShadow: '0px 5px 100px rgba(255,255,255, 0.15)' }}>
+                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 1, py:1, borderBottom: `1px solid ${theme.palette.lightColor.main}` }}>
                                             Chat with user
                                         </Typography>
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>

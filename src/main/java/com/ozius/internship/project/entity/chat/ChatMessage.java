@@ -1,6 +1,7 @@
 package com.ozius.internship.project.entity.chat;
 
 import com.ozius.internship.project.entity.BaseEntity;
+import com.ozius.internship.project.entity.user.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class ChatMessage extends BaseEntity {
         String CONTENT = "CONTENT";
         String DATE = "DATE";
         String IS_READ = "IS_READ";
+        String SENDER_ROLE = "SENDER_ROLE";
     }
 
 
@@ -44,6 +46,10 @@ public class ChatMessage extends BaseEntity {
     @Setter
     private boolean isRead;
 
+    @Column(name = Columns.SENDER_ROLE)
+    @Enumerated(EnumType.STRING)
+    private UserRole senderRole;
+
     protected ChatMessage() {
     }
 
@@ -54,15 +60,24 @@ public class ChatMessage extends BaseEntity {
         this.isRead = false;
     }
 
-    public ChatMessage(GroupChatRoom groupChatRoom, String content) {
+    public ChatMessage(GroupChatRoom groupChatRoom, String content, UserRole senderRole) {
         this.groupChatRoom = groupChatRoom;
         this.content = content;
         this.date = LocalDateTime.now();
         this.isRead = false;
+        this.senderRole = senderRole;
     }
 
     public long getSenderId() {
-        return this.chatRoom != null ? this.chatRoom.getSender().getId() : -1;
+        if (this.senderRole == UserRole.CLIENT) {
+            return this.groupChatRoom != null ? this.groupChatRoom.getBuyerId() : -1;
+        } else if (this.senderRole == UserRole.ADMIN) {
+            return this.groupChatRoom != null ? this.groupChatRoom.getSellerId() : -1;
+        } else if (this.senderRole == UserRole.COURIER) {
+            return this.groupChatRoom != null ? this.groupChatRoom.getCourierId() : -1;
+        } else {
+            return this.chatRoom.getSender().getId();
+        }
     }
 
     public long getRecipientId() {

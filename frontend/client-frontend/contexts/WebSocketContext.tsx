@@ -66,7 +66,7 @@ const WebSocketProvider = ({ children}: any) => {
                 senderId: id,
                 recipientId: recipientId,
                 content: message,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
             };
             stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
             return chatMessage;
@@ -81,7 +81,8 @@ const WebSocketProvider = ({ children}: any) => {
                 sellerId: sellerId,
                 orderId: orderId,
                 content: message,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                senderRole: "CLIENT",
             };
             stompClient.send("/app/group-chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

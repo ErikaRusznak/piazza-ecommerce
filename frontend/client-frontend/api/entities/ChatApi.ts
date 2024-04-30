@@ -8,6 +8,10 @@ export const markMessagesAsReadApi = (senderId: number, recipientId: number) => 
     return api.put(`/messages/markAsRead/${senderId}/${recipientId}`)
 }
 
-export const getGroupChatsForBuyer = (buyerId: number) => {
+export const getGroupChatsForBuyerApi = (buyerId: number) => {
     return api.get(`/group-chat/buyer/${buyerId}`);
+}
+
+export const getMessagesForGroupChatApi = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+    return api.get(`/group-messages/${buyerId}/${courierId}/${sellerId}/${orderId}`);
 }
