@@ -81,7 +81,8 @@ const WebSocketProvider = ({ children}: any) => {
                 sellerId: sellerId,
                 orderId: orderId,
                 content: message,
-                date: new Date().toISOString()
+                date: new Date().toISOString(),
+                senderRole: "ADMIN",
             };
             stompClient.send("/app/group-chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

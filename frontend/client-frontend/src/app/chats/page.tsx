@@ -30,8 +30,7 @@ const ChatPage = () => {
     const [recipientId, setRecipientId] = useState<number | null>(Number(searchParams.get("recipientId")) ?? null);
     const [connectedUsers, setConnectedUsers] = useState<any>();
     const [showConnectedUsers, setShowConnectedUsers] = useState(false);
-
-    const [selectPrivateChat, setSelectPrivateChat] = useState<boolean>(false);
+    const {sendMessage, sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
     const toggleConnectedUsers = () => {
         setShowConnectedUsers((prev) => !prev);
@@ -71,7 +70,6 @@ const ChatPage = () => {
         return `${hour < 10 ? "0" + hour : hour}:${minute < 10 ? "0" + minute : minute}`
     };
 
-    const {sendMessage, sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
     const onMessageReceived = (message: any) => {
         if (recipientId && recipientId === message.senderId) {
@@ -129,14 +127,13 @@ const ChatPage = () => {
 
     const sendMessageInternal = () => {
         const chatMessage = sendMessage(message, id, recipientId!);
-        console.log("chat message", chatMessage)
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
 
-    const fetchChatHistory = async (recipientId: number) => {
+    const fetchChatHistory = (recipientId: number) => {
         setRecipientId(recipientId);
-        await getMessagesForSenderAndRecipientApi(id, recipientId)
+        getMessagesForSenderAndRecipientApi(id, recipientId)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -184,20 +181,17 @@ const ChatPage = () => {
 
     const sendMessageToGroupChatInternal = () => {
         const chatMessage = sendMessageToGroupChat(message, buyerId!, courierId!, sellerId!, orderId!);
-        console.log("chat message", chatMessage)
-        console.log("buyerid,", buyerId)
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
 
-    const fetchChatHistoryForGroupChat = async (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+    const fetchChatHistoryForGroupChat = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
         setRecipientId(null);
-        console.log("cccc", courierId)
         setBuyerId(buyerId);
         setCourierId(courierId);
         setSellerId(sellerId);
         setOrderId(orderId);
-        await getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
+        getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -268,7 +262,6 @@ const ChatPage = () => {
                                                 }}
                                                 onClick={() => {
                                                     markMessagesAsRead(id, user.id);
-                                                    setSelectPrivateChat(true);
                                                     setBuyerId(null);
                                                     setCourierId(null);
                                                     setSellerId(null);
@@ -399,13 +392,11 @@ const ChatPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                             }}>
-                                {selectPrivateChat && recipientId ? (
+                                { recipientId ? (
                                     <>
                                         <Typography color={theme.palette.info.main} sx={{
                                             textTransform: 'uppercase',
-                                            mb: 2,
-                                            px: 1,
-                                            py: 1,
+                                            mb: 2, px: 1, py: 1,
                                             borderBottom: `1px solid ${theme.palette.lightColor.main}`
                                         }}>
                                             Chat with user
@@ -513,12 +504,10 @@ const ChatPage = () => {
                                         (<>
                                                 <Typography color={theme.palette.info.main} sx={{
                                                     textTransform: 'uppercase',
-                                                    mb: 2,
-                                                    px: 1,
-                                                    py: 1,
+                                                    mb: 2, px: 1, py: 1,
                                                     borderBottom: `1px solid ${theme.palette.lightColor.main}`
                                                 }}>
-                                                    Chat with user
+                                                    Chat with group
                                                 </Typography>
                                                 <Box sx={{
                                                     flex: 1,

@@ -57,8 +57,6 @@ const ChatPage = () => {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
-
-    console.log(buyerId)
     const getCourierByEmail = (username: string) => {
         getUserAccountByEmail(username)
             .then((res) => {
@@ -113,7 +111,6 @@ const ChatPage = () => {
             .catch((err) => console.error(err));
     };
 
-console.log("chat", messages)
     return (
         (courierId) && (
             <MainLayout>

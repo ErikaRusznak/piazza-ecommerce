@@ -5,7 +5,12 @@ import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import useTheme from "@/theme/themes";
 import {getAllUsersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
-import {getMessagesForSenderAndRecipientApi, markMessagesAsReadApi} from "../../../api/entities/ChatApi";
+import {
+    getGroupChatsForSeller, getGroupChatsForSellerApi,
+    getMessagesForGroupChatApi,
+    getMessagesForSenderAndRecipientApi,
+    markMessagesAsReadApi
+} from "../../../api/entities/ChatApi";
 import {Box, Collapse, Container, useMediaQuery} from "@mui/material";
 import {KeyboardArrowDownIcon, KeyboardArrowRightIcon, SendIcon} from "@/components/atoms/icons";
 import {useWebSocket} from "../../../contexts/WebSocketContext";
@@ -28,11 +33,25 @@ const ChatPage = () => {
     const [lastMessages, setLastMessages] = useState<{[key: number]: any}>({});
 
     const [showConnectedUsers, setShowConnectedUsers] = useState(false);
+    const [connectedUsers, setConnectedUsers] = useState<any>();
+
+    const {sendMessage, sendMessageToGroupChat, connectToWebSocket} = useWebSocket();
 
     const toggleConnectedUsers = () => {
         setShowConnectedUsers((prev) => !prev);
     };
 
+    const [courierId, setCourierId] = useState<number | null>(null);
+    const [buyerId, setBuyerId] = useState<number | null>(null);
+    const [sellerId, setSellerId] = useState<number | null>(null);
+    const [orderId, setOrderId] = useState<number | null>(null);
+
+    const [groupChats, setGroupChats] = useState<any>();
+    const [showGroupChats, setShowGroupChats] = useState(false);
+
+    const toggleGroupChats = () => {
+        setShowGroupChats((prev) => !prev);
+    };
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -57,21 +76,21 @@ const ChatPage = () => {
         return params.toString();
     };
 
-    const [connectedUsers, setConnectedUsers] = useState<any>();
-
-    const {sendMessage, connectToWebSocket} = useWebSocket();
-
     const onMessageReceived = (message: any) => {
         if (recipientId && recipientId === message.senderId) {
-            setMessages(prevMessages => [...prevMessages, { ...message, date: new Date().toISOString() }]);
+            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            return;
+        }
+        if (message.senderRole !== "ADMIN") {
+            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
 
     const getSellerByEmail = (username: string) => {
-        console.log("email", username)
         getUserAccountByEmail(username)
             .then((res) => {
                 setId(res.data.id);
+                setSellerId(res.data.id);
                 connectToWebSocket(res.data.id, onMessageReceived);
             })
             .catch((err) => console.log(err))
@@ -94,6 +113,7 @@ const ChatPage = () => {
         if (usernameFromStorage) {
             const newUsername = JSON.parse(usernameFromStorage)
             getSellerByEmail(newUsername);
+            getAllGroupChats(newUsername);
         }
     }, []);
 
@@ -117,9 +137,9 @@ const ChatPage = () => {
         setMessage("");
     };
 
-    const fetchChatHistory = async (recipientId: number) => {
+    const fetchChatHistory = (recipientId: number) => {
         setRecipientId(recipientId);
-        await getMessagesForSenderAndRecipientApi(recipientId, id)
+        getMessagesForSenderAndRecipientApi(recipientId, id)
             .then((res) => {
                 setMessages(res.data);
             })
@@ -154,6 +174,33 @@ const ChatPage = () => {
         } else {
             return "bold";
         }
+    };
+
+    const getAllGroupChats = (email: string) => {
+        getGroupChatsForSellerApi(email)
+            .then((res) => {
+                setGroupChats(res.data);
+            })
+            .catch((err) => console.log(err))
+    };
+
+    const sendMessageToGroupChatInternal = () => {
+        const chatMessage = sendMessageToGroupChat(message, buyerId!, courierId!, sellerId!, orderId!);
+        setMessages(prevMessages => [...prevMessages, chatMessage]);
+        setMessage("");
+    };
+
+    const fetchChatHistoryForGroupChat = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        setRecipientId(null);
+        setBuyerId(buyerId);
+        setCourierId(courierId);
+        setSellerId(sellerId);
+        setOrderId(orderId);
+        getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
+            .then((res) => {
+                setMessages(res.data);
+            })
+            .catch((err) => console.error(err));
     };
 
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
@@ -214,8 +261,12 @@ const ChatPage = () => {
                                                 },
                                             }}
                                             onClick={() => {
-                                                fetchChatHistory(user.id);
                                                 markMessagesAsRead(id, user.id);
+                                                setBuyerId(null);
+                                                setCourierId(null);
+                                                setSellerId(null);
+                                                setOrderId(null);
+                                                fetchChatHistory(user.id);
                                                 router.push(`/chats?${createQueryString("recipientId", user.id)}`)
                                             }}
                                         >
@@ -258,6 +309,80 @@ const ChatPage = () => {
                                     ))}
                                 </Box>
                                 </Collapse>
+                                <Typography>
+                                    <IconButton
+                                        sx={{
+                                            color: theme.palette.info.main,
+                                            "&:hover": {
+                                                color: theme.palette.lightColor.main,
+                                            }
+                                        }}
+                                        onClick={toggleGroupChats}
+                                    >
+                                        <Typography variant="body1" sx={{fontSize: "13px"}}>
+                                            Group chats
+                                        </Typography>
+                                        {showGroupChats ? <KeyboardArrowDownIcon sx={{fontSize: "13px"}}/> :
+                                            <KeyboardArrowRightIcon sx={{fontSize: "13px"}}/>}
+                                    </IconButton>
+                                </Typography>
+                                <Collapse in={showGroupChats}>
+                                    <Box sx={{display: "flex", flexDirection: "column",}}>
+                                        {groupChats?.map((chat: any) => (
+                                            <Box
+                                                key={chat.id}
+                                                sx={{
+                                                    color: "white", p: 1,
+                                                    cursor: 'pointer',
+                                                    '&:hover': {
+                                                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                                    },
+                                                }}
+                                                onClick={() => {
+                                                    fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
+                                                    router.push(`/chats?${createQueryString("orderId", chat.orderId)}`)
+                                                }}
+                                            >
+                                                <Box
+                                                    sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
+                                                    <Box sx={{
+                                                        width: "2rem",
+                                                        height: "2rem",
+                                                        textAlign: "center",
+                                                        alignContent: "center",
+                                                        color: theme.palette.info.main,
+                                                        borderRadius: "20px",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        justifyContent: "center"
+                                                    }}>
+                                                        <Typography variant="body2">
+                                                            {/*{typeof chat.c === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}*/}
+                                                            {chat.id}
+                                                        </Typography>
+
+                                                    </Box>
+                                                    <Box sx={{width: "100%"}}>
+                                                        <Typography sx={{
+                                                            color: theme.palette.info.main,
+                                                        }}>{chat.buyerFirstName}, {chat.sellerFirstName}</Typography>
+                                                        <Typography sx={{
+                                                            fontSize: "13px",
+                                                            maxWidth: "200px",
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            whiteSpace: "nowrap",
+                                                            color: "lightgrey",
+                                                        }}>
+                                                            Last message...
+                                                        </Typography>
+                                                    </Box>
+                                                </Box>
+
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                </Collapse>
                             </Box>
                             <Box sx={{
                                 flex: isXs ? '1' : '1 1 75%',
@@ -267,7 +392,11 @@ const ChatPage = () => {
                             }}>
                                 {recipientId ? (
                                     <>
-                                        <Typography color={theme.palette.info.main} sx={{ textTransform: 'uppercase', mb: 2, px: 1, py:1, borderBottom: `1px solid ${theme.palette.lightColor.main}` }}>
+                                        <Typography color={theme.palette.info.main} sx={{
+                                            textTransform: 'uppercase',
+                                            mb: 2, px: 1, py: 1,
+                                            borderBottom: `1px solid ${theme.palette.lightColor.main}`
+                                        }}>
                                             Chat with user
                                         </Typography>
                                         <Box sx={{ flex: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column-reverse', gap: 1 }}>
@@ -346,7 +475,117 @@ const ChatPage = () => {
                                                 onClick={sendMessageInternal}/>
                                         </Box>
                                     </>
-                                ) : null}
+                                ) : (
+                                    (orderId ?
+                                        (<>
+                                                <Typography color={theme.palette.info.main} sx={{
+                                                    textTransform: 'uppercase',
+                                                    mb: 2, px: 1, py: 1,
+                                                    borderBottom: `1px solid ${theme.palette.lightColor.main}`
+                                                }}>
+                                                    Chat with group
+                                                </Typography>
+                                                <Box sx={{
+                                                    flex: 1,
+                                                    p: 2,
+                                                    overflowY: 'auto',
+                                                    display: 'flex',
+                                                    flexDirection: 'column-reverse',
+                                                    gap: 1
+                                                }}>
+                                                    {messages.slice(0).reverse().map((mess, index, array) => {
+                                                        const messageDate = formatDate(mess.date);
+                                                        let shouldDisplayDateHeader = false;
+                                                        if (index === array.length - 1) {
+                                                            shouldDisplayDateHeader = true; // Always display date for last message
+                                                        } else {
+                                                            const nextMessageDate = formatDate(array[index + 1].date);
+                                                            shouldDisplayDateHeader = messageDate !== nextMessageDate;
+                                                        }
+                                                        return (
+                                                            <Box key={`${mess.senderId}-${mess.recipientId}-${index}`}
+                                                                 sx={{
+                                                                     display: 'flex',
+                                                                     flexDirection: 'column',
+                                                                 }}>
+                                                                {shouldDisplayDateHeader && (
+                                                                    <Typography sx={{
+                                                                        textAlign: 'center',
+                                                                        mb: 1,
+                                                                        color: theme.palette.info.main,
+                                                                        fontSize: "0.8rem",
+                                                                    }}>
+                                                                        {messageDate}
+                                                                    </Typography>
+                                                                )}
+                                                                <Box sx={{
+                                                                    display: 'flex',
+                                                                    justifyContent: mess.senderRole === "ADMIN" ? 'flex-end' : 'flex-start',
+                                                                    textAlign: mess.senderRole === "ADMIN" ? 'right' : 'left',
+                                                                }}>
+                                                                    <Box sx={{
+                                                                        color: "white",
+                                                                        maxWidth: "60%",
+                                                                        p: 1,
+                                                                        borderRadius: "16px",
+                                                                        background: mess.senderRole === "ADMIN" ? theme.palette.primary.main : theme.palette.background.lighter,
+                                                                    }}>
+                                                                        <Typography sx={{}}>
+                                                                            {mess.content}
+                                                                        </Typography>
+                                                                        <Typography sx={{
+                                                                            fontSize: "0.8rem", color: "lightgrey"
+                                                                        }}>
+                                                                            {formatHour(mess.date)}
+                                                                        </Typography>
+                                                                    </Box>
+
+                                                                </Box>
+                                                            </Box>
+                                                        );
+                                                    })}
+                                                </Box>
+                                                <Box sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: "center",
+                                                    mt: 1,
+                                                    px: 2,
+                                                    gap: 2
+                                                }}>
+                                                    <input
+                                                        style={{
+                                                            flex: 1,
+                                                            padding: "8px 16px",
+                                                            borderRadius: "14px",
+                                                            border: `0.1px solid ${theme.palette.lightColor.main}`,
+                                                            marginRight: 1,
+                                                            background: theme.palette.background.lighter,
+                                                            outline: "none",
+                                                            color: theme.palette.info.main,
+                                                        }}
+                                                        type="text"
+                                                        placeholder="Send message..."
+                                                        onKeyDown={(e) => {
+                                                            if (e.key === 'Enter' && message !== '') {
+                                                                e.preventDefault();
+                                                                sendMessageToGroupChatInternal();
+                                                            }
+                                                        }}
+                                                        value={message} onChange={(e) => setMessage(e.target.value)}/>
+                                                    <SendIcon
+                                                        sx={{
+                                                            color: theme.palette.primary.main,
+                                                            cursor: "pointer",
+                                                            "&:hover": {color: theme.palette.lightColor.main}
+                                                        }}
+                                                        onClick={() => {
+                                                            sendMessageToGroupChatInternal();
+                                                        }}/>
+                                                </Box>
+                                            </>
+                                        ) : null)
+                                )}
 
                             </Box>
                         </Box>
