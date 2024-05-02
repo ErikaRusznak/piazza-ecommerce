@@ -1,9 +1,7 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import {
-    getGroupChatsForBuyerApi,
-} from "../../../api/entities/ChatApi";
+import { getGroupChatsForBuyerApi } from "../../../api/entities/ChatApi";
 import {getAllUserSellersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import {Box, Container, useMediaQuery} from "@mui/material";
 
