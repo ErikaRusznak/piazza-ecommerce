@@ -1,4 +1,4 @@
-package com.ozius.internship.project.entity.seller;
+package com.ozius.internship.project.entity.review;
 
 public class ReviewUpdatedEvent {
     private final long productId;

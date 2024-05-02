@@ -3,8 +3,6 @@ package com.ozius.internship.project.entity.seller;
 import com.ozius.internship.project.JpaBaseEntity;
 import com.ozius.internship.project.TestDataCreator;
 import com.ozius.internship.project.entity.exception.IllegalSellerDetails;
-import com.ozius.internship.project.entity.order.Order;
-import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.user.UserRole;
@@ -16,10 +14,8 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import static com.ozius.internship.project.TestDataCreator.Addresses.address1;
-import static com.ozius.internship.project.TestDataCreator.Buyers.buyer1;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -89,8 +85,6 @@ public class SellerEntityTests extends JpaBaseEntity {
         assertThat(persistedSeller.getLegalDetails()).isNull();
 
         assertThat(persistedSeller).isEqualTo(addedSeller);
-        assertThat(persistedSeller.getReviews()).isEmpty();
-        assertThat(persistedSeller.calculateRating()).isEqualTo(0);
     }
 
     @Test

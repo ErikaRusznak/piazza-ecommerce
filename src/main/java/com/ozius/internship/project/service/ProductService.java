@@ -3,7 +3,7 @@ package com.ozius.internship.project.service;
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.ReviewDTO;
 import com.ozius.internship.project.entity.product.Product;
-import com.ozius.internship.project.entity.seller.Review;
+import com.ozius.internship.project.entity.review.Review;
 import com.ozius.internship.project.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
