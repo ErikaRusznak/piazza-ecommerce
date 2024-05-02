@@ -63,9 +63,9 @@ const useTheme = () => createTheme({
         palette: {
             background: {
                 paper: "#fff",
-                // lighter: "#1a2747",
+                lighter: "#1a2747",
                 // default: "#0F172A",
-                lighter: "white",
+
                 default: "white",
                 darker: "white",
                 // darker: "#020617",

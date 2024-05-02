@@ -35,14 +35,16 @@ public class OrderService {
     private final FullOrderRepository fullOrderRepository;
     private final OrderRepository orderRepository;
     private final CourierRepository courierRepository;
+    private final GroupChatRoomService groupChatRoomService;
     private final ModelMapper modelMapper;
 
-    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, OrderRepository orderRepository, CourierRepository courierRepository, ModelMapper modelMapper) {
+    public OrderService(BuyerService buyerService, CartService cartService, FullOrderRepository fullOrderRepository, OrderRepository orderRepository, CourierRepository courierRepository, GroupChatRoomService groupChatRoomService, ModelMapper modelMapper) {
         this.buyerService = buyerService;
         this.cartService = cartService;
         this.fullOrderRepository = fullOrderRepository;
         this.orderRepository = orderRepository;
         this.courierRepository = courierRepository;
+        this.groupChatRoomService = groupChatRoomService;
         this.modelMapper = modelMapper;
     }
 
@@ -91,11 +93,13 @@ public class OrderService {
             //retrieve order or create order if not found one in the map
             Order orderPersisted = sellersToOrder.computeIfAbsent(seller, k -> {
                 Order order = new Order(address, buyer, k, buyerEmail, buyerFirstName, buyerLastName, buyerTelephone, fullOrder);
-                order.assignRandomCourier(em);
+                long courierId = order.assignRandomCourier(em);
                 em.persist(order);
                 fullOrder.addOrder(order);
+                groupChatRoomService.getGroupChatRoomCode(buyer.getAccount().getId(), courierId, seller.getAccount().getId(), order.getId(), true);
                 return order;
             });
+
 
             //add product to the retrieved order
             orderPersisted.addProduct(product, checkoutItemDto.getQuantity());

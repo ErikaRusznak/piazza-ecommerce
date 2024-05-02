@@ -1,5 +1,6 @@
 package com.ozius.internship.project.dto;
 
+import com.ozius.internship.project.entity.user.UserRole;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -12,4 +13,9 @@ public class ChatMessageDTO {
     protected long recipientId;
     protected LocalDateTime date;
     protected boolean isRead;
+    protected long buyerId;
+    protected long courierId;
+    protected long sellerId;
+    protected long orderId;
+    protected UserRole senderRole;
 }

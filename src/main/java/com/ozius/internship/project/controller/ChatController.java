@@ -3,6 +3,8 @@ package com.ozius.internship.project.controller;
 import com.ozius.internship.project.dto.ChatMessageDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
 import com.ozius.internship.project.entity.chat.ChatNotification;
+import com.ozius.internship.project.entity.chat.GroupChatNotification;
+import com.ozius.internship.project.entity.user.UserRole;
 import com.ozius.internship.project.repository.ChatNotificationRepository;
 import com.ozius.internship.project.service.ChatMessageService;
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +38,7 @@ public class ChatController {
 
     @MessageMapping("/chat") // app/chat
     public void processMessage(@Payload ChatMessageDTO chatMessageDTO) {
+
         ChatMessage savedMessage = chatMessageService.saveChatMessage(
                 chatMessageDTO.getSenderId(),
                 chatMessageDTO.getRecipientId(),
@@ -49,9 +53,39 @@ public class ChatController {
         chatNotificationRepository.save(cn);
 //         john/queue/messages
         messagingTemplate.convertAndSendToUser(Long.toString(chatMessageDTO.getRecipientId()),
-                "/queue/message", cn);
+                "/queue/messages", cn);
+    }
 
+    @MessageMapping("/group-chat") // app/group-chat
+    public void processMessageGroupChat(@Payload ChatMessageDTO chatMessageDTO) {
+        ChatMessage savedMessage = chatMessageService.saveChatMessageForGroupChat(
+                chatMessageDTO.getBuyerId(),
+                chatMessageDTO.getCourierId(),
+                chatMessageDTO.getSellerId(),
+                chatMessageDTO.getOrderId(),
+                chatMessageDTO.getContent(),
+                chatMessageDTO.getSenderRole()
+                );
+        List<Long> participantIds = Arrays.asList(
+                savedMessage.getBuyerId(),
+                savedMessage.getCourierId(),
+                savedMessage.getSellerId()
+        );
 
+        for (Long participantId : participantIds) {
+            GroupChatNotification cn = new GroupChatNotification(
+                    savedMessage.getId(),
+                    savedMessage.getContent(),
+                    savedMessage.getBuyerId(),
+                    savedMessage.getCourierId(),
+                    savedMessage.getSellerId(),
+                    savedMessage.getSenderRole()
+            );
+            messagingTemplate.convertAndSendToUser(
+                    String.valueOf(participantId),
+                    "/queue/group-messages",
+                    cn);
+        }
     }
 
     @GetMapping("/messages/{senderId}/{recipientId}")
@@ -64,6 +98,23 @@ public class ChatController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(chatMessageDTOS);
+    }
+
+    @GetMapping("/group-messages/{buyerId}/{courierId}/{sellerId}/{orderId}")
+    public ResponseEntity<List<ChatMessageDTO>> findChatMessagesForGroupChat(
+            @PathVariable("buyerId") long buyerId,
+            @PathVariable("courierId") long courierId,
+            @PathVariable("sellerId") long sellerId,
+            @PathVariable("orderId") long orderId) {
+
+        List<ChatMessage> groupChatMessages = chatMessageService.findChatMessagesForGroupChat(
+                buyerId, courierId, sellerId, orderId);
+
+        List<ChatMessageDTO> groupChatMessageDTOs = groupChatMessages.stream()
+                .map(groupChatMessage -> modelMapper.map(groupChatMessage, ChatMessageDTO.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(groupChatMessageDTOs);
     }
 
     @PutMapping("/messages/markAsRead/{senderId}/{recipientId}")

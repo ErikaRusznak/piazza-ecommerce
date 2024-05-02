@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Service
 public class ChatRoomService {
-    // TODO - change sender id from id into email!!!!
 
     private final ChatRoomRepository chatRoomRepository;
     private final UserAccountRepository userAccountRepository;
