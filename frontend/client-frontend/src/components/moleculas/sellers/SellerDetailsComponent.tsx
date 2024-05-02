@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Divider, Box, useMediaQuery } from "@mui/material";
+import { Typography, Divider, Box } from "@mui/material";
 import useTheme from "@/theme/themes";
 
 type SellerDetailsComponentProps = {
@@ -12,7 +12,6 @@ const SellerDetailsComponent = ({
                                 }: SellerDetailsComponentProps) => {
     const theme = useTheme();
 
-    console.log("sellers", seller)
     return (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box>

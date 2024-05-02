@@ -2,12 +2,19 @@ package com.ozius.internship.project.entity.product;
 
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.Category;
+import com.ozius.internship.project.entity.DomainEventPublisherProvider;
+import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.exception.IllegalPriceException;
-import com.ozius.internship.project.entity.seller.Review;
+import com.ozius.internship.project.entity.exception.IllegalRatingException;
+import com.ozius.internship.project.entity.review.Review;
+import com.ozius.internship.project.entity.review.ReviewAddedEvent;
 import com.ozius.internship.project.entity.seller.Seller;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = Product.TABLE_NAME/*, uniqueConstraints = { @UniqueConstraint(columnNames = { Product.Columns.NAME, Product.Columns.SELLER_ID }) }*/)
@@ -27,18 +34,23 @@ public class Product extends BaseEntity {
         String IS_RATING_APPLICABLE = "IS_RATING_APPLICABLE";
     }
 
+    @Getter
     @Column(name = Columns.NAME, nullable = false)
     private String name;
 
+    @Getter
     @Column(name = Columns.DESCRIPTION, nullable = false)
     private String description;
 
+    @Getter
     @Column(name = Columns.IMAGE_NAME, nullable = false)
     private String imageName;
 
+    @Getter
     @Column(name = Columns.PRICE, nullable = false)
     private float price;
 
+    @Getter
     @Column(name = Columns.UNIT_OF_MEASURE, nullable = false)
     private UnitOfMeasure unitOfMeasure;
 
@@ -51,13 +63,21 @@ public class Product extends BaseEntity {
     @Column(name = Columns.IS_RATING_APPLICABLE)
     private boolean isRatingApplicable;
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.CATEGORY_ID, nullable = false)
     private Category category;
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.SELLER_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Seller seller;
+
+    @Getter
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = Review.Columns.PRODUCT_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition =
+            "FOREIGN KEY (" + Review.Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
+    private Set<Review> reviews;
 
 
     protected Product() {
@@ -77,34 +97,7 @@ public class Product extends BaseEntity {
         this.productRating = 0.0;
         this.numberReviews = 0;
         this.isRatingApplicable = false;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public UnitOfMeasure getUnitOfMeasure() {
-        return unitOfMeasure;
+        this.reviews = new HashSet<>();
     }
 
     public Double getProductRating() {
@@ -117,6 +110,20 @@ public class Product extends BaseEntity {
 
     public boolean isRatingApplicable() {
         return isRatingApplicable;
+    }
+
+    public Review addReview(Buyer buyer, String description, float rating){
+
+        if(rating < 0 || rating > 5) {
+            throw new IllegalRatingException("Rating must be between 0 and 5!");
+        }
+
+        Review reviewNew = new Review(description, rating, buyer);
+        this.reviews.add(reviewNew);
+
+        DomainEventPublisherProvider.getEventPublisher().publishEvent(new ReviewAddedEvent(this.getId()));
+
+        return reviewNew;
     }
 
     public Double calculateProductRating(List<Review> reviews) {

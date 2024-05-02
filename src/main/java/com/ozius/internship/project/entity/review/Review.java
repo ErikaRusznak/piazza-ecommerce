@@ -1,4 +1,4 @@
-package com.ozius.internship.project.entity.seller;
+package com.ozius.internship.project.entity.review;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ozius.internship.project.entity.BaseEntity;
@@ -15,10 +15,9 @@ import java.time.LocalDate;
 public class Review extends BaseEntity {
     public static final String TABLE_NAME = "review";
 
-    interface Columns {
+    public interface Columns {
         String DESCRIPTION = "DESCRIPTION";
         String RATING = "RATING";
-        String SELLER_ID = "SELLER_ID";
         String BUYER_ID = "BUYER_ID";
         String PRODUCT_ID = "PRODUCT_ID";
         String PUBLISH_DATE = "PUBLISH_DATE";
@@ -39,17 +38,16 @@ public class Review extends BaseEntity {
     private Buyer buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.PRODUCT_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE SET NULL"))
+    @JoinColumn(name = Columns.PRODUCT_ID, nullable = false, insertable = false, updatable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Product product;
 
     protected Review() {
     }
 
-    Review(String description, float rating, Buyer buyer, Product product) {
+    public Review(String description, float rating, Buyer buyer) {
         this.description = description;
         this.rating = rating;
         this.buyer = buyer;
-        this.product = product;
         this.publishDate = LocalDate.now();
     }
 
@@ -63,10 +61,6 @@ public class Review extends BaseEntity {
 
     public Buyer getBuyer() {
         return buyer;
-    }
-
-    public Product getProduct() {
-        return product;
     }
 
     public LocalDate getPublishDate() {
@@ -90,8 +84,6 @@ public class Review extends BaseEntity {
                 "description='" + description + '\'' +
                 ", rating=" + rating +
                 ", buyerInfo=" + buyer.getAccount().getFirstName() +
-                ", seller=" + product.getSeller().getAlias() +
-                ", product=" + product.getName() +
                 ", publishDate=" + publishDate +
                 '}';
     }

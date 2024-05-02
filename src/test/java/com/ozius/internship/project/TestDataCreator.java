@@ -7,6 +7,7 @@ import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
+import com.ozius.internship.project.entity.review.Review;
 import com.ozius.internship.project.entity.seller.*;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.user.UserAccount;
@@ -285,8 +286,7 @@ public class TestDataCreator {
 
     public static Review createReview(EntityManager em, Buyer buyer, String description, float rating, Product product){
 
-        Seller seller = product.getSeller();
-        return seller.addReview(buyer, description, rating, product);
+        return product.addReview(buyer, description, rating);
     }
 
     private static Cart createCart(EntityManager em, Buyer buyer){

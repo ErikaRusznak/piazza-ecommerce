@@ -2,18 +2,11 @@ package com.ozius.internship.project.entity.seller;
 
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.DomainEventPublisherProvider;
 import com.ozius.internship.project.entity.user.UserAccount;
-import com.ozius.internship.project.entity.buyer.Buyer;
-import com.ozius.internship.project.entity.exception.IllegalItemException;
-import com.ozius.internship.project.entity.exception.IllegalRatingException;
 import com.ozius.internship.project.entity.exception.IllegalSellerDetails;
-import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = Seller.TABLE_NAME, uniqueConstraints = {
@@ -73,11 +66,6 @@ public class Seller extends BaseEntity {
     @JoinColumn(name = Columns.ACCOUNT_ID, nullable = false)
     private UserAccount account;
 
-    // TODO - reviews should be put in products
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = Review.Columns.SELLER_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition =
-            "FOREIGN KEY (" + Review.Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
-    private Set<Review> reviews;
 
     @Column(name = Columns.ALIAS, nullable = false, unique = true)
     private String alias;
@@ -88,7 +76,6 @@ public class Seller extends BaseEntity {
     public Seller(Address legalAddress, UserAccount account, String alias, SellerType sellerType, LegalDetails legalDetails) {
         this.legalAddress = legalAddress;
         this.account = account;
-        this.reviews = new HashSet<>();
         this.alias = alias;
         this.sellerType = sellerType;
         if(sellerType != SellerType.LOCAL_FARMER){
@@ -100,7 +87,6 @@ public class Seller extends BaseEntity {
     public Seller(Address legalAddress, UserAccount account, String alias, SellerType sellerType) {
         this.legalAddress = legalAddress;
         this.account = account;
-        this.reviews = new HashSet<>();
         this.alias = alias;
         this.sellerType = sellerType;
     }
@@ -125,10 +111,6 @@ public class Seller extends BaseEntity {
 
     public UserAccount getAccount() {
         return account;
-    }
-
-    public Set<Review> getReviews() {
-        return reviews;
     }
 
     public String getAlias() {
@@ -175,26 +157,6 @@ public class Seller extends BaseEntity {
         return sellerType;
     }
 
-    public double calculateRating(){
-        return this.reviews.stream().mapToDouble(Review::getRating).average().orElse(0.0);
-    }
-
-    public Review addReview(Buyer buyer, String description, float rating, Product product){
-
-        if(!product.getSeller().equals(this)){
-            throw new IllegalItemException("can't add review, product must correspond to this seller");
-        }
-        if(rating < 0 || rating > 5) {
-            throw new IllegalRatingException("Rating must be between 0 and 5!");
-        }
-
-        Review reviewNew = new Review(description, rating, buyer, product);
-        this.reviews.add(reviewNew);
-
-        DomainEventPublisherProvider.getEventPublisher().publishEvent(new ReviewAddedEvent(product.getId()));
-
-        return reviewNew;
-    }
 
     public void updateSeller(LegalDetails legalDetails, Address legalAddress) {
         this.legalAddress = legalAddress;

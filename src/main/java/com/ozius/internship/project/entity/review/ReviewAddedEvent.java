@@ -1,14 +1,13 @@
-package com.ozius.internship.project.entity.seller;
+package com.ozius.internship.project.entity.review;
 
+import lombok.Getter;
+
+@Getter
 public class ReviewAddedEvent {
     private final long productId;
 
     public ReviewAddedEvent(long productId) {
         this.productId = productId;
-    }
-
-    public long getProductId() {
-        return productId;
     }
 
 }
