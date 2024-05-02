@@ -21,6 +21,7 @@ import PaginationComponent from "@/components/moleculas/PaginationComponent";
 import {useRouteAlias} from "../../../../hooks/useRouteAlias";
 import {baseURL} from "../../../../api/ApiClient";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import ProducerMap from "@/components/moleculas/ProducerMap";
 
 type SellerPageContentProps = {
     sellerAlias: string;
@@ -165,6 +166,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                     <SellerDetailsComponent seller={seller} username={username} />
                                 </Box>
                             </Box>
+                            <ProducerMap seller={seller}/>
                         </Paper>
                     </Box>
 
@@ -204,7 +206,6 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
 
                             </Paper>
                         </Box>
-
                     </Box>
                 </Box>
             </Container>
