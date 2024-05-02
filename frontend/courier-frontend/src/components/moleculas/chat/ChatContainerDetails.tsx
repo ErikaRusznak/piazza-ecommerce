@@ -6,28 +6,14 @@ import ChatMessage from "@/components/atoms/chat/ChatMessage";
 import ChatMessageInput from "@/components/atoms/chat/ChatMessageInput";
 
 type ChatContainerDetailsProps = {
-    label: string
-    id: number;
+    label: string;
     messages: any[];
     sendMessageFunction: (message: any, setMessage: (value: string) => void) => void;
-    privateChat: boolean;
 };
 
-const ChatContainerDetails = ({label, id, messages, sendMessageFunction, privateChat}: ChatContainerDetailsProps) => {
+const ChatContainerDetails = ({label, messages, sendMessageFunction}: ChatContainerDetailsProps) => {
 
     const theme = useTheme();
-
-    const distinctSenderFromReceiverPrivateFunction = (mess: any, val: string | number) => {
-        return mess.senderId === val;
-    };
-    const distinctSenderFromReceiverGroupFunction = (mess: any, val: string | number) => {
-        return mess.senderRole === val;
-    };
-    const distinctSenderFromReceiver = (mess: any): boolean => {
-        if(privateChat)
-            return distinctSenderFromReceiverPrivateFunction(mess, id);
-        return distinctSenderFromReceiverGroupFunction(mess, "ADMIN");
-    };
 
     return (
         <>
@@ -70,7 +56,6 @@ const ChatContainerDetails = ({label, id, messages, sendMessageFunction, private
                             )}
                             <ChatMessage
                                 mess={mess}
-                                distinctChatValue={distinctSenderFromReceiver(mess)}
                             />
                         </Box>
                     );
