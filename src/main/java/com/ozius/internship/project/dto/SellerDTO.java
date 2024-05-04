@@ -22,6 +22,6 @@ public class SellerDTO {
     private String cui;
     private CompanyType companyType;
     private LocalDate dateOfRegistration;
-    private String numericCodeByState;
-    private String serialNumber;
+    private int numericCodeByState;
+    private int serialNumber;
 }

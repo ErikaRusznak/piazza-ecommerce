@@ -1,30 +1,32 @@
 import React from "react";
-import {Controller} from "react-hook-form";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import useTheme from "@/theme/themes";
-import {TextField} from "@mui/material";
+import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {Controller} from "react-hook-form";
+import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 
-type FormSelectFieldDarkBackgroundProps = {
+type FormSelectFieldProps = {
     name: string;
     control: any;
     label: string;
     required?: boolean | undefined;
     items: any[];
 }
-const FormSelectFieldDarkBackground = ({
-                                           name,
-                                           control,
-                                           label,
-                                           required = true,
-                                           items
-                                       }: FormSelectFieldDarkBackgroundProps) => {
+
+const FormSelectField = ({
+                             name,
+                             control,
+                             label,
+                             required = true,
+                             items
+                         }: FormSelectFieldProps) => {
     const theme = useTheme();
+    console.log("items", items)
     return (
         <Controller
             name={name}
             control={control}
             render={({field, fieldState}) => (
-                <CssTextFieldDarkBackground
+                <CssTextField
                     id="outlined-select-currency-native"
                     select
                     fullWidth
@@ -60,14 +62,14 @@ const FormSelectFieldDarkBackground = ({
                         {""}
                     </option>
                     {items?.map((option, index) => (
-                        <option key={index} value={option.name}>
+                        <option key={`option.name-${index}`} value={option.name}>
                             {option.name}
                         </option>
                     ))}
-                </CssTextFieldDarkBackground>
+                </CssTextField>
             )}
         />
     );
 };
 
-export default FormSelectFieldDarkBackground;
+export default FormSelectField;

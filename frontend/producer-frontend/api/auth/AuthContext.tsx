@@ -12,7 +12,7 @@ type AuthContextType = {
     token: string;
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
-    registerUser: (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userRole: string) => Promise<boolean>;
+    registerUser: (sellerDto: any) => Promise<boolean>;
     sellerAlias: string;
 };
 
@@ -36,8 +36,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const router = useRouter();
     const [sellerAlias, setSellerAlias] = useSessionStorage("sellerAlias", "");
 
-    const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:string) => {
-        const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userRole);
+    const registerUser = async (sellerDto: any) => {
+        const { status } = await registerApiService(sellerDto);
         if (status === 201) {
             return true;
         } else {

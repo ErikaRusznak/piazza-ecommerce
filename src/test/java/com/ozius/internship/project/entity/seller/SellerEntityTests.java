@@ -47,17 +47,14 @@ public class SellerEntityTests extends JpaBaseEntity {
                     "303413");
 
             Seller seller = new Seller(
-                    address,
-                    new UserAccount(
+                    "Mega Fresh SRL", SellerType.LOCAL_FARMER, new UserAccount(
                             "Vlad",
                             "Ciobotariu",
                             "vladciobotariu@gmail.com",
                             "/src/image1",
                             "0734896512",
                             UserRole.ADMIN
-                    ),
-                    "Mega Fresh SRL",
-                    SellerType.LOCAL_FARMER
+                    ), address
             );
             em.persist(seller);
 
@@ -101,17 +98,14 @@ public class SellerEntityTests extends JpaBaseEntity {
                     "303413");
 
             Seller seller = new Seller(
-                    address,
-                    new UserAccount(
+                    "Mega Fresh SRL", SellerType.LOCAL_FARMER, new UserAccount(
                             "Vlad",
                             "Ciobotariu",
                             "vladciobotariu@gmail.com",
                             "/src/image1",
                             "0734896512",
                             UserRole.ADMIN
-                    ),
-                    "Mega Fresh SRL",
-                    SellerType.LOCAL_FARMER
+                    ), address
             );
             em.persist(seller);
 
@@ -229,7 +223,7 @@ public class SellerEntityTests extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
             UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
             return assertThrows(IllegalSellerDetails.class, ()->{
-                Seller seller = new Seller(address1, account, "Mega Fresh SRL", SellerType.PFA, null);
+                Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address1, null);
                 em.persist(seller);
             });
         });
@@ -251,7 +245,7 @@ public class SellerEntityTests extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
             UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
             return assertThrows(IllegalSellerDetails.class, ()->{
-                Seller seller = new Seller(address1, account, "Mega Fresh SRL", SellerType.COMPANY, null);
+                Seller seller = new Seller("Mega Fresh SRL", SellerType.COMPANY, account, address1, null);
                 em.persist(seller);
             });
         });
@@ -274,7 +268,7 @@ public class SellerEntityTests extends JpaBaseEntity {
             UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.F, 41, 34, LocalDate.now()));
 
-            Seller seller = new Seller(address1, account, "Mega Fresh SRL", SellerType.PFA, legalDetails);
+            Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address1, legalDetails);
             em.persist(seller);
         });
 
@@ -301,7 +295,7 @@ public class SellerEntityTests extends JpaBaseEntity {
             account.setInitialPassword(passwordEncoder.encode("1234"));
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.C, 41, 34, LocalDate.now()));
 
-            Seller seller = new Seller(address, account, "Mega Fresh SRL", SellerType.PFA, legalDetails);
+            Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address, legalDetails);
             em.persist(seller);
 
             return seller;
@@ -353,7 +347,7 @@ public class SellerEntityTests extends JpaBaseEntity {
             account.setInitialPassword(passwordEncoder.encode("1234"));
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.J, 41, 34, LocalDate.now()));
 
-            Seller seller = new Seller(address, account, "Mega Fresh SRL", SellerType.PFA, legalDetails);
+            Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address, legalDetails);
             em.persist(seller);
 
             return seller;
