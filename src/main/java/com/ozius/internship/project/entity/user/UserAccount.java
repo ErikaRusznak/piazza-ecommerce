@@ -3,7 +3,6 @@ package com.ozius.internship.project.entity.user;
 import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Entity
@@ -20,7 +19,6 @@ public class UserAccount extends BaseEntity {
         String IMAGE_NAME = "IMAGE_NAME";
         String TELEPHONE = "TELEPHONE";
         String USER_ROLE = "USER_ROLE";
-        String USER_STATUS = "USER_STATUS";
     }
 
     @Column(name = Columns.FIRST_NAME, nullable = false)
@@ -44,11 +42,6 @@ public class UserAccount extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name=Columns.USER_ROLE, nullable = false)
     private UserRole userRole;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = Columns.USER_STATUS)
-    @Setter
-    private UserStatus userStatus;
 
     protected UserAccount() {
     }

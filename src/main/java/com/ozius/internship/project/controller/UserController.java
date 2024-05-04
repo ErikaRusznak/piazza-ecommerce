@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{email}/role")
-    public ResponseEntity<Object> retrieveUserStatus(@PathVariable String email) {
+    public ResponseEntity<Object> retrieveUserRole(@PathVariable String email) {
         UserAccount userAccount = userAccountRepository.findByEmail(email);
         if(userAccount!=null) {
             return ResponseEntity.ok(userAccount.getUserRole().toString());

@@ -1,6 +1,6 @@
 import { api } from '../ApiClient'
 
-export const getUserStatusByEmail = (email: string) => {
+export const getUserRoleByEmail = (email: string) => {
     return api.get(`/users/${email}/role`)
 }
 
