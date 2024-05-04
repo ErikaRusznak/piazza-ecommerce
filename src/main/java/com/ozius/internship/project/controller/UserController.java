@@ -7,10 +7,6 @@ import com.ozius.internship.project.repository.UserAccountRepository;
 import com.ozius.internship.project.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,26 +57,6 @@ public class UserController {
             return ResponseEntity.ok(simpleSellerDTOS);
         }
         return ResponseEntity.notFound().build();
-    }
-
-    // maybe can delete these
-    @MessageMapping("/user.addUser")
-    @SendTo("/user/topic")
-    public UserAccount addUser(UserAccount userAccount) {
-        userService.saveUser(userAccount);
-        return userAccount;
-    }
-
-    @MessageMapping("/user.disconnectUser")
-    @SendTo("/user/topic")
-    public UserAccount disconnect(@Payload UserAccount userAccount) {
-        userService.disconnect(userAccount);
-        return userAccount;
-    }
-
-    @GetMapping("/connectedUsers")
-    public ResponseEntity<List<UserAccount>> findConnectedUsers() {
-        return ResponseEntity.ok(userService.findConnectedUsers());
     }
 
     @PutMapping("/users/{id}")

@@ -30,6 +30,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import SendIcon from '@mui/icons-material/Send';
 import ChatIcon from '@mui/icons-material/Chat';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import UploadIcon from '@mui/icons-material/Upload';
 
 export {
     ContentPasteIcon,
@@ -63,5 +65,7 @@ export {
     CheckCircleOutlineIcon,
     StarBorderIcon,
     SendIcon,
-    ChatIcon
+    ChatIcon,
+    HighlightOffIcon,
+    UploadIcon
 }

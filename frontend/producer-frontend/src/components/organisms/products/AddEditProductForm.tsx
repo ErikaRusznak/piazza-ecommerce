@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Box, Typography} from "@mui/material";
 import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
 import FormTextAreaDarkBackground from "@/components/atoms/form/dark/FormTextAreaDarkBackground";
@@ -65,13 +65,8 @@ const AddEditProductForm = ({
         unitOfMeasure: product ? product.unitOfMeasure.name : "",
     }
     const {
-        register,
         handleSubmit,
         control,
-        watch,
-        setValue,
-        formState: {errors},
-        getValues,
     } = useForm<AddEditProductInput>({
         resolver: yupResolver(AddProductSchema),
         defaultValues: defaultValues
