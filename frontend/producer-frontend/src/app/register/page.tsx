@@ -10,21 +10,21 @@ import {useAuth} from "../../../api/auth/AuthContext";
 import {SubmitHandler} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
-import {Grid} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import FormTextField from "@/components/atoms/form/light/FormTextFields";
 import MainLayout from "@/components/templates/MainLayout";
-import FormSelectFieldDarkBackground from "@/components/atoms/form/dark/FormSelectFieldDarkBackground";
 import UploadController from "@/components/atoms/upload/UploadController";
 import {addImageApi} from "../../../api/entities/ImageApi";
 import FormSelectField from "@/components/atoms/form/light/FormSelectField";
+import DatePickerField from "@/components/atoms/form/light/DatePickerField";
 
 const sellerTypes = [
-    {id: 1, name: "COMPANY"},
-    {id: 2, name: "PFA"},
-    {id: 3, name: "LOCAL_FARMER"}
+    {id: 1, name: "LOCAL_FARMER"},
+    {id: 2, name: "COMPANY"},
+    {id: 3, name: "PFA"},
 ];
 
 const companyTypes = [
@@ -32,7 +32,6 @@ const companyTypes = [
     {id: 2, name: "F"},
     {id: 3, name: "C"}
 ];
-
 
 type RegisterFormInput = {
     // account
@@ -51,7 +50,7 @@ type RegisterFormInput = {
     country: string;
     zipCode: string;
 
-    sellerAlias: string;
+    alias: string;
     sellerType: string;
 
     companyType?: string;
@@ -90,35 +89,35 @@ const RegisterSchema = yup.object().shape({
     state: yup.string().required("State is required"),
     country: yup.string().required("Country is required"),
     zipCode: yup.string().required("Zip Code is required"),
-    sellerAlias: yup.string().required("Seller Alias is required"),
+    alias: yup.string().required("Seller Alias is required"),
     sellerType: yup.string().required("Seller Type is required"),
     companyName: yup.string().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.string().required("Company name is required"),
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.string().required("Company name is required"),
     }),
     cui: yup.string().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.string().required("CUI is required"),
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.string().required("CUI is required"),
     }),
     companyType: yup.string().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.string().required("Company type is required"),
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.string().required("Company type is required"),
     }),
     numericCodeByState: yup.number().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.number()
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.number()
             .required("Numeric code by state is required")
-            .min(1, "Price must be greater than or equal to 0"),
+            .min(1, "Numeric code must be greater than or equal to 1"),
     }),
     serialNumber: yup.number().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.number()
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.number()
             .required("Serial number is required")
-            .min(1, "Price must be greater than or equal to 0"),
+            .min(1, "Serial number must be greater than or equal to 1"),
     }),
     dateOfRegistration: yup.string().when("sellerType", {
-        is: (sellerType) => sellerType !== "LOCAL_FARMER",
-        then: yup.string().required("Date of registration is required"),
+        is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
+        then: () => yup.string().required("Date of registration is required"),
     }),
 });
 
@@ -142,23 +141,21 @@ const RegisterPage = () => {
         state: "",
         country: "",
         zipCode: "",
-        sellerAlias: "",
-        sellerType: sellerTypes[0],
+        alias: "",
+        sellerType: sellerTypes[0].name,
         companyName: "",
         cui: "",
-        companyType: companyTypes[0],
+        companyType: companyTypes[0].name,
         numericCodeByState: 0,
         serialNumber: 0,
-        dateOfRegistration: "",
+        dateOfRegistration: "2017-05-24",
     };
 
     const {
         handleSubmit,
         control,
-        formState: {errors},
-        getValues,
+        formState: {errors}
     } = useForm<RegisterFormInput>({
-        mode: "onBlur",
         resolver: yupResolver(RegisterSchema),
         defaultValues: defaultValues
     });
@@ -168,9 +165,7 @@ const RegisterPage = () => {
         name: "sellerType"
     });
 
-
     useEffect(() => {
-        // Toggle legal details form fields visibility based on selected seller type
         if (sellerType === "COMPANY" || sellerType === "PFA") {
             setShowLegalDetails(true);
         } else {
@@ -191,6 +186,7 @@ const RegisterPage = () => {
         } else {
             console.log("The data is not provided correctly");
         }
+        console.log("data", data);
     };
 
     const handleAddImage = (file: File) => {
@@ -213,173 +209,69 @@ const RegisterPage = () => {
             />
             <PrincipalFormLayout titleText="Create an account">
                 <>
-                    <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: 1}}>
-                        <Grid container spacing={4}>
-                            {/* account related */}
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="firstName"
-                                    control={control}
-                                    label="First Name"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="lastName"
-                                    control={control}
-                                    label="Last Name"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="email"
-                                    control={control}
-                                    label="Email"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="password"
-                                    control={control}
-                                    label="Password"
-                                    type="password"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="confirmPassword"
-                                    control={control}
-                                    label="Confirm Password"
-                                    type="password"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="telephone"
-                                    control={control}
-                                    label="Phone number"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormSelectField
-                                    name="sellerType"
-                                    control={control}
-                                    label="Seller Type"
-                                    items={sellerTypes}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Box sx={{display: "flex", gap: 2}}>
+                            <Box>
+                                {/* Account Section */}
+                                <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                    Account Information
+                                </Typography>
+                                <Box sx={{display: "flex", flexDirection: "row", gap: 2}}>
+                                    <FormTextField name="firstName" control={control} label="First Name" type="text"/>
+                                    <FormTextField name="lastName" control={control} label="Last Name" type="text"/>
+                                </Box>
+                                <FormTextField name="email" control={control} label="Email" type="text"/>
+                                <FormTextField name="password" control={control} label="Password" type="password"/>
+                                <FormTextField name="confirmPassword" control={control} label="Confirm Password" type="password"/>
+                                <FormTextField name="telephone" control={control} label="Phone number" type="text"/>
+                                <FormTextField name="alias" control={control} label="Seller Alias" type="text"/>
+                                <FormSelectField name="sellerType" control={control} label="Seller Type" items={sellerTypes}/>
                                 <UploadController
                                     onFileChange={handleAddImage}
                                     fileName={fileName}
                                     setFileName={setFileName}
                                 />
-                            </Grid>
+                            </Box>
 
-                            {/* legal address */}
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="addressLine1"
-                                    control={control}
-                                    label="Address Line 1"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="addressLine2"
-                                    control={control}
-                                    label="Address Line 2"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Box>
+                                <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                    Legal Address
+                                </Typography>
+                                <FormTextField name="addressLine1" control={control} label="Address Line 1" type="text"/>
+                                <FormTextField name="addressLine2" control={control} label="Address Line 2" type="text"/>
                                 <FormTextField name="city" control={control} label="City" type="text"/>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
                                 <FormTextField name="state" control={control} label="State" type="text"/>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormTextField
-                                    name="country"
-                                    control={control}
-                                    label="Country"
-                                    type="text"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                                <FormTextField name="country" control={control} label="Country" type="text"/>
                                 <FormTextField name="zipCode" control={control} label="Zip Code" type="text"/>
-                            </Grid>
+                            </Box>
 
-                            {/* legal details */}
-                            {showLegalDetails && (
-                                <>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormTextField
-                                            name="companyName"
-                                            control={control}
-                                            label="Company Name"
-                                            type="text"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
+                            {/* Legal Details Section */}
+                            <Box>
+                                {showLegalDetails && (
+                                    <>
+                                        <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                            Legal Details
+                                        </Typography>
+                                        <FormTextField name="companyName" control={control} label="Company Name" type="text"/>
                                         <FormTextField name="cui" control={control} label="CUI" type="text"/>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormSelectFieldDarkBackground
-                                            name="companyType"
-                                            control={control}
-                                            label="Company Type"
-                                            items={companyTypes}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormTextField
-                                            name="numericCodeByState"
-                                            control={control}
-                                            label="Numeric Code By State"
-                                            type="number"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormTextField
-                                            name="serialNumber"
-                                            control={control}
-                                            label="Serial Number"
-                                            type="number"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormTextField
-                                            name="dateOfRegistration"
-                                            control={control}
-                                            label="Date of Registration"
-                                            type="text"
-                                        />
-                                    </Grid>
-                                </>
-                            )}
-
-                            <Grid item xs={12}>
-                                <StyledButton
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{
-                                        mt: 3,
-                                        mb: 2,
-                                        backgroundColor: theme.palette.background.lighter,
-                                    }}
-                                >
-                                    Sign Up
-                                </StyledButton>
-                            </Grid>
-                        </Grid>
+                                        <FormTextField name="numericCodeByState" control={control} label="Numeric Code By State" type="number"/>
+                                        <FormSelectField name="companyType" control={control} label="Company Type" items={companyTypes}/>
+                                        <FormTextField name="serialNumber" control={control} label="Serial Number" type="number"/>
+                                        <DatePickerField name="dateOfRegistration" control={control} label="Date of Registration" type="date" />
+                                    </>
+                                )}
+                            </Box>
+                        </Box>
                     </form>
+                    <StyledButton
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2, backgroundColor: theme.palette.background.lighter}}
+                        onClick={handleSubmit(onSubmit)}
+                    >
+                        Register
+                    </StyledButton>
                     <Grid container mt={2}>
                         <Grid item xs>
                             <StyledLink href="/login" sx={{fontSize: "0.9rem"}}>

@@ -1,6 +1,6 @@
 package com.ozius.internship.project.security.user;
 
-import com.ozius.internship.project.dto.SellerDTO;
+import com.ozius.internship.project.dto.RegisterSellerDTO;
 import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.seller.RegistrationNumber;
 import com.ozius.internship.project.entity.seller.Seller;
@@ -66,17 +66,17 @@ public class RegistrationResource {
 
     @PostMapping("/register-seller")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void registerSeller(@Valid @RequestBody SellerDTO sellerDTO){
+    public void registerSeller(@Valid @RequestBody RegisterSellerDTO sellerDTO){
 
         UserAccount userAccount = new UserAccount(
-                sellerDTO.getAccount().getFirstName(),
-                sellerDTO.getAccount().getLastName(),
-                sellerDTO.getAccount().getEmail(),
-                sellerDTO.getAccount().getImageName(),
-                sellerDTO.getAccount().getTelephone(),
+                sellerDTO.getFirstName(),
+                sellerDTO.getLastName(),
+                sellerDTO.getEmail(),
+                sellerDTO.getImageName(),
+                sellerDTO.getTelephone(),
                UserRole.ADMIN
         );
-        userAccount.setInitialPassword(passwordEncoder.encode(sellerDTO.getAccount().getPassword()));
+        userAccount.setInitialPassword(passwordEncoder.encode(sellerDTO.getPassword()));
 
         Address legalAddress = new Address(
                 sellerDTO.getCountry(),

@@ -1,6 +1,5 @@
 import React from "react";
 import useTheme from "@/theme/themes";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import {Controller} from "react-hook-form";
 import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 
@@ -20,7 +19,6 @@ const FormSelectField = ({
                              items
                          }: FormSelectFieldProps) => {
     const theme = useTheme();
-    console.log("items", items)
     return (
         <Controller
             name={name}
@@ -35,25 +33,24 @@ const FormSelectField = ({
                     {...field}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
-                    defaultValue={items[0].name}
                     SelectProps={{
                         native: true,
 
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                     sx={{
                         py: 1, mt: 1,
                         '.MuiSvgIcon-root ': {
-                            fill: theme.palette.info.main,
+                            fill: theme.palette.info.contrastText,
                         }
                     }}
                 >
