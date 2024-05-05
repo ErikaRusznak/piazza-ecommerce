@@ -53,7 +53,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             const { data } = await getUserRoleByEmail(username);
             const user = await getUserAccountByEmail(username);
             if (status === 200 && data === "COURIER" && user) {
-
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
