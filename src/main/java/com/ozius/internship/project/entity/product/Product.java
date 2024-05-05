@@ -16,8 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 @Entity
-@Table(name = Product.TABLE_NAME/*, uniqueConstraints = { @UniqueConstraint(columnNames = { Product.Columns.NAME, Product.Columns.SELLER_ID }) }*/)
+@Table(name = Product.TABLE_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = { Product.Columns.NAME, Product.Columns.SELLER_ID }) })
 public class Product extends BaseEntity {
     public static final String TABLE_NAME = "product";
 
@@ -34,23 +35,18 @@ public class Product extends BaseEntity {
         String IS_RATING_APPLICABLE = "IS_RATING_APPLICABLE";
     }
 
-    @Getter
     @Column(name = Columns.NAME, nullable = false)
     private String name;
 
-    @Getter
     @Column(name = Columns.DESCRIPTION, nullable = false)
     private String description;
 
-    @Getter
     @Column(name = Columns.IMAGE_NAME, nullable = false)
     private String imageName;
 
-    @Getter
     @Column(name = Columns.PRICE, nullable = false)
     private float price;
 
-    @Getter
     @Column(name = Columns.UNIT_OF_MEASURE, nullable = false)
     private UnitOfMeasure unitOfMeasure;
 
@@ -63,17 +59,14 @@ public class Product extends BaseEntity {
     @Column(name = Columns.IS_RATING_APPLICABLE)
     private boolean isRatingApplicable;
 
-    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.CATEGORY_ID, nullable = false)
     private Category category;
 
-    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.SELLER_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SELLER_ID + ") REFERENCES " + Seller.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Seller seller;
 
-    @Getter
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = Review.Columns.PRODUCT_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition =
             "FOREIGN KEY (" + Review.Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
@@ -100,24 +93,11 @@ public class Product extends BaseEntity {
         this.reviews = new HashSet<>();
     }
 
-    public Double getProductRating() {
-        return productRating;
-    }
-
-    public long getNumberReviews() {
-        return numberReviews;
-    }
-
-    public boolean isRatingApplicable() {
-        return isRatingApplicable;
-    }
-
     public Review addReview(Buyer buyer, String description, float rating){
 
         if(rating < 0 || rating > 5) {
             throw new IllegalRatingException("Rating must be between 0 and 5!");
         }
-
         Review reviewNew = new Review(description, rating, buyer);
         this.reviews.add(reviewNew);
 

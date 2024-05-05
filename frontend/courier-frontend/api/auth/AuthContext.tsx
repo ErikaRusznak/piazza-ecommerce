@@ -1,7 +1,7 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
-import {getUserAccountByEmail, getUserStatusByEmail} from "../entities/UserAccount";
+import {getUserAccountByEmail, getUserRoleByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
 
@@ -30,14 +30,15 @@ type AuthProviderProps = {
     children: ReactElement;
 };
 const AuthProvider = ({ children }: AuthProviderProps) => {
+
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [id, setId] = useSessionStorage("id", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
 
-    const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userStatus:string) => {
-        const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userStatus);
+    const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:string) => {
+        const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userRole);
         if (status === 201) {
             return true;
         } else {
@@ -49,10 +50,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const login = async (username: string, password: string) => {
         try {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
-            const { data } = await getUserStatusByEmail(username);
+            const { data } = await getUserRoleByEmail(username);
             const user = await getUserAccountByEmail(username);
             if (status === 200 && data === "COURIER" && user) {
-
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);

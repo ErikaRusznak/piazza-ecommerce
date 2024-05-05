@@ -5,6 +5,7 @@ import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.exception.IllegalSellerDetails;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
@@ -47,6 +48,7 @@ public class Seller extends BaseEntity {
     })
     private Address legalAddress;
 
+    @Getter
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "name", column = @Column(name = Columns.COMPANY_NAME)),
@@ -58,22 +60,25 @@ public class Seller extends BaseEntity {
     })
     private LegalDetails legalDetails;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = Columns.SELLER_TYPE, nullable = false)
     private SellerType sellerType;
 
+    @Getter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = Columns.ACCOUNT_ID, nullable = false)
     private UserAccount account;
 
 
+    @Getter
     @Column(name = Columns.ALIAS, nullable = false, unique = true)
     private String alias;
 
     protected Seller() {
     }
 
-    public Seller(Address legalAddress, UserAccount account, String alias, SellerType sellerType, LegalDetails legalDetails) {
+    public Seller(String alias, SellerType sellerType, UserAccount account, Address legalAddress, LegalDetails legalDetails) {
         this.legalAddress = legalAddress;
         this.account = account;
         this.alias = alias;
@@ -84,7 +89,7 @@ public class Seller extends BaseEntity {
         }
     }
 
-    public Seller(Address legalAddress, UserAccount account, String alias, SellerType sellerType) {
+    public Seller(String alias, SellerType sellerType, UserAccount account, Address legalAddress) {
         this.legalAddress = legalAddress;
         this.account = account;
         this.alias = alias;
@@ -99,7 +104,7 @@ public class Seller extends BaseEntity {
         return legalAddress != null ? legalAddress.getCity() : null;
     }
 
-    public String getCountry() {         return legalAddress != null ? legalAddress.getCountry() : null; }
+    public String getCountry() { return legalAddress != null ? legalAddress.getCountry() : null; }
 
     public String getState() { return legalAddress != null ? legalAddress.getState() : null;}
 
@@ -108,18 +113,6 @@ public class Seller extends BaseEntity {
     public String getAddressLine2() { return legalAddress != null ? legalAddress.getAddressLine2() : null; }
 
     public String getZipCode() { return legalAddress != null ? legalAddress.getZipCode() : null; }
-
-    public UserAccount getAccount() {
-        return account;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public LegalDetails getLegalDetails() {
-        return legalDetails;
-    }
 
     public String getCompanyName() {
         return legalDetails != null ? legalDetails.getName() : null;
@@ -151,10 +144,6 @@ public class Seller extends BaseEntity {
         return legalDetails != null && legalDetails.getRegistrationNumber() != null
                 ? legalDetails.getRegistrationNumber().getDateOfRegistration()
                 : null;
-    }
-
-    public SellerType getSellerType() {
-        return sellerType;
     }
 
 

@@ -153,14 +153,14 @@ public class TestDataCreator {
     }
 
     public static Seller createSellerFarmer(EntityManager em, Address address, UserAccount account, String alias){
-        Seller seller = new Seller(address, account, alias, SellerType.LOCAL_FARMER);
+        Seller seller = new Seller(alias, SellerType.LOCAL_FARMER, account, address);
         em.persist(seller);
 
         return seller;
     }
 
     public static Seller createSellerCompany(EntityManager em, Address address, UserAccount account, String alias, SellerType sellerType, LegalDetails legalDetails){
-        Seller seller = new Seller(address, account, alias, sellerType, legalDetails);
+        Seller seller = new Seller(alias, sellerType, account, address, legalDetails);
         em.persist(seller);
 
         return seller;

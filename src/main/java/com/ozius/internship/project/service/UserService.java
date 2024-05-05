@@ -7,7 +7,6 @@ import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.user.UserRole;
-import com.ozius.internship.project.entity.user.UserStatus;
 import com.ozius.internship.project.repository.BuyerRepository;
 import com.ozius.internship.project.repository.CourierRepository;
 import com.ozius.internship.project.repository.SellerRepository;
@@ -35,24 +34,6 @@ public class UserService {
         this.sellerRepository = sellerRepository;
         this.buyerRepository = buyerRepository;
         this.courierRepository = courierRepository;
-    }
-
-    public void saveUser(UserAccount user) {
-        user.setUserStatus(UserStatus.ONLINE);
-        userAccountRepository.save(user);
-    }
-
-    public void disconnect(UserAccount user) {
-        UserAccount userAccount = userAccountRepository.findById(user.getId()).orElse(null);
-        if (userAccount != null) {
-            userAccount.setUserStatus(UserStatus.OFFLINE);
-            userAccountRepository.save(userAccount);
-        }
-    }
-
-    public List<UserAccount> findConnectedUsers() {
-
-        return userAccountRepository.findAllByUserStatus(UserStatus.ONLINE);
     }
 
     public List<UserAccountDto> getAllUsers() {

@@ -26,15 +26,10 @@ import {useAuth} from "../../../../api/auth/AuthContext";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
-import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
 import {baseURL} from "../../../../api/ApiClient";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
-type NavigationBarProps = {
-    sx?: SxProps<Theme>;
-}
-
-const NavigationBar = ({sx}: NavigationBarProps) => {
+const NavigationBar = () => {
 
     const theme = useTheme();
     const router = useRouter();
@@ -43,7 +38,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
     const [categories, setCategories] = useState([]);
     const auth = useAuth();
 
-    const {isAuthenticated, username, logout} = useAuth();
+    const {isAuthenticated} = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const {profilePictureUrl} = useProfilePicture();
@@ -77,6 +72,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
     }, []);
 
+    console.log("profile pic url", profilePictureUrl)
     return (
         <AppBar
             color="default"

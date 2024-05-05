@@ -1,16 +1,32 @@
 package com.ozius.internship.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ozius.internship.project.entity.seller.CompanyType;
 import com.ozius.internship.project.entity.seller.SellerType;
+import com.ozius.internship.project.entity.user.UserRole;
+import com.ozius.internship.project.security.password.ValidPassword;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class SellerDTO {
+public class RegisterSellerDTO {
+
     private long id;
     private SellerType sellerType;
-    private UserAccountDto account;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String imageName;
+    private String telephone;
+    private UserRole userRole;
+    @ValidPassword
+    @NotBlank
+    @NotNull
+    private String password;
+    @JsonProperty("sellerAlias")
     private String alias;
     private String country;
     private String state;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import * as yup from "yup";
 import {api} from "../../../api/ApiClient";
@@ -16,6 +16,8 @@ import FormTextField from "@/components/atoms/form/light/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import UploadController from "@/components/atoms/upload/UploadController";
+import {addImageApi} from "../../../api/entities/ImageApi";
 
 type RegisterFormInput = {
     firstName: string,
@@ -24,7 +26,6 @@ type RegisterFormInput = {
     password: string,
     confirmPassword: string,
     telephone: string,
-    image: string,
 };
 
 const getCharacterValidationError = (str: string) => {
@@ -60,8 +61,6 @@ const RegisterSchema = yup.object().shape({
     telephone: yup.string()
         .phone("RO", 'Please enter valid RO number')
         .required("Telephone required"),
-    image: yup.string()
-        .required("An image is required"),
 });
 
 const RegisterPage = () => {
@@ -69,6 +68,9 @@ const RegisterPage = () => {
     const theme = useTheme();
     const router = useRouter();
     const auth = useAuth();
+
+    const [fileName, setFileName] = useState<string>("");
+
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
         {label: "Register", link: "/register"}
@@ -80,17 +82,12 @@ const RegisterPage = () => {
         password: "",
         confirmPassword: "",
         telephone: "",
-        image: "",
     };
 
     const {
-        register,
         handleSubmit,
         control,
-        watch,
-        setValue,
         formState: {errors},
-        getValues,
     } = useForm<RegisterFormInput>({
         resolver: yupResolver(RegisterSchema),
         defaultValues: defaultValues,
@@ -100,7 +97,7 @@ const RegisterPage = () => {
         e?.preventDefault();
         if (Object.keys(errors).length === 0) {
             try {
-                await auth.registerUser(data.email, data.password, data.firstName, data.lastName, data.telephone, data.image, "CLIENT");
+                await auth.registerUser(data.email, data.password, data.firstName, data.lastName, data.telephone, fileName, "CLIENT");
                 router.push("/login");
             } catch (error) {
                 console.error("Could not register user");
@@ -108,6 +105,16 @@ const RegisterPage = () => {
         } else {
             console.log("The data is not provided correctly");
         }
+    };
+
+    const handleAddImage = (file: File) => {
+        addImageApi(file)
+            .then((res) => {
+                setFileName(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     };
 
     return (
@@ -152,11 +159,11 @@ const RegisterPage = () => {
                             control={control}
                             label={"Phone number"}
                             type="text"/>
-                        <FormTextField
-                            name="image"
-                            control={control}
-                            label={"Image"}
-                            type="text"/>
+                        <UploadController
+                            onFileChange={handleAddImage}
+                            fileName={fileName}
+                            setFileName={setFileName}
+                        />
                         <StyledButton
                             type="submit"
                             fullWidth
