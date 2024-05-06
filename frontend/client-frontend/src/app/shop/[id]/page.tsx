@@ -17,8 +17,6 @@ type ProductDetailsContentProps = {
 };
 
 const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
-    // TODO !!! - use strings for id s instead of number!
-    // TODO - put productType instead of any
     const productId = parseInt(id);
     const [product, setProduct] = useState<any>(null);
     const [productRating, setProductRating] = useState<number | null>(null);

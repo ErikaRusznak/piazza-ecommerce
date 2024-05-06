@@ -72,7 +72,6 @@ const NavigationBar = () => {
 
     }, []);
 
-    console.log("profile pic url", profilePictureUrl)
     return (
         <AppBar
             color="default"
