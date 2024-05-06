@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
 import useTheme from "@/theme/themes";
 import {getReviewsApi} from "../../../../api/entities/ReviewApi";
-import {Box, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import ReviewComponent from "@/components/moleculas/reviews/ReviewComponent";
+import {useAuth} from "../../../../api/auth/AuthContext";
+import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
+import AddReviewModal from "@/components/organisms/modals/AddReviewModal";
 
 type ReviewItemsProps = {
     productId: number;
@@ -11,7 +14,12 @@ type ReviewItemsProps = {
 const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
 
     const theme = useTheme();
+    const {isAuthenticated} = useAuth();
+
     const [reviews, setReviews] = useState<any>([]);
+    const addReview = (newReview: any) => {
+        setReviews([...reviews, newReview]);
+    };
     // TODO - create review type
 
     const getReviewItems = (productId: number) => {
@@ -22,7 +30,8 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
             .catch((err) => {
                 console.log(err)
             })
-    }
+    };
+
 
     useEffect(() => {
         getReviewItems(productId)
@@ -41,6 +50,12 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
         }
     };
 
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => {
+        setIsModalOpen(prevState => !prevState);
+    };
+
     return (
         <Box id="reviews">
             <Box sx={{
@@ -50,7 +65,21 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
                 boxShadow: '0px 4px 10px rgba(255, 255, 255, 0.2)',
                 p: 3, borderRadius: "14px", pt: 2,
             }}>
-                <Typography variant="h5" sx={{fontWeight: "bold"}}>Reviews</Typography>
+                <Box sx={{display: "flex", gap: 2, alignItems: "flex-end"}}>
+                    <Typography variant="h5" sx={{fontWeight: "bold"}}>Reviews</Typography>
+                    {isAuthenticated &&
+                        <Button onClick={toggleModal} variant="outlined" sx={{color: theme.palette.lightColor.main, borderColor: theme.palette.lightColor.main}}>
+                            Add Review
+                        </Button>
+                    }
+                </Box>
+                <AddReviewModal
+                    toggleModal={toggleModal}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    productId={productId}
+                    handleAddReview={addReview}
+                />
 
                 <Box sx={{
                     display: "flex", flexDirection: "column", gap: 2, mt: 2
@@ -69,6 +98,7 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
 
 
         </Box>
+
     );
 };
 
