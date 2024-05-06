@@ -47,6 +47,7 @@ public class ReviewService {
         Product product = productRepository.findById(productId).orElseThrow();
 
         Review review = product.addReview(buyer, description, rating);
+        reviewRepository.save(review);
         productRepository.save(product);
 
         return modelMapper.map(review, ReviewDTO.class);
