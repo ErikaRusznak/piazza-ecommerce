@@ -1,6 +1,7 @@
 import React from 'react';
 import {Typography} from '@mui/material';
 import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
+import useTheme from "@/theme/themes";
 
 type ProductRatingProps = {
     rating: number;
@@ -21,6 +22,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
             element.scrollIntoView({ behavior: 'smooth' });
         }
     };
+    const theme = useTheme();
 
     return (
         <div className="items-center">
@@ -59,7 +61,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
                     )}
                 </div>
             ) : (
-                <div>Not enough reviews yet.</div>
+                <Typography color={theme.palette.info.main}>Not enough reviews yet.</Typography>
             )}
         </div>
     );

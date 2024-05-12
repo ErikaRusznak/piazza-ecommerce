@@ -37,6 +37,23 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
         }
     };
 
+    const getAvailabilityLabel = (): {backgroundColorForAvailability: string,labelForAvailability:string} | null => {
+        switch(product?.availability) {
+            case "OUT_OF_STOCK":
+                return {
+                    backgroundColorForAvailability: "rgba(255, 0, 0, 0.5)",
+                    labelForAvailability: "Not in stock"
+                };
+            case "FEW_ITEMS_LEFT":
+                return {
+                    backgroundColorForAvailability: "rgba(255, 165, 0, 0.5)",
+                    labelForAvailability: "Few items left"
+                };
+            default:
+                return null;
+        }
+    };
+    const availabilityLabel = getAvailabilityLabel();
 
     return (
         <Card
@@ -76,6 +93,22 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                 border: "0.5px solid #a5b4fc",
             }}
         >
+            {product?.availability !== "AVAILABLE" && (
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        background: availabilityLabel?.backgroundColorForAvailability,
+                        padding: theme.spacing(0.5, 1),
+                        borderRadius: "20px",
+                        color: "white",
+                        fontWeight: "bold",
+                    }}
+                >
+                    <Typography variant="caption">{availabilityLabel?.labelForAvailability}</Typography>
+                </Box>
+            )}
             <Box
                 sx={{
                     width: "100%",
@@ -153,11 +186,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                     <Box
                         sx={{
                             alignSelf: "stretch",
-                            // display: "flex",
-                            // flexDirection: "row",
                             alignItems: "center",
-                            // justifyContent: "space-between",
-
                             color: theme.palette.info.main,
                         }}>
                         <Typography sx={{fontSize: "15px"}}>
@@ -200,12 +229,13 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                     <StyledButton
                         fullWidth
                         variant="contained"
+                        disabled={product.availability === "OUT_OF_STOCK"}
                         sx={{
                             mt: 1,
                             height: "35px",
                             border: "1px solid #4f46e5",
                             fontSize: "14px",
-                            borderRadius: "12px"
+                            borderRadius: "12px",
                         }}
                         onClick={() => toggleModal(product.id)}
                     >

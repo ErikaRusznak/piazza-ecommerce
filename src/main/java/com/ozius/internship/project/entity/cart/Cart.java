@@ -101,6 +101,8 @@ public class Cart extends BaseEntity {
         if(cartItem == null) {
             throw new NotFoundException("Cart item was not found in the list!");
         }
+        product.setQuantity(product.getQuantity() + cartItem.getQuantity());
+        product.setAvailability(product.getQuantity());
         this.cartItems.remove(cartItem);
         this.totalCartPrice = calculateTotalPrice();
     }

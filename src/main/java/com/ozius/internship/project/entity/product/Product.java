@@ -153,7 +153,7 @@ public class Product extends BaseEntity {
 
     public void setAvailability(float quantity) {
         if (quantity == 0) {
-            this.availability = Availability.NOT_ON_STOCK;
+            this.availability = Availability.OUT_OF_STOCK;
         } else if (quantity < 5) {
             this.availability = Availability.FEW_ITEMS_LEFT;
         } else {
