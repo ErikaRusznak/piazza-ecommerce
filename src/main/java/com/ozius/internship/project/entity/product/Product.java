@@ -11,6 +11,7 @@ import com.ozius.internship.project.entity.review.ReviewAddedEvent;
 import com.ozius.internship.project.entity.seller.Seller;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,7 @@ public class Product extends BaseEntity {
         String PRODUCT_RATING = "PRODUCT_RATING";
         String NUMBER_REVIEWS = "NUMBER_REVIEWS";
         String IS_RATING_APPLICABLE = "IS_RATING_APPLICABLE";
+        String QUANTITY = "QUANTITY";
     }
 
     @Column(name = Columns.NAME, nullable = false)
@@ -59,6 +61,11 @@ public class Product extends BaseEntity {
     @Column(name = Columns.IS_RATING_APPLICABLE)
     private boolean isRatingApplicable;
 
+    @Getter
+    @Setter
+    @Column(name = Columns.QUANTITY)
+    private float quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.CATEGORY_ID, nullable = false)
     private Category category;
@@ -76,7 +83,7 @@ public class Product extends BaseEntity {
     protected Product() {
     }
 
-    public Product(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure) {
+    public Product(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure, float quantity) {
         this.name = name;
         this.description = description;
         this.imageName = imageName;
@@ -91,6 +98,7 @@ public class Product extends BaseEntity {
         this.numberReviews = 0;
         this.isRatingApplicable = false;
         this.reviews = new HashSet<>();
+        this.quantity = quantity;
     }
 
     public Review addReview(Buyer buyer, String description, float rating){
@@ -119,7 +127,7 @@ public class Product extends BaseEntity {
         this.isRatingApplicable = numberReviews > 2;
     }
 
-    public void updateProduct(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure) {
+    public void updateProduct(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure, float quantity) {
         this.name = name;
         this.description = description;
         this.imageName = imageName;
@@ -130,6 +138,11 @@ public class Product extends BaseEntity {
         this.category = category;
         this.seller = seller;
         this.unitOfMeasure = unitOfMeasure;
+        this.quantity = quantity;
+    }
+
+    public void addProductsInStore(float quantity) {
+        this.quantity = this.getQuantity() + quantity;
     }
 
     @Override

@@ -61,7 +61,14 @@ public class ProductService {
     @Transactional
     public Product updateProduct(Product product) {
         Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
-        updatedProduct.updateProduct(product.getName(), product.getDescription(), product.getImageName(), product.getPrice(), product.getCategory(), product.getSeller(), product.getUnitOfMeasure());
+        updatedProduct.updateProduct(product.getName(), product.getDescription(), product.getImageName(), product.getPrice(), product.getCategory(), product.getSeller(), product.getUnitOfMeasure(), product.getQuantity());
+        return updatedProduct;
+    }
+
+    @Transactional
+    public Product addProductsInStore(long id, float quantity) {
+        Product updatedProduct = productRepository.findById(id).orElseThrow();
+        updatedProduct.addProductsInStore(quantity);
         return updatedProduct;
     }
 

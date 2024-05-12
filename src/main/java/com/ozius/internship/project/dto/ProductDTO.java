@@ -16,5 +16,5 @@ public class ProductDTO {
     protected Double productRating;
     protected long numberReviews;
     protected boolean isRatingApplicable;
-
+    protected float quantity;
 }

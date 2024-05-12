@@ -31,3 +31,8 @@ export const updateProductApi = (product:any) => {
         product
     );
 }
+
+export const addProductsInStoreApi = (productId, quantity) => {
+    return api.put(`/products/${productId}`, quantity, { headers: { 'Content-Type': 'application/json' } });
+}
+

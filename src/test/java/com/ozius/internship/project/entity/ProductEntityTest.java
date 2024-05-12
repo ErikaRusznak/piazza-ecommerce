@@ -35,7 +35,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             Category cat = em.merge(category1);
             Seller seller = em.merge(seller2);
-            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM);
+            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM, 15);
             em.persist(product);
         });
 
@@ -55,7 +55,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             Category cat = em.merge(category1);
             Seller seller = em.merge(seller2);
-            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM);
+            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM, 15);
             em.persist(product);
         });
 
@@ -63,7 +63,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Product pr = entityFinder.getTheOne(Product.class);
-            pr.updateProduct("vinete_schimbate", "vinete mari", pr.getImageName(), 6F, pr.getCategory(), pr.getSeller(), pr.getUnitOfMeasure());
+            pr.updateProduct("vinete_schimbate", "vinete mari", pr.getImageName(), 6F, pr.getCategory(), pr.getSeller(), pr.getUnitOfMeasure(), 16);
         });
 
         //----Assert
@@ -75,6 +75,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         assertThat(persistedProduct.getPrice()).isEqualTo(6F);
         assertThat(persistedProduct.getCategory()).isEqualTo(category1);
         assertThat(persistedProduct.getSeller()).isEqualTo(seller2);
+        assertThat(persistedProduct.getQuantity()).isEqualTo(16);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             Category cat = em.merge(category1);
             Seller seller = em.merge(seller2);
-            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM);
+            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM, 15);
             em.persist(product);
         });
 
@@ -106,7 +107,7 @@ public class ProductEntityTest extends JpaBaseEntity {
             Category cat = em.merge(category1);
             Seller seller = em.merge(seller2);
             return assertThrows(IllegalPriceException.class, () -> {
-                Product product = new Product("vinete", "descriereVinete", "/vinete", -2f, cat, seller, UnitOfMeasure.KILOGRAM);
+                Product product = new Product("vinete", "descriereVinete", "/vinete", -2f, cat, seller, UnitOfMeasure.KILOGRAM, 15);
                 em.persist(product);
             });
         });
@@ -121,7 +122,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             Category cat = em.merge(category1);
             Seller seller = em.merge(seller2);
-            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM);
+            Product product = new Product("vinete", "descriereVinete", "/vinete", 5F, cat, seller, UnitOfMeasure.KILOGRAM, 15);
             em.persist(product);
         });
 
@@ -129,7 +130,7 @@ public class ProductEntityTest extends JpaBaseEntity {
         Exception exception = doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Product pr = entityFinder.getTheOne(Product.class);
-            return assertThrows(IllegalPriceException.class, () -> pr.updateProduct("vinete_schimbate", "vinete mari", pr.getImageName(), -1F, pr.getCategory(), pr.getSeller(), pr.getUnitOfMeasure()));
+            return assertThrows(IllegalPriceException.class, () -> pr.updateProduct("vinete_schimbate", "vinete mari", pr.getImageName(), -1F, pr.getCategory(), pr.getSeller(), pr.getUnitOfMeasure(), pr.getQuantity()));
         });
 
         //----Assert
