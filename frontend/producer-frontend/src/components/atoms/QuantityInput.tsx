@@ -4,10 +4,9 @@ import { Button, Typography } from '@mui/material';
 import useTheme from "@/theme/themes";
 import themes from "@/theme/themes";
 
-type QuantityInput = {
+type QuantityInputType = {
     quantity: number;
-    onQuantityChanged: (change: number) => void;
-    availableQuantity: number;
+    setQuantity: (value: number) => void;
 };
 
 const QuantityContainer = styled("div")({
@@ -30,12 +29,16 @@ const QuantityButton = styled(Button)(({ theme }) => ({
     minWidth: "40px",
 }));
 
-const QuantityInput: React.FC<QuantityInput> = ({ quantity, onQuantityChanged, availableQuantity }) => {
+const QuantityInput = ({quantity, setQuantity}:QuantityInputType) => {
     const theme = useTheme();
-
+    const handleQuantityChange = (newQuantity: number) => {
+        if(quantity + newQuantity > 0) {
+            setQuantity(quantity + newQuantity);
+        }
+    };
     return (
         <QuantityContainer>
-            <QuantityButton type="button" disabled={quantity == 1} onClick={() => onQuantityChanged(-1)}>
+            <QuantityButton type="button" onClick={() => handleQuantityChange(-1)}>
                 -
             </QuantityButton>
 
@@ -57,7 +60,7 @@ const QuantityInput: React.FC<QuantityInput> = ({ quantity, onQuantityChanged, a
                 {quantity}
             </Typography>
 
-            <QuantityButton type="button" disabled={quantity >= availableQuantity} onClick={() => onQuantityChanged(1)}>
+            <QuantityButton type="button" onClick={() => handleQuantityChange(1)}>
                 +
             </QuantityButton>
         </QuantityContainer>

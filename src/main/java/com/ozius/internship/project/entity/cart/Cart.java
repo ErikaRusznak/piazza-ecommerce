@@ -2,9 +2,11 @@ package com.ozius.internship.project.entity.cart;
 
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.buyer.Buyer;
+import com.ozius.internship.project.entity.exception.IllegalItemException;
 import com.ozius.internship.project.entity.exception.NotFoundException;
 import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -23,6 +25,7 @@ public class Cart extends BaseEntity {
         String TOTAL_PRICE = "TOTAL_PRICE";
     }
 
+    @Getter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Cart.Columns.BUYER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.BUYER_ID + ") REFERENCES " + Buyer.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Buyer buyer;
@@ -30,9 +33,10 @@ public class Cart extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = CartItem.Columns.CART_ID, foreignKey = @ForeignKey(foreignKeyDefinition =
             "FOREIGN KEY (" + CartItem.Columns.CART_ID + ") REFERENCES " + Cart.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
-    @OrderBy("id ASC")  //orders by when get on cartItems
+    @OrderBy("id ASC")
     private Set<CartItem> cartItems;
 
+    @Getter
     @Column(name = Columns.TOTAL_PRICE, nullable = false, scale = 2)
     private double totalCartPrice;
 
@@ -49,14 +53,6 @@ public class Cart extends BaseEntity {
 
     public Set<CartItem> getCartItems() {
         return Collections.unmodifiableSet(cartItems);
-    }
-
-    public Buyer getBuyer() {
-        return buyer;
-    }
-
-    public double getTotalCartPrice() {
-        return totalCartPrice;
     }
 
     private float calculateItemPrice(CartItem cartItem) {
@@ -85,13 +81,17 @@ public class Cart extends BaseEntity {
         if(existingCartItem!=null && existingCartItem.getQuantity()+quantity == 0F) {
             removeFromCart(product);
         }
-
-        if (existingCartItem != null) {
-            existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
+        if(product.getQuantity() >= quantity) {
+            if (existingCartItem != null) {
+                existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
+            } else {
+                CartItem cartItem = new CartItem(quantity, product);
+                this.cartItems.add(cartItem);
+            }
+            product.setQuantity(product.getQuantity() - quantity);
+            product.setAvailability(product.getQuantity());
         } else {
-
-            CartItem cartItem = new CartItem(quantity, product);
-            this.cartItems.add(cartItem);
+            throw new IllegalItemException("Not enough items in the inventory!");
         }
         this.totalCartPrice = calculateTotalPrice();
     }
@@ -101,6 +101,8 @@ public class Cart extends BaseEntity {
         if(cartItem == null) {
             throw new NotFoundException("Cart item was not found in the list!");
         }
+        product.setQuantity(product.getQuantity() + cartItem.getQuantity());
+        product.setAvailability(product.getQuantity());
         this.cartItems.remove(cartItem);
         this.totalCartPrice = calculateTotalPrice();
     }

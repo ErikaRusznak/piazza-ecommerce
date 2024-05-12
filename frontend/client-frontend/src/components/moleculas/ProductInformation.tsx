@@ -3,7 +3,7 @@ import {useCart} from "../../../contexts/CartContext";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useAlert} from "../../../contexts/AlertContext";
 import {useRouter} from "next/navigation";
-import {Box, Button, Divider, Typography} from "@mui/material";
+import {Box, Divider, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import ProductSpecificInfo from "@/components/atoms/ProductSpecificInfo";
@@ -17,8 +17,11 @@ type ProductInformationProps = {
     producer: string; // TODO - same for producer
     city: string;
     productId: number;
+    availability: string;
+    availableQuantity: number;
+    updateProductAvailability: (newAvailability: string, remainingQuantity: number) => void;
 }
-const ProductInformation = ({description, price, category, producer, city, productId}: ProductInformationProps) => {
+const ProductInformation = ({description, price, category, producer, city, productId, availability, availableQuantity, updateProductAvailability}: ProductInformationProps) => {
     const [quantity, setQuantity] = useState(1);
     const {updateCartItemQuantity} = useCart()
     const {isAuthenticated} = useAuth();
@@ -33,9 +36,23 @@ const ProductInformation = ({description, price, category, producer, city, produ
         updateCartItemQuantity(productId, quantity)
     }
 
+    const updateAvailability = () => {
+        const remainingQuantity = availableQuantity - quantity;
+        let newAvailability: string;
+        if (remainingQuantity === 0) {
+            newAvailability = "OUT_OF_STOCK";
+        } else if (remainingQuantity < 5) {
+            newAvailability = "FEW_ITEMS_LEFT";
+        } else {
+            newAvailability = "AVAILABLE";
+        }
+        updateProductAvailability(newAvailability, remainingQuantity);
+    };
+
     const handleAddToCart = () => {
         if (isAuthenticated) {
             addItemToCart(productId, quantity);
+            updateAvailability();
             // pushAlert({
             //     type: "info",
             //     title: "Product Added To Cart",
@@ -94,6 +111,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                         <QuantityInput
                             quantity={quantity}
                             onQuantityChanged={updateQuantity}
+                            availableQuantity={availableQuantity}
                         />
                     </Box>
                     <Divider sx={{backgroundColor: theme.palette.lightColor.main, width: "full", my: 2}}/>
@@ -107,6 +125,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                 <StyledButton
                     fullWidth
                     variant="contained"
+                    disabled={availability === "OUT_OF_STOCK"}
                     onClick={handleAddToCart}
                 >
                     Add to cart

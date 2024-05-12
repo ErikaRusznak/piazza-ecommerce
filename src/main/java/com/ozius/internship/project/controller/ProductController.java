@@ -78,4 +78,11 @@ public class ProductController {
         return ResponseEntity.ok(updatedProduct);
     }
 
+    @PutMapping("/products/{id}")
+    public ResponseEntity<ProductDTO> addProductsInStore(@PathVariable long id, @RequestBody float quantity) {
+        Product updatedProduct = productService.addProductsInStore(id, quantity);
+        ProductDTO productDTO = modelMapper.map(updatedProduct, ProductDTO.class);
+        return ResponseEntity.ok(productDTO);
+    }
+
 }

@@ -11,6 +11,7 @@ import com.ozius.internship.project.entity.review.ReviewAddedEvent;
 import com.ozius.internship.project.entity.seller.Seller;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,8 @@ public class Product extends BaseEntity {
         String PRODUCT_RATING = "PRODUCT_RATING";
         String NUMBER_REVIEWS = "NUMBER_REVIEWS";
         String IS_RATING_APPLICABLE = "IS_RATING_APPLICABLE";
+        String QUANTITY = "QUANTITY";
+        String AVAILABILITY = "AVAILABILITY";
     }
 
     @Column(name = Columns.NAME, nullable = false)
@@ -59,6 +62,10 @@ public class Product extends BaseEntity {
     @Column(name = Columns.IS_RATING_APPLICABLE)
     private boolean isRatingApplicable;
 
+    @Setter
+    @Column(name = Columns.QUANTITY)
+    private float quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.CATEGORY_ID, nullable = false)
     private Category category;
@@ -72,11 +79,15 @@ public class Product extends BaseEntity {
             "FOREIGN KEY (" + Review.Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Set<Review> reviews;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = Columns.AVAILABILITY)
+    private Availability availability;
+
 
     protected Product() {
     }
 
-    public Product(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure) {
+    public Product(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure, float quantity) {
         this.name = name;
         this.description = description;
         this.imageName = imageName;
@@ -91,6 +102,8 @@ public class Product extends BaseEntity {
         this.numberReviews = 0;
         this.isRatingApplicable = false;
         this.reviews = new HashSet<>();
+        this.quantity = quantity;
+        setAvailability(quantity);
     }
 
     public Review addReview(Buyer buyer, String description, float rating){
@@ -119,7 +132,7 @@ public class Product extends BaseEntity {
         this.isRatingApplicable = numberReviews > 2;
     }
 
-    public void updateProduct(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure) {
+    public void updateProduct(String name, String description, String imageName, float price, Category category, Seller seller, UnitOfMeasure unitOfMeasure, float quantity) {
         this.name = name;
         this.description = description;
         this.imageName = imageName;
@@ -130,6 +143,22 @@ public class Product extends BaseEntity {
         this.category = category;
         this.seller = seller;
         this.unitOfMeasure = unitOfMeasure;
+        this.quantity = quantity;
+    }
+
+    public void addProductsInStore(float quantity) {
+        this.quantity = this.getQuantity() + quantity;
+        setAvailability(this.quantity);
+    }
+
+    public void setAvailability(float quantity) {
+        if (quantity == 0) {
+            this.availability = Availability.OUT_OF_STOCK;
+        } else if (quantity < 5) {
+            this.availability = Availability.FEW_ITEMS_LEFT;
+        } else {
+            this.availability = Availability.AVAILABLE;
+        }
     }
 
     @Override

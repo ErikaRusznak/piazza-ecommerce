@@ -244,9 +244,9 @@ public class TestDataCreator {
         Categories.category8 = createCategory(em, "Tea", "/images/tea.svg");
     }
 
-    public static Product createProduct(EntityManager em, String name, String description, String image, float price, Category category , Seller seller, UnitOfMeasure unitOfMeasure){
+    public static Product createProduct(EntityManager em, String name, String description, String image, float price, Category category , Seller seller, UnitOfMeasure unitOfMeasure, float quantity){
 
-        Product product = new Product(name, description, image, price, category, seller, unitOfMeasure);
+        Product product = new Product(name, description, image, price, category, seller, unitOfMeasure, quantity);
         em.persist(product);
 
         return product;
@@ -254,15 +254,15 @@ public class TestDataCreator {
 
     public static void createProductsBaseData(EntityManager em){
 
-        Products.product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM);
-        Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT);
-        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller3, UnitOfMeasure.GRAM);
-        Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product7 = createProduct(em, "Orange", "This is an orange! It is a fruit!", "/images/orange.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product8 = createProduct(em, "Potato", "This is a potato! It is a vegetable!", "/images/potato.jpeg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM);
-        Products.product9 = createProduct(em, "Pepper", "This is a pepper! It is a vegetable!", "/images/pepper.jpg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM);
+        Products.product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM,5);
+        Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT, 3);
+        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller3, UnitOfMeasure.GRAM, 10);
+        Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 10);
+        Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 11);
+        Products.product7 = createProduct(em, "Orange", "This is an orange! It is a fruit!", "/images/orange.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product8 = createProduct(em, "Potato", "This is a potato! It is a vegetable!", "/images/potato.jpeg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product9 = createProduct(em, "Pepper", "This is a pepper! It is a vegetable!", "/images/pepper.jpg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 15);
     }
 
     public static void createAddresses(){

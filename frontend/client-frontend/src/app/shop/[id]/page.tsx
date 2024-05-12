@@ -32,6 +32,33 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
         {label: productName, link: ""}
     ];
 
+    const updateProductAvailability = (newAvailability: string, newAvailableQuantity: number) => {
+        setProduct({
+            ...product,
+            availability: newAvailability,
+            quantity: newAvailableQuantity
+        });
+    };
+
+    const getAvailabilityLabel = (): {colorForAvailability: string,labelForAvailability:string} | null => {
+        switch(product?.availability) {
+            case "OUT_OF_STOCK":
+                return {
+                    colorForAvailability: "rgba(255, 0, 0)",
+                    labelForAvailability: "Sorry, this item is out of stock!"
+                };
+            case "FEW_ITEMS_LEFT":
+                return {
+                    colorForAvailability: "rgba(255, 165, 0)",
+                    labelForAvailability: "There are " + product.quantity + " items left!"
+                };
+            default:
+                return null;
+        }
+    };
+
+    const availabilityLabel = getAvailabilityLabel();
+
     const getProduct = (productId: number) => {
         getProductByIdApi(productId)
             .then((res) => {
@@ -81,13 +108,22 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                 viewType='extended'
                             />
                         </Box>
+                        {product.availability !== "AVAILABLE" ? (
+                            <Typography
+                                sx={{mt:1,}}
+                                color={availabilityLabel?.colorForAvailability}
+                            >
+                                {availabilityLabel?.labelForAvailability}
+                            </Typography>
+                        ): null}
+
                         <Box
                             sx={{display: "flex", justifyContent: "center",
                                 flexDirection: "row", alignItems: "center",
                                 [theme.breakpoints.down("md")]: {
                                     flexDirection: "column",
                                 },
-                                mt: 2}}>
+                                mt: 1}}>
                             <Box sx={{ [theme.breakpoints.down("md")]: {mt: 2}}}>
                                 <Box sx={{
                                     display: "flex", justifyContent: "center",
@@ -113,6 +149,9 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                     producer={product.seller.alias}
                                     city={product.seller.city}
                                     productId={product.id}
+                                    availability={product.availability}
+                                    availableQuantity={product.quantity}
+                                    updateProductAvailability={updateProductAvailability}
                                 />
                             </Box>
                         </Box>

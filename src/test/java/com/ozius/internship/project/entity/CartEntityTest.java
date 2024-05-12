@@ -66,8 +66,8 @@ public class CartEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Cart cart = entityFinder.getTheOne(Cart.class);
-            Product p1 = createProduct(em, "cartofi", "pentru fiert", "src/image4", 12.7f, category1, seller1, UnitOfMeasure.KILOGRAM);
-            Product p2 = createProduct(em, "pere", "pentru glucoza", "src/image77", 5f, category2, seller2, UnitOfMeasure.KILOGRAM);
+            Product p1 = createProduct(em, "cartofi", "pentru fiert", "src/image4", 12.7f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            Product p2 = createProduct(em, "pere", "pentru glucoza", "src/image77", 5f, category2, seller2, UnitOfMeasure.KILOGRAM, 16);
             cart.addOrUpdateItem(p1, 3);
             cart.addOrUpdateItem(p2, 2);
         });
@@ -90,7 +90,7 @@ public class CartEntityTest extends JpaBaseEntity {
         doTransaction(em -> {
             EntityFinder entityFinder = new EntityFinder(em);
             Cart cart = entityFinder.getTheOne(Cart.class);
-            Product p1 = createProduct(em, "pere", "pentru glucoza", "src/image77", 5f, category2, seller2, UnitOfMeasure.KILOGRAM);
+            Product p1 = createProduct(em, "pere", "pentru glucoza", "src/image77", 5f, category2, seller2, UnitOfMeasure.KILOGRAM, 15);
             cart.addOrUpdateItem(p1, 2);
         });
 
@@ -156,7 +156,7 @@ public class CartEntityTest extends JpaBaseEntity {
         // ----Arrange
         Product productSaved = doTransaction(em -> {
             Cart cart = new Cart();
-            Product product = createProduct(em, "popcorn", "descriere popcorn", "/popcorn", 5F, category1, seller1, UnitOfMeasure.KILOGRAM);
+            Product product = createProduct(em, "popcorn", "descriere popcorn", "/popcorn", 5F, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
             cart.addOrUpdateItem(product, 2);
             em.persist(cart);
 

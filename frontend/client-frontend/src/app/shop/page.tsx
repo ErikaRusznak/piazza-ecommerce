@@ -77,7 +77,6 @@ const ProductsPage = () => {
             .catch((err) => console.log(err))
     };
 
-
     useEffect(() => {
         const filterSpecs: string[] = buildFilterSpecs();
         const sortSpecs: string[] = buildSortSpecs();

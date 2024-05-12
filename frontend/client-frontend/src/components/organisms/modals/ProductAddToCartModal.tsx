@@ -68,7 +68,6 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
         setIsModalOpen(false);
     };
 
-
     return (
         <BaseModal isModalOpen={isModalOpen} toggleModal={() => toggleModal(productId)}>
             {product &&
@@ -102,6 +101,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                             <QuantityInput
                                                 quantity={quantity}
                                                 onQuantityChanged={updateQuantity}
+                                                availableQuantity={product.quantity}
                                             />
                                         </Box>
                                     )}
@@ -117,6 +117,14 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                         viewType="simple"
                                     />
                                 </Box>
+                                {product.availability === "FEW_ITEMS_LEFT" ? (
+                                    <Typography
+                                        sx={{mt:1,}}
+                                        color={"rgba(255, 165, 0)"}
+                                    >
+                                        There are {product.quantity} items left!
+                                    </Typography>
+                                ): null}
                                 <Box sx={{
                                     display: "flex",
                                     justifyContent: "space-between",
@@ -148,6 +156,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                             <QuantityInput
                                                 quantity={quantity}
                                                 onQuantityChanged={updateQuantity}
+                                                availableQuantity={product.quantity}
                                             />
                                         </Box>
                                         <Box sx={{display: "flex", alignItems: "center", mt: 2}}>
