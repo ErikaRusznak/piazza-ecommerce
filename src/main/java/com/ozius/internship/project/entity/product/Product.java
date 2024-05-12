@@ -35,6 +35,7 @@ public class Product extends BaseEntity {
         String NUMBER_REVIEWS = "NUMBER_REVIEWS";
         String IS_RATING_APPLICABLE = "IS_RATING_APPLICABLE";
         String QUANTITY = "QUANTITY";
+        String AVAILABILITY = "AVAILABILITY";
     }
 
     @Column(name = Columns.NAME, nullable = false)
@@ -61,7 +62,6 @@ public class Product extends BaseEntity {
     @Column(name = Columns.IS_RATING_APPLICABLE)
     private boolean isRatingApplicable;
 
-    @Getter
     @Setter
     @Column(name = Columns.QUANTITY)
     private float quantity;
@@ -78,6 +78,10 @@ public class Product extends BaseEntity {
     @JoinColumn(name = Review.Columns.PRODUCT_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition =
             "FOREIGN KEY (" + Review.Columns.PRODUCT_ID + ") REFERENCES " + Product.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Set<Review> reviews;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = Columns.AVAILABILITY)
+    private Availability availability;
 
 
     protected Product() {
@@ -99,6 +103,7 @@ public class Product extends BaseEntity {
         this.isRatingApplicable = false;
         this.reviews = new HashSet<>();
         this.quantity = quantity;
+        setAvailability(quantity);
     }
 
     public Review addReview(Buyer buyer, String description, float rating){
@@ -143,6 +148,17 @@ public class Product extends BaseEntity {
 
     public void addProductsInStore(float quantity) {
         this.quantity = this.getQuantity() + quantity;
+        setAvailability(this.quantity);
+    }
+
+    public void setAvailability(float quantity) {
+        if (quantity == 0) {
+            this.availability = Availability.NOT_ON_STOCK;
+        } else if (quantity < 5) {
+            this.availability = Availability.FEW_ITEMS_LEFT;
+        } else {
+            this.availability = Availability.AVAILABLE;
+        }
     }
 
     @Override
