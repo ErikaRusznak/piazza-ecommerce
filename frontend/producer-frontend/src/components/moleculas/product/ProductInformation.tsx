@@ -44,7 +44,7 @@ const ProductInformation = ({product}: ProductInformationProps) => {
                 />
                 <ProductSpecificInfo
                     label="No. remaining items"
-                    information={`${10} products`}
+                    information={`${product.quantity} products`}
                 />
             </Box>
         </Box>
