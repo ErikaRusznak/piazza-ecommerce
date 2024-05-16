@@ -42,6 +42,8 @@ public class WebConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/ws")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/ws/info")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/ws/info/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/forgot-password")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/reset-password")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.OPTIONS, "/**")).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()
