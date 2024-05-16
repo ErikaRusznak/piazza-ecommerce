@@ -35,7 +35,7 @@ export const deleteAccountForBuyerByIdApi = (accountId:string) => {
 }
 
 export const forgotPasswordApi = (email: string) => {
-    return api.post(`/forgot-password`, {},{
+    return api.post(`/forgot-password-client`, {},{
         params: {
             email: email
         }

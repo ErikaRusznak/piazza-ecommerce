@@ -117,7 +117,7 @@ const LoginPage = () => {
                     </form>
                     <Grid container gap={1} mt={2}>
                         <Grid item xs>
-                            <StyledLink href="#" sx={{fontSize: "0.9rem"}}>
+                            <StyledLink href="/forgot-password" sx={{fontSize: "0.9rem"}}>
                                 Forgot password?
                             </StyledLink>
                         </Grid>

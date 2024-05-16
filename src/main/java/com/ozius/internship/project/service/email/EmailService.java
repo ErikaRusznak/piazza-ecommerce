@@ -1,4 +1,4 @@
-package com.ozius.internship.project.infra.email;
+package com.ozius.internship.project.service.email;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
