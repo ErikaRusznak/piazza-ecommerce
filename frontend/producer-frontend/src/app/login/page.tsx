@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
-    Alert, AlertTitle, Box,
+    Alert, AlertTitle,
     Checkbox, Container,
     FormControlLabel,
     Grid,
@@ -113,7 +113,7 @@ const LoginPage = () => {
                         </form>
                         <Grid container gap={1} mt={2}>
                             <Grid item xs>
-                                <StyledLink href="#" sx={{fontSize: "0.9rem"}}>
+                                <StyledLink href="/forgot-password" sx={{fontSize: "0.9rem"}}>
                                     Forgot password?
                                 </StyledLink>
                             </Grid>

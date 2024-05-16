@@ -2,6 +2,7 @@
 
 import {createContext, useContext, useEffect, useState} from "react";
 import {getBuyerByEmailApi} from "../api/entities/BuyerApi";
+import {useAuth} from "../api/auth/AuthContext";
 
 interface ProfilePictureContextType {
     profilePictureUrl: string|null
@@ -22,13 +23,16 @@ export const useProfilePicture = ():ProfilePictureContextType => {
 const ProfilePictureProvider = ({children}:any) => {
 
     const [user, setUser] = useState<any>(null);
+    const {isAuthenticated} = useAuth();
 
     const getBuyerByEmail = (email: string) => {
-        getBuyerByEmailApi(email)
-            .then((res) => {
-                setUser(res.data);
-            })
-            .catch((err) => console.log(err));
+        if(isAuthenticated) {
+            getBuyerByEmailApi(email)
+                .then((res) => {
+                    setUser(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
     }
 
     useEffect(() => {

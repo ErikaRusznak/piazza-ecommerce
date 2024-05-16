@@ -51,7 +51,7 @@ public class TestDataCreator {
         UserAccount account1 = new UserAccount(
                 "Erika",
                 "Rusznak",
-                "erikarusznak@gmail.com",
+                "erika.rusznak@student.upt.ro",
                 "none",
                 "0747871208",
                 UserRole.CLIENT);

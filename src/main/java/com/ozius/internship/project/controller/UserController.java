@@ -6,8 +6,10 @@ import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.repository.UserAccountRepository;
 import com.ozius.internship.project.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -17,11 +19,13 @@ public class UserController {
     private final UserAccountRepository userAccountRepository;
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserAccountRepository userAccountRepository, UserService userService, ModelMapper modelMapper) {
+    public UserController(UserAccountRepository userAccountRepository, UserService userService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userAccountRepository = userAccountRepository;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/users/{email}")
@@ -78,5 +82,22 @@ public class UserController {
     @DeleteMapping("/users-courier/{id}")
     public void deleteAccountForCourierById(@PathVariable long id) {
         userService.deleteAccountForCourier(id);
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
+        UserAccount user = userAccountRepository.findByResetToken(token);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Invalid or expired reset token");
+        }
+
+        // Update password
+        String newPasswordHashed = passwordEncoder.encode(newPassword);
+        user.updatePassword(user.getPasswordHash(), newPasswordHashed);
+        user.setResetToken(null);
+        userAccountRepository.save(user);
+
+        return ResponseEntity.ok("Password reset successfully");
     }
 }

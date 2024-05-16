@@ -5,8 +5,9 @@ import useTheme from "@/theme/themes";
 type PrincipalFormLayout = {
     children: ReactElement;
     titleText?: string;
+    alignItems?: "center" | "left";
 }
-const PrincipalFormLayout = ({children, titleText="Complete form"}: PrincipalFormLayout) => {
+const PrincipalFormLayout = ({children, titleText="Complete form", alignItems="center"}: PrincipalFormLayout) => {
     const theme = useTheme();
     const textColor = theme.palette.info.contrastText;
     return (
@@ -23,7 +24,7 @@ const PrincipalFormLayout = ({children, titleText="Complete form"}: PrincipalFor
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center',
+                    alignItems: alignItems,
                 }}
             >
                 <Typography component="h1" variant="h5" sx={{color: textColor, mb: 3}}>
