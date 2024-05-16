@@ -1,21 +1,25 @@
 "use client";
 
 import React from "react";
-import {forgotPasswordApi} from "../../../api/entities/UserAccount";
+import { forgotPasswordApi } from "../../../api/entities/UserAccount";
 import MainLayout from "@/components/templates/MainLayout";
+import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import { CssTextFieldDarkBackground } from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import StyledButton from "@/components/atoms/StyledButton";
+import {Box, Button, Divider, Typography} from "@mui/material";
+import { useRouter } from "next/navigation";
+import useTheme from "@/theme/themes";
 
-
-const Page = () => {
-
+const ForgotPasswordPage = () => {
     const [email, setEmail] = React.useState("");
     const [errorMessage, setErrorMessage] = React.useState("");
     const [successMessage, setSuccessMessage] = React.useState("");
+    const theme = useTheme();
+    const router = useRouter();
 
     const handleForgotPassword = async () => {
-        console.log("here");
         forgotPasswordApi(email)
             .then((res) => {
-                console.log("bier")
                 setSuccessMessage(res.data);
                 setErrorMessage("");
             })
@@ -25,21 +29,53 @@ const Page = () => {
             })
     };
 
+
     return (
         <MainLayout>
-            {errorMessage && <p>{errorMessage}</p>}
+            <PrincipalFormLayout titleText="Find your account" alignItems="left">
+                <>
+                    <Divider sx={{ mb: 2, mt: -2 }} />
+                    <Typography variant="body1" sx={{ mb: 2, color: theme.palette.info.contrastText }}>
+                        To reset your password, please provide your email address below.
+                    </Typography>
+                    {errorMessage && (
+                        <Typography color="error" variant="body2" sx={{mb: 2}}>
+                            {errorMessage}
+                        </Typography>
+                    )}
+                    {successMessage && (
+                        <Typography color="green" variant="body2" sx={{ mb: 2 }}>
+                            {successMessage}
+                        </Typography>
+                    )}
+                    <CssTextFieldDarkBackground
+                        label="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Box sx={{ mt: 3 }}>
+                        <Divider sx={{ mb: 2 }} />
+                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Button
+                                variant="outlined"
+                                onClick={() => router.push("/login")}
+                            >
+                                Cancel
+                            </Button>
+                            <StyledButton
+                                variant="contained"
+                                onClick={handleForgotPassword}
+                            >
+                                Search
+                            </StyledButton>
+                        </Box>
+                    </Box>
 
-                <label style={{color: "white"}}>Please enter your email:</label>
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <button onClick={handleForgotPassword} >Search email</button>
-
+                </>
+            </PrincipalFormLayout>
         </MainLayout>
+
     );
 };
 
-export default Page;
+export default ForgotPasswordPage;
