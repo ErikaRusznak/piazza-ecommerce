@@ -1,6 +1,6 @@
 "use client";
 
-import React,  from "react";
+import React from "react";
 import {forgotPasswordApi} from "../../../api/entities/UserAccount";
 import MainLayout from "@/components/templates/MainLayout";
 
