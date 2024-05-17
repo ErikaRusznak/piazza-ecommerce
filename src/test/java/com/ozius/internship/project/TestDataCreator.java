@@ -51,7 +51,7 @@ public class TestDataCreator {
         UserAccount account1 = new UserAccount(
                 "Erika",
                 "Rusznak",
-                "erika.rusznak@student.upt.ro",
+                "erikarusznak@gmail.com",
                 "none",
                 "0747871208",
                 UserRole.CLIENT);
@@ -77,6 +77,16 @@ public class TestDataCreator {
                 UserRole.CLIENT);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer3 = createBuyer(em, account3);
+
+        UserAccount account4 = new UserAccount(
+                "Erika",
+                "Rusznak",
+                "erika.rusznak@student.upt.ro",
+                "none",
+                "0747871208",
+                UserRole.CLIENT);
+        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+        Buyers.buyer4 = createBuyer(em, account4);
 
     }
 
@@ -329,6 +339,7 @@ public class TestDataCreator {
         public static Buyer buyer1;
         public static Buyer buyer2;
         public static Buyer buyer3;
+        public static Buyer buyer4;
     }
 
     public static class Couriers {

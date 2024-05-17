@@ -4,6 +4,7 @@ import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
+import com.ozius.internship.project.entity.order.PaymentType;
 import com.ozius.internship.project.service.OrderService;
 import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
@@ -34,8 +35,7 @@ public class OrderController {
     @PostMapping("/orders")
     @PreAuthorize("hasRole('CLIENT') and #orderFromCartItemsDTO.email == authentication.name")
     public ResponseEntity<FullOrderDTO> makeOrders(@RequestBody OrderFromCartItemsDTO orderFromCartItemsDTO) {
-
-        FullOrderDTO fullOrderDTO = orderService.makeOrdersFromCheckout(orderFromCartItemsDTO.getEmail(), orderFromCartItemsDTO.getShippingAddress(), orderFromCartItemsDTO.getProducts());
+        FullOrderDTO fullOrderDTO = orderService.makeOrdersFromCheckout(orderFromCartItemsDTO.getEmail(), orderFromCartItemsDTO.getShippingAddress(), orderFromCartItemsDTO.getProducts(), orderFromCartItemsDTO.getPaymentType());
         return ResponseEntity.ok(fullOrderDTO);
     }
 

@@ -1,8 +1,8 @@
 package com.ozius.internship.project;
 
-import com.ozius.internship.project.infra.JpaCallback;
-import com.ozius.internship.project.infra.JpaCallbackVoid;
-import com.ozius.internship.project.infra.JpaHelper;
+import com.ozius.internship.project.infra.jpa.JpaCallback;
+import com.ozius.internship.project.infra.jpa.JpaCallbackVoid;
+import com.ozius.internship.project.infra.jpa.JpaHelper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;

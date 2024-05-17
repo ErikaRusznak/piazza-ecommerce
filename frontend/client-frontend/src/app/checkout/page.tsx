@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useCart} from "../../../contexts/CartContext";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
@@ -11,10 +11,16 @@ import CartSummary from "@/components/moleculas/cart/CartSummary";
 import ShippingAddressesComponent from "@/components/moleculas/ShippingAddressesComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
-import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
+import {Container, FormControlLabel, Grid, Radio, RadioGroup, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import StyledButton from "@/components/atoms/StyledButton";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import Stripe from "react-stripe-checkout";
+import axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
+import {Elements, PaymentElement} from '@stripe/react-stripe-js';
+import {loadStripe} from "@stripe/stripe-js";
+import {baseURL} from "../../../api/ApiClient";
 
 export type AddressType = {
     addressLine1: string;
@@ -38,6 +44,8 @@ const CheckoutPage = () => {
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType | null>(null);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
+    const [paymentType, setPaymentType] = useState('CASH');
+    const stripeRef = useRef(null);
 
     const shippingPrice = 10;
 
@@ -70,8 +78,7 @@ const CheckoutPage = () => {
                 (response) => {
                     setShippingAddresses(response.data);
                     setSelectedShippingAddress(response.data[0])
-                }
-            )
+                })
             .catch(
                 (err) => console.log(err)
             );
@@ -121,7 +128,7 @@ const CheckoutPage = () => {
         });
 
         if (!!selectedShippingAddress) {
-            submitOrder(selectedShippingAddress, checkoutItems, username)
+            submitOrder(selectedShippingAddress, checkoutItems, username, paymentType)
                 .then(
                     (response) => {
                         const orderId = response.data.id;
@@ -132,10 +139,8 @@ const CheckoutPage = () => {
                         // })
                         setTimeout(() => {
                             refreshCart();
-                            router.push(`/order-successful/${orderId}`);
-                        }, 2000)
-                    }
-                )
+                            router.push(`/order-successful/${orderId}`);}, 2000)
+                    })
                 .catch((e) => {
                     console.log(e)
                 })
@@ -144,21 +149,38 @@ const CheckoutPage = () => {
             //     type: 'danger',
             //     title: "Validation Error",
             //     paragraph: "Can't place an order without an address. Please select address or add a new one."
-            // })
+            // });
         }
     };
 
     useEffect(() => {
         if (username) {
-            getShippingAddresses();
-        }
-    }, [username]);
+            getShippingAddresses();}
+        }, [username]);
+
     const belowMedSize = useMediaQuery(theme.breakpoints.down("md"));
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
         {label: "Cart", link: "/shopping-cart"},
-        {label: "Checkout", link: ""}
-    ];
+        {label: "Checkout", link: ""}];
+
+    async function handleToken(token: { id: any; }) {
+        await axios.post(`${baseURL}/payment/charge`, "", {
+            headers: {
+                token: token.id,
+                amount: cartTotalPrice + 10,
+            },
+        }).then(() => {
+            alert("Payment Success");
+            handlePlaceOrder();
+        }).catch((error) => {
+            alert(error);
+        });
+    };
+
+    const handlePaymentTypeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+        setPaymentType(event.target.value);
+    };
 
     return (
         <MainLayout>
@@ -193,24 +215,44 @@ const CheckoutPage = () => {
                                     onEdit={handleEditAddress}
                                 />
                             </Grid>
+                            <Typography variant="h6">Payment Method</Typography>
+                            <RadioGroup value={paymentType} onChange={handlePaymentTypeChange}>
+                                <FormControlLabel value="CASH" control={<Radio/>} label="Cash"/>
+                                <FormControlLabel value="CARD" control={<Radio/>} label="Card"/>
+                            </RadioGroup>
 
                             <Grid item xs={12}>
                                 <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
-                                    <StyledButton
-                                        fullWidth
-                                        disabled={shippingAddresses.length===0 || !selectedShippingAddress}
-                                        variant="contained"
-                                        sx={{mt: 3}}
-                                        onClick={handlePlaceOrder}
-                                    >
-                                        Place order
-                                    </StyledButton>
+                                    {paymentType === "CASH" ? (
+                                        <StyledButton
+                                            fullWidth
+                                            disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
+                                            variant="contained"
+                                            sx={{mt: 3}}
+                                            onClick={handlePlaceOrder}
+                                        >
+                                            Place order
+                                        </StyledButton>
+                                    ): (
+                                        <StripeCheckout
+                                            stripeKey="pk_test_51PHVHnHam90jk2a1epzt3sP93OEHHwTgWxhOwYSQDCCnjT2SEJtzSTJ2JyVVfyI8FxnaP3cgnS2ZCNKTRPm4Bgjq00671w9qWP"
+                                            token={handleToken}
+                                        >
+                                            <StyledButton
+                                                fullWidth
+                                                disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
+                                                variant="contained"
+                                                sx={{mt: 3}}
+                                            >
+                                                Place order
+                                            </StyledButton>
+                                        </StripeCheckout>
+                                    )}
+
                                 </CartSummary>
                             </Grid>
                         </Grid>
                     </Grid>
-
-
                 </Grid>
 
                 <AddressFormModal
@@ -225,5 +267,4 @@ const CheckoutPage = () => {
         </MainLayout>
     );
 };
-
 export default CheckoutPage;

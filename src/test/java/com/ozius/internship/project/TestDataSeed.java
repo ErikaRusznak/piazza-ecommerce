@@ -1,6 +1,6 @@
 package com.ozius.internship.project;
 
-import com.ozius.internship.project.infra.JpaHelper;
+import com.ozius.internship.project.infra.jpa.JpaHelper;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;

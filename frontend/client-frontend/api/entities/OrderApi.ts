@@ -1,14 +1,19 @@
 import {api} from "../ApiClient";
 import {ShippingAddressType} from "@/app/checkout/page";
+import axios from "axios";
 
-export const submitOrder = (shippingAddress: ShippingAddressType, products: {
-    quantity: any;
-    productId: any
-}[] | undefined, email: string) => {
+export const submitOrder = (
+    shippingAddress: ShippingAddressType,
+    products: {
+        quantity: any;
+        productId: any }[] | undefined,
+    email: string,
+    paymentType: string) => {
     return api.post('/orders', {
         shippingAddress: shippingAddress,
         products: products,
-        email: email
+        email: email,
+        paymentType: paymentType
     })
 }
 
