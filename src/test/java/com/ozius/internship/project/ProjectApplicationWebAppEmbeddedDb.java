@@ -3,7 +3,7 @@ package com.ozius.internship.project;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages ={"com.ozius.internship.project"})
 public class ProjectApplicationWebAppEmbeddedDb {
 
 	public static void main(String[] args) {
@@ -16,6 +16,8 @@ public class ProjectApplicationWebAppEmbeddedDb {
 				)
 				.run(args);
 	}
+
+
 
 }
 
