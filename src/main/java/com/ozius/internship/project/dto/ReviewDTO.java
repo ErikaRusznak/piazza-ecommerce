@@ -12,4 +12,6 @@ public class ReviewDTO {
     private float rating;
     private BuyerDTO buyer;
     private LocalDate publishDate;
+    private int likes;
+    private int dislikes;
 }
