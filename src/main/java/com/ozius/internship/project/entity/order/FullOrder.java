@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -22,6 +24,7 @@ public class FullOrder extends BaseEntity {
         String BUYER_EMAIL = "BUYER_EMAIL";
         String TOTAL_PRICE = "TOTAL_PRICE";
         String ORDER_NUMBER = "ORDER_NUMBER";
+        String PAYMENT_TYPE = "PAYMENT_TYPE";
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -29,19 +32,29 @@ public class FullOrder extends BaseEntity {
             "FOREIGN KEY (" + Order.Columns.ORDER_ID + ") REFERENCES " + FullOrder.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE CASCADE"))
     private Set<Order> orders;
 
+    @Getter
     @Column(name = Columns.PUBLISH_DATE, nullable = false, updatable = false)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate publishDate;
 
+    @Getter
     @Column(name = Columns.BUYER_EMAIL, nullable = false)
     private String buyerEmail;
 
+    @Setter
+    @Getter
     @Column(name = Columns.TOTAL_PRICE, nullable = false)
     private float totalPrice;
 
+    @Getter
     @Column(name = Columns.ORDER_NUMBER, nullable = false)
     private String orderNumber;
 
+    @Getter
+    @Column(name = Columns.PAYMENT_TYPE, nullable = false)
+    private PaymentType paymentType;
+
+    @Getter
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "country", column = @Column(name = Order.Columns.COUNTRY, nullable = false)),
@@ -57,13 +70,14 @@ public class FullOrder extends BaseEntity {
 
     }
 
-    public FullOrder(String buyerEmail, Address shippingAddress) {
+    public FullOrder(String buyerEmail, Address shippingAddress, PaymentType paymentType) {
         this.publishDate = LocalDate.now();
         this.orders = new HashSet<>();
         this.buyerEmail = buyerEmail;
         this.shippingAddress = shippingAddress;
         this.totalPrice = 0;
         this.orderNumber = generateRandomOrderNumber();
+        this.paymentType = paymentType;
     }
 
     public void addOrder(Order order) {
@@ -72,30 +86,6 @@ public class FullOrder extends BaseEntity {
 
     public Set<Order> getOrders() {
         return Collections.unmodifiableSet(orders);
-    }
-
-    public LocalDate getPublishDate() {
-        return publishDate;
-    }
-
-    public String getBuyerEmail() {
-        return buyerEmail;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public static String generateRandomOrderNumber() {

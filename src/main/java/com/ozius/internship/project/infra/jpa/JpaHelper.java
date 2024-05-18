@@ -1,5 +1,7 @@
-package com.ozius.internship.project.infra;
+package com.ozius.internship.project.infra.jpa;
 
+import com.ozius.internship.project.infra.jpa.JpaCallback;
+import com.ozius.internship.project.infra.jpa.JpaCallbackVoid;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 

@@ -1,4 +1,4 @@
-package com.ozius.internship.project.infra;
+package com.ozius.internship.project.infra.jpa;
 
 import jakarta.persistence.EntityManager;
 

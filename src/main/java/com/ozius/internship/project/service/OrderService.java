@@ -6,6 +6,7 @@ import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.entity.courier.Courier;
 import com.ozius.internship.project.entity.order.OrderStatus;
+import com.ozius.internship.project.entity.order.PaymentType;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
@@ -65,13 +66,13 @@ public class OrderService {
 
 
     @Transactional
-    public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products) {
+    public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products, PaymentType paymentType) {
 
         Address address = shippingAddress.getAddress();
         String buyerFirstName = shippingAddress.getFirstName();
         String buyerLastName = shippingAddress.getLastName();
         String buyerTelephone = shippingAddress.getTelephone();
-        FullOrder fullOrder = new FullOrder(buyerEmail, address);
+        FullOrder fullOrder = new FullOrder(buyerEmail, address, paymentType);
 
         Buyer buyer = buyerService.getBuyerByEmail(buyerEmail);
         if(buyer==null){

@@ -51,7 +51,7 @@ const OrdersPage: React.FC = () => {
             </Typography>
             {fullOrders.map((fullOrder: any) => (
                 <Accordion key={fullOrder.orderNumber}>
-                    <AccordionSummary expandIcon={<Expand sx={{color: theme.palette.lightColor.main}}/>} sx={{ backgroundColor: theme.palette.background.lighter, mt:2, border: "1px solid #a5b4fc" }}>
+                    <AccordionSummary expandIcon={<Expand sx={{color: theme.palette.lightColor.main, }}/>} sx={{ backgroundColor: theme.palette.background.lighter, mt:2, border: "1px solid #a5b4fc", borderRadius: "15px" }}>
                         <Typography variant="subtitle1" sx={{ color: theme.palette.info.main, "&:hover": {color: theme.palette.lightColor.main} }}>
                             Order Number: #{fullOrder.orderNumber}
                         </Typography>
