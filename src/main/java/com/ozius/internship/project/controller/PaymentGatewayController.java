@@ -18,7 +18,8 @@ public class PaymentGatewayController {
 
     @PostMapping("/payment/charge")
     @PreAuthorize("hasRole('CLIENT')")
-    public Charge chargeCard(@RequestHeader(value="token") String token, @RequestHeader(value="amount") Double amount) throws Exception {
+    public Charge chargeCard(@RequestHeader(value = "token") String token, @RequestHeader(value = "amount") Double amount) throws Exception {
         return stripeClient.chargeNewCard(token, amount);
     }
+
 }

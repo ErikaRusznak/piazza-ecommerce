@@ -1,6 +1,5 @@
-import {api} from "../ApiClient";
+import {api, baseURL} from "../ApiClient";
 import {ShippingAddressType} from "@/app/checkout/page";
-import axios from "axios";
 
 export const submitOrder = (
     shippingAddress: ShippingAddressType,
@@ -23,4 +22,13 @@ export const getFullOrderByIdApi = (fullOrderId: number) => {
 
 export const getFullOrdersForBuyer = () => {
     return api.get(`fullOrder`)
+}
+
+export const paymentByCardApi = (token: any, cartTotalPrice: number, shippingPrice: number) => {
+    return api.post(`${baseURL}/payment/charge`, "", {
+        headers: {
+            token: token.id,
+            amount: cartTotalPrice + shippingPrice,
+        },
+    })
 }

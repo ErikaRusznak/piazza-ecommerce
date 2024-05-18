@@ -1,26 +1,22 @@
 "use client";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "../../../contexts/CartContext";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../api/entities/BuyerApi";
-import {submitOrder} from "../../../api/entities/OrderApi";
+import {paymentByCardApi, submitOrder} from "../../../api/entities/OrderApi";
 import CartItemCard from "@/components/moleculas/cart/CartItemCard";
 import CartSummary from "@/components/moleculas/cart/CartSummary";
 import ShippingAddressesComponent from "@/components/moleculas/ShippingAddressesComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
-import {Container, FormControlLabel, Grid, Radio, RadioGroup, Typography, useMediaQuery} from "@mui/material";
+import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import StyledButton from "@/components/atoms/StyledButton";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
-import Stripe from "react-stripe-checkout";
-import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
-import {Elements, PaymentElement} from '@stripe/react-stripe-js';
-import {loadStripe} from "@stripe/stripe-js";
-import {baseURL} from "../../../api/ApiClient";
+import PaymentTypeRadio from "@/components/atoms/PaymentTypeRadio";
 
 export type AddressType = {
     addressLine1: string;
@@ -44,8 +40,7 @@ const CheckoutPage = () => {
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType | null>(null);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
-    const [paymentType, setPaymentType] = useState('CASH');
-    const stripeRef = useRef(null);
+    const [paymentType, setPaymentType] = useState<string>('CASH');
 
     const shippingPrice = 10;
 
@@ -165,17 +160,13 @@ const CheckoutPage = () => {
         {label: "Checkout", link: ""}];
 
     async function handleToken(token: { id: any; }) {
-        await axios.post(`${baseURL}/payment/charge`, "", {
-            headers: {
-                token: token.id,
-                amount: cartTotalPrice + 10,
-            },
-        }).then(() => {
-            alert("Payment Success");
-            handlePlaceOrder();
-        }).catch((error) => {
-            alert(error);
-        });
+        await paymentByCardApi(token, cartTotalPrice, shippingPrice)
+            .then(() => {
+                handlePlaceOrder();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     };
 
     const handlePaymentTypeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -214,12 +205,9 @@ const CheckoutPage = () => {
                                     onAddAddress={handleAddAddress}
                                     onEdit={handleEditAddress}
                                 />
+                                <PaymentTypeRadio paymentType={paymentType} handlePaymentTypeChange={handlePaymentTypeChange} />
                             </Grid>
-                            <Typography variant="h6">Payment Method</Typography>
-                            <RadioGroup value={paymentType} onChange={handlePaymentTypeChange}>
-                                <FormControlLabel value="CASH" control={<Radio/>} label="Cash"/>
-                                <FormControlLabel value="CARD" control={<Radio/>} label="Card"/>
-                            </RadioGroup>
+
 
                             <Grid item xs={12}>
                                 <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
@@ -235,7 +223,7 @@ const CheckoutPage = () => {
                                         </StyledButton>
                                     ): (
                                         <StripeCheckout
-                                            stripeKey="pk_test_51PHVHnHam90jk2a1epzt3sP93OEHHwTgWxhOwYSQDCCnjT2SEJtzSTJ2JyVVfyI8FxnaP3cgnS2ZCNKTRPm4Bgjq00671w9qWP"
+                                            stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY!}
                                             token={handleToken}
                                         >
                                             <StyledButton
