@@ -78,7 +78,7 @@ public class RegistrationResource {
                 sellerDTO.getEmail(),
                 sellerDTO.getImageName(),
                 sellerDTO.getTelephone(),
-               UserRole.ADMIN
+               UserRole.SELLER
         );
         userAccount.setInitialPassword(passwordEncoder.encode(sellerDTO.getPassword()));
 

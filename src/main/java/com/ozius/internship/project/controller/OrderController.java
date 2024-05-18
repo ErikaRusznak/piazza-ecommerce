@@ -4,7 +4,6 @@ import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
-import com.ozius.internship.project.entity.order.PaymentType;
 import com.ozius.internship.project.service.OrderService;
 import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
 import com.ozius.internship.project.service.queries.filter.FilterSpecs;
@@ -55,7 +54,7 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SELLER')")
     public ApiPaginationResponse<List<OrderDTO>> getOrdersByFilter(
             @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
             @RequestParam(name = "page", defaultValue = "1") int page,
@@ -83,13 +82,13 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}/processing")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsProcessing(@PathVariable long id) {
         orderService.markOrderAsProcessing(id);
     }
 
     @PutMapping("/orders/{id}/ready-to-ship")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsReadyToShip(@PathVariable long id) {
         orderService.markOrderAsReadyToShip(id);
     }
@@ -107,7 +106,7 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}/canceled")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsCanceled(@PathVariable long id) {
         orderService.markOrderAsCanceled(id);
     }

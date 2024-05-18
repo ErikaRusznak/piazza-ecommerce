@@ -45,7 +45,7 @@ public class ClientDetailsMapper {
             roles.add("CLIENT");
         }
         if (getSeller(email).isPresent()) {
-            roles.add("ADMIN");
+            roles.add("SELLER");
         }
         if (getCourier(email).isPresent()) {
             roles.add("COURIER");

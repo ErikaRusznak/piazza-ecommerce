@@ -51,7 +51,7 @@ public class SellerService {
 
 
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SELLER')")
     public void updateSellerLegalDetails(long id, LegalDetails legalDetails) {
         Seller seller = sellerRepository.findById(id).orElseThrow(() -> new NotFoundException("Seller not found"));
 

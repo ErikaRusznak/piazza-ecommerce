@@ -183,7 +183,7 @@ public class TestDataCreator {
                 "alex.dulfu@gmail.com",
                 "/images/magazine.jpg",
                 "0734896512",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller1 = createSellerFarmer(em,
                 new Address("Romania",
@@ -201,7 +201,7 @@ public class TestDataCreator {
                 "rusznak65@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller2 = createSellerFarmer(em,
                 new Address("Romania",
@@ -219,7 +219,7 @@ public class TestDataCreator {
                 "ozius123@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller3 = createSellerCompany(em,
                 new Address("Romania",

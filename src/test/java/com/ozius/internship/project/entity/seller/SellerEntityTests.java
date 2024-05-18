@@ -53,7 +53,7 @@ public class SellerEntityTests extends JpaBaseEntity {
                             "vladciobotariu@gmail.com",
                             "/src/image1",
                             "0734896512",
-                            UserRole.ADMIN
+                            UserRole.SELLER
                     ), address
             );
             em.persist(seller);
@@ -78,7 +78,7 @@ public class SellerEntityTests extends JpaBaseEntity {
         assertThat(persistedSeller.getLegalAddress().getAddressLine2()).isEqualTo("Bloc 3 Scara B Ap 12");
         assertThat(persistedSeller.getLegalAddress().getZipCode()).isEqualTo("303413");
         assertThat(persistedSeller.getSellerType()).isEqualTo(SellerType.LOCAL_FARMER);
-        assertThat(persistedSeller.getAccount().getUserRole()).isEqualTo(UserRole.ADMIN);
+        assertThat(persistedSeller.getAccount().getUserRole()).isEqualTo(UserRole.SELLER);
         assertThat(persistedSeller.getLegalDetails()).isNull();
 
         assertThat(persistedSeller).isEqualTo(addedSeller);
@@ -104,7 +104,7 @@ public class SellerEntityTests extends JpaBaseEntity {
                             "vladciobotariu@gmail.com",
                             "/src/image1",
                             "0734896512",
-                            UserRole.ADMIN
+                            UserRole.SELLER
                     ), address
             );
             em.persist(seller);
@@ -131,7 +131,7 @@ public class SellerEntityTests extends JpaBaseEntity {
         Seller seller = doTransaction(em -> {
 
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Circumvalatiunii nr 4", "Bloc 3 Scara B Ap 12", "303413");
-            UserAccount userAccount = new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount userAccount = new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             userAccount.setInitialPassword(passwordEncoder.encode("1234"));
 
             return TestDataCreator.createSellerFarmer(em, address, userAccount, "honey srl");
@@ -156,7 +156,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         assertThat(persistedSeller.getAccount().getLastName()).isEqualTo("Ciobotariu");
         assertThat(persistedSeller.getAccount().getEmail()).isEqualTo("vladciobotariu@gmail.com");
-        assertThat(persistedSeller.getAccount().getUserRole()).isEqualTo(UserRole.ADMIN);
+        assertThat(persistedSeller.getAccount().getUserRole()).isEqualTo(UserRole.SELLER);
         assertTrue(passwordEncoder.matches("1234", persistedSeller.getAccount().getPasswordHash()));
         assertThat(persistedSeller.getAccount().getImageName()).isEqualTo("/src/image1");
         assertThat(persistedSeller.getAccount().getTelephone()).isEqualTo("0734896512");
@@ -221,7 +221,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Act
         Exception exception = doTransaction(em -> {
-            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             return assertThrows(IllegalSellerDetails.class, ()->{
                 Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address1, null);
                 em.persist(seller);
@@ -243,7 +243,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Act
         Exception exception = doTransaction(em -> {
-            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             return assertThrows(IllegalSellerDetails.class, ()->{
                 Seller seller = new Seller("Mega Fresh SRL", SellerType.COMPANY, account, address1, null);
                 em.persist(seller);
@@ -265,7 +265,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Act
         doTransaction(em -> {
-            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.F, 41, 34, LocalDate.now()));
 
             Seller seller = new Seller("Mega Fresh SRL", SellerType.PFA, account, address1, legalDetails);
@@ -291,7 +291,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Circumvalatiunii nr 4", "Bloc 3 Scara B Ap 12", "303413");
 
-            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             account.setInitialPassword(passwordEncoder.encode("1234"));
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.C, 41, 34, LocalDate.now()));
 
@@ -343,7 +343,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Circumvalatiunii nr 4", "Bloc 3 Scara B Ap 12", "303413");
 
-            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.ADMIN);
+            UserAccount account =  new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             account.setInitialPassword(passwordEncoder.encode("1234"));
             LegalDetails legalDetails = new LegalDetails("MEGA FRESH SA", "RO37745609", new RegistrationNumber(CompanyType.J, 41, 34, LocalDate.now()));
 

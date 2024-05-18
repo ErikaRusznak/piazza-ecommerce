@@ -44,8 +44,8 @@ public class UserService {
     }
 
     @Transactional
-    public List<SimpleSellerDTO> getAllAdminUsersWithSellerAlias() {
-        return userAccountRepository.findAllByUserRole(UserRole.ADMIN).stream()
+    public List<SimpleSellerDTO> getAllSellerUsersWithSellerAlias() {
+        return userAccountRepository.findAllByUserRole(UserRole.SELLER).stream()
                 .map(user -> {
                     Seller seller = sellerRepository.findSellerByAccount_Id(user.getId());
                     if (seller != null) {
