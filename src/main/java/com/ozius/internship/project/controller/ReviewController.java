@@ -4,7 +4,6 @@ import com.ozius.internship.project.dto.ReviewDTO;
 import com.ozius.internship.project.entity.review.Review;
 import com.ozius.internship.project.service.ReviewService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,4 +32,5 @@ public class ReviewController {
         ReviewDTO reviewDTO = reviewService.addReview(productId, userId, review.getDescription(), review.getRating());
         return ResponseEntity.ok(reviewDTO);
     }
+
 }

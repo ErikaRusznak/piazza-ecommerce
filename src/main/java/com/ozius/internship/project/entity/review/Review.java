@@ -89,14 +89,6 @@ public class Review extends BaseEntity {
         return comment;
     }
 
-    public void addLike() {
-        this.likes++;
-    }
-
-    public void addDislike() {
-        this.dislikes++;
-    }
-
     @Override
     public String toString() {
         return "Review{" +

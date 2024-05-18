@@ -2,60 +2,66 @@ import React, {useEffect, useState} from "react";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {getReviewByIdApi} from "../../../../api/entities/ReviewApi";
 import ProductRating from "@/components/moleculas/ProductRating";
-import {Box, Typography, useMediaQuery} from "@mui/material";
+import {Box, Button, Typography, useMediaQuery} from "@mui/material";
 import {EditNoteIcon} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
 import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
+import {getCommentsForReviewApi} from "../../../../api/entities/CommentApi";
+import CommentsComponent from "@/components/moleculas/reviews/CommentsComponent";
 
 type ReviewComponentProps = {
-    review: any; // TODO - make review type
+    review: any;
     updateReviewInState: (updatedReview: any) => void;
 }
-const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) => {
 
-    /***
-     *
-     * @param review {{
-     *     id: long,
-     *     description: string,
-     *     rating: float,
-     *     buyer: {
-     *         firstName: string,
-     *         lastName: string,
-     *         imageName: string,
-     *         telephone: string
-     *     }
-     *      }}
-     */
+const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) => {
     const theme = useTheme();
+    const {isAuthenticated, username} = useAuth();
+    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const firstLetterOfFirstName = review.buyer.firstName.charAt(0);
     const firstLetterOfLastName = review.buyer.lastName.charAt(0);
-    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const {isAuthenticated, username} = useAuth();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedReview, setSelectedReview] = useState(null);
+    const [showComments, setShowComments] = useState(false);
+    const [comments, setComments] = useState<any>([]);
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     }
 
+    const getCommentsForReview = (reviewId: number) => {
+        getCommentsForReviewApi(reviewId)
+            .then((res) => {
+                setComments(res.data);
+            })
+            .catch((err) => console.log(err));
+    }
+
+    const toggleComments = () => {
+        if (!showComments) {
+            getCommentsForReview(review.id);
+        }
+        setShowComments(!showComments);
+    }
+
     const updateReview = (updatedReview: any) => {
-        setSelectedReview(updatedReview)
+        setSelectedReview(updatedReview);
         updateReviewInState(updatedReview);
     };
 
     const getReviewById = (reviewId: number) => {
         getReviewByIdApi(reviewId)
             .then((res) => {
-                setSelectedReview(res.data)
+                setSelectedReview(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
     }
+
 
     useEffect(() => {
         getReviewById(review.id);
+        getCommentsForReview(review.id);
     }, []);
 
     return (
@@ -87,7 +93,7 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                             </Box>
                         )}
                         <Typography sx={{color: theme.palette.info.main, fontWeight: "bold"}}>{review.buyer.firstName} {review.buyer.lastName}</Typography>
-                        {(isAuthenticated && review.buyer.email===username) && (
+                        {(isAuthenticated && review.buyer.email === username) && (
                             <Box sx={{
                                 display: "flex", justifyContent: "center", alignItems: "center"
                             }}>
@@ -119,13 +125,17 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                         <Typography variant="body1" sx={{color: theme.palette.info.main}}>
                             {review.description}
                         </Typography>
-
-                        <Box sx={{ display: "flex", justifyContent: "space-between", pt: 1.5, }}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", pt: 1.5 }}>
                             <Typography sx={{color: theme.palette.info.main, fontSize: "14px"}}>{review.publishDate}</Typography>
+                            <Button onClick={toggleComments} variant="text" sx={{color: theme.palette.primary.main}}>
+                                {showComments ? "Hide Comments" : "Show Comments"}
+                            </Button>
                         </Box>
+
+                        {showComments && (
+                            <CommentsComponent reviewId={review.id} comments={comments} setComments={setComments}/>
+                        )}
                     </Box>
-
-
                 </Box>
             </Box>
 
