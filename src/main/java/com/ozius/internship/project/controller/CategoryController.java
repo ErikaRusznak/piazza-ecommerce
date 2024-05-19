@@ -1,7 +1,6 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.entity.Category;
-import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.repository.CategoryRepository;
 import com.ozius.internship.project.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -59,5 +58,10 @@ public class CategoryController {
         categoryService.deleteCategory(id);
     }
 
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable long id) {
+        Category category = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(category);
+    }
 
 }

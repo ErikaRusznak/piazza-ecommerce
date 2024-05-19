@@ -15,3 +15,7 @@ export const deleteCategoryByIdApi = (categoryId: string) => {
 export const updateCategoryApi = (category: any) => {
     return api.put("/categories", category);
 }
+
+export const getCategoryByIdApi = (categoryId: any) => {
+    return api.get(`/categories/${categoryId}`);
+}

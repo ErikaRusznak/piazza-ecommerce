@@ -54,7 +54,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
                         borderColor: theme.palette.primary.main,
                     },
                     '&:disabled': {
-                        background: theme.palette.tertiary.main,
+                        background: theme.palette.lightColor.main,
                         color: theme.palette.info.main,
                     },
 

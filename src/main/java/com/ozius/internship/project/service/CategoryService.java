@@ -1,7 +1,6 @@
 package com.ozius.internship.project.service;
 
 import com.ozius.internship.project.entity.Category;
-import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,7 @@ public class CategoryService {
     public Category updateCategory(Category category) {
         Category updatedCategory = categoryRepository.findById(category.getId()).orElseThrow();
         updatedCategory.updateCategory(category.getName(), category.getImageName());
+        categoryRepository.save(updatedCategory);
         return updatedCategory;
     }
 
@@ -39,5 +39,10 @@ public class CategoryService {
             throw new IllegalStateException("category does not exist");
         }
         categoryRepository.deleteById(categoryId);
+    }
+
+    @Transactional
+    public Category getCategoryById(long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow();
     }
 }
