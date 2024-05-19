@@ -6,15 +6,10 @@ import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.seller.RegistrationNumber;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.seller.SellerType;
-import com.ozius.internship.project.entity.user.Address;
-import com.ozius.internship.project.entity.user.UserAccount;
+import com.ozius.internship.project.entity.user.*;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
-import com.ozius.internship.project.entity.user.UserRole;
-import com.ozius.internship.project.repository.BuyerRepository;
-import com.ozius.internship.project.repository.CartRepository;
-import com.ozius.internship.project.repository.CourierRepository;
-import com.ozius.internship.project.repository.SellerRepository;
+import com.ozius.internship.project.repository.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,13 +25,15 @@ public class RegistrationResource {
     private final CartRepository cartRepository;
     private final SellerRepository sellerRepository;
     private final CourierRepository courierRepository;
+    private final SellerRequestRepository sellerRequestRepository;
 
-    public RegistrationResource(BuyerRepository buyerRepository, PasswordEncoder passwordEncoder, CartRepository cartRepository, SellerRepository sellerRepository, CourierRepository courierRepository) {
+    public RegistrationResource(BuyerRepository buyerRepository, PasswordEncoder passwordEncoder, CartRepository cartRepository, SellerRepository sellerRepository, CourierRepository courierRepository, SellerRequestRepository sellerRequestRepository) {
         this.buyerRepository = buyerRepository;
         this.passwordEncoder = passwordEncoder;
         this.cartRepository = cartRepository;
         this.sellerRepository = sellerRepository;
         this.courierRepository = courierRepository;
+        this.sellerRequestRepository = sellerRequestRepository;
     }
 
     @CrossOrigin(origins = "*")
@@ -70,15 +67,18 @@ public class RegistrationResource {
 
     @PostMapping("/register-seller")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void registerSeller(@Valid @RequestBody RegisterSellerDTO sellerDTO){
-
+    public void registerSeller(@Valid @RequestBody RegisterSellerDTO sellerDTO) throws Exception {
+        SellerRequest sellerRequest = sellerRequestRepository.findBySellerEmailAndStatus(sellerDTO.getEmail(), RequestStatus.APPROVED);
+        if(sellerRequest == null) {
+            throw new Exception("Can't create an account, Admin has not approved the request");
+        }
         UserAccount userAccount = new UserAccount(
                 sellerDTO.getFirstName(),
                 sellerDTO.getLastName(),
                 sellerDTO.getEmail(),
                 sellerDTO.getImageName(),
                 sellerDTO.getTelephone(),
-               UserRole.SELLER
+                UserRole.SELLER
         );
         userAccount.setInitialPassword(passwordEncoder.encode(sellerDTO.getPassword()));
 
@@ -108,6 +108,7 @@ public class RegistrationResource {
         }
         sellerRepository.save(seller);
     }
+
 
     @PostMapping("/register-courier")
     @ResponseStatus(code = HttpStatus.CREATED)

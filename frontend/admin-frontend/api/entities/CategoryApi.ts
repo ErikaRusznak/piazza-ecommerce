@@ -8,7 +8,7 @@ export const createCategoryApi = (category: any) => {
     return api.post("/categories", category);
 }
 
-export const deleteCategoryByIdApi = (categoryId: string) => {
+export const deleteCategoryByIdApi = (categoryId: number) => {
     return api.delete(`/categories/${categoryId}`);
 }
 
@@ -16,6 +16,6 @@ export const updateCategoryApi = (category: any) => {
     return api.put("/categories", category);
 }
 
-export const getCategoryByIdApi = (categoryId: any) => {
+export const getCategoryByIdApi = (categoryId: number) => {
     return api.get(`/categories/${categoryId}`);
 }

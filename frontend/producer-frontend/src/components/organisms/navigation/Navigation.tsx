@@ -21,7 +21,7 @@ import {
     MenuIcon, NotificationsIcon, PersonIcon,
     ShoppingCartCheckoutIcon
 } from "@/components/atoms/icons";
-import {Button, useMediaQuery} from "@mui/material";
+import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
 
@@ -160,7 +160,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" onClick={() => router.push("/")} sx={{cursor: "pointer"}}>
                         Seller Portal
                     </Typography>
                 </Toolbar>

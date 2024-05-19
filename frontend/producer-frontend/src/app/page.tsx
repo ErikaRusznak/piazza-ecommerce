@@ -5,6 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import useTheme from "@/theme/themes";
 import { useRouter } from "next/navigation";
+import StyledLink from "@/components/atoms/StyledLink";
 
 const HomePage = () => {
     const theme = useTheme();
@@ -39,13 +40,14 @@ const HomePage = () => {
                     sx={{
                         color: theme.palette.info.main,
                         width: "70%",
-                        mb: 4,
                         fontSize: { xs: "16px", sm: "18px", md: "20px" },
                     }}
                 >
                     Manage your online store efficiently with our tools.
                 </Typography>
-
+                <Typography variant="body1" gutterBottom color={theme.palette.info.main} sx={{m: 4}}>
+                    If you did not send a request for being able to create an account, try <StyledLink color="primary" href="/send-request">here</StyledLink>!
+                </Typography>
                 <Box
                     sx={{
                         display: "flex",
@@ -81,6 +83,7 @@ const HomePage = () => {
                     >
                         Check orders
                     </Button>
+
                 </Box>
             </Box>
         </MainLayout>

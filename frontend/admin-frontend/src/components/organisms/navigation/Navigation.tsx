@@ -123,7 +123,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
 
     const informationList = [
         {label: "Categories", icon: <CategoryIcon sx={{color: theme.palette.info.main}}/>, href: "/categories"},
-        {label: "Sellers", icon: <PeopleIcon sx={{color: theme.palette.info.main}}/>, href: "/sellers"},
+        {label: "Requests", icon: <PeopleIcon sx={{color: theme.palette.info.main}}/>, href: "/requests"},
 
     ];
 

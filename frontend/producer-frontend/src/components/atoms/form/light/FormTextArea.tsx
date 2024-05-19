@@ -1,9 +1,9 @@
 import React from "react";
-import {CssTextField} from "@/components/atoms/form/light/CssTextField";
-import {Controller} from "react-hook-form";
 import useTheme from "@/theme/themes";
+import {Controller} from "react-hook-form";
+import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 
-type FormTextFieldProps = {
+type FormTextAreaProps = {
     name: string;
     control: any;
     label: string;
@@ -11,7 +11,7 @@ type FormTextFieldProps = {
     required?: boolean | undefined;
 }
 
-const FormTextField = ({name, control, label, type, required=true}:FormTextFieldProps) => {
+export const FormTextArea = ({name, control, label, type, required=true}:FormTextAreaProps) => {
 
     const theme = useTheme();
 
@@ -25,10 +25,12 @@ const FormTextField = ({name, control, label, type, required=true}:FormTextField
                     fullWidth
                     required={required}
                     type={type}
+                    rows={2}
+                    multiline
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     {...field}
-                    sx={{ py: 1 }}
+                    sx={{ my: 1, py: 1 }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         field.onChange(event);
                     }}
@@ -48,5 +50,4 @@ const FormTextField = ({name, control, label, type, required=true}:FormTextField
     );
 };
 
-export default FormTextField;
-
+export default FormTextArea;
