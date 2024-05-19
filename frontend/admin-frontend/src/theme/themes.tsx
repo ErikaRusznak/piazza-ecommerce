@@ -10,7 +10,9 @@ import "@fontsource/open-sans/500-italic.css";
 import "@fontsource/open-sans/600-italic.css";
 import "@fontsource/open-sans/700-italic.css";
 import "@fontsource/open-sans/800-italic.css";
-import {createTheme} from '@mui/material/styles';
+import {createTheme, TypeBackground} from '@mui/material/styles';
+import {palette} from "@mui/system";
+import {decl} from "postcss";
 
 declare module "@mui/material/styles" {
     interface TypeBackground {
@@ -62,8 +64,11 @@ const useTheme = () => createTheme({
             background: {
                 paper: "#fff",
                 lighter: "#1a2747",
-                default: "#0F172A",
-                darker: "#020617",
+                // default: "#0F172A",
+
+                default: "white",
+                darker: "white",
+                // darker: "#020617",
                 gradient:
                     "linear-gradient(267.27deg, #6366f1 0%, #4338ca 100%)",
             },
@@ -85,7 +90,8 @@ const useTheme = () => createTheme({
                 contrastText: "black",
             },
             info: {
-                main: "#fff",
+                // main: "#fff",
+                main: "#020617",
                 contrastText: "#1e1b4b",
             },
         },

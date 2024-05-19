@@ -14,14 +14,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import useTheme from "@/theme/themes";
+import PeopleIcon from '@mui/icons-material/People';
 import {
-    CategoryIcon, ChatIcon,
+    CategoryIcon,
     ChevronLeftIcon,
     ChevronRightIcon, LoginIcon, LogoutIcon,
-    MenuIcon, NotificationsIcon, PersonIcon,
-    ShoppingCartCheckoutIcon
+    MenuIcon, PersonIcon,
 } from "@/components/atoms/icons";
-import {Button, useMediaQuery} from "@mui/material";
+
+import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
 
@@ -97,7 +98,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
             boxSizing: 'border-box',
             '& .MuiDrawer-paper.MuiDrawer-paperAnchorLeft': {
                 backgroundColor: theme.palette.background.default,
-                borderRightColor: theme.palette.background.lighter,
+                borderRightColor: "#eee",
             },
             ...(open && {
                 ...openedStyles,
@@ -121,18 +122,13 @@ export default function Navigation({children}: { children: React.ReactNode }) {
     const pathname = usePathname();
 
     const informationList = [
-        {label: "Products", icon: <CategoryIcon sx={{color: theme.palette.info.main}}/>, href: "/products"},
-        {label: "Orders", icon: <ShoppingCartCheckoutIcon sx={{color: theme.palette.info.main}}/>, href: "/orders"},
-        {label: "Chat", icon: <ChatIcon sx={{color: theme.palette.info.main}}/>, href: "/chats"}
+        {label: "Categories", icon: <CategoryIcon sx={{color: theme.palette.info.main}}/>, href: "/categories"},
+        {label: "Sellers", icon: <PeopleIcon sx={{color: theme.palette.info.main}}/>, href: "/sellers"},
+
     ];
 
     const profileList = [
         {label: "Profile", icon: <PersonIcon sx={{color: theme.palette.info.main}}/>, href: "/profile"},
-        {
-            label: "Notifications",
-            icon: <NotificationsIcon sx={{color: theme.palette.info.main}}/>,
-            href: "/notifications"
-        },
     ];
 
     const handleDrawerOpen = () => {
@@ -147,21 +143,21 @@ export default function Navigation({children}: { children: React.ReactNode }) {
         <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '150vh'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar sx={{backgroundColor: theme.palette.background.lighter}}>
+                <Toolbar sx={{backgroundColor: theme.palette.background.default}}>
                     <IconButton
-                        color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
                         sx={{
+                            color: theme.palette.tertiary.main,
                             marginRight: 5,
                             ...(open && {display: 'none'}),
                         }}
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Seller Portal
+                    <Typography variant="h6" noWrap component="div" color={theme.palette.tertiary.main}>
+                        Admin Portal
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -169,15 +165,16 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 <Box sx={{}}>
                     <DrawerHeader sx={{}}>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.info.main}}/> :
-                                <ChevronLeftIcon sx={{color: theme.palette.info.main}}/>}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.tertiary.main}}/> :
+                                <ChevronLeftIcon sx={{color: theme.palette.tertiary.main}}/>}
                         </IconButton>
                     </DrawerHeader>
                 </Box>
-                <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
+                <Divider sx={{backgroundColor: "#fff"}}/>
                 <List>
                     {informationList.map((listItem) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
+                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
+                                  className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -207,10 +204,11 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                         </ListItem>
                     ))}
                 </List>
-                <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
+                <Divider sx={{backgroundColor: "#fff"}}/>
                 <List>
                     {profileList.map((listItem) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
+                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
+                                  className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -242,53 +240,41 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 </List>
                 <Box sx={{position: 'absolute', bottom: 0, left: 0, right: 0, p: 2, textAlign: 'center'}}>
                     {open ? (
-                        <Box sx={{display: "flex", justifyContent: isAuthenticated ? "center" : "space-between"}}>
+                        <Box sx={{display: "flex", justifyContent: "center"}}>
                             {isAuthenticated ? (
-                                <>
-                                    <Button variant="contained" sx={{
-                                        backgroundColor: theme.palette.primary.main,
-                                        justifyContent: "center",
-                                        "&:hover": {
-                                            backgroundColor: theme.palette.tertiary.main,
-                                        }
-                                    }} onClick={() => logout()}>
-                                        Logout
-                                    </Button>
-                                </>
+                                <Button variant="contained" sx={{
+                                    backgroundColor: theme.palette.primary.main,
+                                    justifyContent: "center",
+                                    "&:hover": {
+                                        backgroundColor: theme.palette.tertiary.main,
+                                    },
+                                }} onClick={() => logout()}>
+                                    Logout
+                                </Button>
                             ) : (
-                                <>
-                                    <Button variant="contained"
-                                            sx={{
-                                                backgroundColor: theme.palette.primary.main,
-                                                "&:hover": {
-                                                    backgroundColor: theme.palette.tertiary.main,
-                                                }
-                                            }}
-                                            onClick={() => router.push("/login")}>
-                                        Login
-                                    </Button>
-                                </>
+                                <Button variant="contained"
+                                        sx={{
+                                            backgroundColor: theme.palette.primary.main,
+                                            "&:hover": {
+                                                backgroundColor: theme.palette.tertiary.main,
+                                            }
+                                        }}
+                                        onClick={() => router.push("/login")}>
+                                    Login
+                                </Button>
                             )}
                         </Box>
                     ) : (
                         isAuthenticated ? (
                             <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-
-                                }}
+                                sx={{minHeight: 48, justifyContent: open ? 'initial' : 'center',}}
                                 onClick={() => {
                                     logout();
                                     router.push("/")
                                 }}
                             >
                                 <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: 1,
-                                        justifyContent: 'center',
-                                    }}
+                                    sx={{minWidth: 0, mr: 1, justifyContent: 'center',}}
                                 >
                                     <LogoutIcon sx={{color: theme.palette.info.main}}/>
                                 </ListItemIcon>
@@ -303,11 +289,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                 onClick={() => router.push("/login")}
                             >
                                 <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: 1,
-                                        justifyContent: 'center',
-                                    }}
+                                    sx={{minWidth: 0, mr: 1, justifyContent: 'center',}}
                                 >
                                     <LoginIcon sx={{color: theme.palette.info.main}}/>
                                 </ListItemIcon>
