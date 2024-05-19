@@ -5,11 +5,9 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
-import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
 import {useAuth} from "../../../api/auth/AuthContext";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
@@ -41,7 +39,6 @@ const ManageProfilePage = () => {
                     <>
                         <Container maxWidth="lg" sx={{mt: 2}}>
                             <Grid container spacing={2}>
-
                                 <Grid item xs={12} md={4}>
                                     <ProfilePicture
                                         user={user}

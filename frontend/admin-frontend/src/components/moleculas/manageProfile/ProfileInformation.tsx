@@ -10,6 +10,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import "yup-phone-lite";
 import StyledButton from "@/components/atoms/StyledButton";
 import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
+import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
 
 type ProfileInformationFormInput = {
   firstName: string;
@@ -74,11 +75,20 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
         },
     });
 
+    const onSubmit: SubmitHandler<ProfileInformationFormInput> = async (values:any) => {
+        updateUserAccountApi(user.id, values.firstName, values.lastName, values.email, user.imageName, values.telephone)
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    };
 
     return user ? (
         <Box sx={{padding: theme.spacing(2), border: "1px solid #a5b4fc", borderRadius: "14px"}}>
             <Typography variant="h5" sx={{color: theme.palette.info.main, mb:2}}>Profile Information</Typography>
-            <form  style={{}}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{}}>
                 <FormTextFieldDarkBackground
                     name="firstName"
                     control={control}
