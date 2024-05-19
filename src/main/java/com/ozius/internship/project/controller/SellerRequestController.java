@@ -17,8 +17,8 @@ public class SellerRequestController {
         this.sellerRequestService = sellerRequestService;
     }
 
+    @CrossOrigin("*")
     @PostMapping("/seller-request")
-    @PreAuthorize("hasRole('SELLER')")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<SellerRequest> createSellerRequest(@RequestBody SellerRequest sellerRequest) {
         SellerRequest createdSellerRequest = sellerRequestService.createSellerRequest(sellerRequest);

@@ -16,7 +16,7 @@ const StyledLink = styled(Link)<StyledLinkProps>(
                     case "info":
                         return theme.palette.info.contrastText;
                     case "primary":
-                        return theme.palette.primary.main;
+                        return theme.palette.lightColor.main;
                     case "secondary":
                         return theme.palette.secondary.light;
                     default:
@@ -31,7 +31,7 @@ const StyledLink = styled(Link)<StyledLinkProps>(
                         case "info":
                             return theme.palette.primary.main; // Change to a darker shade on hover
                         case "primary":
-                            return theme.palette.primary.dark;
+                            return theme.palette.primary.main;
                         case "secondary":
                             return theme.palette.secondary.main; // Change to the main color on hover
                         default:

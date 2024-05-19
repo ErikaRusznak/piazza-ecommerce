@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Entity
@@ -19,7 +18,6 @@ public class SellerRequest extends BaseEntity {
         String DATE = "DATE";
         String STATUS = "STATUS";
         String REASON = "REASON";
-        String CODE = "CODE";
         String SELLER_EMAIL = "SELLER_EMAIL";
     }
 
@@ -34,9 +32,6 @@ public class SellerRequest extends BaseEntity {
     @Column(name = Columns.REASON, nullable = false)
     private String reason;
 
-    @Column(name = Columns.CODE, unique = true)
-    private String code;
-
     @Column(name = Columns.SELLER_EMAIL, nullable = false)
     private String sellerEmail;
 
@@ -48,7 +43,6 @@ public class SellerRequest extends BaseEntity {
         this.sellerEmail = sellerEmail;
         this.date = LocalDateTime.now();
         this.status = RequestStatus.PENDING;
-        this.code = UUID.randomUUID().toString();
     }
 
     @Override
@@ -57,7 +51,6 @@ public class SellerRequest extends BaseEntity {
                 "date=" + date +
                 ", status=" + status +
                 ", reason='" + reason + '\'' +
-                ", code='" + code + '\'' +
                 ", sellerEmail='" + sellerEmail + '\'' +
                 '}';
     }

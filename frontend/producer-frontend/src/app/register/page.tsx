@@ -209,6 +209,12 @@ const RegisterPage = () => {
             />
             <PrincipalFormLayout titleText="Create an account">
                 <>
+                    <Typography gutterBottom color={theme.palette.info.contrastText}>
+                        Before you register, please make sure you that you sent a request to the admin for being able create an account!
+                    </Typography>
+                    <Typography gutterBottom color={theme.palette.info.contrastText}>
+                        If you did not send a request, try <StyledLink href="/send-request">here</StyledLink>!
+                    </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{display: "flex", gap: 2}}>
                             <Box>

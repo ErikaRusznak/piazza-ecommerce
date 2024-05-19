@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useState} from "react";
-import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
 import {createProductApi} from "../../../../api/entities/ProductApi";
@@ -37,7 +36,6 @@ const AddProductPage = () => {
             unitOfMeasure: selectedUnitOfMeasure
         })
             .then((res) => {
-                console.log(res);
                 router.push(`/products`);
             })
             .catch((err) => console.error(err));
