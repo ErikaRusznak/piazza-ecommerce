@@ -37,7 +37,7 @@ public class SpringContextConfigurationDev {
     private String FRONT_END_URL_SELLER;
     @Value("${frontend.url.courier}")
     private String FRONT_END_URL_COURIER;
-    @Value("${frontend.url.admin")
+    @Value("${frontend.url.admin}")
     private String FRONT_END_URL_ADMIN;
 
 

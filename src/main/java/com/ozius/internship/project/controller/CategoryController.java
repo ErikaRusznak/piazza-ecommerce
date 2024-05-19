@@ -1,6 +1,7 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.entity.Category;
+import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.repository.CategoryRepository;
 import com.ozius.internship.project.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,18 @@ public class CategoryController {
 
         Category createdCategory = categoryService.createCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
-
     }
+
+    @PutMapping("/categories")
+    public ResponseEntity<Category> updateProduct(@RequestBody Category category) {
+        Category updatedCategory = categoryService.updateCategory(category);
+        return ResponseEntity.ok(updatedCategory);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public void deleteCategoryById(@PathVariable long id) {
+        categoryService.deleteCategory(id);
+    }
+
 
 }

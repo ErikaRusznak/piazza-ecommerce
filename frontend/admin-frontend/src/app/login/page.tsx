@@ -111,18 +111,6 @@ const LoginPage = () => {
                                 Sign In
                             </StyledButton>
                         </form>
-                        <Grid container gap={1} mt={2}>
-                            <Grid item xs>
-                                <StyledLink href="/forgot-password" sx={{fontSize: "0.9rem"}}>
-                                    Forgot password?
-                                </StyledLink>
-                            </Grid>
-                            <Grid item>
-                                <StyledLink href="/register" sx={{fontSize: "0.9rem"}}>
-                                    {"Don't have an account? Sign Up"}
-                                </StyledLink>
-                            </Grid>
-                        </Grid>
                     </>
                 </PrincipalFormLayout>
             </Container>

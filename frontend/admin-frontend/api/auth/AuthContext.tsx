@@ -34,8 +34,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const login = async (username: string, password: string) => {
         try {
+            console.log("here")
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
             const { data } = await getUserRoleByEmail(username);
+            console.log("data", data);
             if (status === 200 && data === "ADMIN") {
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
