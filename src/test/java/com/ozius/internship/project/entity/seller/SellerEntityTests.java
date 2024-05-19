@@ -1,7 +1,7 @@
 package com.ozius.internship.project.entity.seller;
 
+import com.ozius.internship.project.DataCreatorForTesting;
 import com.ozius.internship.project.JpaBaseEntity;
-import com.ozius.internship.project.TestDataCreator;
 import com.ozius.internship.project.entity.exception.IllegalSellerDetails;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.user.UserAccount;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
-import static com.ozius.internship.project.TestDataCreator.Addresses.address1;
+import static com.ozius.internship.project.DataCreatorForTesting.Addresses.address1;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -134,7 +134,7 @@ public class SellerEntityTests extends JpaBaseEntity {
             UserAccount userAccount = new UserAccount("Vlad", "Ciobotariu", "vladciobotariu@gmail.com", "/src/image1", "0734896512", UserRole.SELLER);
             userAccount.setInitialPassword(passwordEncoder.encode("1234"));
 
-            return TestDataCreator.createSellerFarmer(em, address, userAccount, "honey srl");
+            return DataCreatorForTesting.createSellerFarmer(em, address, userAccount, "honey srl");
         });
 
         //----Act
@@ -216,7 +216,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         doTransaction(em -> {
-            TestDataCreator.createAddresses();
+            DataCreatorForTesting.createAddresses();
         });
 
         //----Act
@@ -238,7 +238,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         doTransaction(em -> {
-            TestDataCreator.createAddresses();
+            DataCreatorForTesting.createAddresses();
         });
 
         //----Act
@@ -260,7 +260,7 @@ public class SellerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         doTransaction(em -> {
-            TestDataCreator.createAddresses();
+            DataCreatorForTesting.createAddresses();
         });
 
         //----Act

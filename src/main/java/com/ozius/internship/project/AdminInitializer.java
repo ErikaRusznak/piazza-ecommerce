@@ -39,7 +39,7 @@ public class AdminInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        UserAccount userAccount = userAccountRepository.findByEmail("erika.rusznak@gmail.com");
+        UserAccount userAccount = userAccountRepository.findByEmail(email);
         if (userAccount == null) {
             UserAccount admin = new UserAccount(
                     firstName,

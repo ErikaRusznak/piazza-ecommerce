@@ -1,9 +1,7 @@
 package com.ozius.internship.project;
 
 import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.Category;
 import com.ozius.internship.project.entity.product.Product;
-import com.ozius.internship.project.entity.seller.Seller;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.NonUniqueResultException;
@@ -41,20 +39,6 @@ public class EntityFinder {
         return new SimpleJpaRepository<>(entityClass, em).findById(id).orElseThrow();
     }
 
-    public List<Product> getProductsBySeller(Seller seller){
-        return em.createQuery(
-                "select p from Product p" +
-                " join p.seller s " +
-                " where s = :sellerParam", Product.class)
-                .setParameter("sellerParam", seller)
-                .getResultList();
-    }
-
-    public List<?> getFavorites(){
-        return em.createNativeQuery(
-                "select x.* from buyer_favorites x").getResultList();
-    }
-
     public Product getProductByName(String name) {
         try {
             return em.createQuery(
@@ -66,15 +50,4 @@ public class EntityFinder {
         }
     }
 
-    public Category getCategoryByName(String name){
-        return em.createQuery("select c from Category c where c.name = :categoryName", Category.class)
-                .setParameter("categoryName", name)
-                .getSingleResult();
-    }
-
-    public Seller getSellerByAlias(String alias){
-        return em.createQuery("select s from Seller s where s.alias = :aliasName", Seller.class)
-                .setParameter("aliasName", alias)
-                .getSingleResult();
-    }
 }

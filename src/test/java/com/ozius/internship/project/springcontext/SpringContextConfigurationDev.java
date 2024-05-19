@@ -37,6 +37,9 @@ public class SpringContextConfigurationDev {
     private String FRONT_END_URL_SELLER;
     @Value("${frontend.url.courier}")
     private String FRONT_END_URL_COURIER;
+    @Value("${frontend.url.admin")
+    private String FRONT_END_URL_ADMIN;
+
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -46,7 +49,7 @@ public class SpringContextConfigurationDev {
                 if (registry == null) throw new AssertionError();
                 registry.addMapping("/**")
                         .allowedMethods("*")
-                        .allowedOrigins(FRONT_END_URL_CLIENT, FRONT_END_URL_SELLER, FRONT_END_URL_COURIER);
+                        .allowedOrigins(FRONT_END_URL_CLIENT, FRONT_END_URL_SELLER, FRONT_END_URL_COURIER, FRONT_END_URL_ADMIN);
             }
         };
     }

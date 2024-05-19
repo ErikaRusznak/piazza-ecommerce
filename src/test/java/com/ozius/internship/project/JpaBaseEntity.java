@@ -39,16 +39,12 @@ public class JpaBaseEntity {
     }
 
     public void createTestData(EntityManager em){
-
     }
 
     public void doTransaction(JpaCallbackVoid callback){
         new JpaHelper(emf).doTransaction(callback);
     }
 
-    public void doManaged(JpaCallbackVoid callback){
-        new JpaHelper(emf).doManaged(callback);
-    }
 
     public <T> T doTransaction(JpaCallback<T> callback){
         return new JpaHelper(emf).doTransaction(callback);
