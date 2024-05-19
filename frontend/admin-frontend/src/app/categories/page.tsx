@@ -105,7 +105,7 @@ const ProductsPage = () => {
                                 Categories
                             </Typography>
                             <StyledButton variant="contained" sx={{height: "2.5rem"}}
-                                          onClick={() => router.push("/products/add")}>
+                                          onClick={() => router.push("/categories/add")}>
                                 <AddIcon sx={{mr: 1}}/>
                                 Add category
                             </StyledButton>

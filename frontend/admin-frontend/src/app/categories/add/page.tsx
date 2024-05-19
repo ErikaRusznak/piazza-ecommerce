@@ -4,53 +4,41 @@ import React, {useState} from "react";
 import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
-import {createProductApi} from "../../../../api/entities/ProductApi";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
-import useProductForm from "../../../../hooks/useProductForm";
+import AddEditCategoryForm, {AddEditCategoryInput} from "@/components/organisms/categories/AddEditCategoryForm";
+import {createCategoryApi} from "../../../../api/entities/CategoryApi";
 
 const AddProductPage = () => {
 
     const { isAuthenticated } = useAuth();
     const router = useRouter();
-    const { categories, seller, UNIT_OF_MEASURES } = useProductForm();
 
     const [fileName, setFileName] = useState<string>("");
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
-    const onSubmit: SubmitHandler<AddEditProductInput> = async (data:AddEditProductInput) => {
+    const onSubmit: SubmitHandler<AddEditCategoryInput> = async (data:AddEditCategoryInput) => {
         if (!fileName) {
             setErrorImageMessage("Please upload an image before submitting.");
             return;
         }
-        const selectedCategory = categories?.find((category:any) => category.name === data.category);
-        const selectedUnitOfMeasure = (UNIT_OF_MEASURES.find(unit => unit.name === data.unitOfMeasure))?.name;
-        createProductApi({
+        createCategoryApi({
             name: data.name,
-            description: data.description,
             imageName: fileName,
-            price: data.price,
-            category: selectedCategory,
-            seller: seller,
-            unitOfMeasure: selectedUnitOfMeasure
         })
             .then((res) => {
-                console.log(res);
-                router.push(`/products`);
+                router.push(`/categories`);
             })
             .catch((err) => console.error(err));
     };
 
-    return categories && (
+    return  (
         <MainLayout>
             {isAuthenticated ? (
-                <AddEditProductForm
-                    headerText={"Add product"}
+                <AddEditCategoryForm
+                    headerText={"Add category"}
                     onSubmit={onSubmit}
-                    UNIT_OF_MEASURES={UNIT_OF_MEASURES}
-                    categories={categories}
                     errorImageMessage={errorImageMessage}
                     setErrorImageMessage={setErrorImageMessage}
                     fileName={fileName}
