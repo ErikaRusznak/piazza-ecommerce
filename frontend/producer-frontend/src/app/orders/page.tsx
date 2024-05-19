@@ -7,16 +7,14 @@ import useTheme from "@/theme/themes";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {getOrdersApi} from "../../../api/entities/OrderApi";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {Button, Container, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Button, Container, FormControl, MenuItem} from "@mui/material";
 import moment from 'moment';
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 
-
 const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Total Price", "Status", "Actions"];
-
 
 export type SortFilter = {
     criteria: "orderDate" | null;
@@ -50,7 +48,6 @@ const OrdersPage = () => {
                     <>
                         <Button size="small" sx={{color: theme.palette.lightColor.main}}
                                 onClick={() => {
-                                    console.log(item);
                                     router.push(`/orders/${item.id}`)
                                 }}>
                             View

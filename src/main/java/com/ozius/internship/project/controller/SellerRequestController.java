@@ -17,7 +17,6 @@ public class SellerRequestController {
         this.sellerRequestService = sellerRequestService;
     }
 
-    @CrossOrigin("*")
     @PostMapping("/seller-request")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<SellerRequest> createSellerRequest(@RequestBody SellerRequest sellerRequest) {
@@ -28,7 +27,7 @@ public class SellerRequestController {
     @GetMapping("/seller-request")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<SellerRequest>> getAllSellerRequests(@RequestParam int page, @RequestParam int itemsPerPage) {
-        Page<SellerRequest> sellerRequests = sellerRequestService.getSellerRequests(page, itemsPerPage);
+        Page<SellerRequest> sellerRequests = sellerRequestService.getSellerRequests(page-1, itemsPerPage);
         return ResponseEntity.ok(sellerRequests);
     }
 

@@ -23,7 +23,7 @@ public class SellerRequestService {
 
     @Transactional
     public SellerRequest createSellerRequest(SellerRequest sellerRequest){
-        SellerRequest createdSellerRequest = new SellerRequest(sellerRequest.getSellerEmail(), sellerRequest.getReason());
+        SellerRequest createdSellerRequest = new SellerRequest(sellerRequest.getReason(), sellerRequest.getSellerEmail());
         sellerRequestRepository.save(createdSellerRequest);
         return createdSellerRequest;
     }

@@ -20,7 +20,7 @@ type SendRequestInput = {
 }
 
 const SendRequestSchema = yup.object().shape({
-    email: yup.string().required("You must provide a username"),
+    email: yup.string().required("You must provide an email").email("Invalid email"),
     reason: yup.string().required("You must provide a reason"),
 });
 
@@ -42,6 +42,7 @@ const SendRequestPage = () => {
         }).then((res) => {
             setSuccessMessage("Request was sent successfully!");
             setErrorMessage("");
+            reset();
         }).catch((err) => {
             setErrorMessage("Sending request failed! Try again.");
             setSuccessMessage("");
@@ -51,6 +52,7 @@ const SendRequestPage = () => {
     const {
         handleSubmit,
         control,
+        reset
     } = useForm<SendRequestInput>({
         resolver: yupResolver(SendRequestSchema),
         defaultValues: {

@@ -76,10 +76,10 @@ const HomePage = () => {
                             fontSize: { xs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {
-                            router.push("/sellers");
+                            router.push("/requests");
                         }}
                     >
-                        Check sellers
+                        Check requests
                     </Button>
                 </Box>
             </Box>
