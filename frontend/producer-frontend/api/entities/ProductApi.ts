@@ -32,7 +32,7 @@ export const updateProductApi = (product:any) => {
     );
 }
 
-export const addProductsInStoreApi = (productId, quantity) => {
+export const addProductsInStoreApi = (productId: number, quantity: number) => {
     return api.put(`/products/${productId}`, quantity, { headers: { 'Content-Type': 'application/json' } });
 }
 

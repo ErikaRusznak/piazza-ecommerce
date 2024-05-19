@@ -37,7 +37,7 @@ const ProductsPage = () => {
                 return (
                     <>
                         <Button size="small" sx={{color: theme.palette.primary.main}}
-                                onClick={() => router.push(`/categories/${item.id}`)}>
+                                onClick={() => router.push(`/categories/${item.name}`)}>
                             View
                         </Button>
                         <Button size="small" color="primary" onClick={() => router.push(`/categories/edit/${item.id}`)}>
