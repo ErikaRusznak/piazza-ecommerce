@@ -1,8 +1,8 @@
 package com.ozius.internship.project.entity;
 
+import com.ozius.internship.project.DataCreatorForTesting;
 import com.ozius.internship.project.EntityFinder;
 import com.ozius.internship.project.JpaBaseEntity;
-import com.ozius.internship.project.TestDataCreator;
 import com.ozius.internship.project.entity.exception.IllegalPriceException;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.ozius.internship.project.TestDataCreator.Categories.category1;
-import static com.ozius.internship.project.TestDataCreator.Sellers.seller2;
+import static com.ozius.internship.project.DataCreatorForTesting.Categories.category1;
+import static com.ozius.internship.project.DataCreatorForTesting.Sellers.seller2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,8 +25,8 @@ public class ProductEntityTest extends JpaBaseEntity {
 
     @Override
     public void createTestData(EntityManager em) {
-        TestDataCreator.createCategoriesBaseData(em);
-        TestDataCreator.createSellerBaseData(em, passwordEncoder);
+        DataCreatorForTesting.createCategoriesBaseData(em);
+        DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
     }
 
     @Test

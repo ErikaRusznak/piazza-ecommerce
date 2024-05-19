@@ -42,7 +42,7 @@ const ChatPage = () => {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
             return;
         }
-        if (message.senderRole !== "ADMIN") {
+        if (message.senderRole !== "SELLER") {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
@@ -62,7 +62,7 @@ const ChatPage = () => {
         getAllUsersApi()
             .then((res) => {
                 let connectedUsers = res.data;
-                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "ADMIN" && user.userRole !== "COURIER");
+                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER");
                 setConnectedUsers(connectedUsers);
             })
             .catch((err) => console.log(err))

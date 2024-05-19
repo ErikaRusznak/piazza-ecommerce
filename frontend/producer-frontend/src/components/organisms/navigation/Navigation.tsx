@@ -18,11 +18,10 @@ import {
     CategoryIcon, ChatIcon,
     ChevronLeftIcon,
     ChevronRightIcon, LoginIcon, LogoutIcon,
-    MenuIcon, NotificationsIcon, PersonIcon, SettingsIcon,
+    MenuIcon, NotificationsIcon, PersonIcon,
     ShoppingCartCheckoutIcon
 } from "@/components/atoms/icons";
 import {Button, useMediaQuery} from "@mui/material";
-import {useEffect} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
 
@@ -115,7 +114,6 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 
 export default function Navigation({children}: { children: React.ReactNode }) {
     const theme = useTheme();
-    const smallerScreenSize = useMediaQuery(theme.breakpoints.down('sm'));
     const [open, setOpen] = React.useState(false);
 
     const {isAuthenticated, logout} = useAuth();
@@ -163,7 +161,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Producer Portal
+                        Seller Portal
                     </Typography>
                 </Toolbar>
             </AppBar>

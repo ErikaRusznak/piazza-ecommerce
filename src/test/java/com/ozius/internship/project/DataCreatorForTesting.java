@@ -4,7 +4,6 @@ import com.ozius.internship.project.entity.*;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.courier.Courier;
-import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.review.Review;
@@ -17,19 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
-import static com.ozius.internship.project.TestDataCreator.Products.product1;
+import static com.ozius.internship.project.DataCreatorForTesting.Products.product1;
 
-public class TestDataCreator {
+
+public class DataCreatorForTesting {
 
     public static void createBaseDataForProduct(EntityManager em, PasswordEncoder passwordEncoder) {
         createCategoriesBaseData(em);
         createSellerBaseData(em, passwordEncoder);
         createProductsBaseData(em);
-    }
-
-    public static void createBaseDataForReview(EntityManager em, PasswordEncoder passwordEncoder) {
-        createBaseDataForProduct(em, passwordEncoder);
-        createBuyerBaseData(em, passwordEncoder);
     }
 
     public static Buyer createBuyer(EntityManager em, UserAccount account){
@@ -183,7 +178,7 @@ public class TestDataCreator {
                 "alex.dulfu@gmail.com",
                 "/images/magazine.jpg",
                 "0734896512",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller1 = createSellerFarmer(em,
                 new Address("Romania",
@@ -201,7 +196,7 @@ public class TestDataCreator {
                 "rusznak65@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller2 = createSellerFarmer(em,
                 new Address("Romania",
@@ -219,7 +214,7 @@ public class TestDataCreator {
                 "ozius123@gmail.com",
                 "/images/magazine.jpg",
                 "0734896777",
-                UserRole.ADMIN);
+                UserRole.SELLER);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Sellers.seller3 = createSellerCompany(em,
                 new Address("Romania",
@@ -232,7 +227,7 @@ public class TestDataCreator {
                 "Ozius Solutions",
                 SellerType.COMPANY,
                 new LegalDetails("Mega Fresh SRL", "10234567",
-                    new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
+                        new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
 
     }
 
@@ -264,7 +259,7 @@ public class TestDataCreator {
 
     public static void createProductsBaseData(EntityManager em){
 
-        Products.product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
         Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM,5);
         Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT, 3);
         Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller3, UnitOfMeasure.GRAM, 10);
@@ -279,22 +274,7 @@ public class TestDataCreator {
         Addresses.address1 = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
     }
 
-    public static void createOrder(EntityManager em, Address address, Buyer buyer, Seller seller){
-
-        Order order = new Order(
-                address,
-                buyer,
-                seller,
-                buyer.getAccount().getEmail(),
-                buyer.getAccount().getFirstName(),
-                buyer.getAccount().getLastName(),
-                buyer.getAccount().getTelephone());
-
-        em.persist(order);
-    }
-
-
-    public static Review createReview(EntityManager em, Buyer buyer, String description, float rating, Product product){
+    public static Review createReview(Buyer buyer, String description, float rating, Product product){
 
         return product.addReview(buyer, description, rating);
     }
@@ -327,12 +307,12 @@ public class TestDataCreator {
         buyer.addFavorite(Products.product2);
     }
 
-    public static void createReviewsBaseData(EntityManager em) {
-        Reviews.review1 = createReview(em, Buyers.buyer2, "Acest produs este delicios! Il recomand", 5F, Products.product1);
-        Reviews.review2 = createReview(em, Buyers.buyer3, "Au existat bucati care erau batatorite", 3F, Products.product1);
-        Reviews.review3 = createReview(em, Buyers.buyer1, "Mi-ar fi placut sa fie mai dulci, dar in rest sunt bune", 4F, Products.product1);
-        Reviews.review4 = createReview(em, Buyers.buyer2, "review for product 2 from buyer 2", 4F, Products.product2);
-        Reviews.review5 = createReview(em, Buyers.buyer3, "review for product 2 from buyer 3", 2F, Products.product2);
+    public static void createReviewsBaseData() {
+        Reviews.review1 = createReview(Buyers.buyer2, "Acest produs este delicios! Il recomand", 5F, product1);
+        Reviews.review2 = createReview(Buyers.buyer3, "Au existat bucati care erau batatorite", 3F, product1);
+        Reviews.review3 = createReview(Buyers.buyer1, "Mi-ar fi placut sa fie mai dulci, dar in rest sunt bune", 4F, product1);
+        Reviews.review4 = createReview(Buyers.buyer2, "review for product 2 from buyer 2", 4F, Products.product2);
+        Reviews.review5 = createReview(Buyers.buyer3, "review for product 2 from buyer 3", 2F, Products.product2);
     }
 
     public static class Buyers{

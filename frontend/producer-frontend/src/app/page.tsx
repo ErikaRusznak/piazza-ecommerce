@@ -32,7 +32,7 @@ const HomePage = () => {
                         mb: 2,
                     }}
                 >
-                    Welcome, Admin!
+                    Welcome, Seller!
                 </Typography>
                 <Typography
                     variant="body1"
@@ -43,7 +43,7 @@ const HomePage = () => {
                         fontSize: { xs: "16px", sm: "18px", md: "20px" },
                     }}
                 >
-                    Manage your online store efficiently with our admin tools.
+                    Manage your online store efficiently with our tools.
                 </Typography>
 
                 <Box

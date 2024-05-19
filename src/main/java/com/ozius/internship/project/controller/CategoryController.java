@@ -5,6 +5,7 @@ import com.ozius.internship.project.repository.CategoryRepository;
 import com.ozius.internship.project.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,11 +39,29 @@ public class CategoryController {
     }
 
     @PostMapping("/categories")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> createCategory(@RequestBody Category category) {
-
         Category createdCategory = categoryService.createCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
+    }
 
+    @PutMapping("/categories")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
+        Category updatedCategory = categoryService.updateCategory(category);
+        return ResponseEntity.ok(updatedCategory);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteCategoryById(@PathVariable long id) {
+        categoryService.deleteCategory(id);
+    }
+
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable long id) {
+        Category category = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(category);
     }
 
 }

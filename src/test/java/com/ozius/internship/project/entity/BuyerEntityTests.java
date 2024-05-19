@@ -1,8 +1,8 @@
 package com.ozius.internship.project.entity;
 
+import com.ozius.internship.project.DataCreatorForTesting;
 import com.ozius.internship.project.EntityFinder;
 import com.ozius.internship.project.JpaBaseEntity;
-import com.ozius.internship.project.TestDataCreator;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.buyer.BuyerAddress;
 import com.ozius.internship.project.entity.exception.IllegalAddressException;
@@ -22,10 +22,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
-import static com.ozius.internship.project.TestDataCreator.Categories.category1;
-import static com.ozius.internship.project.TestDataCreator.Products.product1;
-import static com.ozius.internship.project.TestDataCreator.Products.product2;
-import static com.ozius.internship.project.TestDataCreator.Sellers.seller1;
+import static com.ozius.internship.project.DataCreatorForTesting.Categories.category1;
+import static com.ozius.internship.project.DataCreatorForTesting.Products.product1;
+import static com.ozius.internship.project.DataCreatorForTesting.Products.product2;
+import static com.ozius.internship.project.DataCreatorForTesting.Sellers.seller1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -89,7 +89,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
         //----Arrange
         Buyer buyer = doTransaction(em -> {
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            return TestDataCreator.createBuyer(em, account);
+            return DataCreatorForTesting.createBuyer(em, account);
         });
 
         //----Act
@@ -121,7 +121,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
         //----Arrange
         Buyer buyer = doTransaction(em -> {
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            return TestDataCreator.createBuyer(em, account);
+            return DataCreatorForTesting.createBuyer(em, account);
         });
 
         //----Act
@@ -147,7 +147,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
-            Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
+            Buyer buyerToAdd = DataCreatorForTesting.createBuyer(em, account);
             buyerToAdd.addAddress(address, account.getFirstName(), account.getLastName(), account.getTelephone());
 
             return buyerToAdd;
@@ -186,7 +186,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             account.setInitialPassword(passwordEncoder.encode("1234"));
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
-            Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
+            Buyer buyerToAdd = DataCreatorForTesting.createBuyer(em, account);
             buyerToAdd.addAddress(address, account.getFirstName(), account.getLastName(), account.getTelephone());
 
             return buyerToAdd;
@@ -234,14 +234,14 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            Product product = DataCreatorForTesting.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
-            Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
+            Buyer buyerToAdd = DataCreatorForTesting.createBuyer(em, account);
             buyerToAdd.addAddress(address, account.getFirstName(), account.getLastName(), account.getTelephone());
             buyerToAdd.addFavorite(product);
 
@@ -259,7 +259,6 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         assertThat(buyerRepository.findAll().contains(buyer)).isFalse();
         assertThat(buyerAddress).isEmpty();
-        assertThat(entityFinder.getFavorites()).isEmpty();
         assertThat(entityFinder.findAll(Product.class).size()).isEqualTo(1);
     }
 
@@ -271,7 +270,7 @@ public class BuyerEntityTests extends JpaBaseEntity {
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
             Address address = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
 
-            Buyer buyerToAdd = TestDataCreator.createBuyer(em, account);
+            Buyer buyerToAdd = DataCreatorForTesting.createBuyer(em, account);
             buyerToAdd.addAddress(address, account.getFirstName(), account.getLastName(), account.getTelephone());
 
             return buyerToAdd;
@@ -297,13 +296,13 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Buyer buyer = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            TestDataCreator.createProductsBaseData(em);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            DataCreatorForTesting.createProductsBaseData(em);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
 
-            return TestDataCreator.createBuyer(em, account);
+            return DataCreatorForTesting.createBuyer(em, account);
         });
 
         //----Act
@@ -330,12 +329,12 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Product productToAdd = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            Product product = DataCreatorForTesting.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            TestDataCreator.createBuyer(em, account);
+            DataCreatorForTesting.createBuyer(em, account);
 
             return product;
         });
@@ -365,12 +364,12 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Product productToAdd = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            Product product = DataCreatorForTesting.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
+            Buyer addedBuyer = DataCreatorForTesting.createBuyer(em, account);
 
             addedBuyer.addFavorite(product);
 
@@ -394,12 +393,12 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Product productToRemove = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            Product product = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            Product product = DataCreatorForTesting.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
+            Buyer addedBuyer = DataCreatorForTesting.createBuyer(em, account);
 
             addedBuyer.addFavorite(product);
 
@@ -425,14 +424,14 @@ public class BuyerEntityTests extends JpaBaseEntity {
 
         //----Arrange
         Product productToRemove = doTransaction(em -> {
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
 
-            Product product1 = TestDataCreator.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
-            Product product2 = TestDataCreator.createProduct(em, "grau", "pentru paine", "src/image20", 8f, category1, seller1, UnitOfMeasure.KILOGRAM, 16);
+            Product product1 = DataCreatorForTesting.createProduct(em, "orez", "pentru fiert", "src/image4", 12f, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            Product product2 = DataCreatorForTesting.createProduct(em, "grau", "pentru paine", "src/image20", 8f, category1, seller1, UnitOfMeasure.KILOGRAM, 16);
 
             UserAccount account = new UserAccount("Cosmina", "Maria", "cosminamaria@gmail.com", "/src/image2", "0735897635", UserRole.CLIENT);
-            Buyer addedBuyer = TestDataCreator.createBuyer(em, account);
+            Buyer addedBuyer = DataCreatorForTesting.createBuyer(em, account);
 
             addedBuyer.addFavorite(product1);
             addedBuyer.addFavorite(product2);

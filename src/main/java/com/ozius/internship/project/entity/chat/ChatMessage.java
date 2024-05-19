@@ -71,7 +71,7 @@ public class ChatMessage extends BaseEntity {
     public long getSenderId() {
         if (this.senderRole == UserRole.CLIENT) {
             return this.groupChatRoom != null ? this.groupChatRoom.getBuyerId() : -1;
-        } else if (this.senderRole == UserRole.ADMIN) {
+        } else if (this.senderRole == UserRole.SELLER) {
             return this.groupChatRoom != null ? this.groupChatRoom.getSellerId() : -1;
         } else if (this.senderRole == UserRole.COURIER) {
             return this.groupChatRoom != null ? this.groupChatRoom.getCourierId() : -1;

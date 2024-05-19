@@ -26,7 +26,7 @@ const ChatContainerDetails = ({label, id, messages, sendMessageFunction, private
     const distinctSenderFromReceiver = (mess: any): boolean => {
         if(privateChat)
             return distinctSenderFromReceiverPrivateFunction(mess, id);
-        return distinctSenderFromReceiverGroupFunction(mess, "ADMIN");
+        return distinctSenderFromReceiverGroupFunction(mess, "SELLER");
     };
 
     return (

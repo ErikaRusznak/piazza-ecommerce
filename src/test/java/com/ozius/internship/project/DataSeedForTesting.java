@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 @DependsOn(value = {"reviewAddedListener", "domainEventPublisherProvider"})
 @Profile(SpringProfiles.TEST_DATA_SEED)
-public class TestDataSeed {
+public class DataSeedForTesting {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
     private final PasswordEncoder passwordEncoder;
 
-    public TestDataSeed(PasswordEncoder passwordEncoder) {
+    public DataSeedForTesting(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -27,17 +27,17 @@ public class TestDataSeed {
 
         new JpaHelper(emf).doTransaction(em -> {
 
-            TestDataCreator.createBuyerBaseData(em, passwordEncoder);
-            TestDataCreator.createSellerBaseData(em, passwordEncoder);
-            TestDataCreator.createCourierBaseData(em, passwordEncoder);
-            TestDataCreator.createCategoriesBaseData(em);
-            TestDataCreator.createProductsBaseData(em);
-            TestDataCreator.createReviewsBaseData(em);
+            DataCreatorForTesting.createBuyerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createSellerBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCourierBaseData(em, passwordEncoder);
+            DataCreatorForTesting.createCategoriesBaseData(em);
+            DataCreatorForTesting.createProductsBaseData(em);
+            DataCreatorForTesting.createReviewsBaseData();
 
-            TestDataCreator.createCartBaseData(em);
-            TestDataCreator.createFavoritesBaseData(em);
+            DataCreatorForTesting.createCartBaseData(em);
+            DataCreatorForTesting.createFavoritesBaseData(em);
 
-            TestDataCreator.createBuyerAddressBaseData(em);
+            DataCreatorForTesting.createBuyerAddressBaseData(em);
 
         });
     }

@@ -17,13 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
-import static com.ozius.internship.project.TestDataCreator.Categories.category1;
-import static com.ozius.internship.project.TestDataCreator.Categories.category2;
-import static com.ozius.internship.project.TestDataCreator.Products.product1;
-import static com.ozius.internship.project.TestDataCreator.Products.product2;
-import static com.ozius.internship.project.TestDataCreator.Sellers.seller1;
-import static com.ozius.internship.project.TestDataCreator.Sellers.seller2;
-import static com.ozius.internship.project.TestDataCreator.*;
+import static com.ozius.internship.project.DataCreatorForTesting.Categories.category1;
+import static com.ozius.internship.project.DataCreatorForTesting.Categories.category2;
+import static com.ozius.internship.project.DataCreatorForTesting.Products.product1;
+import static com.ozius.internship.project.DataCreatorForTesting.Products.product2;
+import static com.ozius.internship.project.DataCreatorForTesting.Sellers.seller1;
+import static com.ozius.internship.project.DataCreatorForTesting.Sellers.seller2;
+import static com.ozius.internship.project.DataCreatorForTesting.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -22,7 +22,7 @@ public class ForgotPasswordController {
     @Value("${frontend.url.client}")
     private String resetPasswordLinkClient;
 
-    @Value("${frontend.url.producer}")
+    @Value("${frontend.url.seller}")
     private String resetPasswordLinkSeller;
 
     @Value("${frontend.url.courier}")
@@ -39,8 +39,8 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/forgot-password-seller")
-    public ResponseEntity<?> forgotPasswordProducer(@RequestParam String email) {
-        return forgotPassword(email, resetPasswordLinkSeller, UserRole.ADMIN);
+    public ResponseEntity<?> forgotPasswordSeller(@RequestParam String email) {
+        return forgotPassword(email, resetPasswordLinkSeller, UserRole.SELLER);
     }
 
     @PostMapping("/forgot-password-courier")

@@ -41,6 +41,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SendIcon from '@mui/icons-material/Send';
+import PeopleIcon from '@mui/icons-material/People';
 
 export {
     ContentPasteIcon,
@@ -85,5 +86,6 @@ export {
     SyncIcon,
     LocalShippingIcon,
     CancelIcon,
-    SendIcon
+    SendIcon,
+    PeopleIcon,
 }

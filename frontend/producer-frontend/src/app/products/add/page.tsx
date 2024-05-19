@@ -1,22 +1,19 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
-import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
 import {createProductApi} from "../../../../api/entities/ProductApi";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import {getSellerByEmailApi} from "../../../../api/entities/SellerApi";
 import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
 import useProductForm from "../../../../hooks/useProductForm";
 
 const AddProductPage = () => {
 
-    const theme = useTheme();
-    const { isAuthenticated, username } = useAuth();
+    const { isAuthenticated } = useAuth();
     const router = useRouter();
     const { categories, seller, UNIT_OF_MEASURES } = useProductForm();
 

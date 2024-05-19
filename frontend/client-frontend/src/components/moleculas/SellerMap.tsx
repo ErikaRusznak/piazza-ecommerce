@@ -3,7 +3,7 @@ import {GoogleMap, useLoadScript, Marker, Libraries} from "@react-google-maps/ap
 
 const libraries: Libraries = ["places"];
 
-const ProducerMap = ({ seller }:{seller: any}) => {
+const SellerMap = ({ seller }:{seller: any}) => {
     const [mapCenter, setMapCenter] = useState(null);
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
@@ -41,4 +41,4 @@ const ProducerMap = ({ seller }:{seller: any}) => {
     );
 };
 
-export default ProducerMap;
+export default SellerMap;

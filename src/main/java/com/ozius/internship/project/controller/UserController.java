@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/users/sellers")
     public ResponseEntity<List<SimpleSellerDTO>> retrieveSellerUsers() {
-        List<SimpleSellerDTO> simpleSellerDTOS = userService.getAllAdminUsersWithSellerAlias();
+        List<SimpleSellerDTO> simpleSellerDTOS = userService.getAllSellerUsersWithSellerAlias();
         if(simpleSellerDTOS != null) {
             return ResponseEntity.ok(simpleSellerDTOS);
         }
