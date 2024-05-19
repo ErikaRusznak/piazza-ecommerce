@@ -18,9 +18,7 @@ const TableContainerComponent = <T,>({items, tableCellLabels, renderCell}:TableC
                         {tableCellLabels.map((tableCellLabel:string, index: number) => (
                             <TableCell key={index} sx={{
                                 color: theme.palette.info.main,
-                                textTransform: "uppercase",
-                                fontWeight: "bold",
-
+                                textTransform: "uppercase", fontWeight: "bold",
                             }}>
                                 {tableCellLabel}
                             </TableCell>

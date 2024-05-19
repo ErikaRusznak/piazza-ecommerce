@@ -36,7 +36,7 @@ public class CategoryService {
     public void deleteCategory(long categoryId) {
         boolean exists = categoryRepository.existsById(categoryId);
         if(!exists) {
-            throw new IllegalStateException("product does not exist");
+            throw new IllegalStateException("category does not exist");
         }
         categoryRepository.deleteById(categoryId);
     }

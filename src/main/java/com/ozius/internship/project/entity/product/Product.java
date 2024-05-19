@@ -67,7 +67,7 @@ public class Product extends BaseEntity {
     private float quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = Columns.CATEGORY_ID, nullable = false)
+    @JoinColumn(name = Columns.CATEGORY_ID, nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.CATEGORY_ID + ") REFERENCES " + Category.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)

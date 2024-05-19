@@ -7,11 +7,14 @@ import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.repository.BuyerRepository;
 import com.ozius.internship.project.repository.CourierRepository;
 import com.ozius.internship.project.repository.SellerRepository;
+import com.ozius.internship.project.repository.UserAccountRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +26,9 @@ public class ClientDetailsMapper {
     private final BuyerRepository buyerRepository;
     private final SellerRepository sellerRepository;
     private final CourierRepository courierRepository;
+
+    @Value("${admin.email}")
+    private String adminEmail;
 
     public ClientDetailsMapper(BuyerRepository buyerRepository, SellerRepository sellerRepository, CourierRepository courierRepository) {
         this.buyerRepository = buyerRepository;
@@ -49,6 +55,9 @@ public class ClientDetailsMapper {
         }
         if (getCourier(email).isPresent()) {
             roles.add("COURIER");
+        }
+        if (Objects.equals(email, adminEmail)) {
+            roles.add("ADMIN");
         }
     }
 
