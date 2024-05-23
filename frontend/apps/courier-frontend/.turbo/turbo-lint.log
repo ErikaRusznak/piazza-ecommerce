@@ -1,0 +1,24 @@
+
+> courier-frontend@0.1.0 lint
+> eslint .
+
+
+C:\Erika\licenta\app\frontend\apps\courier-frontend\api\auth\AuthVerify.ts
+  26:8  warning  React Hook useEffect has a missing dependency: 'logout'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Erika\licenta\app\frontend\apps\courier-frontend\hooks\useSessionStorage.ts
+  22:8  warning  React Hook useEffect has missing dependencies: 'initialize' and 'key'. Either include them or remove the dependency array. If 'setState' needs the current value of 'key', you can also switch to useReducer instead of useState and read 'key' in the reducer  react-hooks/exhaustive-deps
+  34:9  warning  React Hook useCallback has a missing dependency: 'state'. Either include it or remove the dependency array                                                                                                                                                      react-hooks/exhaustive-deps
+
+C:\Erika\licenta\app\frontend\apps\courier-frontend\src\app\chats\page.tsx
+  71:8  warning  React Hook useEffect has a missing dependency: 'getCourierByEmail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Erika\licenta\app\frontend\apps\courier-frontend\src\app\orders\[id]\page.tsx
+  36:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  82:8   warning  React Hook useEffect has a missing dependency: 'id'. Either include it or remove the dependency array                                                                                                                                                           react-hooks/exhaustive-deps
+
+C:\Erika\licenta\app\frontend\apps\courier-frontend\src\components\atoms\upload\UploadController.tsx
+  79:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 7 problems (0 errors, 7 warnings)
+
