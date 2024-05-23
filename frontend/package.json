@@ -12,7 +12,8 @@
   },
   "packageManager": "npm@10.5.2",
   "dependencies": {
-    "turborepo": "^0.0.1"
+    "turborepo": "^0.0.1",
+    "@fontsource/open-sans": "^5.0.22"
   },
   "scripts": {
     "dev": "turbo run dev --parallel",

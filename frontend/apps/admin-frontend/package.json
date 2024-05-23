@@ -26,6 +26,7 @@
     "mui-tel-input": "^5.0.0",
     "net": "^1.0.2",
     "next": "14.1.0",
+    "next-transpile-modules": "^10.0.1",
     "qs": "^6.11.2",
     "react": "^18",
     "react-dom": "^18",
@@ -37,6 +38,7 @@
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
+    "ui": "*",
     "yup": "^1.3.3",
     "yup-phone-lite": "^2.0.1"
   },
@@ -44,7 +46,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5",
-    "eslint-config-custom": "*"
+    "eslint-config-custom": "*",
+    "typescript": "^5"
   }
 }

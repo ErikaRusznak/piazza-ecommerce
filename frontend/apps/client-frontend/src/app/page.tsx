@@ -1,10 +1,11 @@
 "use client";
 
 import MainLayout from "@/components/templates/MainLayout";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import useTheme from "@/theme/themes";
 import { useRouter } from "next/navigation";
+import { Button } from "ui";
 
 const HomePage = () => {
     const theme = useTheme();
@@ -54,30 +55,30 @@ const HomePage = () => {
                     }}
                 >
                     <Button
-                        variant="contained"
-                        sx={{
-                            background: theme.palette.secondary.main,
-                            color: theme.palette.info.main,
-                            "&:hover": { background: theme.palette.tertiary.main },
-                            fontSize: { xs: "14px", sm: "16px", md: "18px" },
-                        }}
-                        onClick={() => {
-                            router.push("/shop");
-                        }}
+                        // variant="contained"
+                        // sx={{
+                        //     background: theme.palette.secondary.main,
+                        //     color: theme.palette.info.main,
+                        //     "&:hover": { background: theme.palette.tertiary.main },
+                        //     fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                        // }}
+                        // onClick={() => {
+                        //     router.push("/shop");
+                        // }}
                     >
                         Check our products
                     </Button>
                     <Button
-                        variant="outlined"
-                        sx={{
-                            borderColor: theme.palette.primary.main,
-                            color: theme.palette.info.main,
-                            "&:hover": { borderColor: theme.palette.tertiary.main },
-                            fontSize: { xs: "14px", sm: "16px", md: "18px" },
-                        }}
-                        onClick={() => {
-                            router.push("/login");
-                        }}
+                        // variant="outlined"
+                        // sx={{
+                        //     borderColor: theme.palette.primary.main,
+                        //     color: theme.palette.info.main,
+                        //     "&:hover": { borderColor: theme.palette.tertiary.main },
+                        //     fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                        // }}
+                        // onClick={() => {
+                        //     router.push("/login");
+                        // }}
                     >
                         Get started
                     </Button>
