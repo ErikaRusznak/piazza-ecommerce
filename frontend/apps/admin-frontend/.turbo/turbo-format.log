@@ -1,4 +1,0 @@
-
-> admin-frontend@0.1.0 format
-> eslint --fix --ext .js,.jsx .
-
