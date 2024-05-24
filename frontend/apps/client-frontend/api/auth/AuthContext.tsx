@@ -52,7 +52,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             const { data } = await getUserRoleByEmail(username);
             const user = await getUserAccountByEmail(username);
             if (status === 200 && data === "CLIENT" && user) {
-
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
@@ -77,7 +76,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setAuthenticated(false);
         setUsername(null);
         router.push("/login");
-        // window.location.reload();
     }
 
     return (

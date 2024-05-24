@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {
-    Box, Grid,
-    Typography,
+    Grid,
 } from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import {getSellerByEmailApi} from "../../../../api/entities/SellerApi";
+import {getSellerByIdApi} from "../../../../api/entities/SellerApi";
 import LegalDetailsForm from "@/components/moleculas/accountDetails/LegalDetailsForm";
 import AddressDetailsForm from "@/components/moleculas/accountDetails/AddressDetailsForm";
 type AddressManagementProps = {
@@ -14,13 +13,12 @@ type AddressManagementProps = {
 };
 
 const AddressManagement = ({ user, setUser}: AddressManagementProps) => {
-    const theme = useTheme();
-    const {username} = useAuth();
+    const {id} = useAuth();
     const [seller, setSeller] = useState<any>();
 
-    const getSellerByEmail = (username: string) => {
-        if(username) {
-            getSellerByEmailApi(username)
+    const getSellerById = (id: number) => {
+        if(id) {
+            getSellerByIdApi(id)
                 .then((res) => {
                     setSeller(res.data)
                 })
@@ -30,14 +28,12 @@ const AddressManagement = ({ user, setUser}: AddressManagementProps) => {
         }
     }
 
-    console.log("seller", seller)
-
     useEffect(() => {
-        getSellerByEmail(username);
-    }, [username]);
+        getSellerById(id);
+    }, [id]);
 
 
-    return (username && seller) && (
+    return (id && seller) && (
         <Grid container spacing={2} sx={{mt: 2}} justifyContent="center">
             {seller?.sellerType !== "LOCAL_FARMER" && (
                 <Grid item xs={12} md={6}>

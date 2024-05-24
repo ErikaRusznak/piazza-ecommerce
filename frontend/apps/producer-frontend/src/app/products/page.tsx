@@ -5,8 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import {
     Box,
-    Button,
-    Container, Select, TablePagination,
+    Button
 } from "@mui/material";
 import {baseURL} from "../../../api/ApiClient";
 import {useAuth} from "../../../api/auth/AuthContext";
@@ -14,12 +13,11 @@ import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {getProductsApi} from "../../../api/entities/ProductApi";
-import {AddIcon, KeyboardArrowDownIcon} from "@/components/atoms/icons";
-import {styled} from "@mui/material/styles";
-import themes from "@/theme/themes";
+import {AddIcon} from "@/components/atoms/icons";
 import StyledButton from "@/components/atoms/StyledButton";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 import DeleteProductModal from "@/components/organisms/modals/DeleteProductModal";
+import useProductForm from "../../../hooks/useProductForm";
 
 const tableCellLabels = ["Image", "Name", "Category", "Price", "Actions"];
 
@@ -61,7 +59,7 @@ const ProductsPage = () => {
     };
 
     const {isAuthenticated} = useAuth();
-
+    const {seller} = useProductForm();
     const [products, setProducts] = useState<any>([]);
     const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -87,10 +85,10 @@ const ProductsPage = () => {
     };
 
     useEffect(() => {
-        const sellerAlias = sessionStorage.getItem("sellerAlias");
-        const sanitizedSellerAlias = sellerAlias?.replace(/"/g, "");
-        getProducts(currentPage, itemsPerPage, [], [`sellerAlias[eq]${sanitizedSellerAlias}`]);
-    }, [itemsPerPage, currentPage, totalNumberOfProducts]);
+        if(seller) {
+            getProducts(currentPage, itemsPerPage, [], [`sellerAlias[eq]${seller.alias}`]);
+        }
+    }, [itemsPerPage, currentPage, totalNumberOfProducts, seller]);
 
     const onDelete = (productId: number) => {
         setProducts(products.filter((product:any) => product.id !== productId));

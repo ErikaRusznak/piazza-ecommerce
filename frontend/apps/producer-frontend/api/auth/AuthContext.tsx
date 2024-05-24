@@ -4,7 +4,7 @@ import {executeJwtAuthenticationService, registerApiService} from "./Authenticat
 import {getUserRoleByEmail} from "../entities/UserAccount";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
-import {getSellerByEmailApi} from "../entities/SellerApi";
+import {getUserAccountByEmail} from "client-frontend/api/entities/UserAccount";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -13,7 +13,7 @@ type AuthContextType = {
     login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
     registerUser: (sellerDto: any) => Promise<boolean>;
-    sellerAlias: string;
+    id: number;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,9 +32,9 @@ type AuthProviderProps = {
 const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
+    const [id, setId] = useSessionStorage("id", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
-    const [sellerAlias, setSellerAlias] = useSessionStorage("sellerAlias", "");
 
     const registerUser = async (sellerDto: any) => {
         const { status } = await registerApiService(sellerDto);
@@ -49,14 +49,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     const login = async (username: string, password: string) => {
         try {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
-            const seller = await getSellerByEmailApi(username);
             const { data } = await getUserRoleByEmail(username);
-            if (status === 200 && data === "SELLER") {
+            const user = await getUserAccountByEmail(username);
+            if (status === 200 && data === "SELLER" && user) {
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);
                 setUsername(username);
-                setSellerAlias(seller.data.alias)
+                setId(user.data.id)
+
                 return true;
             } else {
                 logout();
@@ -79,7 +80,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token, sellerAlias }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, registerUser, username, token, id }}>
             {children}
         </AuthContext.Provider>
     );

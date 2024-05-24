@@ -13,6 +13,7 @@ import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
+import useProductForm from "../../../hooks/useProductForm";
 
 const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Total Price", "Status", "Actions"];
 
@@ -61,9 +62,9 @@ const OrdersPage = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const {isAuthenticated, sellerAlias} = useAuth();
+    const {isAuthenticated} = useAuth();
     const [orders, setOrders] = useState([]);
-
+    const {seller} = useProductForm();
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalNumberOfOrders, setTotalNumberOfOrders] = useState(0);
@@ -84,7 +85,7 @@ const OrdersPage = () => {
     }
 
     useEffect(() => {
-        if (sellerAlias) {
+        if (seller) {
             const filterSpecs: string[] = buildFilterSpecs();
             const sortSpecs: string[] = buildSortSpecs();
             setOrRemoveQueryParameters(sortSpecs);
@@ -94,7 +95,7 @@ const OrdersPage = () => {
             getOrdersForSeller(currentPage, itemsPerPage, sortSpecs, filterSpecs);
         }
 
-    }, [filterOptions, orderSort, itemsPerPage, currentPage, sellerAlias, selectedStatusFilter]);
+    }, [filterOptions, orderSort, itemsPerPage, currentPage, seller, selectedStatusFilter]);
 
     useEffect(() => {
         setFilterOptions(buildFilterOptionsFromQueryParams(searchParams));
@@ -113,7 +114,7 @@ const OrdersPage = () => {
     };
 
     const buildFilterSpecs = () => {
-        const filterSearchSpec = [`sellerAlias[eq]${sellerAlias}`];
+        const filterSearchSpec = [`sellerAlias[eq]${seller.alias}`];
         if (filterOptions.orderStatus) {
             filterSearchSpec.push(createFilterCriteria("orderStatus", "eq", filterOptions.orderStatus));
         }

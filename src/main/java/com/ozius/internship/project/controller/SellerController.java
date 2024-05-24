@@ -18,9 +18,9 @@ public class SellerController {
         this.sellerService = service;
     }
 
-    @GetMapping("/seller/{email}")
-    private ResponseEntity<SellerDTO> getSellerByEmail(@PathVariable String email) {
-        SellerDTO sellerDTO = sellerService.getSellerByEmail(email);
+    @GetMapping("/seller/{id}")
+    private ResponseEntity<SellerDTO> getSellerById(@PathVariable long id) {
+        SellerDTO sellerDTO = sellerService.getSellerById(id);
         return ResponseEntity.ok(sellerDTO);
     }
 

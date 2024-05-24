@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {useAuth} from "../api/auth/AuthContext";
 import {getAllCategoriesApi} from "../api/entities/CategoryApi";
-import {getSellerByEmailApi} from "../api/entities/SellerApi";
+import {getSellerByIdApi} from "../api/entities/SellerApi";
 
 const useProductForm = () => {
-    const { username } = useAuth();
+    const {  id } = useAuth();
     const [categories, setCategories] = useState<any>();
     const [seller, setSeller] = useState<any>();
 
@@ -23,9 +23,9 @@ const useProductForm = () => {
                 .catch((err) => console.log(err));
         };
 
-        const getSellerByEmail = (email: string) => {
-            if (email) {
-                getSellerByEmailApi(email)
+        const getSellerById = (id: number) => {
+            if (id) {
+                getSellerByIdApi(id)
                     .then((res) => {
                         setSeller(res.data);
                     })
@@ -34,8 +34,8 @@ const useProductForm = () => {
         };
 
         getCategoryList();
-        getSellerByEmail(username);
-    }, [username]);
+        getSellerById(id);
+    }, [id]);
 
     return { categories, seller, UNIT_OF_MEASURES };
 };

@@ -77,7 +77,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setAuthenticated(false);
         setUsername(null);
         router.push("/login");
-        // window.location.reload();
     }
 
     return (

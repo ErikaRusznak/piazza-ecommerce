@@ -4,20 +4,11 @@ import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import useTheme from "@/theme/themes";
 import {useAuth} from "../../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
-import {getAllCategoriesApi} from "../../../../../api/entities/CategoryApi";
-import {getSellerByEmailApi} from "../../../../../api/entities/SellerApi";
 import {SubmitHandler} from "react-hook-form";
 import {getProductByIdApi, updateProductApi} from "../../../../../api/entities/ProductApi";
 import useProductForm from "../../../../../hooks/useProductForm";
-
-const UNIT_OF_MEASURES = [
-    {id: 0, name: "KILOGRAM"},
-    {id: 1, name: "GRAM"},
-    {id: 2, name: "ONE_UNIT"},
-];
 
 type EditProductPageProps = {
     params: {
@@ -26,7 +17,6 @@ type EditProductPageProps = {
 }
 const EditProductPage = ({params}: EditProductPageProps) => {
 
-    const theme = useTheme();
     const id = Number(params.id);
     const { isAuthenticated, username } = useAuth();
     const router = useRouter();
