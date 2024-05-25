@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Container, Tooltip, Typography} from "@mui/material";
 import moment from "moment";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {getSellerRequestsApi} from "../../../api/entities/SellerRequestsApi";
 import MainLayout from "@/components/templates/MainLayout";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";

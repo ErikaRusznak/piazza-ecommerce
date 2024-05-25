@@ -1,11 +1,11 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
-import {executeJwtAuthenticationService} from "./AuthenticationApiService";
-import {getUserRoleByEmail} from "../entities/UserAccount";
-import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
 import {getUserAccountByEmail} from "client-frontend/api/entities/UserAccount";
 import {registerApiService} from "client-frontend/api/auth/AuthenticationApiService";
+import {executeJwtAuthenticationService} from "../api/auth/authApi";
+import {useSessionStorage} from "../hooks/useSessionStorage";
+import {getUserRoleByEmail} from "../api/entities/UserAccount";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -28,9 +28,10 @@ export const useAuth = (): AuthContextType => {
 };
 
 type AuthProviderProps = {
+    userRole: string;
     children: ReactElement;
 };
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children, userRole }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [id, setId] = useSessionStorage("id", "");
@@ -52,7 +53,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
             const { data } = await getUserRoleByEmail(username);
             const user = await getUserAccountByEmail(username);
-            if (status === 200 && data === "ADMIN" && user) {
+            if (status === 200 && data === userRole && user) {
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);

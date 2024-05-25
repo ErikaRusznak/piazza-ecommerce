@@ -27,9 +27,10 @@ export const useAuth = (): AuthContextType => {
 };
 
 type AuthProviderProps = {
+    userRole: string;
     children: ReactElement;
 };
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children, userRole }: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [id, setId] = useSessionStorage("id", "");
@@ -51,7 +52,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             const { status, data: { token: jwtToken } } = await executeJwtAuthenticationService(username, password);
             const { data } = await getUserRoleByEmail(username);
             const user = await getUserAccountByEmail(username);
-            if (status === 200 && data === "CLIENT" && user) {
+            if (status === 200 && data === userRole && user) {
                 setAuthenticated(true);
                 const newToken = 'Bearer ' + jwtToken;
                 setToken(newToken);

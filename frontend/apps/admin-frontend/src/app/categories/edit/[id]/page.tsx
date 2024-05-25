@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import useTheme from "@/theme/themes";
-import {useAuth} from "../../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
 import {getCategoryByIdApi, updateCategoryApi} from "../../../../../api/entities/CategoryApi";

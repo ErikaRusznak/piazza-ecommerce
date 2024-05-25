@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {Button} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {useAuth} from "../../../../api/auth/AuthContext";
 
 type AccountManagementProps = {
     user: any;

@@ -24,7 +24,7 @@ import {
 
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 
 const drawerWidth = 240;
 

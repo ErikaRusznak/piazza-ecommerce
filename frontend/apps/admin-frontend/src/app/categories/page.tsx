@@ -9,7 +9,7 @@ import {
     Container,
 } from "@mui/material";
 import {baseURL} from "../../../api/ApiClient";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";

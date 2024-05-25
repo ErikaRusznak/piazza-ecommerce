@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import {Box, Container} from "@mui/material";
 import {getProductsApi} from "../../../../api/entities/ProductApi";

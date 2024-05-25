@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import AddEditCategoryForm, {AddEditCategoryInput} from "@/components/organisms/categories/AddEditCategoryForm";

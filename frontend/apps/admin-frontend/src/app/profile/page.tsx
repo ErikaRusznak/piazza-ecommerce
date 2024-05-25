@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import { Container} from "@mui/material";
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 
 const ManageProfilePage = () => {

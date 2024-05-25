@@ -1,6 +1,5 @@
 package com.ozius.internship.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ozius.internship.project.entity.seller.CompanyType;
 import com.ozius.internship.project.entity.seller.SellerType;
 import com.ozius.internship.project.entity.user.UserRole;
@@ -26,7 +25,6 @@ public class RegisterSellerDTO {
     @NotBlank
     @NotNull
     private String password;
-    @JsonProperty("sellerAlias")
     private String alias;
     private String country;
     private String state;

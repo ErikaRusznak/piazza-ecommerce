@@ -8,6 +8,7 @@
     "format": "eslint --fix --ext .js,.jsx ."
   },
   "devDependencies": {
+    "@types/qs": "^6.9.15",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "react": "^18"
