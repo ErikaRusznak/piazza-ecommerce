@@ -2,11 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {
-    getMessagesForGroupChatApi,
-    getMessagesForSenderAndRecipientApi,
-    markMessagesAsReadApi
-} from "../../../../api/entities/ChatApi";
+import {getMessagesForGroupChatApi} from "components";
+import {getMessagesForSenderAndRecipientApi, markMessagesAsReadApi} from "components";
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import PrivateChatMessageUser from "@/components/moleculas/chat/PrivateChatMessageUser";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
@@ -25,7 +22,8 @@ type UserAndGroupChatsProps = {
     groupChats: any[];
 };
 
-const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
+const UserAndGroupChats = ({
+                               id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
                                connectedUsers, groupChats,
                                messages, setMessages
                            }: UserAndGroupChatsProps) => {
@@ -144,8 +142,10 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             }}>
             <Typography
                 color={theme.palette.info.main}
-                sx={{ textTransform: 'uppercase', mb: 2, p: 1,
-                      borderBottom: `1px solid ${theme.palette.lightColor.main}`}}
+                sx={{
+                    textTransform: 'uppercase', mb: 2, p: 1,
+                    borderBottom: `1px solid ${theme.palette.lightColor.main}`
+                }}
             >
                 Chats
             </Typography>

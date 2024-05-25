@@ -4,13 +4,13 @@ import useTheme from "@/theme/themes";
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
-import {api} from "../../../../api/ApiClient";
+import {api} from "components";
 import {Resolver, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import "yup-phone-lite";
 import StyledButton from "@/components/atoms/StyledButton";
 import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
-import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
+import {updateUserAccountApi} from "components";
 
 type ProfileInformationFormInput = {
   firstName: string;

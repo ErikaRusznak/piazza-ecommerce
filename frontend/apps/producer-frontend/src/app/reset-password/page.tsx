@@ -8,9 +8,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/light/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
 import useTheme from "@/theme/themes";
+import FormTextField from "@/components/atoms/form/light/FormTextFields";
 
 type ResetPasswordPageProps = {
     searchParams: {

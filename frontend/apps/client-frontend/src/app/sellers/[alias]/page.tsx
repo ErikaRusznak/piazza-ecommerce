@@ -16,7 +16,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import SellerDetailsComponent from "@/components/moleculas/sellers/SellerDetailsComponent";
 import MainProductList from "@/components/organisms/product/MainProductList";
 import ProductAddToCartModal from "@/components/organisms/modals/ProductAddToCartModal";
-import { getProductsApi } from "../../../../api/entities/ProductApi";
+import { getProductsApi } from "components";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
 import {useRouteAlias} from "components";
 import {baseURL} from "components";

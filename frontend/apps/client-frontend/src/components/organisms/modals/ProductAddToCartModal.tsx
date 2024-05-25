@@ -3,7 +3,7 @@ import {Box, Typography, useMediaQuery} from '@mui/material';
 import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
 import { useAuth } from "components";
-import {getProductByIdApi} from "../../../../api/entities/ProductApi";
+import {getProductByIdApi} from "components";
 import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "components";
 import ProductRating from "@/components/moleculas/ProductRating";

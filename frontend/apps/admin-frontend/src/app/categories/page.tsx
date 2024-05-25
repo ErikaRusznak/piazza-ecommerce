@@ -8,14 +8,13 @@ import {
     Button,
     Container,
 } from "@mui/material";
-import {baseURL} from "../../../api/ApiClient";
-import {useAuth} from "components";
+import {useAuth, baseURL} from "components";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {AddIcon} from "@/components/atoms/icons";
 import StyledButton from "@/components/atoms/StyledButton";
-import {getAllCategoriesApi} from "../../../api/entities/CategoryApi";
+import {getAllCategoriesApi} from "components";
 import DeleteCategoryModal from "@/components/organisms/modals/DeleteCategoryModal";
 
 const tableCellLabels = ["Image", "Name", "Actions"];

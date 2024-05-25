@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {
-    getMessagesForGroupChatApi,
-} from "../../../../api/entities/ChatApi";
+import { getMessagesForGroupChatApi } from "components";
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
 

@@ -1,10 +1,10 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
 import {executeJwtAuthenticationService, registerApiService} from "./AuthenticationApiService";
-import {getUserRoleByEmail} from "../entities/UserAccount";
+import {getUserRoleByEmail} from "components";
 import {useSessionStorage} from "../../hooks/useSessionStorage";
 import {useRouter} from "next/navigation";
-import {getUserAccountByEmail} from "client-frontend/api/entities/UserAccount";
+import {getUserAccountByEmail} from "components";
 
 type AuthContextType = {
     isAuthenticated: boolean;

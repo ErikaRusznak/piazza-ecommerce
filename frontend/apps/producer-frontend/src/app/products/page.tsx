@@ -7,12 +7,12 @@ import {
     Box,
     Button, Container
 } from "@mui/material";
-import {baseURL} from "../../../api/ApiClient";
+import {baseURL} from "components";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
-import {getProductsApi} from "../../../api/entities/ProductApi";
+import {getProductsApi} from "components";
 import {AddIcon} from "@/components/atoms/icons";
 import StyledButton from "@/components/atoms/StyledButton";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";

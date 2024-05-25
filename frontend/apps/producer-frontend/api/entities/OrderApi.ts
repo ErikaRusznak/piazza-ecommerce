@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import {api} from "components";
 
 export const getOrdersApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
     return api.get(`/orders`, {
@@ -9,10 +9,6 @@ export const getOrdersApi = (page:number, itemsPerPage:number, sortSpecs:any, fi
             filter: JSON.stringify(filterSpecs)
         }
     })
-}
-
-export const getOrderByIdApi = (id: number) => {
-    return api.get(`/order/${id}`)
 }
 
 export const markOrderAsProcessingApi = (id: number) => {

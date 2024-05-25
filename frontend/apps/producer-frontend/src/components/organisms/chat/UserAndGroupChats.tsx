@@ -2,11 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {
-    getMessagesForGroupChatApi,
-    getMessagesForSenderAndRecipientApi,
-    markMessagesAsReadApi
-} from "../../../../api/entities/ChatApi";
+import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessagesForGroupChatApi } from "components";
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import PrivateChatMessageUser from "@/components/moleculas/chat/PrivateChatMessageUser";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";

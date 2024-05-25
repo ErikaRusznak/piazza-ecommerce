@@ -1,9 +1,5 @@
 import { api } from 'components';
 
-export const getAllCategoriesApi = () => {
-    return api.get("/categories")
-}
-
 export const createCategoryApi = (category: any) => {
     return api.post("/categories", category);
 }

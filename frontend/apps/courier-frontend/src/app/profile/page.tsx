@@ -10,7 +10,7 @@ import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInfo
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {useAuth} from "components";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
+import {getUserAccountByEmail} from "components";
 
 const ManageProfilePage = () => {
 

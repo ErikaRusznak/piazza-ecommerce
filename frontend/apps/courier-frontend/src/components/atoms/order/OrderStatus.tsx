@@ -5,11 +5,10 @@ import useTheme from "@/theme/themes";
 import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon, SyncIcon} from "@/components/atoms/icons";
 import OrderStatusPopover from "@/components/atoms/order/OrderStatusPopover";
 import {
-    getOrderByIdApi,
     markOrderAsDeliveredApi,
     markOrderAsShippingApi
 } from "../../../../api/entities/OrderApi";
-
+import { getOrderByIdApi } from "components";
 type OrderStatusProps = {
     orderStatus: string;
     orderId: number;

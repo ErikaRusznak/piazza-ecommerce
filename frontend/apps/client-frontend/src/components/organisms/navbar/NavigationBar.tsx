@@ -25,7 +25,7 @@ import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import { useAuth } from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
-import {getAllCategoriesApi} from "../../../../api/entities/CategoryApi";
+import {getAllCategoriesApi} from "components";
 import {baseURL} from "components";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 

@@ -1,4 +1,4 @@
-import {api} from "../ApiClient"
+import {api} from "components"
 
 export function executeJwtAuthenticationService(username: string, password: string){
     return api.post(`/authenticate`,{username, password})

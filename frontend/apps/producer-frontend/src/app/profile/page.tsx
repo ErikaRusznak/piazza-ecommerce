@@ -8,7 +8,7 @@ import {
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
-import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
+import {getUserAccountByEmail} from "components";
 import {useAuth} from "../../../api/auth/AuthContext";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 

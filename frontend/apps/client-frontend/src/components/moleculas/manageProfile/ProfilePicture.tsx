@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import {Avatar, Box, Grid, IconButton, Paper} from "@mui/material";
-import {Edit, PhotoCamera} from "@mui/icons-material";
+import {Avatar, Box, Grid, IconButton} from "@mui/material";
+import {Edit} from "@mui/icons-material";
 import useTheme from "@/theme/themes";
-import {addImageApi} from "../../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation";
 import {baseURL} from "components";
-import {SubmitHandler} from "react-hook-form";
-import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
+import {updateUserAccountApi} from "components";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
 
 type ProfilePictureProps = {

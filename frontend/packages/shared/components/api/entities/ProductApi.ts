@@ -1,4 +1,4 @@
-import { api } from 'components';
+import {api} from "../ApiClient";
 
 export const getProductsApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
 
@@ -10,4 +10,8 @@ export const getProductsApi = (page:number, itemsPerPage:number, sortSpecs:any, 
             filter: JSON.stringify(filterSpecs)
         }
     });
+}
+
+export const getProductByIdApi = (productId:number) => {
+    return api.get(`/products/${productId}`)
 }

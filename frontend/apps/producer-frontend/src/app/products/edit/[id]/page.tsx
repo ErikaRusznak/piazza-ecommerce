@@ -7,8 +7,9 @@ import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import {useAuth} from "../../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
-import {getProductByIdApi, updateProductApi} from "../../../../../api/entities/ProductApi";
+import {getProductByIdApi} from "components";
 import useProductForm from "../../../../../hooks/useProductForm";
+import {updateProductApi} from "../../../../../api/entities/ProductApi";
 
 type EditProductPageProps = {
     params: {

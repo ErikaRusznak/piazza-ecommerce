@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import {
     getGroupChatsForCourierApi,
-    getMessagesForGroupChatApi,
 } from "../../../api/entities/ChatApi";
-import { getUserAccountByEmail } from "../../../api/entities/UserAccount";
+import { getMessagesForGroupChatApi } from "components";
+import { getUserAccountByEmail } from "components";
 import { Box, Container, useMediaQuery } from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";

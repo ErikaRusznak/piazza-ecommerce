@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import {getProductByIdApi} from "../../../../api/entities/ProductApi";
+import {getProductByIdApi} from "components";
 import {useRouteId} from "components";
 import {Box, CircularProgress, Typography, useMediaQuery} from "@mui/material";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";

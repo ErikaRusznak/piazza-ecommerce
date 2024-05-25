@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button} from "@mui/material";
 import useTheme from "@/theme/themes";
-import {deleteAccountForBuyerByIdApi} from "../../../../api/entities/UserAccount";
+import {deleteAccountForCourierByIdApi} from "../../../../api/entities/UserAccount";
 import {useRouter} from "next/navigation";
 import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
 import {useAuth} from "components";
@@ -23,7 +23,7 @@ const AccountManagement = ({user}:AccountManagementProps) => {
     }
 
     const handleDelete = () => {
-        deleteAccountForBuyerByIdApi(user.id)
+        deleteAccountForCourierByIdApi(user.id)
             .then(res => {
                 logout();
                 router.push("/login");

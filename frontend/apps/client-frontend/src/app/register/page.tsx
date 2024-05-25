@@ -17,7 +17,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import UploadController from "@/components/atoms/upload/UploadController";
-import {addImageApi} from "../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 
 type RegisterFormInput = {
     firstName: string,

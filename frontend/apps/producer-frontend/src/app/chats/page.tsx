@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";
-import {getAllUsersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
+import {getUserAccountByEmail} from "components";
 import {
     getGroupChatsForSellerApi,
 } from "../../../api/entities/ChatApi";
@@ -14,6 +14,7 @@ import {useAuth} from "../../../api/auth/AuthContext";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
+import {getAllUsersApi} from "../../../api/entities/UserAccount";
 
 const ChatPage = () => {
 

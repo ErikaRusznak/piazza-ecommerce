@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {useAuth} from "../api/auth/AuthContext";
-import {getAllCategoriesApi} from "../api/entities/CategoryApi";
+import {getAllCategoriesApi} from "components";
 import {getSellerByIdApi} from "../api/entities/SellerApi";
 
 const useProductForm = () => {

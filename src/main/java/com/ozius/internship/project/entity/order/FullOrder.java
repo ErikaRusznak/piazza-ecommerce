@@ -51,6 +51,7 @@ public class FullOrder extends BaseEntity {
     private String orderNumber;
 
     @Getter
+    @Enumerated(EnumType.STRING)
     @Column(name = Columns.PAYMENT_TYPE, nullable = false)
     private PaymentType paymentType;
 

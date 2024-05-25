@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import { getGroupChatsForBuyerApi } from "../../../api/entities/ChatApi";
-import {getAllUserSellersApi, getUserAccountByEmail} from "../../../api/entities/UserAccount";
+import {getUserAccountByEmail} from "components";
 import {Box, Container, useMediaQuery} from "@mui/material";
 
 import MainLayout from "@/components/templates/MainLayout";
@@ -11,6 +11,7 @@ import {useWebSocket} from "../../../contexts/WebSocketContext";
 import {useSearchParams} from "next/navigation";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
+import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
 
 const ChatPage = () => {
     const theme = useTheme();

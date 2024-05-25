@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {Avatar, Box, Grid, IconButton, Paper} from "@mui/material";
 import {Edit} from "@mui/icons-material";
 import useTheme from "@/theme/themes";
-import {addImageApi} from "../../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation";
-import {baseURL} from "../../../../api/ApiClient";
-import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
+import {baseURL} from "components";
+import {updateUserAccountApi} from "components";
 
 type ProfilePictureProps = {
     setUser: (data: UserType)=>void;

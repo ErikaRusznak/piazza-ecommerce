@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react";
 import useTheme from "@/theme/themes";
 import {Box, Typography, useMediaQuery} from "@mui/material";
-import {useAuth} from "../../../../api/auth/AuthContext";
 import ProductRating from "@/components/atoms/reviews/ProductRating";
-import {EditNoteIcon} from "@/components/atoms/icons";
-import {getReviewByIdApi} from "../../../../api/entities/ReviewApi";
 
 type ReviewComponentProps = {
     review: any; // TODO - make review type

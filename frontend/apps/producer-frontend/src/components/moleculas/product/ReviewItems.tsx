@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import useTheme from "@/theme/themes";
-import {getReviewsApi} from "../../../../api/entities/ReviewApi";
+import {getReviewsApi} from "components";
 import {Box, Typography} from "@mui/material";
 import ReviewComponent from "@/components/atoms/reviews/ReviewComponent";
 

@@ -16,7 +16,7 @@ import FormTextField from "@/components/atoms/form/light/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import {addImageApi} from "../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 import UploadController from "@/components/atoms/upload/UploadController";
 
 type RegisterFormInput = {

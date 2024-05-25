@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {Box, Typography} from "@mui/material";
 import useTheme from "@/theme/themes";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {getProductsApi} from "../../../api/entities/ProductApi";
+import {getProductsApi} from "components";
 import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";

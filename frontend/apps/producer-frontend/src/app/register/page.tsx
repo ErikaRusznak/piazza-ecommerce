@@ -17,7 +17,7 @@ import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import FormTextField from "@/components/atoms/form/light/FormTextFields";
 import MainLayout from "@/components/templates/MainLayout";
 import UploadController from "@/components/atoms/upload/UploadController";
-import {addImageApi} from "../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 import FormSelectField from "@/components/atoms/form/light/FormSelectField";
 import DatePickerField from "@/components/atoms/form/light/DatePickerField";
 

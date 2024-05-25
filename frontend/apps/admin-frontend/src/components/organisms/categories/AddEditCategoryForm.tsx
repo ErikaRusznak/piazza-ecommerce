@@ -6,7 +6,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {addImageApi} from "../../../../api/entities/ImageApi";
+import {addImageApi} from "components";
 import useTheme from "@/theme/themes";
 
 type AddEditCategoryForm = {

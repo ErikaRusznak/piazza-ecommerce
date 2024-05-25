@@ -1,8 +1,4 @@
-import { api } from '../ApiClient'
-
-export const getImageForCategoryApi = (imageURL: string) => {
-    return api.get(`${imageURL}`, { responseType: 'arraybuffer' })
-}
+import {api} from "../ApiClient";
 
 export const addImageApi = (file: any) => {
     const formData = new FormData();
