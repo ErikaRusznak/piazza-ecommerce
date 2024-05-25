@@ -8,9 +8,8 @@ import {
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import {getCourierByEmailApi} from "../../../api/entities/CourierApi";
 import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
 
 const ManageProfilePage = () => {

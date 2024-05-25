@@ -1,6 +1,6 @@
 import React from "react";
 import {useCart} from "../../../../contexts/CartContext";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
@@ -95,7 +95,9 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                             {isModifiable && (
                                 <Box sx={{mt: 2}}>
                                     <QuantityInput quantity={item.quantity}
-                                                   onQuantityChanged={handleQuantityChange}/>
+                                                   onQuantityChanged={handleQuantityChange}
+                                                   availableQuantity={item.product.quantity}
+                                    />
                                 </Box>
                             )}
                             <Box sx={{display: "flex", alignItems: "flex-end", gap: 1}}>
@@ -139,7 +141,9 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                     {isModifiable && (
                         <Box sx={{mt:1}}>
                             <QuantityInput quantity={item.quantity}
-                                           onQuantityChanged={handleQuantityChange}/>
+                                           onQuantityChanged={handleQuantityChange}
+                                           availableQuantity={item.product.quantity}
+                            />
                         </Box>
                     )}
                     <Box sx={{display: "flex", alignItems: "flex-end", gap: 1}}>

@@ -1,9 +1,10 @@
-"use client"
+"use client";
 import {createContext, ReactElement, useContext} from "react";
 import {useRouter} from "next/navigation";
 import {executeJwtAuthenticationService} from "../api/auth/authApi";
-import {useSessionStorage} from "../hooks/useSessionStorage";
 import {getUserAccountByEmail, getUserRoleByEmail} from "../api/entities/UserAccount";
+import {useSessionStorage} from "../hooks/useSessionStorage";
+import {api} from "../api/ApiClient";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -26,20 +27,33 @@ export const useAuth = (): AuthContextType => {
 };
 
 type AuthProviderProps = {
-    registerApiService?: (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:any) => Promise<any>;
+    registerPath?: string;
     userRole: string;
     children: ReactElement;
 };
-const AuthProvider = ({ children, userRole, registerApiService}: AuthProviderProps) => {
+const AuthProvider = ({ children, userRole, registerPath}: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [id, setId] = useSessionStorage("id", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
 
+    const registerApi = (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:any) => {
+        return api.post(`/${registerPath}`,
+            {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                telephone: telephone,
+                image: image,
+                password: password,
+                userRole: userRole,
+            })
+    }
+
     const registerUser = async (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userRole: string) => {
-        if (registerApiService) {
-            const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userRole);
+        if (registerPath) {
+            const { status } = await registerApi(email, password, firstName, lastName, telephone, image, userRole);
             if (status === 201) {
                 return true;
             } else {

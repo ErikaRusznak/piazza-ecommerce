@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { baseURL } from "../../../api/ApiClient";
+import {baseURL} from "components";
 import { Box, Typography } from "@mui/material";
 import useTheme from "@/theme/themes";
 

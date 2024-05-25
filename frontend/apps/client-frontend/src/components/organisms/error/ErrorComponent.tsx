@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Container, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import {ArrowForwardIcon} from "@/components/atoms/icons";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import useTheme from "@/theme/themes";
 
 type ErrorComponentProps = {

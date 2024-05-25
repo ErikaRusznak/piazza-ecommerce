@@ -5,7 +5,7 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import themes from "@/theme/themes";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import {Box} from "@mui/system";
 import {usePathname, useRouter} from "next/navigation";
 

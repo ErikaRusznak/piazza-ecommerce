@@ -15,7 +15,7 @@ import {
     AccountCircleIcon
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";

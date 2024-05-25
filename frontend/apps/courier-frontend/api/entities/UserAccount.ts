@@ -1,23 +1,7 @@
-import { api } from '../ApiClient'
-
-export const getUserRoleByEmail = (email: string) => {
-    return api.get(`/users/${email}/role`)
-};
+import { api } from "components";
 
 export const getUserAccountByEmail = (email: string) => {
     return api.get(`/users/${email}`);
-};
-
-export const getAllConnectedUsers = () => {
-    return api.get("/connectedUsers");
-};
-
-export const getAllUsersApi = () => {
-    return api.get("/users");
-};
-
-export const getAllUserSellersApi = () => {
-    return api.get("/users/sellers");
 };
 
 export const updateUserAccountApi = (id: number, firstName: string, lastName: string, email: string, imageName: string, telephone: string) => {

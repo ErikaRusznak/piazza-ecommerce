@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import {api} from "components";
 
 export const getMessagesForSenderAndRecipientApi = (senderId: number, recipientId: number) => {
     return api.get(`/messages/${senderId}/${recipientId}`)

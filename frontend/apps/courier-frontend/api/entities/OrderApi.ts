@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import {api} from "components";
 
 
 export const getOrderByIdApi = (id: number) => {

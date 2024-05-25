@@ -1,4 +1,4 @@
-import {api} from '../ApiClient'
+import {api} from 'components'
 
 export const addCommentApi = (reviewId: number, userId: number, content: string) => {
     return api.post(`/comments/${reviewId}/${userId}`, content, {

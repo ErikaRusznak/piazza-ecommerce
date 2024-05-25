@@ -41,7 +41,8 @@
     "stompjs": "^2.3.3",
     "yup": "^1.3.3",
     "yup-phone-lite": "^2.0.1",
-    "ui": "*"
+    "ui": "*",
+    "components": "*"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -27,7 +27,6 @@ public class WebConfig {
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/register-client")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/register-seller")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/register-courier")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/users/{email}/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/images/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/categories/**")).permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/products/**")).permitAll()

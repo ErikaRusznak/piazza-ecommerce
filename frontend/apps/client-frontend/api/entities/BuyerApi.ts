@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import {api} from "components";
 import {ShippingAddressType} from "@/app/checkout/page";
 
 export const getBuyerByEmailApi = (email: string) => {

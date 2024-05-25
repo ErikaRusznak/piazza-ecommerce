@@ -16,7 +16,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import { getFullOrdersForBuyer } from "../../../api/entities/OrderApi";
 import useTheme from "@/theme/themes";
 import {Expand} from "@mui/icons-material";
-import {baseURL} from "../../../api/ApiClient";
+import {baseURL} from "components";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 
 const OrdersPage: React.FC = () => {

@@ -5,12 +5,11 @@ import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import useTheme from "@/theme/themes";
 import { getOrderByIdApi } from "../../../../api/entities/OrderApi";
-import {Box, Button, Container, Grid, Paper} from "@mui/material";
+import {Box, Container, Grid, Paper} from "@mui/material";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import { useAuth } from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import OrderStatus from "@/components/atoms/order/OrderStatus";
-import {useRouter} from "next/navigation";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 
 type OrderPageProps = {

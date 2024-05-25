@@ -3,11 +3,11 @@
 import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import * as yup from "yup";
-import {api} from "../../../api/ApiClient";
+import {api} from "components";
 import "yup-phone-lite";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";

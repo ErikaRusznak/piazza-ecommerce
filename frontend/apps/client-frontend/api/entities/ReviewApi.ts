@@ -1,4 +1,4 @@
-import {api} from '../ApiClient'
+import {api} from 'components';
 
 export const getReviewsApi = (productId: number) => {
     return api.get(`/products/${productId}/reviews`)

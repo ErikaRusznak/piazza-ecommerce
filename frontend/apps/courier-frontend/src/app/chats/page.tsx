@@ -1,38 +1,41 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
-    getGroupChatsForCourierApi, getMessagesForGroupChatApi,
+    getGroupChatsForCourierApi,
+    getMessagesForGroupChatApi,
 } from "../../../api/entities/ChatApi";
-import {getUserAccountByEmail} from "../../../api/entities/UserAccount";
-import {Box, Container, useMediaQuery} from "@mui/material";
-
+import { getUserAccountByEmail } from "../../../api/entities/UserAccount";
+import { Box, Container, useMediaQuery } from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";
-import {useWebSocket} from "../../../contexts/WebSocketContext";
+import { useWebSocket } from "../../../contexts/WebSocketContext";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
+import { useAuth } from "components";
+import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 
 const ChatPage = () => {
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
-
+    const { isAuthenticated } = useAuth();
     const [messages, setMessages] = useState<any[]>([]);
 
-    const [courierId, setCourierId] = useState<number|null>(null);
-    const [buyerId, setBuyerId] = useState<number|null>(null);
-    const [sellerId, setSellerId] = useState<number|null>(null);
-    const [orderId, setOrderId] = useState<number|null>(null);
+    const [courierId, setCourierId] = useState<number | null>(null);
+    const [buyerId, setBuyerId] = useState<number | null>(null);
+    const [sellerId, setSellerId] = useState<number | null>(null);
+    const [orderId, setOrderId] = useState<number | null>(null);
 
     const [groupChats, setGroupChats] = useState<any>();
 
-    const {connectToWebSocket} = useWebSocket();
+    const { connectToWebSocket } = useWebSocket();
 
     const onMessageReceived = (message: any) => {
         if (message.senderRole !== "COURIER") {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
         }
     };
+
     const getCourierByEmail = (username: string) => {
         getUserAccountByEmail(username)
             .then((res) => {
@@ -71,46 +74,49 @@ const ChatPage = () => {
     }, []);
 
     useEffect(() => {
-        if(courierId && sellerId && buyerId && orderId) {
+        if (courierId && sellerId && buyerId && orderId) {
             fetchChatHistory(buyerId, courierId, sellerId, orderId);
         }
     }, [buyerId, courierId, sellerId, orderId]);
 
     return (
-        (courierId) && (
-            <MainLayout>
-                <Container>
-                    <Box sx={{
-                        boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
-                        // boxShadow: '-5px 5px 15px rgba(255,255,255, 0.5)',
-                        borderRadius: '14px', overflow: 'hidden'
-                    }}>
+        <MainLayout>
+            {isAuthenticated ? (
+                courierId && (
+                    <Container>
                         <Box sx={{
-                            display: 'flex',
-                            flexDirection: isSm ? 'column' : 'row',
-                            height: '75vh',
+                            boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+                            borderRadius: '14px', overflow: 'hidden'
                         }}>
-
-                            <UserAndGroupChats
-                                setBuyerId={setBuyerId}
-                                setCourierId={setCourierId}
-                                setSellerId={setSellerId}
-                                setOrderId={setOrderId}
-                                setMessages={setMessages}
-                                groupChats={groupChats}
-                            />
-                            <ChatContainer
-                                orderId={orderId}
-                                messages={messages}
-                                setMessages={setMessages}
-                                buyerId={buyerId}
-                                courierId={courierId}
-                                sellerId={sellerId} />
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: isSm ? 'column' : 'row',
+                                height: '75vh',
+                            }}>
+                                <UserAndGroupChats
+                                    setBuyerId={setBuyerId}
+                                    setCourierId={setCourierId}
+                                    setSellerId={setSellerId}
+                                    setOrderId={setOrderId}
+                                    setMessages={setMessages}
+                                    groupChats={groupChats}
+                                />
+                                <ChatContainer
+                                    orderId={orderId}
+                                    messages={messages}
+                                    setMessages={setMessages}
+                                    buyerId={buyerId}
+                                    courierId={courierId}
+                                    sellerId={sellerId}
+                                />
+                            </Box>
                         </Box>
-                    </Box>
-                </Container>
-            </MainLayout>
-        )
+                    </Container>
+                )
+            ) : (
+                <UnauthenticatedMessage />
+            )}
+        </MainLayout>
     );
 };
 

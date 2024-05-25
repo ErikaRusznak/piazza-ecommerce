@@ -1,4 +1,4 @@
-import {api, baseURL} from "../ApiClient";
+import {api, baseURL} from "components";
 import {ShippingAddressType} from "@/app/checkout/page";
 
 export const submitOrder = (

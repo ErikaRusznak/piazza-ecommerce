@@ -1,5 +1,5 @@
-import AuthProvider from "../../api/auth/AuthContext";
 import WebSocketProvider from "../../contexts/WebSocketContext";
+import {AuthProvider} from "components";
 
 export const metadata = {
     title: 'Courier portal',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
 
     return (
-        <AuthProvider userRole="COURIER">
+        <AuthProvider userRole="COURIER" registerPath="register-courier">
             <WebSocketProvider>
                 <html lang="en" style={{margin: 0, padding: 0}}>
                 <body style={{margin: 0, padding: 0}}>

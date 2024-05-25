@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import {api} from "components";
 
 export const getSellerByAliasApi = (alias: string) => {
     return api.get(`/sellerAlias/${alias}`)

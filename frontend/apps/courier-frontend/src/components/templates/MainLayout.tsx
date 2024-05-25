@@ -1,9 +1,6 @@
 'use client';
-import React, {PropsWithChildren, useState} from "react";
+import React from "react";
 import NavigationBar from "@/components/organisms/navbar/NavigationBar";
-import AuthProvider from "../../../api/auth/AuthContext";
-import CartProvider from "../../../contexts/CartContext";
-import FavoriteProvider from "../../../contexts/FavoriteContext";
 import {Box, SxProps, Theme} from "@mui/material";
 import themes from "@/theme/themes";
 import useTheme from "@/theme/themes";

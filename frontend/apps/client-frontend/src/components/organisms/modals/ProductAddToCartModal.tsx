@@ -5,7 +5,7 @@ import {useCart} from "../../../../contexts/CartContext";
 import { useAuth } from "components";
 import {getProductByIdApi} from "../../../../api/entities/ProductApi";
 import BaseModal from "@/components/templates/BaseModal";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import ProductRating from "@/components/moleculas/ProductRating";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import useTheme from "@/theme/themes";

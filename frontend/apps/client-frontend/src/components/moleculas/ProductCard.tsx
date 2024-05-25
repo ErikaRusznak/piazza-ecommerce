@@ -3,7 +3,7 @@ import useTheme from "@/theme/themes";
 import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon, FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
-import {baseURL} from "../../../api/ApiClient";
+import {baseURL} from "components";
 import StyledButton from "@/components/atoms/StyledButton";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";

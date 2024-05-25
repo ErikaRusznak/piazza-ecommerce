@@ -5,7 +5,7 @@ import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {Button, Container, FormControl, Typography} from "@mui/material";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import {getOrdersForCourierApi} from "../../../api/entities/OrderApi";
 import MainLayout from "@/components/templates/MainLayout";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";

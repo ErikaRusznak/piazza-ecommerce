@@ -4,7 +4,7 @@ import {Edit, PhotoCamera} from "@mui/icons-material";
 import useTheme from "@/theme/themes";
 import {addImageApi} from "../../../../api/entities/ImageApi";
 import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import {SubmitHandler} from "react-hook-form";
 import {updateUserAccountApi} from "../../../../api/entities/UserAccount";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";

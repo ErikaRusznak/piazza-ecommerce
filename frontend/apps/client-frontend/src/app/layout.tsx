@@ -3,7 +3,6 @@ import CartProvider from "../../contexts/CartContext";
 import FavoriteProvider from "../../contexts/FavoriteContext";
 import WebSocketProvider from "../../contexts/WebSocketContext";
 import ProfilePictureProvider from "../../contexts/ProfilePictureContext";
-import {registerApiService} from "../../api/auth/AuthenticationApiService";
 
 export const metadata = {
     title: 'Fresh Corner',
@@ -17,7 +16,7 @@ export default function RootLayout({
 }) {
 
     return (
-        <AuthProvider userRole="CLIENT" registerApiService={registerApiService}>
+        <AuthProvider userRole="CLIENT" registerPath="register-client">
             <WebSocketProvider>
                 <CartProvider>
                     <FavoriteProvider>

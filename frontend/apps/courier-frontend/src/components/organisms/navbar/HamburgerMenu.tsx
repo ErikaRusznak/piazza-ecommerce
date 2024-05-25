@@ -3,9 +3,8 @@ import {CloseIcon, ExpandLess, ExpandMore, MenuIcon} from "@/components/atoms/ic
 import {Box, Button, Drawer, List, ListItemButton, ListItemText, Divider, Collapse} from "@mui/material";
 import useTheme from "@/theme/themes";
 import IconButton from "@mui/material/IconButton";
-import {baseURL} from "../../../../api/ApiClient";
 import {useRouter} from "next/navigation";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import {useAuth} from "components";
 
 type CategoryType = {
     id: number;

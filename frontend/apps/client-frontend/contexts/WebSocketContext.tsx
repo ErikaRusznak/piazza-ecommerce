@@ -2,7 +2,7 @@
 
 import {createContext, useContext} from "react";
 import SockJS from "sockjs-client";
-import {baseURL} from "../api/ApiClient";
+import {baseURL} from "components";
 import * as Stomp from "stompjs";
 
 interface WebSocketContextType {

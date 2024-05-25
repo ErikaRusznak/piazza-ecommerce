@@ -1,7 +1,6 @@
 import React from "react";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import {Box, Divider, Typography} from "@mui/material";
-import {styled} from "@mui/material/styles";
 import useTheme from "@/theme/themes";
 
 type FullOrderItemsProps = {

@@ -3,12 +3,12 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {getProductByIdApi} from "../../../../api/entities/ProductApi";
-import {useRouteId} from "../../../../hooks/useRouteId";
+import {useRouteId} from "components";
 import {Box, CircularProgress, Typography, useMediaQuery} from "@mui/material";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import useTheme from "@/theme/themes";
 import ProductRating from "@/components/moleculas/ProductRating";
-import {baseURL} from "../../../../api/ApiClient";
+import {baseURL} from "components";
 import ProductInformation from "@/components/moleculas/ProductInformation";
 import ReviewItems from "@/components/organisms/reviews/ReviewItems";
 

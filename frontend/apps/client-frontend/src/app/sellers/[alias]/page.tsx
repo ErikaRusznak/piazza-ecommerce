@@ -18,8 +18,8 @@ import MainProductList from "@/components/organisms/product/MainProductList";
 import ProductAddToCartModal from "@/components/organisms/modals/ProductAddToCartModal";
 import { getProductsApi } from "../../../../api/entities/ProductApi";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
-import {useRouteAlias} from "../../../../hooks/useRouteAlias";
-import {baseURL} from "../../../../api/ApiClient";
+import {useRouteAlias} from "components";
+import {baseURL} from "components";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import SellerMap from "@/components/moleculas/SellerMap";
 

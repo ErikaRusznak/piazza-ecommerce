@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import * as yup from "yup";
-import {api} from "../../../api/ApiClient";
+import {api} from "components";
 import "yup-phone-lite";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
@@ -95,11 +95,13 @@ const RegisterPage = () => {
 
     const onSubmit: SubmitHandler<RegisterFormInput> = async (data, e) => {
         e?.preventDefault();
+        console.log(Object.keys(errors).length);
         if (Object.keys(errors).length === 0) {
             try {
                 await auth.registerUser(data.email, data.password, data.firstName, data.lastName, data.telephone, fileName, "CLIENT");
                 router.push("/login");
             } catch (error) {
+                console.error(error);
                 console.error("Could not register user");
             }
         } else {

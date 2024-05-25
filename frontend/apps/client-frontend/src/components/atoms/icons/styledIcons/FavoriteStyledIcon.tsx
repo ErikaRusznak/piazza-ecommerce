@@ -7,7 +7,7 @@ import {useFavorite} from "../../../../../contexts/FavoriteContext";
 import {ClickAwayListener, Divider, Popover, Typography} from "@mui/material";
 import {Box} from "@mui/system";
 import Link from "next/link";
-import {baseURL} from "../../../../../api/ApiClient";
+import {baseURL} from "components";
 import {Delete} from "@/components/atoms/icons";
 import useTheme from "@/theme/themes";
 
