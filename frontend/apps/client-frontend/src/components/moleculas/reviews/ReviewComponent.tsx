@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import {getReviewByIdApi} from "../../../../api/entities/ReviewApi";
 import ProductRating from "@/components/moleculas/ProductRating";
 import {Box, Button, Typography, useMediaQuery} from "@mui/material";

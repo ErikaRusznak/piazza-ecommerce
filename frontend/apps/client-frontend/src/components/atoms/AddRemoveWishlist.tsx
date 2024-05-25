@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useAuth} from "../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useAlert} from "../../../contexts/AlertContext";
 import {Box, Button} from "@mui/material";

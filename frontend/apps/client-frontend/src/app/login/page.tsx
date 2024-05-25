@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
-import {useAuth} from "../../../api/auth/AuthContext";
+import {useAuth} from "components";
 import StyledButton from "@/components/atoms/StyledButton";
 import StyledLink from "@/components/atoms/StyledLink";
 import * as yup from "yup";

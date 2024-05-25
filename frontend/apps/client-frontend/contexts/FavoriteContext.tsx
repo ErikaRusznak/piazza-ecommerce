@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useAuth } from "../api/auth/AuthContext";
+import { useAuth } from "components";
 import { addFavorite, getFavorites, removeFavorite } from "../api/entities/BuyerApi";
 
 interface FavoriteContextType {

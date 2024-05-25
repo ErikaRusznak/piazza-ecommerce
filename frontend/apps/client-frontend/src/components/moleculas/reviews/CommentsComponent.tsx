@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Box, Typography} from '@mui/material';
 import {addCommentApi} from "../../../../api/entities/CommentApi";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import useTheme from "@/theme/themes";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import StyledButton from "@/components/atoms/StyledButton";

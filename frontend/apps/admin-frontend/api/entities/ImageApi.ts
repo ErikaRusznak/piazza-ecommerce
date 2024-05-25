@@ -1,4 +1,4 @@
-import { api } from '../ApiClient'
+import { api } from 'components';
 
 export const getImageForCategoryApi = (imageURL: string) => {
     return api.get(`${imageURL}`, { responseType: 'arraybuffer' })

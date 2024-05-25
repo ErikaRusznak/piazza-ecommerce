@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Typography, useMediaQuery} from '@mui/material';
 import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import {getProductByIdApi} from "../../../../api/entities/ProductApi";
 import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "../../../../api/ApiClient";

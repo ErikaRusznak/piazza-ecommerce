@@ -1,5 +1,6 @@
 // api
-
+import {api} from "./api/ApiClient";
+export { api };
 
 // hooks
 

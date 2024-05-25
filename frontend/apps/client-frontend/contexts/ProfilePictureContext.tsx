@@ -2,7 +2,7 @@
 
 import {createContext, useContext, useEffect, useState} from "react";
 import {getBuyerByEmailApi} from "../api/entities/BuyerApi";
-import {useAuth} from "../api/auth/AuthContext";
+import { useAuth } from "components";
 
 interface ProfilePictureContextType {
     profilePictureUrl: string|null

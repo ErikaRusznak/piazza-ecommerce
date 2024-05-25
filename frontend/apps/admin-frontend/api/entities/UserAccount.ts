@@ -1,8 +1,4 @@
-import { api } from '../ApiClient'
-
-export const getUserRoleByEmail = (email: string) => {
-    return api.get(`/users/${email}/role`)
-}
+import { api } from 'components';
 
 export const getUserAccountByEmail = (email: string) => {
     return api.get(`/users/${email}`);

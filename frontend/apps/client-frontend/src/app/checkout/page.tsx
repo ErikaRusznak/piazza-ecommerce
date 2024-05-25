@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {useCart} from "../../../contexts/CartContext";
-import {useAuth} from "../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import {useRouter} from "next/navigation";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../api/entities/BuyerApi";
 import {paymentByCardApi, submitOrder} from "../../../api/entities/OrderApi";

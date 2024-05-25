@@ -3,8 +3,7 @@ import useTheme from "@/theme/themes";
 import {getReviewsApi} from "../../../../api/entities/ReviewApi";
 import {Box, Button, Typography} from "@mui/material";
 import ReviewComponent from "@/components/moleculas/reviews/ReviewComponent";
-import {useAuth} from "../../../../api/auth/AuthContext";
-import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
+import { useAuth } from "components";
 import AddReviewModal from "@/components/organisms/modals/AddReviewModal";
 
 type ReviewItemsProps = {

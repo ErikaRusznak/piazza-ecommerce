@@ -5,7 +5,7 @@ import useTheme from "@/theme/themes";
 import IconButton from "@mui/material/IconButton";
 import {baseURL} from "../../../../api/ApiClient";
 import {useRouter} from "next/navigation";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 
 type CategoryType = {
     id: number;

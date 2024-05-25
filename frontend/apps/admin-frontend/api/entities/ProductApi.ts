@@ -1,4 +1,4 @@
-import {api} from "../ApiClient";
+import { api } from 'components';
 
 export const getProductsApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useCart} from "../../../contexts/CartContext";
-import {useAuth} from "../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import {useAlert} from "../../../contexts/AlertContext";
 import {useRouter} from "next/navigation";
 import {Box, Divider, Typography} from "@mui/material";

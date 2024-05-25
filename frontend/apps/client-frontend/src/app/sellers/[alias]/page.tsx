@@ -10,7 +10,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import useTheme from "@/theme/themes";
-import { useAuth } from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import { getSellerByAliasApi } from "../../../../api/entities/SellerApi";
 import MainLayout from "@/components/templates/MainLayout";
 import SellerDetailsComponent from "@/components/moleculas/sellers/SellerDetailsComponent";

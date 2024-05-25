@@ -1,12 +1,9 @@
-import AuthProvider from "../../api/auth/AuthContext";
+import {AuthProvider} from "components";
 import CartProvider from "../../contexts/CartContext";
 import FavoriteProvider from "../../contexts/FavoriteContext";
-import NavigationBar from "@/components/organisms";
-import Footer from "@/components/organisms/footer/Footer";
 import WebSocketProvider from "../../contexts/WebSocketContext";
-import SockJS from "sockjs-client";
-import {baseURL} from "../../api/ApiClient";
 import ProfilePictureProvider from "../../contexts/ProfilePictureContext";
+import {registerApiService} from "../../api/auth/AuthenticationApiService";
 
 export const metadata = {
     title: 'Fresh Corner',
@@ -20,7 +17,7 @@ export default function RootLayout({
 }) {
 
     return (
-        <AuthProvider userRole="CLIENT">
+        <AuthProvider userRole="CLIENT" registerApiService={registerApiService}>
             <WebSocketProvider>
                 <CartProvider>
                     <FavoriteProvider>

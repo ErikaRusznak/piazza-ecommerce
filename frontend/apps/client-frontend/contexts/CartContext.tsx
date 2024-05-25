@@ -1,6 +1,6 @@
 "use client"
 import {createContext, useContext, useEffect, useState} from 'react';
-import { useAuth } from "../api/auth/AuthContext";
+import { useAuth } from "components";
 import { addOrUpdateCartItem, removeCartItem, getCartItems } from "../api/entities/CartApi";
 
 interface CartContextType {

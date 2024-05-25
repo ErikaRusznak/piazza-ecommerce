@@ -1,11 +1,9 @@
 "use client"
 import {createContext, ReactElement, useContext} from "react";
 import {useRouter} from "next/navigation";
-import {getUserAccountByEmail} from "client-frontend/api/entities/UserAccount";
-import {registerApiService} from "client-frontend/api/auth/AuthenticationApiService";
 import {executeJwtAuthenticationService} from "../api/auth/authApi";
 import {useSessionStorage} from "../hooks/useSessionStorage";
-import {getUserRoleByEmail} from "../api/entities/UserAccount";
+import {getUserAccountByEmail, getUserRoleByEmail} from "../api/entities/UserAccount";
 
 type AuthContextType = {
     isAuthenticated: boolean;
@@ -28,22 +26,28 @@ export const useAuth = (): AuthContextType => {
 };
 
 type AuthProviderProps = {
+    registerApiService?: (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:any) => Promise<any>;
     userRole: string;
     children: ReactElement;
 };
-const AuthProvider = ({ children, userRole }: AuthProviderProps) => {
+const AuthProvider = ({ children, userRole, registerApiService}: AuthProviderProps) => {
     const [isAuthenticated, setAuthenticated] = useSessionStorage("isAuthenticated", false);
     const [username, setUsername] = useSessionStorage("username", "");
     const [id, setId] = useSessionStorage("id", "");
     const [token, setToken] = useSessionStorage("token", "");
     const router = useRouter();
 
-    const registerUser = async (email: string, password:string, firstName:string, lastName:string, telephone:string, image:string, userRole:string) => {
-        const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userRole);
-        if (status === 201) {
-            return true;
+    const registerUser = async (email: string, password: string, firstName: string, lastName: string, telephone: string, image: string, userRole: string) => {
+        if (registerApiService) {
+            const { status } = await registerApiService(email, password, firstName, lastName, telephone, image, userRole);
+            if (status === 201) {
+                return true;
+            } else {
+                logout();
+                return false;
+            }
         } else {
-            logout();
+            console.error("registerApiService not provided");
             return false;
         }
     }

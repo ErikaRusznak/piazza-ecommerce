@@ -4,7 +4,7 @@ import useTheme from "@/theme/themes";
 import {deleteAccountForBuyerByIdApi} from "../../../../api/entities/UserAccount";
 import {useRouter} from "next/navigation";
 import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
-import {useAuth} from "../../../../api/auth/AuthContext";
+import { useAuth } from "components";
 
 type AccountManagementProps = {
     user: any;

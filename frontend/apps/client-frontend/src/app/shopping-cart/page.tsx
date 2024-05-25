@@ -3,7 +3,7 @@
 import React from "react";
 import {useCart} from "../../../contexts/CartContext";
 import {redirect, useRouter} from "next/navigation";
-import {useAuth} from "../../../api/auth/AuthContext";
+import { useAuth } from "components";
 import MainLayout from "@/components/templates/MainLayout";
 import ErrorComponent from "@/components/organisms/error/ErrorComponent";
 import CartItemCard from "@/components/moleculas/cart/CartItemCard";
