@@ -1,5 +1,5 @@
 import AuthProvider from "../../api/auth/AuthContext";
-import WebSocketProvider from "../../contexts/WebSocketContext";
+import {WebSocketProvider} from "components";
 
 export const metadata = {
   title: "Seller Portal",
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
       <AuthProvider>
-          <WebSocketProvider>
+          <WebSocketProvider senderRole="SELLER">
             <html lang="en" style={{margin: 0, padding: 0}}>
               <body style={{margin: 0, padding: 0}}>
                 {children}

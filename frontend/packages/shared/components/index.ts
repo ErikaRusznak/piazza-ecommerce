@@ -33,6 +33,12 @@ export {useRouteAlias, useRouteId, useSessionStorage};
 import AuthProvider, {useAuth} from "./providers/AuthContext";
 export {AuthProvider, useAuth};
 
+import AlertProvider, {useAlert} from "./providers/AlertContext";
+export {AlertProvider, useAlert};
+
+import WebSocketProvider, {useWebSocket} from "./providers/WebSocketContext";
+export {WebSocketProvider, useWebSocket};
+
 // services
 
 

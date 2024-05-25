@@ -1,7 +1,7 @@
 import {AuthProvider} from "components";
 import CartProvider from "../../contexts/CartContext";
 import FavoriteProvider from "../../contexts/FavoriteContext";
-import WebSocketProvider from "../../contexts/WebSocketContext";
+import {WebSocketProvider} from "components";
 import ProfilePictureProvider from "../../contexts/ProfilePictureContext";
 
 export const metadata = {
@@ -17,7 +17,7 @@ export default function RootLayout({
 
     return (
         <AuthProvider userRole="CLIENT" registerPath="register-client">
-            <WebSocketProvider>
+            <WebSocketProvider senderRole="CLIENT">
                 <CartProvider>
                     <FavoriteProvider>
                         <ProfilePictureProvider>

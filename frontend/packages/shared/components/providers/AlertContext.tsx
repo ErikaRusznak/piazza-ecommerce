@@ -1,3 +1,5 @@
+"use client";
+
 import {createContext, useContext, useState} from "react";
 import { Alert } from "@mui/material";
 
@@ -45,7 +47,7 @@ const AlertProvider = ({children} : {children : React.ReactNode}) => {
 
         <AlertContext.Provider value={{pushAlert, clearAlert}}>
             {!!alert &&
-            <Alert severity={alert.type}>{alert.title}</Alert>}
+                <Alert severity={alert.type}>{alert.title}</Alert>}
             {children}
         </AlertContext.Provider>
     );

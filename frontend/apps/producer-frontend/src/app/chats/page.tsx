@@ -8,7 +8,7 @@ import {
     getGroupChatsForSellerApi,
 } from "../../../api/entities/ChatApi";
 import {Box, Container, useMediaQuery} from "@mui/material";
-import{useWebSocket} from "../../../contexts/WebSocketContext";
+import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";

@@ -7,7 +7,7 @@ import {Box, Container, useMediaQuery} from "@mui/material";
 
 import MainLayout from "@/components/templates/MainLayout";
 import useTheme from "@/theme/themes";
-import {useWebSocket} from "../../../contexts/WebSocketContext";
+import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";

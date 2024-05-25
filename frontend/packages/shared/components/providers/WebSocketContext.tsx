@@ -30,7 +30,12 @@ export const useWebSocket = (): WebSocketContextType => {
 
 let stompClient: Stomp.Client | null = null;
 
-const WebSocketProvider = ({ children}: any) => {
+type WebSocketProviderType = {
+    children: React.ReactNode;
+    senderRole: string;
+}
+
+const WebSocketProvider = ({children, senderRole}: WebSocketProviderType) => {
 
     const connectToWebSocket = (userId: number, onMessageReceived: Function) => {
         const socket = new SockJS(`${baseURL}/ws`);
@@ -60,13 +65,12 @@ const WebSocketProvider = ({ children}: any) => {
     }
 
     const sendMessage = (message: string, id: number, recipientId: number) => {
-
         if (message && stompClient) {
             const chatMessage = {
                 senderId: id,
                 recipientId: recipientId,
                 content: message,
-                date: new Date().toISOString(),
+                date: new Date().toISOString()
             };
             stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
             return chatMessage;
@@ -82,7 +86,7 @@ const WebSocketProvider = ({ children}: any) => {
                 orderId: orderId,
                 content: message,
                 date: new Date().toISOString(),
-                senderRole: "CLIENT",
+                senderRole: senderRole,
             };
             stompClient.send("/app/group-chat", {}, JSON.stringify(chatMessage));
             return chatMessage;

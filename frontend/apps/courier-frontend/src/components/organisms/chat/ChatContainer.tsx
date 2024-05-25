@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, useMediaQuery} from "@mui/material";
 import useTheme from "@/theme/themes";
-import {useWebSocket} from "../../../../contexts/WebSocketContext";
+import {useWebSocket} from "components";
 import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetails";
 
 type ChatContainerProps = {

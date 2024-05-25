@@ -1,4 +1,4 @@
-import WebSocketProvider from "../../contexts/WebSocketContext";
+import {WebSocketProvider} from "components";
 import {AuthProvider} from "components";
 
 export const metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({
 
     return (
         <AuthProvider userRole="COURIER" registerPath="register-courier">
-            <WebSocketProvider>
+            <WebSocketProvider senderRole="COURIER">
                 <html lang="en" style={{margin: 0, padding: 0}}>
                 <body style={{margin: 0, padding: 0}}>
                 {children}

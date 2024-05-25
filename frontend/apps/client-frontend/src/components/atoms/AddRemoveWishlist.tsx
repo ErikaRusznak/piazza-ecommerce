@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
-import {useAlert} from "../../../contexts/AlertContext";
+import {useAlert} from "components";
 import {Box, Button} from "@mui/material";
 import {FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
 import StyledButton from "@/components/atoms/StyledButton";

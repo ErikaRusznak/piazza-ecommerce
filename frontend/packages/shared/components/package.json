@@ -12,5 +12,9 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "react": "^18"
+  },
+  "dependencies": {
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3"
   }
 }
