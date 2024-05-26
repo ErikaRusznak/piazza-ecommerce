@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
@@ -18,7 +18,6 @@ type EditCategoryPageProps = {
 
 const EditCategoryPage = ({params}: EditCategoryPageProps) => {
 
-    const theme = useTheme();
     const id = Number(params.id);
     const { isAuthenticated, username } = useAuth();
     const router = useRouter();

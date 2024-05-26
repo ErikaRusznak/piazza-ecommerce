@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button} from "@mui/material";
-import useTheme from "@/theme/themes";
+import { useTheme } from '@mui/material/styles';
 import {useRouter} from "next/navigation";
 
 type AccountManagementProps = {
@@ -8,9 +8,6 @@ type AccountManagementProps = {
 }
 
 const AccountManagement = ({user}:AccountManagementProps) => {
-
-    const theme = useTheme();
-    const router = useRouter();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useState} from "react";
-import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
 import {useAuth} from "components";

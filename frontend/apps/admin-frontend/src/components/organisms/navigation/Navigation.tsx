@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import useTheme from "@/theme/themes";
+import {useTheme} from '@mui/material/styles';
 import PeopleIcon from '@mui/icons-material/People';
 import {
     CategoryIcon,
@@ -25,6 +25,8 @@ import {
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "components";
+import {useThemeToggle} from "../../../../context/ThemeContext";
+import ThemeSwitch from "@/components/atoms/icons/ThemeSwitch";
 
 const drawerWidth = 240;
 
@@ -90,7 +92,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
         const theme = useTheme();
         const openedStyles = openedMixin(theme);
         const closedStyles = closedMixin(theme);
-
+        const { isDark } = useThemeToggle();
         return {
             width: drawerWidth,
             flexShrink: 0,
@@ -98,7 +100,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
             boxSizing: 'border-box',
             '& .MuiDrawer-paper.MuiDrawer-paperAnchorLeft': {
                 backgroundColor: theme.palette.background.default,
-                borderRightColor: "#eee",
+                borderRightColor: isDark ? theme.palette.info.contrastText : "#eee",
             },
             ...(open && {
                 ...openedStyles,
@@ -116,7 +118,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 export default function Navigation({children}: { children: React.ReactNode }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
+    const {toggleTheme} = useThemeToggle();
     const {isAuthenticated, logout} = useAuth();
     const router = useRouter();
     const pathname = usePathname();
@@ -143,34 +145,41 @@ export default function Navigation({children}: { children: React.ReactNode }) {
         <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '150vh'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar sx={{backgroundColor: theme.palette.background.default}}>
-                    <IconButton
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            color: theme.palette.tertiary.main,
-                            marginRight: 5,
-                            ...(open && {display: 'none'}),
-                        }}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div" color={theme.palette.tertiary.main}>
-                        Admin Portal
-                    </Typography>
+                <Toolbar sx={{
+                    backgroundColor: theme.palette.background.default,
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
+                    <Box sx={{display: "flex", alignItems: "center"}}>
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                color: theme.palette.primary.main,
+                                marginRight: 5,
+                                ...(open && {display: 'none'}),
+                            }}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" color={theme.palette.primary.main}>
+                            Admin Portal
+                        </Typography>
+                    </Box>
+                    <ThemeSwitch onClick={toggleTheme} />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <Box sx={{}}>
                     <DrawerHeader sx={{}}>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.tertiary.main}}/> :
-                                <ChevronLeftIcon sx={{color: theme.palette.tertiary.main}}/>}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.primary.main}}/> :
+                                <ChevronLeftIcon sx={{color: theme.palette.primary.main}}/>}
                         </IconButton>
                     </DrawerHeader>
                 </Box>
-                <Divider sx={{backgroundColor: "#fff"}}/>
+                <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {informationList.map((listItem) => (
                         <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
@@ -204,7 +213,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                         </ListItem>
                     ))}
                 </List>
-                <Divider sx={{backgroundColor: "#fff"}}/>
+                <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {profileList.map((listItem) => (
                         <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}

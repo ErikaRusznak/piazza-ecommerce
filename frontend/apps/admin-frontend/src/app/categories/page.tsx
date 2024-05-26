@@ -1,6 +1,6 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import {
@@ -31,15 +31,15 @@ const ProductsPage = () => {
                          style={{width: '100%', height: 'auto', maxWidth: '70px'}}/>
                 );
             case 'Name':
-                return item.name;
+                return <Typography sx={{fontWeight: theme.typography.fontWeightRegular}}>{item.name}</Typography>;
             case 'Actions':
                 return (
                     <>
-                        <Button size="small" sx={{color: theme.palette.primary.main}}
+                        <Button size="small" color="primary"
                                 onClick={() => router.push(`/categories/${item.name}`)}>
                             View
                         </Button>
-                        <Button size="small" color="primary" onClick={() => router.push(`/categories/edit/${item.id}`)}>
+                        <Button size="small" color="secondary" onClick={() => router.push(`/categories/edit/${item.id}`)}>
                             Edit
                         </Button>
                         <Button size="small" color="error" onClick={() => toggleModal(item.id)}>

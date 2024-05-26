@@ -1,6 +1,7 @@
 import {styled} from "@mui/material/styles";
 import MuiTextField from '@mui/material/TextField';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../../context/ThemeContext";
 
 export const CssTextField = styled(
     MuiTextField,
@@ -13,10 +14,10 @@ export const CssTextField = styled(
                 borderColor: theme.palette.background.lighter,
             },
             '&:hover fieldset': {
-                borderColor: theme.palette.background.darker,
+                borderColor: theme.palette.primary.main,
             },
             '&.Mui-focused fieldset': {
-                borderColor: theme.palette.background.darker,
+                borderColor: theme.palette.primary.main,
             },
         },
     };

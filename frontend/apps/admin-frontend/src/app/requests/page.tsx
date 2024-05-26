@@ -9,7 +9,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import ApproveRejectRequestModal from "@/components/organisms/modals/ApproveRejectRequestModal";
 
 const tableCellLabels = ["Email", "Reason", "Date", "Status", "Actions"];

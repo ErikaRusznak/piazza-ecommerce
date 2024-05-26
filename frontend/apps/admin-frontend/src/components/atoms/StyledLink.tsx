@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import Link from "next/link";
-import useTheme from "@/theme/themes";
+import { useTheme } from '@mui/material/styles';
 
 type StyledLinkProps = {
     color?: "info" | "primary" | "secondary";

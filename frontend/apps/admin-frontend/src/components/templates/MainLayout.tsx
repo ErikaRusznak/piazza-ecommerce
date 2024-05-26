@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import useTheme from "@/theme/themes";
+import { useTheme } from '@mui/material/styles';
 import Navigation from "@/components/organisms/navigation/Navigation";
 
 type MainLayoutProps = {
@@ -9,7 +9,6 @@ type MainLayoutProps = {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-    const theme = useTheme();
 
     return (
         <Navigation>

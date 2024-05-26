@@ -1,6 +1,6 @@
 import React from "react";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type SimpleTextFieldDarkBackgroundProps = {
     value: string | Date;

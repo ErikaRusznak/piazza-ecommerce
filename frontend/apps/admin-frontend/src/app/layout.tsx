@@ -1,4 +1,5 @@
 import {AuthProvider} from "components";
+import CustomThemeProvider from "../../context/ThemeContext";
 
 export const metadata = {
   title: 'Admin Portal',
@@ -11,12 +12,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-      <AuthProvider userRole="ADMIN">
-            <html lang="en" style={{margin: 0, padding: 0}}>
-              <body style={{margin: 0, padding: 0}}>
-                {children}
-              </body>
-            </html>
-      </AuthProvider>
+      <CustomThemeProvider>
+          <AuthProvider userRole="ADMIN">
+                <html lang="en" style={{margin: 0, padding: 0}}>
+                  <body style={{margin: 0, padding: 0}}>
+                    {children}
+                  </body>
+                </html>
+          </AuthProvider>
+      </CustomThemeProvider>
   )
 }

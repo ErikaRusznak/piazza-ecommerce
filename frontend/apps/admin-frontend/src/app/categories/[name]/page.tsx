@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import {useAuth} from "components";
@@ -14,6 +13,7 @@ import TableContainerComponent from "@/components/moleculas/table/TableContainer
 import {useRouter} from "next/navigation";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 import {ArrowBackIosNew} from "@mui/icons-material";
+import {useTheme} from "@mui/material/styles";
 
 type ProductPageProps = {
     params: {

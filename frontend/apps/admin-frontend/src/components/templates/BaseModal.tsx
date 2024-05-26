@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import {Modal, Fade, useMediaQuery, Box} from "@mui/material";
-import useTheme from "@/theme/themes";
+import { useTheme } from '@mui/material/styles';
 
 type BaseModalProps = {
     children: React.ReactNode;
