@@ -8,13 +8,11 @@ import {
     ListItemIcon,
     ListItemText,
     Popover,
-    SxProps,
-    Theme,
     Toolbar,
     Typography
 } from "@mui/material";
 import {Box} from "@mui/system";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {
     CartStyledIcon,
     FavoriteStyledIcon,
@@ -22,18 +20,21 @@ import {
 } from "@/components/atoms/icons";
 import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
-import { useAuth } from "components";
+import {useAuth} from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "components";
 import {baseURL} from "components";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
 
 const NavigationBar = () => {
 
     const theme = useTheme();
+    const { isDark} = useThemeToggle();
     const router = useRouter();
-    const backgroundColor = theme.palette.background.default;
+    const backgroundColor = isDark ? theme.palette.background.default : "#DBE1FD";
 
     const [categories, setCategories] = useState([]);
     const auth = useAuth();
@@ -88,20 +89,24 @@ const NavigationBar = () => {
 
                 <LogoComponent/>
 
-                <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
+                <Box sx={{display: {xxs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
                     <Typography
-                        sx={{color: theme.palette.info.main,
+                        sx={{
+                            color: theme.palette.info.main,
                             cursor: "pointer",
-                            textTransform: "uppercase"
-                    }}
+                            textTransform: "uppercase",
+                            fontWeight: theme.typography.fontWeightRegular,
+                        }}
                         onClick={() => router.push("/shop")}
                     >
                         Shop
                     </Typography>
                     <Typography
-                        sx={{color: theme.palette.info.main,
+                        sx={{
+                            color: theme.palette.info.main,
                             cursor: "pointer",
-                            textTransform: "uppercase"
+                            textTransform: "uppercase",
+                            fontWeight: theme.typography.fontWeightRegular,
                         }}
                         onClick={() => router.push("/sellers")}
                     >
@@ -113,7 +118,7 @@ const NavigationBar = () => {
                     />
                 </Box>
 
-                <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
+                <Box sx={{display: {xxs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
                     {isAuthenticated && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteStyledIcon/>
@@ -123,20 +128,23 @@ const NavigationBar = () => {
 
                     <Box>
                         {!isAuthenticated ? (
-                            <Button variant="outlined"
-                                    sx={{
-                                        color: theme.palette.info.main,
-                                        borderColor: theme.palette.lightColor.main,
-                                        fontSize: "16px",
-                                        "&:hover": {
-                                            backgroundColor: theme.palette.lightColor.main,
-                                            borderColor: theme.palette.primary.main
-                                        }
-                                    }}
-                                    onClick={() => router.push("/login")}
-                            >
-                                Login
-                            </Button>
+                            <>
+                                <ThemedSwitch />
+                                <Button variant="outlined"
+                                        sx={{
+                                            color: theme.palette.info.main,
+                                            borderColor: theme.palette.lightColor.main,
+                                            fontSize: "16px",
+                                            "&:hover": {
+                                                backgroundColor: theme.palette.lightColor.main,
+                                                borderColor: theme.palette.primary.main
+                                            }
+                                        }}
+                                        onClick={() => router.push("/login")}
+                                >
+                                    Login
+                                </Button>
+                            </>
                         ) : (
                             <>
                                 {(profilePictureUrl) ? (
@@ -146,11 +154,18 @@ const NavigationBar = () => {
                                             src={`${baseURL}${profilePictureUrl}`}
                                             aria-describedby={id}
                                             onClick={(event: any) => handleClick(event)}
-                                            style={{width: 30, height: 30, transition: "filter 0.3s ease-in-out", cursor: "pointer"}}
+                                            style={{
+                                                width: 30,
+                                                height: 30,
+                                                transition: "filter 0.3s ease-in-out",
+                                                cursor: "pointer"
+                                            }}
                                         />
                                     </>
-                                ):(
-                                    <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                                ) : (
+                                    <AccountCircleIcon
+                                        sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}}
+                                        aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
                                 )}
 
                                 <Popover
@@ -167,7 +182,7 @@ const NavigationBar = () => {
                                     }}
                                     sx={{
                                         borderRadius: theme.shape.borderRadius,
-                                        mt:1
+                                        mt: 1
                                     }}
                                 >
                                     <List
@@ -179,30 +194,35 @@ const NavigationBar = () => {
                                     >
                                         <ListItemButton onClick={() => router.push("/chats")}>
                                             <ListItemIcon>
-                                                <ChatIcon sx={{color: textColor}} />
+                                                <ChatIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Chats" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Chats" sx={{color: textColor, fontSize: "1rem"}}/>
                                         </ListItemButton>
                                         <ListItemButton onClick={() => router.push("/orders")}>
                                             <ListItemIcon>
-                                                <ShoppingCartCheckoutIcon sx={{color: textColor}} />
+                                                <ShoppingCartCheckoutIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Orders" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Orders" sx={{color: textColor, fontSize: "1rem"}}/>
                                         </ListItemButton>
                                         <ListItemButton onClick={() => router.push("/profile")}>
                                             <ListItemIcon>
                                                 <SettingsIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Manage profile" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Manage profile"
+                                                          sx={{color: textColor, fontSize: "1rem"}}/>
                                         </ListItemButton>
 
-                                        <Divider sx={{ background: theme.palette.primary.main }} />
+                                        <Divider sx={{background: theme.palette.primary.main}}/>
+
+                                        <Box sx={{display: "flex", justifyContent: "center", mt: 1}}>
+                                            <ThemedSwitch />
+                                        </Box>
 
                                         <ListItemButton onClick={() => auth.logout()}>
                                             <ListItemIcon>
-                                                <LogoutIcon sx={{color: textColor}} />
+                                                <LogoutIcon sx={{color: textColor}}/>
                                             </ListItemIcon>
-                                            <ListItemText primary="Logout" sx={{ color: textColor, fontSize: "1rem" }} />
+                                            <ListItemText primary="Logout" sx={{color: textColor, fontSize: "1rem"}}/>
                                         </ListItemButton>
                                     </List>
                                 </Popover>
@@ -211,12 +231,15 @@ const NavigationBar = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{display: {xs: "flex", sm: "none"}}}>
+                <Box sx={{display: {xxs: "flex", sm: "none"}}}>
                     {(isAuthenticated && !mobileMenuOpen) && (
                         <Box sx={{display: "flex", gap: theme.spacing(1), alignItems: "center"}}>
                             <FavoriteStyledIcon/>
                             <CartStyledIcon onClick={() => router.push("/shopping-cart")}/>
                         </Box>
+                    )}
+                    {!isAuthenticated && (
+                        <ThemedSwitch />
                     )}
                     <HamburgerMenu
                         isAuthenticated={isAuthenticated}

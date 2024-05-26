@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
-import {AddressType, ShippingAddressType} from "@/app/checkout/page";
+import {AddressType} from "@/app/checkout/page";
 import {Box, Divider, Typography} from "@mui/material";
-import {styled} from "@mui/material/styles";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type FullOrderInformationProps = {
     orderNumber: number;
@@ -29,6 +28,9 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
         getBuyerDetails(buyerEmail);
     }, []);
 
+    const textStyle = {
+        fontSize: "18px", fontWeight: theme.typography.fontWeightRegular
+    }
     return (
         buyer && (
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
@@ -37,8 +39,8 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
                 </Typography>
 
                 <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main, mb:1 }}>
-                    <Typography variant="subtitle1" sx={{ }}>{`Order number: #${orderNumber}`}</Typography>
-                    <Typography variant="subtitle1">{`Date: ${date}`}</Typography>
+                    <Typography sx={textStyle}>{`Order number: #${orderNumber}`}</Typography>
+                    <Typography sx={textStyle}>{`Date: ${date}`}</Typography>
                 </Box>
                 <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
 
@@ -47,8 +49,8 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
                 </Typography>
 
                 <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main, mb:1 }}>
-                    <Typography variant="subtitle1" sx={{}}>{`${shippingAddress.addressLine1}, ${shippingAddress.addressLine2}, ${shippingAddress.zipCode}`}</Typography>
-                    <Typography variant="subtitle1">{`${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}`}</Typography>
+                    <Typography sx={textStyle}>{`${shippingAddress.addressLine1}, ${shippingAddress.addressLine2}, ${shippingAddress.zipCode}`}</Typography>
+                    <Typography sx={textStyle}>{`${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}`}</Typography>
                 </Box>
                 <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
 
@@ -57,9 +59,9 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
                 </Typography>
 
                 <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main }}>
-                    <Typography variant="subtitle1" sx={{}}>{`${buyer.firstName} ${buyer.lastName}`}</Typography>
-                    <Typography variant="subtitle1" sx={{}}>{buyerEmail}</Typography>
-                    <Typography variant="subtitle1">{buyer.telephone}</Typography>
+                    <Typography sx={textStyle}>{`${buyer.firstName} ${buyer.lastName}`}</Typography>
+                    <Typography sx={textStyle}>{buyerEmail}</Typography>
+                    <Typography sx={textStyle}>{buyer.telephone}</Typography>
                 </Box>
             </Box>
         )

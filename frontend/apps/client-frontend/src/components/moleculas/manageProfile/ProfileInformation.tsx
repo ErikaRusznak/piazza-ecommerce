@@ -1,6 +1,6 @@
 import React from "react";
 import {Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Box, Button, Checkbox} from "@mui/material";
 import {FilterOptionKeys} from "@/components/organisms/filtering/FilteringComponent";
 

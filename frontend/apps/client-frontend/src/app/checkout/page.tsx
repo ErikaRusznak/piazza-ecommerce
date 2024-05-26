@@ -12,7 +12,7 @@ import ShippingAddressesComponent from "@/components/moleculas/ShippingAddresses
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
 import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import StripeCheckout from "react-stripe-checkout";
@@ -167,7 +167,7 @@ const CheckoutPage = () => {
             .catch((err) => {
                 console.log(err);
             })
-    };
+    }
 
     const handlePaymentTypeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setPaymentType(event.target.value);

@@ -1,19 +1,9 @@
 "use client";
 import {
-    Box,
-    Button,
-    ButtonProps,
-    Link,
-    LinkProps,
-    styled,
-    SvgIcon,
+    Box
 } from "@mui/material";
 import React from "react";
-import useTheme from "@/theme/themes";
-
-export type FooterProps = {
-    weAreHiringButtonColor: "info" | "primary" | "secondary";
-};
+import {useTheme} from "@mui/material/styles";
 
 export default function Footer() {
     const theme = useTheme();

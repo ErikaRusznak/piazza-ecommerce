@@ -5,7 +5,7 @@ import FullOrderInformation from "@/components/moleculas/fullOrder/FullOrderInfo
 import FullOrderItems from "@/components/moleculas/fullOrder/FullOrderItems";
 import MainLayout from "@/components/templates/MainLayout";
 import {Box, Typography, useMediaQuery} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {CheckCircleOutlineIcon} from "@/components/atoms/icons";
 
 type OrderSuccessfulPageProps = {

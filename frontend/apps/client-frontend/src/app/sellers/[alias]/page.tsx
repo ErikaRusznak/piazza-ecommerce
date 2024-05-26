@@ -9,7 +9,7 @@ import {
     Typography,
     useMediaQuery,
 } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import { useAuth } from "components";
 import { getSellerByAliasApi } from "../../../../api/entities/SellerApi";
 import MainLayout from "@/components/templates/MainLayout";
@@ -22,6 +22,7 @@ import {useRouteAlias} from "components";
 import {baseURL} from "components";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import SellerMap from "@/components/moleculas/SellerMap";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type SellerPageContentProps = {
     sellerAlias: string;
@@ -29,6 +30,7 @@ type SellerPageContentProps = {
 
 const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const [seller, setSeller] = useState<any>(null);
     const { username } = useAuth();
 
@@ -127,7 +129,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                 overflow: "hidden",
                                 border: "1px solid #a5b4fc",
                                 boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
-                                backgroundColor: theme.palette.background.lighter,
+                                backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD",
                             }}
                         >
                             <Box sx={{ p: 6, display: "flex", flexDirection: "row",
@@ -152,7 +154,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                         alignItems: "center", [theme.breakpoints.down("sm")]: {alignItems: "left"}
                                     }}>
                                         <Typography variant={fontSizeForAlias} gutterBottom
-                                                    sx={{color: theme.palette.lightColor.main, fontWeight: "bold",
+                                                    sx={{color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main, fontWeight: "bold",
                                                     }}>
                                             {seller.alias}
                                         </Typography>

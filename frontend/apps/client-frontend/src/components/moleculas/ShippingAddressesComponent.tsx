@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, FormControlLabel, Radio, RadioGroup, Typography, useMediaQuery} from "@mui/material";
 import AddressComponent from "@/components/atoms/AddressComponent";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
 import {AddCircleOutlineIcon} from "@/components/atoms/icons";
 import {ShippingAddressType} from "@/app/checkout/page";

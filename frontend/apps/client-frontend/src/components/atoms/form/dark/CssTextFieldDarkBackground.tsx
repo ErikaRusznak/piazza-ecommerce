@@ -1,12 +1,12 @@
 import {styled} from "@mui/material/styles";
 import MuiTextField from '@mui/material/TextField';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../../contexts/ThemeContext";
 
 export const CssTextFieldDarkBackground = styled(
     MuiTextField,
 )(() => {
     const theme = useTheme();
-
     return {
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
@@ -20,10 +20,10 @@ export const CssTextFieldDarkBackground = styled(
                 borderColor: theme.palette.primary.main,
             },
             '& input': {
-                color: 'white',
-                '&::placeholder': { // Nested selector for placeholder text
-                    color: 'white', // Set placeholder text color to white
-                    opacity: 0.6,   // Optionally adjust opacity if needed
+                color: theme.palette.info.main,
+                '&::placeholder': {
+                    color: theme.palette.info.main,
+                    opacity: 0.6,
                 },
             },
         },

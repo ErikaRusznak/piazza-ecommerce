@@ -5,16 +5,17 @@ import { getGroupChatsForBuyerApi } from "../../../api/entities/ChatApi";
 import {getUserAccountByEmail} from "components";
 import {Box, Container, useMediaQuery} from "@mui/material";
 
-import MainLayout from "@/components/templates/MainLayout";
-import useTheme from "@/theme/themes";
+import MainLayout from "@/components/templates/MainLayout";import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 const ChatPage = () => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -85,8 +86,7 @@ const ChatPage = () => {
             <MainLayout>
                 <Container>
                     <Box sx={{
-                        // boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
-                        boxShadow: '-5px 5px 15px rgba(255,255,255, 0.5)',
+                        boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.5)' : '0px 5px 15px rgba(0, 0, 0, 0.1)',
                         borderRadius: '14px', overflow: 'hidden'
                     }}>
                         <Box sx={{

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Typography} from '@mui/material';
 import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type ProductRatingProps = {
     rating: number;

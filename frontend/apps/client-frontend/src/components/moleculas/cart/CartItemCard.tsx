@@ -3,7 +3,7 @@ import {useCart} from "../../../../contexts/CartContext";
 import {baseURL} from "components";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import {Box, Typography, useMediaQuery} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Delete} from "@/components/atoms/icons";
 import {useRouter} from "next/navigation";
 
@@ -106,7 +106,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                                                 position: "absolute",
                                                 bottom: 0,
                                                 right: 0,
-
+                                                fontWeight: theme.typography.fontWeightRegular
                                             }}>
                                     Total: {totalPricePerItem} RON
                                 </Typography>

@@ -1,6 +1,6 @@
 import React from "react";
 import {Box, Collapse, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type GroupChatMessageUserProps = {
     showChats: boolean;

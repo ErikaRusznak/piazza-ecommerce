@@ -1,6 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
@@ -8,15 +6,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
 
 import {COUNTRIES} from "./countries";
 import {Button, Typography} from "@mui/material";
-import {string} from "yup";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type SelectedValueType = {
     title: string; value: string;

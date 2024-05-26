@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Button} from "@mui/material";
 import FilterTag from "@/components/moleculas/filtering/FilterTag";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import Tag from "@/components/atoms/filtering/Tag";
 
 type FilterTagContainerProps = {
@@ -16,7 +16,6 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
     return (
         <Box
             sx={{
-                backgroundColor: theme.palette.background.default,
                 border: "1px solid #a5b4fc",
                 borderRadius: "16px",
                 display: "flex",

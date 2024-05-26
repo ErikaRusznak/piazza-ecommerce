@@ -1,7 +1,7 @@
 import React from "react";
 import {baseURL} from "components";
 import {Box, Divider, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type FullOrderItemsProps = {
     orders: any[];
@@ -14,6 +14,10 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
     const fixedTotalPrice = parseFloat(totalPrice.toFixed(2));
     const finalPrice = fixedTotalPrice + shippingPrice;
     const theme = useTheme();
+
+    const textStyle = {
+        fontSize: "18px", fontWeight: theme.typography.fontWeightRegular
+    };
 
     return (
         (orders && totalPrice) && (
@@ -46,13 +50,13 @@ const FullOrderItems = ({orders, totalPrice, shippingPrice}:FullOrderItemsProps)
                 ))}
 
                 <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, color: theme.palette.info.main }}>
-                    <Typography variant="subtitle1">Subtotal</Typography>
-                    <Typography variant="subtitle1">{`${fixedTotalPrice} RON`}</Typography>
+                    <Typography sx={textStyle}>Subtotal</Typography>
+                    <Typography sx={textStyle}>{`${fixedTotalPrice} RON`}</Typography>
                 </Box>
 
                 <Box sx={{ display: "flex", justifyContent: "space-between", color: theme.palette.info.main }}>
-                    <Typography variant="subtitle1">Shipping payment</Typography>
-                    <Typography variant="subtitle1">{`${shippingPrice} RON`}</Typography>
+                    <Typography sx={textStyle}>Shipping payment</Typography>
+                    <Typography sx={textStyle}>{`${shippingPrice} RON`}</Typography>
                 </Box>
 
                 <Box sx={{ display: "flex", justifyContent: "space-between", color:theme.palette.info.main, mt:1 }}>

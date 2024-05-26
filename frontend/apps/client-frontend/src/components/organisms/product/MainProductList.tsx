@@ -1,7 +1,7 @@
 import React from "react";
 import {List, ListItem} from "@mui/material";
 import ProductCard from "@/components/moleculas/ProductCard";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type MainProductListProps = {
     products: any;

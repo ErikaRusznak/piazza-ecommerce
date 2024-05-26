@@ -4,7 +4,7 @@ import {getReviewByIdApi} from "components";
 import ProductRating from "@/components/moleculas/ProductRating";
 import {Box, Button, Typography, useMediaQuery} from "@mui/material";
 import {EditNoteIcon} from "@/components/atoms/icons";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
 import {getCommentsForReviewApi} from "../../../../api/entities/CommentApi";
 import CommentsComponent from "@/components/moleculas/reviews/CommentsComponent";

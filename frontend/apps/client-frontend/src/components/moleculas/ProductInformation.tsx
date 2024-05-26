@@ -4,7 +4,7 @@ import { useAuth } from "components";
 import {useAlert} from "components";
 import {useRouter} from "next/navigation";
 import {Box, Divider, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import ProductSpecificInfo from "@/components/atoms/ProductSpecificInfo";
 import AddRemoveWishlist from "@/components/atoms/AddRemoveWishlist";

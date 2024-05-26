@@ -2,7 +2,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import {baseURL} from "components";
 import { Box, Typography } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 type SellerSimplifiedInfoProps = {
     seller: any;
@@ -11,7 +12,7 @@ type SellerSimplifiedInfoProps = {
 const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
     const router = useRouter();
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return (
         <Box
             sx={{
@@ -49,7 +50,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                             variant="h5"
                             sx={{
                                 fontWeight: "bold",
-                                color: theme.palette.lightColor.main,
+                                color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main,
                                 mb: 1,
                                 cursor: "pointer",
                                 "&:hover": { textDecoration: "underline" },
@@ -58,7 +59,7 @@ const SellerSimplifiedInfo = ({ seller }: SellerSimplifiedInfoProps) => {
                         >
                             {seller.alias}
                         </Typography>
-                        <Typography sx={{ fontWeight:600, mb: 1, color: theme.palette.lightColor.main }}>
+                        <Typography sx={{ fontWeight:600, mb: 1, color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main}}>
                             {seller.sellerType}
                         </Typography>
                     </Box>

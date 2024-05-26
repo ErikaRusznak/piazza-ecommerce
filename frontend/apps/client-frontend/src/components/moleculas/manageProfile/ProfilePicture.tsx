@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Avatar, Box, Grid, IconButton} from "@mui/material";
 import {Edit} from "@mui/icons-material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {addImageApi} from "components";
 import {UserType} from "@/components/moleculas/manageProfile/ProfileInformation";
 import {baseURL} from "components";

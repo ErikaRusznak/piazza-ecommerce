@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
 import {ShippingAddressType} from "@/app/checkout/page";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type AddressComponentProps = {
     item: ShippingAddressType;

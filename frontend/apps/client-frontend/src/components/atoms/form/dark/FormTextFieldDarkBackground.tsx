@@ -1,7 +1,8 @@
 import React from "react";
 import {Controller} from "react-hook-form";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {useThemeToggle} from "../../../../../contexts/ThemeContext";
 
 type FormTextFieldProps = {
     name: string;
@@ -14,7 +15,6 @@ type FormTextFieldProps = {
 const FormTextFieldDarkBackground = ({name, control, label, type, required=true}:FormTextFieldProps) => {
 
     const theme = useTheme();
-
     return (
         <Controller
             name={name}

@@ -1,8 +1,9 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {ClearIcon} from "@/components/atoms/icons";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type FilterTagProps = {
     filterName: string;
@@ -21,6 +22,7 @@ type CustomLabels = {
 const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
 
     const customLabels: CustomLabels = {
         priceTo: "Price To",
@@ -35,7 +37,7 @@ const FilterTag = ({ filterName, value, removeFilter }: FilterTagProps) => {
             {value ? (
                 <Box
                     sx={{
-                        backgroundColor: theme.palette.primary.main,
+                        backgroundColor: isDark ? theme.palette.primary.main : theme.palette.lightColor.main,
                         border: "1px solid #a5b4fc",
                         borderRadius: "8px",
                         paddingY: "4px",

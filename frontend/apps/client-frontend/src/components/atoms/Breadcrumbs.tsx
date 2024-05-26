@@ -1,7 +1,7 @@
 import React from "react";
 import {Breadcrumbs} from "@mui/material";
 import Link from '@mui/material/Link';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type LinksBreadcrumbType = {
     label: string;

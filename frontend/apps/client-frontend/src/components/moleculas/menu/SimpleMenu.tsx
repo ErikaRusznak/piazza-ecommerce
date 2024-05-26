@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import themes from "@/theme/themes";
 import {baseURL} from "components";
 import {Box} from "@mui/system";
 import {usePathname, useRouter} from "next/navigation";
+import {Typography} from "@mui/material";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 const StyledMenu = styled((props: MenuProps) => (
 
@@ -25,18 +26,18 @@ const StyledMenu = styled((props: MenuProps) => (
     />
 ))(({ theme }) => ({
     '& .MuiPaper-root': {
-        backgroundColor: 'rgba(24, 61, 61, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255)',
         borderRadius: 6,
         zIndex: 9999,
         marginTop: theme.spacing(1),
         minWidth: 180,
-        color: themes().palette.info.main,
+        color: theme.palette.info.main,
         boxShadow:
             'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
         '& .MuiMenuItem-root': {
             '& .MuiSvgIcon-root': {
                 fontSize: 18,
-                color: themes().palette.info.main,
+                color: theme.palette.info.main,
                 marginRight: theme.spacing(1.5),
             },
             '&:active': {
@@ -60,7 +61,8 @@ const createQueryParam = (categoryName: string, router: any, pathname: any) => {
 const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
 
     const pathname = usePathname();
-    const theme = themes();
+    const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const router = useRouter();
@@ -81,7 +83,7 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
                 disableElevation
                 onClick={handleClick}
                 variant="text"
-                sx={{color: theme.palette.info.main, textTransform: "uppercase", fontSize: "16px", px: 0}}
+                sx={{color: theme.palette.info.main, textTransform: "uppercase", fontSize: "16px", px: 0, fontWeight: theme.typography.fontWeightRegular}}
                 endIcon={<KeyboardArrowDownIcon sx={{ml: -1}}/>}
             >
                 {text}
@@ -103,16 +105,15 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
                                 alt={item.name}
                                 width={30}
                                 height={30}
-                                style={{filter: 'invert(100%)  '}}
+                                style={{color: theme.palette.info.main}}
                             />
-
                             <Box
                                 onClick={() => {
                                     createQueryParam(item.name, router, pathname);
                                     handleClose();
                                 }}
                             >
-                                {item.name}
+                                <Typography color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>{item.name}</Typography>
                             </Box>
 
                         </Box>

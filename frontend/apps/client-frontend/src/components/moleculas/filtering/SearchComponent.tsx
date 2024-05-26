@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import SearchBar from "@mkyy/mui-search-bar";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {InputAdornment, IconButton, TextField} from "@mui/material";
 import { SearchIcon } from "@/components/atoms/icons";
-import { CssTextField } from "@/components/atoms/CssTextField";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type SearchComponentProps = {
     handleSearchChanged: (filterName: any, filterValue: any) => void;
@@ -12,6 +11,7 @@ type SearchComponentProps = {
 
 const SearchComponent = ({ handleSearchChanged, filterName }: SearchComponentProps) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const [textField, setTextField] = useState("");
 
     const handleSearch = () => {
@@ -55,10 +55,10 @@ const SearchComponent = ({ handleSearchChanged, filterName }: SearchComponentPro
                 },
             }}
             sx={{
-                backgroundColor: theme.palette.background.lighter,
+                backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
                 opacity: 0.9,
                 color: theme.palette.info.main,
-                borderRadius: "14px",
+                borderRadius: isDark ? "14px" : "0px",
                 p: 0,
 
             }}

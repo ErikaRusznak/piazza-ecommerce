@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon, FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
@@ -8,6 +8,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useRouter} from "next/navigation";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 // TODO - make a type for product, not any
 type ProductCardProps = {
@@ -17,6 +18,7 @@ type ProductCardProps = {
 
 const ProductCard = ({product, toggleModal}: ProductCardProps) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const router = useRouter();
     const {isAuthenticated} = useAuth();
 
@@ -89,7 +91,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                 boxSizing: "border-box",
                 padding: theme.spacing(2),
                 gap: 1,
-                backgroundColor: theme.palette.background.lighter,
+                backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
                 border: "0.5px solid #a5b4fc",
             }}
         >
@@ -97,7 +99,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                 <Box
                     sx={{
                         position: "absolute",
-                        top: 0,
+                        top: 1,
                         left: 0,
                         background: availabilityLabel?.backgroundColorForAvailability,
                         padding: theme.spacing(0.5, 1),
@@ -202,6 +204,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                             isAuthenticated ? toggleFavorite() : toggleModal(product.id)
                         }}
                         color="primary"
+                        disabled={product.availability === "OUT_OF_STOCK" && !isAuthenticated}
                         sx={{
                             borderRadius: "20px",
                             background: theme.palette.background.gradient,

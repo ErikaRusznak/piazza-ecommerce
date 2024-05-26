@@ -26,7 +26,7 @@ import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "components";
 import {useThemeToggle} from "../../../../context/ThemeContext";
-import ThemeSwitch from "@/components/atoms/icons/ThemeSwitch";
+import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
 
 const drawerWidth = 240;
 
@@ -118,7 +118,6 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 export default function Navigation({children}: { children: React.ReactNode }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const {toggleTheme} = useThemeToggle();
     const {isAuthenticated, logout} = useAuth();
     const router = useRouter();
     const pathname = usePathname();
@@ -167,7 +166,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                             Admin Portal
                         </Typography>
                     </Box>
-                    <ThemeSwitch onClick={toggleTheme} />
+                    <ThemedSwitch />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>

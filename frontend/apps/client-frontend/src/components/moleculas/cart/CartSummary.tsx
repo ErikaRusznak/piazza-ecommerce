@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Divider, Paper } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type CartSummaryProps = {
     cartTotalPrice: number;
@@ -19,11 +19,11 @@ const CartSummary = ({ cartTotalPrice, shippingPrice, children }: CartSummaryPro
             backgroundColor: theme.palette.background.default,
         }}>
             <Box sx={{ mb: 2, display: "flex", justifyContent: "space-between", color: theme.palette.info.main }}>
-                <Typography>Subtotal</Typography>
+                <Typography sx={{ fontWeight: theme.typography.fontWeightRegular}}>Subtotal</Typography>
                 <Typography>{cartTotalPrice} RON</Typography>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", color: theme.palette.info.main }}>
-                <Typography>Shipping</Typography>
+                <Typography sx={{ fontWeight: theme.typography.fontWeightRegular}}>Shipping</Typography>
                 <Typography>{shippingPrice} RON</Typography>
             </Box>
             <Divider sx={{ my: 2, backgroundColor: theme.palette.lightColor.main }} />

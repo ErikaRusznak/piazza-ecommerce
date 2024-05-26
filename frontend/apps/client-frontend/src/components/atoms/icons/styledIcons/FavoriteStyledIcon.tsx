@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {styled} from "@mui/material/styles";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import themes from "@/theme/themes";
 import CustomizedBadges from "@/components/atoms/icons/styledIcons/CustomizedBadges";
 import {useFavorite} from "../../../../../contexts/FavoriteContext";
 import {ClickAwayListener, Divider, Popover, Typography} from "@mui/material";
@@ -9,11 +8,11 @@ import {Box} from "@mui/system";
 import Link from "next/link";
 import {baseURL} from "components";
 import {Delete} from "@/components/atoms/icons";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 const StyledFavoriteIcon = styled(FavoriteBorderIcon)(({theme}) => ({
     fontSize: 24,
-    color: themes().palette.info.main,
+    color: theme.palette.info.main,
 }));
 
 const FavoriteStyledIcon = () => {

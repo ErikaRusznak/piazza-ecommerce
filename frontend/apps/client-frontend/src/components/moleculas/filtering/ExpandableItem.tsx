@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Collapse, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {KeyboardArrowDownIcon, KeyboardArrowRightIcon} from "@/components/atoms/icons";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type ExpandableItemProps = {
     label: string;

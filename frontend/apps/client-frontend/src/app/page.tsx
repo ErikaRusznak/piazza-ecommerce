@@ -3,11 +3,13 @@
 import MainLayout from "@/components/templates/MainLayout";
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import {useThemeToggle} from "../../contexts/ThemeContext";
 
 const HomePage = () => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const router = useRouter();
 
     return (
@@ -26,8 +28,8 @@ const HomePage = () => {
                 <Typography
                     variant="h2"
                     sx={{
-                        color: theme.palette.lightColor.main,
-                        fontSize: { xs: "32px", sm: "40px", md: "50px" },
+                        color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main,
+                        fontSize: { xxs: "32px", sm: "40px", md: "50px" },
                         lineHeight: { xs: 1.2 },
                         mb: 2,
                     }}
@@ -40,7 +42,7 @@ const HomePage = () => {
                         color: theme.palette.info.main,
                         width: "70%",
                         mb: 4,
-                        fontSize: { xs: "16px", sm: "18px", md: "20px" },
+                        fontSize: { xxs: "16px", sm: "18px", md: "20px" },
                     }}
                 >
                     Quality-based products brought to you with fast shipping directly from the producers!
@@ -49,14 +51,14 @@ const HomePage = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", sm: "row" },
+                        flexDirection: { xxs: "column", sm: "row" },
                         gap: 2,
                     }}
                 >
                     <Button
                         variant="contained"
                         sx={{
-                            background: theme.palette.secondary.main,
+                            background: isDark ? theme.palette.secondary.main : theme.palette.lightColor.main,
                             color: theme.palette.info.main,
                             "&:hover": { background: theme.palette.tertiary.main },
                             fontSize: { xs: "14px", sm: "16px", md: "18px" },

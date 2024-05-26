@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import { Box, Typography, useMediaQuery, Container } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import { getAllSellersApi } from "../../../api/entities/SellerApi";
 import SellerSimplifiedInfo from "@/components/moleculas/SellerSimplifiedInfo";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 
 const SellersPage = () => {

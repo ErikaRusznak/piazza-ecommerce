@@ -1,7 +1,8 @@
 import React from "react";
-import useTheme from "@/theme/themes";
-import {FormControl, InputLabel, Select, useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
+import {FormControl, InputLabel, Select} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type NumberOfPageSelectProps = {
     handleItemsPerPageChange: (itemsPerPage: number) => void;
@@ -10,6 +11,7 @@ type NumberOfPageSelectProps = {
 const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const [values, setValues] = React.useState({
         itemsPerPage: "",
         name: "hai"
@@ -48,7 +50,7 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                 }}
                 sx={{
                     '& .MuiSelect-select': {
-                        backgroundColor: theme.palette.background.lighter,
+                        backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
                         color: theme.palette.info.main,
                     },
                     '& .MuiOutlinedInput-notchedOutline': {
@@ -66,10 +68,10 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                 <MenuItem
                     value={6}
                     sx={{
-                        backgroundColor: theme.palette.background.lighter,
-                        color: "white",
+                        backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
+                        color: theme.palette.info.main,
                         '&:hover': {
-                            backgroundColor: theme.palette.tertiary.main,
+                            backgroundColor: isDark ? theme.palette.tertiary.main : theme.palette.lightColor.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,
@@ -84,10 +86,10 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                 <MenuItem
                     value={8}
                     sx={{
-                        backgroundColor: theme.palette.background.lighter,
-                        color: "white",
+                        backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
+                        color: theme.palette.info.main,
                         '&:hover': {
-                            backgroundColor: theme.palette.tertiary.main,
+                            backgroundColor: isDark ? theme.palette.tertiary.main : theme.palette.lightColor.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,
@@ -99,10 +101,10 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                 <MenuItem
                     value={12}
                     sx={{
-                        backgroundColor: theme.palette.background.lighter,
-                        color: "white",
+                        backgroundColor: isDark ? theme.palette.background.lighter : "#edf0fe",
+                        color: theme.palette.info.main,
                         '&:hover': {
-                            backgroundColor: theme.palette.tertiary.main,
+                            backgroundColor: isDark ? theme.palette.tertiary.main : theme.palette.lightColor.main,
                         },
                         '&.Mui-selected': {
                             backgroundColor: theme.palette.secondary.main,

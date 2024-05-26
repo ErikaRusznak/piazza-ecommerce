@@ -2,14 +2,13 @@
 
 import React from "react";
 import {useCart} from "../../../contexts/CartContext";
-import {redirect, useRouter} from "next/navigation";
-import { useAuth } from "components";
+import {useRouter} from "next/navigation";
 import MainLayout from "@/components/templates/MainLayout";
 import ErrorComponent from "@/components/organisms/error/ErrorComponent";
 import CartItemCard from "@/components/moleculas/cart/CartItemCard";
 import CartSummary from "@/components/moleculas/cart/CartSummary";
 import {Container, Grid, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 

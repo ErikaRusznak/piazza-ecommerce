@@ -2,16 +2,15 @@ import * as React from 'react';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import themes from "@/theme/themes";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
         right: -3,
         top: 2,
-        backgroundColor: themes().palette.primary.main,
-        border: `2px solid ${themes().palette.background.paper}`,
+        backgroundColor: theme.palette.primary.main,
+        border: `2px solid ${theme.palette.background.paper}`,
         padding: '0 4px',
-        color: themes().palette.info.main,
+        color: "white",
     },
 }));
 

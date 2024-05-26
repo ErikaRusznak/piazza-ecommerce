@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BaseModal from "@/components/templates/BaseModal";
 import {Box} from "@mui/system";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {COUNTRIES} from "@/components/atoms/countries";
 import {object, string} from "yup";
 import "yup-phone-lite";
@@ -12,6 +12,7 @@ import {Grid, Typography} from "@mui/material";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
 import CountrySelector from "@/components/atoms/CountrySelector";
 import StyledButton from "@/components/atoms/StyledButton";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type ShippingAddressFormInput = {
     firstName: string;
@@ -60,7 +61,6 @@ const AddressFormModal = ({
                               setEditingAddress
                           }: AddressFormModalProps) => {
     const theme = useTheme();
-
     const [isOpen, setIsOpen] = useState(false);
     const [country, setCountry] = useState<string | undefined>(COUNTRIES?.find(option => option.title === shippingAddress?.address.country)?.title)
 
@@ -126,7 +126,7 @@ const AddressFormModal = ({
                     borderRadius: "14px",
                     border: "1px solid #93B1A6"
                 }}>
-                    <Typography sx={{fontWeight: "bold"}} variant="h6" color={theme.palette.background.default}>
+                    <Typography sx={{fontWeight: "bold"}} variant="h6" color={theme.palette.info.main}>
                         {isEditing ? "Edit address" : "Add address"}
                     </Typography>
                     <form style={{marginTop: 1}}>

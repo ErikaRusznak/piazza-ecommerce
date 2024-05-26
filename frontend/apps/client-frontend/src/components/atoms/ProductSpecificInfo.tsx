@@ -1,5 +1,5 @@
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {Box, Divider, Typography} from "@mui/material";
 

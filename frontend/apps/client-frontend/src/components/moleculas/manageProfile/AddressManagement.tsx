@@ -2,14 +2,15 @@ import React, {useEffect, useState} from "react";
 import {
     Box,
     Typography,
-} from "@mui/material";;
-import useTheme from "@/theme/themes";
+} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
 import {AddCircleOutlineIcon} from "@/components/atoms/icons";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../../api/entities/BuyerApi";
 import {ShippingAddressType} from "@/app/checkout/page";
 import AddressComponent from "@/components/atoms/AddressComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type AddressManagementProps = {
 
@@ -17,7 +18,7 @@ type AddressManagementProps = {
 
 const AddressManagement = ({  }: AddressManagementProps) => {
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
@@ -100,7 +101,7 @@ const AddressManagement = ({  }: AddressManagementProps) => {
             {shippingAddresses.map((item) => (
                 <Box key={item.id}
                      sx={{
-                         border: `1px solid ${theme.palette.background.lighter}`,
+                         border: `1px solid ${isDark ? theme.palette.background.lighter : theme.palette.lightColor.main}`,
                          borderRadius: "16px",
                          p: 2,
                          mb:1,

@@ -1,5 +1,5 @@
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import BaseModal from "@/components/templates/BaseModal";
 import {Box, Button, Typography} from "@mui/material";
 

@@ -8,7 +8,7 @@ import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "components";
 import ProductRating from "@/components/moleculas/ProductRating";
 import QuantityInput from "@/components/atoms/QuantityInput";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
 
 type ProductAddToCartModalProps = {

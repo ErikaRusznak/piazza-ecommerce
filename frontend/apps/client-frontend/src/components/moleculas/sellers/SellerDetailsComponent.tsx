@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Divider, Box } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type SellerDetailsComponentProps = {
     seller: any;
@@ -11,11 +12,11 @@ const SellerDetailsComponent = ({
                                     username,
                                 }: SellerDetailsComponentProps) => {
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return (
         <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box>
-                <Typography variant="h6" gutterBottom sx={{color: theme.palette.lightColor.main, fontWeight: 600}}>
+                <Typography variant="h6" gutterBottom sx={{color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main, fontWeight: 600}}>
                     Contact details
                 </Typography>
                 <Typography sx={{color: theme.palette.info.main}}>
@@ -42,7 +43,7 @@ const SellerDetailsComponent = ({
                 </Typography>
                 <Divider style={{ margin: "16px 0", backgroundColor: theme.palette.primary.main }} />
 
-                <Typography variant="h6" gutterBottom sx={{color: theme.palette.lightColor.main, fontWeight: 600}}>
+                <Typography variant="h6" gutterBottom sx={{color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main, fontWeight: 600}}>
                     Account details
                 </Typography>
                 {username === seller.account.email && (

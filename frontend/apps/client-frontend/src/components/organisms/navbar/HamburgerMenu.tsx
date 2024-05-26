@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {CloseIcon, ExpandLess, ExpandMore, MenuIcon} from "@/components/atoms/icons";
 import {Box, Button, Drawer, List, ListItemButton, ListItemText, Divider, Collapse} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import {useRouter} from "next/navigation";
 import { useAuth, baseURL } from "components";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
 
 type CategoryType = {
     id: number;
@@ -42,7 +44,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                 color="inherit"
                 aria-label="open drawer"
                 onClick={onMenuIconClick}
-                sx={{color: "white", pl: 4}}
+                sx={{color: theme.palette.info.main, pl: 3}}
             >
                 <MenuIcon/>
             </IconButton>
@@ -64,7 +66,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                         <CloseIcon/>
                     </IconButton>
 
-                    <Divider sx={{mb: 2, background: theme.palette.background.lighter}}/>
+                    <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
 
                     <Box sx={{mb: 2}}>
                         <List>
@@ -96,7 +98,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                 <ListItemText primary="Sellers" sx={{color: textColor}} />
                             </ListItemButton>
 
-                            <Divider sx={{my: 2, background: theme.palette.background.lighter}}/>
+                            <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
 
                             {isAuthenticated && (
                                 <>
@@ -109,6 +111,9 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                     <ListItemButton onClick={() => router.push("/profile")}>
                                         <ListItemText primary="Manage profile" sx={{color: textColor}}/>
                                     </ListItemButton>
+                                    <Box sx={{display: "flex", justifyContent: "center", mt: 1}}>
+                                        <ThemedSwitch/>
+                                    </Box>
                                 </>
                             )}
 
@@ -133,7 +138,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                             ...buttonStyle,
                                             borderColor: theme.palette.background.lighter,
                                             color: theme.palette.info.main,
-                                            "&:hover": {borderColor: theme.palette.background.darker}
+                                            "&:hover": {borderColor: theme.palette.secondary.main}
                                         }}
                                         onClick={() => {
                                             router.push("/register");
@@ -145,9 +150,9 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                 <Button variant="contained"
                                         sx={{
                                             ...buttonStyle,
-                                            background: theme.palette.background.lighter,
+                                            background: theme.palette.primary.main,
                                             color: theme.palette.info.main,
-                                            "&:hover": {background: theme.palette.background.darker}
+                                            "&:hover": {background: theme.palette.secondary.main}
                                         }}
                                         onClick={() => {
                                             router.push("/login");
@@ -161,10 +166,10 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                             <Button variant="contained"
                                     sx={{
                                         ...buttonStyle,
-                                        background: theme.palette.background.lighter,
+                                        background: theme.palette.primary.main,
                                         color: theme.palette.info.main,
                                         width: "100%",
-                                        "&:hover": {background: theme.palette.background.darker}
+                                        "&:hover": {background: theme.palette.secondary.main}
                                     }}
                                     onClick={() => {
                                         onMenuIconClick();
