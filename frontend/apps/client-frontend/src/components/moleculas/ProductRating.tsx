@@ -2,6 +2,7 @@ import React from 'react';
 import {Typography} from '@mui/material';
 import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
 import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 type ProductRatingProps = {
     rating: number;
@@ -23,7 +24,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
         }
     };
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return (
         <div className="items-center">
             {isRatingDisplayed ? (
@@ -37,7 +38,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
                             <Typography
                                 variant="body2"
                                 component="p"
-                                sx={{ fontSize: '14px', fontWeight: 'medium', color: '#dddddd' }}
+                                sx={{ fontSize: '14px', fontWeight: 'medium', color: isDark ? '#dddddd' : "#aaa", }}
                             >
                                 {rating.toFixed(2)} out of 5
                             </Typography>
@@ -49,7 +50,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
                                 fontNormal: 'normal',
                                 fontSize: '14px',
                                 lineHeight: '20px',
-                                color: '#dddddd',
+                                color: isDark ? '#dddddd' : "#aaa",
                                 cursor: 'pointer',
                                 '&:hover': {
                                     textDecoration: 'underline',

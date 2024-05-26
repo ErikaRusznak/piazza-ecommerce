@@ -10,6 +10,7 @@ import ProductRating from "@/components/moleculas/ProductRating";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type ProductAddToCartModalProps = {
     isModalOpen: boolean;
@@ -25,6 +26,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                                                          productId,
                                                                      }) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const router = useRouter();
 
@@ -73,7 +75,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
             {product &&
                 <Box>
                     <Box sx={{
-                        backgroundColor: theme.palette.background.lighter,
+                        backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                         px: 4, py: 2,
                         borderTopLeftRadius: "14px",
                         borderTopRightRadius: "14px",
@@ -175,7 +177,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                             justifyContent: "flex-end",
                             border: "1px solid #a5b4fc",
                             px: 2, py: 1,
-                            backgroundColor: theme.palette.background.lighter,
+                            backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                             borderBottomLeftRadius: "14px",
                             borderBottomRightRadius: "14px",
                         }}>

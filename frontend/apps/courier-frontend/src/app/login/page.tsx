@@ -10,7 +10,7 @@ import {
     FormControlLabel,
     Grid,
 } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
 import StyledButton from "@/components/atoms/StyledButton";
@@ -19,6 +19,7 @@ import * as yup from "yup";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 type LoginFormInput = {
     email: string;
@@ -35,9 +36,10 @@ const LoginPage = () => {
     const theme = useTheme();
     const router = useRouter();
 
+    const {isDark} = useThemeToggle();
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const auth = useAuth();
-    const textColor = theme.palette.info.contrastText;
+    const textColor = isDark ? theme.palette.info.contrastText : theme.palette.info.main;
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},

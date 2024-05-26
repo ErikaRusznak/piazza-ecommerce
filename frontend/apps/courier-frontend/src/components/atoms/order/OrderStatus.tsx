@@ -1,14 +1,15 @@
 import React from "react";
-import {Box, Popover} from "@mui/material";
+import {Box} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import useTheme from "@/theme/themes";
-import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon, SyncIcon} from "@/components/atoms/icons";
+import {useTheme} from "@mui/material/styles";
+import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon} from "@/components/atoms/icons";
 import OrderStatusPopover from "@/components/atoms/order/OrderStatusPopover";
 import {
     markOrderAsDeliveredApi,
     markOrderAsShippingApi
 } from "../../../../api/entities/OrderApi";
 import { getOrderByIdApi } from "components";
+
 type OrderStatusProps = {
     orderStatus: string;
     orderId: number;
@@ -23,6 +24,7 @@ type getStatusOrderInfoType = (status: string, orderId: number) => {
 const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => {
 
     const theme = useTheme();
+
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

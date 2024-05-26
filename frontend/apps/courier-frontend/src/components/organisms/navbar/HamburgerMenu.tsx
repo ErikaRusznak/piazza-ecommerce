@@ -1,16 +1,10 @@
-import React, {useState} from "react";
-import {CloseIcon, ExpandLess, ExpandMore, MenuIcon} from "@/components/atoms/icons";
+import React from "react";
+import {CloseIcon, MenuIcon} from "@/components/atoms/icons";
 import {Box, Button, Drawer, List, ListItemButton, ListItemText, Divider, Collapse} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
-
-type CategoryType = {
-    id: number;
-    imageName: string;
-    name: string;
-}
 
 type HamburgerMenuProps = {
     isAuthenticated: boolean;

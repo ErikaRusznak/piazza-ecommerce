@@ -1,8 +1,9 @@
 import React from "react";
 import {Box, useMediaQuery} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
 import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetails";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type ChatContainerProps = {
     orderId: number | null;
@@ -19,6 +20,7 @@ const ChatContainer = ({
                        }: ChatContainerProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     const {sendMessageToGroupChat} = useWebSocket();
@@ -35,6 +37,7 @@ const ChatContainer = ({
             py: 2,
             display: 'flex',
             flexDirection: 'column',
+            backgroundColor: isDark ? "#3e4554" : "#edf0fe"
         }}>
             {buyerId && sellerId && orderId ?
                 <ChatContainerDetails

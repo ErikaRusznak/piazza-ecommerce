@@ -54,7 +54,7 @@ export default FormTextField;
 export const FormTextArea = ({name, control, label, type, required=true}:FormTextFieldProps) => {
 
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return (
         <Controller
             name={name}
@@ -76,12 +76,12 @@ export const FormTextArea = ({name, control, label, type, required=true}:FormTex
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.contrastText,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.contrastText,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                 />

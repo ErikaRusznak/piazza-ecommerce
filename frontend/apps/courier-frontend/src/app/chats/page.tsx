@@ -8,7 +8,7 @@ import { getMessagesForGroupChatApi } from "components";
 import { getUserAccountByEmail } from "components";
 import { Box, Container, useMediaQuery } from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import { useWebSocket } from "components";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";

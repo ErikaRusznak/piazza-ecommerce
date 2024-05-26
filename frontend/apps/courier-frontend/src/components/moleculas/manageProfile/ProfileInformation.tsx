@@ -1,6 +1,6 @@
 import React from "react";
 import {Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
@@ -87,7 +87,7 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
     };
 
     return user ? (
-        <Box sx={{padding: theme.spacing(2), border: "1px solid #a5b4fc", borderRadius: "14px"}}>
+        <Box sx={{padding: theme.spacing(2)}}>
             <Typography variant="h5" sx={{color: theme.palette.info.main, mb:2}}>Profile Information</Typography>
             <form onSubmit={handleSubmit(onSubmit)} style={{}}>
                 <FormTextFieldDarkBackground

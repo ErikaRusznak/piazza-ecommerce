@@ -4,11 +4,12 @@ import React from "react";
 import { forgotPasswordApi } from "../../../api/entities/UserAccount";
 import MainLayout from "@/components/templates/MainLayout";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import { CssTextFieldDarkBackground } from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import StyledButton from "@/components/atoms/StyledButton";
 import {Box, Button, Divider, Typography} from "@mui/material";
 import { useRouter } from "next/navigation";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {CssTextField} from "@/components/atoms/CssTextField";
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = React.useState("");
@@ -16,6 +17,8 @@ const ForgotPasswordPage = () => {
     const [successMessage, setSuccessMessage] = React.useState("");
     const theme = useTheme();
     const router = useRouter();
+    const {isDark} = useThemeToggle();
+    const textColor = isDark ? theme.palette.info.contrastText : theme.palette.info.main;
 
     const handleForgotPassword = async () => {
         forgotPasswordApi(email)
@@ -35,7 +38,7 @@ const ForgotPasswordPage = () => {
             <PrincipalFormLayout titleText="Find your account" alignItems="left">
                 <>
                     <Divider sx={{ mb: 2, mt: -2 }} />
-                    <Typography variant="body1" sx={{ mb: 2, color: theme.palette.info.contrastText }}>
+                    <Typography variant="body1" sx={{ mb: 2, color: textColor }}>
                         To reset your password, please provide your email address below.
                     </Typography>
                     {errorMessage && (
@@ -48,7 +51,7 @@ const ForgotPasswordPage = () => {
                             {successMessage}
                         </Typography>
                     )}
-                    <CssTextFieldDarkBackground
+                    <CssTextField
                         label="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

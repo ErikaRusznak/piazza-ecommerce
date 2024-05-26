@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import {formatDate} from "../../../../services/FormatHour";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import ChatMessage from "@/components/atoms/chat/ChatMessage";
 import ChatMessageInput from "@/components/atoms/chat/ChatMessageInput";
 
@@ -20,7 +20,8 @@ const ChatContainerDetails = ({label, messages, sendMessageFunction}: ChatContai
             <Typography color={theme.palette.info.main} sx={{
                 textTransform: 'uppercase',
                 mb: 2, px: 1, py: 1,
-                borderBottom: `1px solid ${theme.palette.lightColor.main}`
+                borderBottom: `1px solid #d2d9fd`,
+                fontWeight: theme.typography.fontWeightBold,
             }}>
                 {label}
             </Typography>

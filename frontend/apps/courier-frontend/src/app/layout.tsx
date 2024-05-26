@@ -1,5 +1,6 @@
 import {WebSocketProvider} from "components";
 import {AuthProvider} from "components";
+import CustomThemeProvider from "../../contexts/ThemeContext";
 
 export const metadata = {
     title: 'Courier portal',
@@ -13,14 +14,16 @@ export default function RootLayout({
 }) {
 
     return (
-        <AuthProvider userRole="COURIER" registerPath="register-courier">
-            <WebSocketProvider senderRole="COURIER">
-                <html lang="en" style={{margin: 0, padding: 0}}>
-                <body style={{margin: 0, padding: 0}}>
-                {children}
-                </body>
-                </html>
-            </WebSocketProvider>
-        </AuthProvider>
+        <CustomThemeProvider>
+            <AuthProvider userRole="COURIER" registerPath="register-courier">
+                <WebSocketProvider senderRole="COURIER">
+                    <html lang="en" style={{margin: 0, padding: 0}}>
+                    <body style={{margin: 0, padding: 0}}>
+                    {children}
+                    </body>
+                    </html>
+                </WebSocketProvider>
+            </AuthProvider>
+        </CustomThemeProvider>
     )
 }

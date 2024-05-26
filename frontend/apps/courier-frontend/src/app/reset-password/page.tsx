@@ -10,7 +10,7 @@ import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
 import StyledButton from "@/components/atoms/StyledButton";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type ResetPasswordPageProps = {
     searchParams: {

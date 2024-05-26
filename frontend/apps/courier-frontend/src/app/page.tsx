@@ -3,8 +3,8 @@
 import MainLayout from "@/components/templates/MainLayout";
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import useTheme from "@/theme/themes";
 import { useRouter } from "next/navigation";
+import {useTheme} from "@mui/material/styles";
 
 const HomePage = () => {
     const theme = useTheme();

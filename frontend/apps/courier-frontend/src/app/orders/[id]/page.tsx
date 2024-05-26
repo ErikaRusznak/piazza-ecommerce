@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import { getOrderByIdApi } from "components";
 import {Box, Container, Grid, Paper} from "@mui/material";
 import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
@@ -11,6 +11,7 @@ import {useAuth} from "components";
 import OrderStatus from "@/components/atoms/order/OrderStatus";
 import {baseURL} from "components";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type OrderPageProps = {
     params: {
@@ -23,6 +24,7 @@ const tableCellLabels = ["Image", "Name", "Price", "Quantity", "Unit of Measure"
 
 const OrderPage = ({ params }: OrderPageProps) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const id = Number(params.id);
     const { isAuthenticated } = useAuth();
     const [order, setOrder] = useState<any>();
@@ -89,25 +91,25 @@ const OrderPage = ({ params }: OrderPageProps) => {
                             Order #{order.orderNumber}
                         </Typography>
                         <OrderStatus orderStatus={order.orderStatus} orderId={id} updateStatus={updateOrderStatusLocally} />
-                        <Grid container spacing={3} sx={{mt: 2}}>
+                        <Grid container spacing={3} sx={{mt: 1}}>
                             <Grid item xs={12} md={6}>
-                                <Paper sx={{ p: 2, backgroundColor: theme.palette.background.lighter, border: "1px solid #a5b4fc" }}>
+                                <Paper sx={{ p: 2, backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD", border: "1px solid #a5b4fc" }}>
                                     <Typography variant="h6" color={theme.palette.primary.main} sx={{ mb: 2 }}>
                                         Customer Details
                                     </Typography>
                                     <Typography variant="body1" color={theme.palette.info.main}>
-                                        <span style={{fontWeight: "bold"}}>Name:</span> {order.buyerFirstName} {order.buyerLastName}
+                                        <span style={{fontWeight: theme.typography.fontWeightMedium}}>Name:</span> {order.buyerFirstName} {order.buyerLastName}
                                     </Typography>
                                     <Typography variant="body1" color={theme.palette.info.main} sx={{mt: 1}}>
-                                        <span style={{fontWeight: "bold"}}>Email</span>: {order.buyerEmail}
+                                        <span style={{fontWeight: theme.typography.fontWeightMedium}}>Email</span>: {order.buyerEmail}
                                     </Typography>
                                     <Typography variant="body1" color={theme.palette.info.main} sx={{mt: 1}}>
-                                        <span style={{fontWeight: "bold"}}>Telephone</span>: {order.buyerTelephone}
+                                        <span style={{fontWeight: theme.typography.fontWeightMedium}}>Telephone</span>: {order.buyerTelephone}
                                     </Typography>
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Paper sx={{ p: 2, backgroundColor: theme.palette.background.lighter, border: "1px solid #a5b4fc" }}>
+                                <Paper sx={{ p: 2, backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD", border: "1px solid #a5b4fc" }}>
                                     <Typography variant="h6" color={theme.palette.primary.main} sx={{ mb: 2 }}>
                                         Shipping Address
                                     </Typography>

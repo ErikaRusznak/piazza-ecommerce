@@ -43,20 +43,17 @@ const ManageProfilePage = () => {
                         <BreadcrumbsComponent links={breadcrumbsLinks}/>
                         <Container maxWidth="lg" sx={{mt: 2}}>
                             <Grid container spacing={2}>
-
-                                <Grid item xs={12} md={8}>
-                                    <ProfileInformation
-                                        user={user}
-                                        setUser={setUser}
-                                    />
-                                </Grid>
+                                <ProfileInformation
+                                    user={user}
+                                    setUser={setUser}
+                                />
                             </Grid>
                             <AccountManagement
                                 user={user}/>
                         </Container>
                     </>
-                ): (
-                    <UnauthenticatedMessage />
+                ) : (
+                    <UnauthenticatedMessage/>
                 )}
             </MainLayout>
         </>

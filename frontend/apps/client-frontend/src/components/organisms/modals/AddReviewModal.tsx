@@ -1,5 +1,5 @@
 import React from 'react';
-import {addReviewApi, updateReviewApi} from '../../../../api/entities/ReviewApi';
+import {addReviewApi} from '../../../../api/entities/ReviewApi';
 import {number, object, string} from 'yup';
 import BaseModal from '@/components/templates/BaseModal';
 import {FormTextArea} from '@/components/atoms/form/light/FormTextField';
@@ -7,7 +7,8 @@ import {Box, Rating, Typography, useMediaQuery} from '@mui/material';
 import StyledButton from '@/components/atoms/StyledButton';
 import {Controller, Resolver, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import useTheme from '@/theme/themes';
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type AddReviewModalProps = {
     isModalOpen: boolean;
@@ -35,6 +36,7 @@ type AddReviewModalInput = {
 const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, handleAddReview}: AddReviewModalProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const onSubmit = (values: any) => {
         const userId = Number(sessionStorage.getItem('id'));
@@ -74,7 +76,7 @@ const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, ha
                             border: '1px solid #a5b4fc',
                         }}
                     >
-                        <Typography variant="h6" sx={{mt: 2, color: theme.palette.background.default}}>
+                        <Typography variant="h6" sx={{mt: 2, color: isDark? theme.palette.info.contrastText : theme.palette.info.main}}>
                             Add review
                         </Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,8 +87,8 @@ const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, ha
                                 defaultValue={0}
                                 render={({field}) => (
                                     <Box sx={{display: 'flex', flexDirection: smallScreenSize ? 'column' : 'row'}}>
-                                        <Typography sx={{color: theme.palette.background.default}}>
-                                            Rating
+                                        <Typography sx={{color: isDark? theme.palette.info.contrastText : theme.palette.info.main}}>
+                                            Rating: {" "}
                                         </Typography>
                                         <Rating
                                             name="rating"

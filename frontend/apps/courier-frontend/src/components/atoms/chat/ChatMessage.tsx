@@ -1,7 +1,8 @@
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {Box, Typography} from "@mui/material";
 import {formatHour} from "../../../../services/FormatHour";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type ChatMessageProps = {
     mess: any;
@@ -10,6 +11,9 @@ type ChatMessageProps = {
 const ChatMessage = ({ mess }:ChatMessageProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
+
+    const backgroundColorForOther = isDark ? theme.palette.background.lighter : theme.palette.lightColor.main;
 
     return (
         <Box sx={{
@@ -21,7 +25,7 @@ const ChatMessage = ({ mess }:ChatMessageProps) => {
                 color: "white",
                 maxWidth: "60%", p: 1,
                 borderRadius: "16px",
-                background: mess.senderRole === "COURIER" ? theme.palette.primary.main : "grey",
+                background: mess.senderRole === "COURIER" ?  theme.palette.primary.main : backgroundColorForOther,
             }}>
                 <Typography sx={{}}>
                     {mess.content}

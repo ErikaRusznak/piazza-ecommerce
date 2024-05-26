@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Button, Typography} from "@mui/material";
 import {HighlightOffIcon, UploadIcon} from "@/components/atoms/icons";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {baseURL} from "components";
 
 type FormUploadFieldDarkBackgroundProps = {

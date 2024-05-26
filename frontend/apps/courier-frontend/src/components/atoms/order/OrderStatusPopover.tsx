@@ -1,7 +1,8 @@
 import React from "react";
-import {Fade, Menu, MenuItem, MenuProps, Popover} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {Fade, Menu, MenuItem, MenuProps} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type OrderStatusPopoverProps = {
     open: boolean;
@@ -24,13 +25,13 @@ const StyledMenu = styled((props: MenuProps) => (
     />
 ))(() => {
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return {
         '& .MuiPaper-root': {
             borderRadius: 6,
             minWidth: 280,
             border: `1px solid ${theme.palette.primary.main}`,
-            backgroundColor: theme.palette.background.lighter,
+            backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD",
             boxShadow: `
                 rgba(255, 255, 255, 0.2) 1px 1px 2px 1px,
                 rgba(0, 0, 0, 0.1) 0px 0px 2px 0px
@@ -46,7 +47,6 @@ const StyledMenu = styled((props: MenuProps) => (
 const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handleChange}: OrderStatusPopoverProps) => {
 
     const theme = useTheme();
-
     const handleStatusChange = () => {
         handleChange();
         handleClose();

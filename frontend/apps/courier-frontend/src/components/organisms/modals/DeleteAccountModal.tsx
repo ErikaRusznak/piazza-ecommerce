@@ -1,7 +1,8 @@
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import BaseModal from "@/components/templates/BaseModal";
 import {Box, Button, Typography} from "@mui/material";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type DeleteModalProps = {
     isModalOpen: boolean;
@@ -14,13 +15,13 @@ type DeleteModalProps = {
 const DeleteAccountModal = ({ isModalOpen, toggleModal, setIsModalOpen, onDelete, userId }:DeleteModalProps) => {
 
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     return (
         <BaseModal isModalOpen={isModalOpen} toggleModal={() => toggleModal(true)}>
             {userId && (
                 <Box sx={{
                     color: theme.palette.info.main,
-                    backgroundColor: theme.palette.background.lighter,
+                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                     px: 5, py: 3,
                     borderRadius: "14px",
                     border: "1px solid #a5b4fc",

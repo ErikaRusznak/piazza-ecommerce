@@ -8,7 +8,7 @@ import { Box, Rating, Typography, useMediaQuery } from '@mui/material';
 import StyledButton from '@/components/atoms/StyledButton';
 import { Controller, Resolver, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useTheme from '@/theme/themes';
+import {useTheme} from "@mui/material/styles";
 
 type EditReviewModalProps = {
     isModalOpen: boolean;

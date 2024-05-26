@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
     AppBar,
     Button, List, ListItemButton, ListItemIcon, ListItemText, Popover,
@@ -10,7 +10,7 @@ import {
     Typography
 } from "@mui/material";
 import {Box} from "@mui/system";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {
     AccountCircleIcon
 } from "@/components/atoms/icons";
@@ -19,6 +19,8 @@ import {useAuth} from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;
@@ -27,12 +29,13 @@ type NavigationBarProps = {
 const NavigationBar = ({sx}: NavigationBarProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const router = useRouter();
-    const backgroundColor = theme.palette.background.default;
+    const backgroundColor = isDark ? theme.palette.background.default : "#DBE1FD";
     const auth = useAuth();
 
-    const {isAuthenticated, username, logout} = useAuth();
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);;
+    const {isAuthenticated} = useAuth();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const onMenuIconClick = () => {
         setMobileMenuOpen(!mobileMenuOpen);
@@ -66,29 +69,35 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
 
                 <LogoComponent/>
 
-                <Box sx={{display: {xs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
+                <Box sx={{display: {xxs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
                     <Typography
-                        sx={{color: theme.palette.info.main,
+                        sx={{
+                            color: theme.palette.info.main,
                             cursor: "pointer",
-                            textTransform: "uppercase"
+                            textTransform: "uppercase",
+                            fontWeight: theme.typography.fontWeightRegular,
                         }}
                         onClick={() => router.push("/orders")}
                     >
                         Orders
                     </Typography>
                     <Typography
-                        sx={{color: theme.palette.info.main,
+                        sx={{
+                            color: theme.palette.info.main,
                             cursor: "pointer",
-                            textTransform: "uppercase"
-                    }}
+                            textTransform: "uppercase",
+                            fontWeight: theme.typography.fontWeightRegular,
+                        }}
                         onClick={() => router.push("/chats")}
                     >
                         Chats
                     </Typography>
                     <Typography
-                        sx={{color: theme.palette.info.main,
+                        sx={{
+                            color: theme.palette.info.main,
                             cursor: "pointer",
-                            textTransform: "uppercase"
+                            textTransform: "uppercase",
+                            fontWeight: theme.typography.fontWeightRegular,
                         }}
                         onClick={() => router.push("/profile")}
                     >
@@ -96,8 +105,9 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                     </Typography>
                 </Box>
 
-                <Box sx={{display: {xs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
-                    <Box>
+                <Box sx={{display: {xxs: "none", sm: "flex", gap: theme.spacing(3), alignItems: "center"}}}>
+                    <Box sx={{display: "flex", alignItems: "center"}}>
+                        <ThemedSwitch/>
                         {!isAuthenticated ? (
                             <Button variant="outlined"
                                     sx={{
@@ -114,7 +124,8 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                                 Login
                             </Button>
                         ) : (
-                             <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}} aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
+                            <AccountCircleIcon sx={{color: textColor, cursor: "pointer", width: 30, height: 30,}}
+                                               aria-describedby={id} onClick={(event: any) => handleClick(event)}/>
                         )}
                         <Popover
                             id={id} open={open}
@@ -130,7 +141,7 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             }}
                             sx={{
                                 borderRadius: theme.shape.borderRadius,
-                                mt:1
+                                mt: 1
                             }}
                         >
                             <List
@@ -143,16 +154,17 @@ const NavigationBar = ({sx}: NavigationBarProps) => {
                             >
                                 <ListItemButton onClick={() => auth.logout()}>
                                     <ListItemIcon>
-                                        <LogoutIcon sx={{color: textColor}} />
+                                        <LogoutIcon sx={{color: textColor}}/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Logout" sx={{ color: textColor, fontSize: "1rem" }} />
+                                    <ListItemText primary="Logout" sx={{color: textColor, fontSize: "1rem"}}/>
                                 </ListItemButton>
                             </List>
                         </Popover>
                     </Box>
                 </Box>
 
-                <Box sx={{display: {xs: "flex", sm: "none"}}}>
+                <Box sx={{display: {xxs: "flex", sm: "none"}, alignItems: "center"}}>
+                    <ThemedSwitch />
                     <HamburgerMenu
                         isAuthenticated={isAuthenticated}
                         mobileMenuOpen={mobileMenuOpen}

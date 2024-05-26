@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import * as yup from "yup";
 import {api} from "components";
 import "yup-phone-lite";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
 import {SubmitHandler, useForm} from "react-hook-form";

@@ -1,7 +1,7 @@
 "use client";
 
 import moment from 'moment';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {Button, Container, FormControl, Typography} from "@mui/material";

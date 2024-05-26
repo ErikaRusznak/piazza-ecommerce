@@ -2,8 +2,7 @@
 import React from "react";
 import NavigationBar from "@/components/organisms/navbar/NavigationBar";
 import {Box, SxProps, Theme} from "@mui/material";
-import themes from "@/theme/themes";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -30,7 +29,7 @@ const MainLayout = ({
 
         main: {
             flex: "1 1 100%",
-            backgroundColor: themes().palette.background.default,
+            backgroundColor: theme.palette.background.default,
             // backgroundSize: "cover",
             padding: theme.spacing(5, 2, 2, 2),
         },

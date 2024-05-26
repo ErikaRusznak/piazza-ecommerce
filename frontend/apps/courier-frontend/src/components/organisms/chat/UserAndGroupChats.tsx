@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import { getMessagesForGroupChatApi } from "components";
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type UserAndGroupChatsProps = {
     setBuyerId: (value: null | number) => void;
@@ -18,6 +19,7 @@ type UserAndGroupChatsProps = {
 const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, setMessages }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const router = useRouter();
 
@@ -55,13 +57,14 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
         <Box
             sx={{
                 flex: isSm ? '1' : '1 1 25%', py: 2,
-                boxShadow: '5px 5px 15px rgba(0, 0, 0, 0.1)',
-                // boxShadow: '-5px 5px 15px rgba(255,255,255, 0.1)',
+                backgroundColor: isDark ? "#262e3f" : "#E4E8FE",
+                boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.1)' : '5px 5px 15px rgba(0, 0, 0, 0.1)',
             }}>
             <Typography
                 color={theme.palette.info.main}
                 sx={{ textTransform: 'uppercase', mb: 2, p: 1,
-                      borderBottom: `1px solid ${theme.palette.lightColor.main}`}}
+                    borderBottom: `1px solid #d2d9fd`,
+                    fontWeight: theme.typography.fontWeightBold,}}
             >
                 Chats
             </Typography>
