@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {Button, Paper, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {Button} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import DeleteAccountModal from "@/components/organisms/modals/DeleteAccountModal";
 import {useAuth} from "../../../../api/auth/AuthContext";
@@ -12,7 +12,6 @@ type AccountManagementProps = {
 
 const AccountManagement = ({user}:AccountManagementProps) => {
 
-    const theme = useTheme();
     const router = useRouter();
     const {logout} = useAuth();
 

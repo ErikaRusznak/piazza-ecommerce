@@ -1,6 +1,6 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import {

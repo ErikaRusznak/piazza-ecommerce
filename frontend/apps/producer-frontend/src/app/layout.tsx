@@ -1,5 +1,6 @@
 import AuthProvider from "../../api/auth/AuthContext";
 import {WebSocketProvider} from "components";
+import CustomThemeProvider from "../../contexts/ThemeContext";
 
 export const metadata = {
   title: "Seller Portal",
@@ -12,14 +13,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-      <AuthProvider>
-          <WebSocketProvider senderRole="SELLER">
-            <html lang="en" style={{margin: 0, padding: 0}}>
-              <body style={{margin: 0, padding: 0}}>
-                {children}
-              </body>
-            </html>
-          </WebSocketProvider>
-      </AuthProvider>
+      <CustomThemeProvider>
+          <AuthProvider>
+              <WebSocketProvider senderRole="SELLER">
+                  <html lang="en" style={{margin: 0, padding: 0}}>
+                  <body style={{margin: 0, padding: 0}}>
+                  {children}
+                  </body>
+                  </html>
+              </WebSocketProvider>
+          </AuthProvider>
+      </CustomThemeProvider>
+
   )
 }

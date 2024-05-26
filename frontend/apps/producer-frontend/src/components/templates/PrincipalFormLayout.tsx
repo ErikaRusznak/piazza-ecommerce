@@ -1,6 +1,7 @@
 import React, {ReactElement} from "react";
 import {Box, Container, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 type PrincipalFormLayout = {
     children: ReactElement;
@@ -9,10 +10,13 @@ type PrincipalFormLayout = {
 }
 const PrincipalFormLayout = ({children, titleText="Complete form", alignItems="center"}: PrincipalFormLayout) => {
     const theme = useTheme();
-    const textColor = theme.palette.info.contrastText;
+    const {isDark} = useThemeToggle();
+    const textColor = isDark ? theme.palette.info.contrastText : theme.palette.info.main;
+
     return (
         <Container
             component="main"
+            maxWidth="lg"
             sx={{
                 backgroundColor: 'rgba(234, 235, 255, 0.6)',
                 borderRadius: theme.shape.borderRadius,

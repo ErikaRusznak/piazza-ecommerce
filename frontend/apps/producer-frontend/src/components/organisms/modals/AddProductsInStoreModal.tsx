@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import BaseModal from "@/components/templates/BaseModal";
 import {Box, Typography} from "@mui/material";
 import {addProductsInStoreApi} from "../../../../api/entities/ProductApi";

@@ -7,7 +7,7 @@ import {Container,Typography} from "@mui/material";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import FormTextField from "@/components/atoms/form/light/FormTextFields";
 import StyledButton from "@/components/atoms/StyledButton";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";

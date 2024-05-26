@@ -1,6 +1,7 @@
 import { styled } from "@mui/material";
 import Link from "next/link";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 type StyledLinkProps = {
     color?: "info" | "primary" | "secondary";
@@ -9,14 +10,14 @@ type StyledLinkProps = {
 const StyledLink = styled(Link)<StyledLinkProps>(
     ({ color = "info" }) => {
         const theme = useTheme();
-
+        const {isDark} = useThemeToggle();
         return {
             color: (() => {
                 switch (color) {
                     case "info":
-                        return theme.palette.info.contrastText;
+                        return isDark ? theme.palette.info.contrastText : theme.palette.info.main;
                     case "primary":
-                        return theme.palette.lightColor.main;
+                        return theme.palette.primary.main;
                     case "secondary":
                         return theme.palette.secondary.light;
                     default:
@@ -31,7 +32,7 @@ const StyledLink = styled(Link)<StyledLinkProps>(
                         case "info":
                             return theme.palette.primary.main; // Change to a darker shade on hover
                         case "primary":
-                            return theme.palette.primary.main;
+                            return theme.palette.primary.dark;
                         case "secondary":
                             return theme.palette.secondary.main; // Change to the main color on hover
                         default:

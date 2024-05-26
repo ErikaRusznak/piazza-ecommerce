@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {getReviewsApi} from "components";
 import {Box, Typography} from "@mui/material";
 import ReviewComponent from "@/components/atoms/reviews/ReviewComponent";

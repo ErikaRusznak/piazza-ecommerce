@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {SendIcon} from "@/components/atoms/icons";
 import {Box} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type ChatMessageInputProps = {
     sendMessageFunction: (message: any, setMessage: (value: string) => void) => void;
@@ -11,7 +12,7 @@ const ChatMessageInput = ({sendMessageFunction}:ChatMessageInputProps) => {
 
     const theme = useTheme();
     const [message, setMessage] = useState<string>("");
-
+    const {isDark} = useThemeToggle();
     return (
         <Box sx={{
             display: 'flex',
@@ -26,7 +27,7 @@ const ChatMessageInput = ({sendMessageFunction}:ChatMessageInputProps) => {
                     borderRadius: "14px",
                     border: `0.1px solid ${theme.palette.lightColor.main}`,
                     marginRight: 1,
-                    background: theme.palette.background.lighter,
+                    background: isDark ? "#262e3f" : "#E4E8FE",
                     outline: "none",
                     color: theme.palette.info.main,
                 }}

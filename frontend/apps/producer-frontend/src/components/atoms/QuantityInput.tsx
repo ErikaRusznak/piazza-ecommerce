@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/system';
 import { Button, Typography } from '@mui/material';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import themes from "@/theme/themes";
 
 type QuantityInputType = {

@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Collapse, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type PrivateChatMessageUserProps = {
     showChats: boolean;
@@ -13,6 +14,8 @@ type PrivateChatMessageUserProps = {
 const PrivateChatMessageUser = ({showChats, chats, handleOnClick, fontWeightForLastMessage, lastMessages}: PrivateChatMessageUserProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
+
     return (
         <Collapse in={showChats}>
         <Box sx={{display: "flex", flexDirection: "column", p: 0}}>
@@ -23,7 +26,7 @@ const PrivateChatMessageUser = ({showChats, chats, handleOnClick, fontWeightForL
                         color: "white", p: 1,
                         cursor: 'pointer',
                         '&:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            backgroundColor: isDark ? 'rgba(0, 0, 0, 0.5)' : '#eee',
                         },
                     }}
                     onClick={() => handleOnClick(user.id)}
@@ -50,7 +53,10 @@ const PrivateChatMessageUser = ({showChats, chats, handleOnClick, fontWeightForL
                         <Box sx={{width: "100%"}}>
                             <Typography sx={{
                                 fontWeight: fontWeightForLastMessage(user.id),
-                            }}>{user.firstName + " " + user.lastName}</Typography>
+                                color: theme.palette.info.main
+                            }}>
+                                {user.firstName + " " + user.lastName}
+                            </Typography>
                             <Typography sx={{
                                 fontSize: "13px",
                                 maxWidth: "200px",

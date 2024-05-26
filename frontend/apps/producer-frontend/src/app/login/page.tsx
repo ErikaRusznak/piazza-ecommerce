@@ -10,7 +10,7 @@ import {
     FormControlLabel,
     Grid,
 } from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import StyledButton from "@/components/atoms/StyledButton";

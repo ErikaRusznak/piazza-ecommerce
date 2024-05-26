@@ -3,7 +3,7 @@
 import MainLayout from "@/components/templates/MainLayout";
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import { useRouter } from "next/navigation";
 import StyledLink from "@/components/atoms/StyledLink";
 
@@ -28,8 +28,8 @@ const HomePage = () => {
                     variant="h2"
                     sx={{
                         color: theme.palette.lightColor.main,
-                        fontSize: { xs: "32px", sm: "40px", md: "50px" },
-                        lineHeight: { xs: 1.2 },
+                        fontSize: { xxs: "32px", sm: "40px", md: "50px" },
+                        lineHeight: { xxs: 1.2 },
                         mb: 2,
                     }}
                 >
@@ -40,7 +40,7 @@ const HomePage = () => {
                     sx={{
                         color: theme.palette.info.main,
                         width: "70%",
-                        fontSize: { xs: "16px", sm: "18px", md: "20px" },
+                        fontSize: { xxs: "16px", sm: "18px", md: "20px" },
                     }}
                 >
                     Manage your online store efficiently with our tools.
@@ -51,7 +51,7 @@ const HomePage = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", sm: "row" },
+                        flexDirection: { xxs: "column", sm: "row" },
                         gap: 2,
                     }}
                 >
@@ -61,7 +61,7 @@ const HomePage = () => {
                             background: theme.palette.secondary.main,
                             color: theme.palette.info.main,
                             "&:hover": { background: theme.palette.tertiary.main },
-                            fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                            fontSize: { xxs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {
                             router.push("/products");
@@ -75,7 +75,7 @@ const HomePage = () => {
                             borderColor: theme.palette.primary.main,
                             color: theme.palette.info.main,
                             "&:hover": { borderColor: theme.palette.tertiary.main },
-                            fontSize: { xs: "14px", sm: "16px", md: "18px" },
+                            fontSize: { xxs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {
                             router.push("/orders");

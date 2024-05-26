@@ -1,6 +1,6 @@
 import {styled} from "@mui/material/styles";
 import MuiTextField from '@mui/material/TextField';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 export const CssTextFieldDarkBackground = styled(
     MuiTextField,
@@ -23,15 +23,13 @@ export const CssTextFieldDarkBackground = styled(
                     borderColor: theme.palette.lightColor.main,
                 },
             },
-        },
-        '& .MuiInputBase-input': {
-            color: theme.palette.info.main,
-            '&.Mui-disabled': {
+            '& input': {
                 color: theme.palette.info.main,
+                '&::placeholder': {
+                    color: theme.palette.info.main,
+                    opacity: 0.6,
+                },
             },
-        },
-        '& .MuiInputLabel-root': {
-            color: theme.palette.common.white,
         },
     };
 });

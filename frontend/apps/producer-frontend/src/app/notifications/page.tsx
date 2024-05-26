@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 
 const NotificationsPage = () => {
 
-    const theme = useTheme();
 
     return (
         <MainLayout>

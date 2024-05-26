@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import useTheme from "@/theme/themes";
+import React from "react";
+import {useTheme} from "@mui/material/styles";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import ProductRating from "@/components/atoms/reviews/ProductRating";
 

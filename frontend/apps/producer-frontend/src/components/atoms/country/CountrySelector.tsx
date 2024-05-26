@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
@@ -12,7 +12,7 @@ import Fade from "@mui/material/Fade";
 
 import {COUNTRIES} from "./countries";
 import {Button, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type SelectedValueType = {
     title: string; value: string;

@@ -8,7 +8,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import CountrySelector from "@/components/atoms/country/CountrySelector";
 import {COUNTRIES} from "@/components/atoms/country/countries";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {updateSellerAddressApi} from "../../../../api/entities/UserAccount";
 import {useRouter} from "next/navigation";
 

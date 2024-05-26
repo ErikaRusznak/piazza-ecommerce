@@ -1,7 +1,8 @@
 import React from "react";
 import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 import {Controller} from "react-hook-form";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../../contexts/ThemeContext";
 
 type FormTextFieldProps = {
     name: string;
@@ -14,6 +15,7 @@ type FormTextFieldProps = {
 const FormTextField = ({name, control, label, type, required=true}:FormTextFieldProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
 
     return (
         <Controller
@@ -34,12 +36,12 @@ const FormTextField = ({name, control, label, type, required=true}:FormTextField
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.contrastText,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.contrastText,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                 />

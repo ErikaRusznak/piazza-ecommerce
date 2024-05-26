@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {getUserAccountByEmail} from "components";
 import {
     getGroupChatsForSellerApi,
@@ -15,12 +15,14 @@ import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import {getAllUsersApi} from "../../../api/entities/UserAccount";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 const ChatPage = () => {
 
     const {isAuthenticated} = useAuth();
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -94,8 +96,7 @@ const ChatPage = () => {
                 (connectedUsers && id) && (
                     <Container>
                     <Box sx={{
-                        // boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
-                        boxShadow: '-5px 5px 15px rgba(255,255,255, 0.5)',
+                        boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.5)' : '0px 5px 15px rgba(0, 0, 0, 0.1)',
                         borderRadius: '14px', overflow: 'hidden' }}>
                         <Box sx={{
                             display: 'flex',

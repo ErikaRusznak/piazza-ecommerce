@@ -1,6 +1,5 @@
 import React from "react";
-import useTheme from "@/theme/themes";
-import {useRouter} from "next/navigation";
+import {useTheme} from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import {Box, Typography} from "@mui/material";
 
@@ -13,7 +12,6 @@ type ProductSpecificInfoProps = {
 const ProductSpecificInfo = ({label, information, rating} : ProductSpecificInfoProps) => {
 
     const theme = useTheme();
-    const router = useRouter();
 
     const ratingColor = () => {
         if(rating) {

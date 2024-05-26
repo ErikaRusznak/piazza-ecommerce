@@ -1,7 +1,7 @@
 import React from "react";
 import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 import {Controller} from "react-hook-form";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type DatePickerFieldProps = {
     name: string;

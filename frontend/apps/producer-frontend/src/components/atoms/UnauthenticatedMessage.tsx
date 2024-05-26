@@ -1,5 +1,5 @@
 import React from "react";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import Typography from "@mui/material/Typography";
 import StyledButton from "@/components/atoms/StyledButton";

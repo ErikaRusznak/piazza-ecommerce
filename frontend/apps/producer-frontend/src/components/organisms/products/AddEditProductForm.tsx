@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {addImageApi} from "components";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 type AddEditProductFormProps = {
     headerText: string;

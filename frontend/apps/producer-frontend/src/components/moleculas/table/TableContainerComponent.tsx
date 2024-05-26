@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import useTheme from "@/theme/themes";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
 type TableContainerProps<T> = {
     items: T[];

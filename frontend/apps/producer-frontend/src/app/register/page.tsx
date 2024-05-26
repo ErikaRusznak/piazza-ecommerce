@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useForm, useWatch} from "react-hook-form";
 import * as yup from "yup";
 import "yup-phone-lite";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {SubmitHandler} from "react-hook-form";
@@ -20,6 +20,7 @@ import UploadController from "@/components/atoms/upload/UploadController";
 import {addImageApi} from "components";
 import FormSelectField from "@/components/atoms/form/light/FormSelectField";
 import DatePickerField from "@/components/atoms/form/light/DatePickerField";
+import {useThemeToggle} from "../../../contexts/ThemeContext";
 
 const sellerTypes = [
     {id: 1, name: "LOCAL_FARMER"},
@@ -127,6 +128,7 @@ const RegisterPage = () => {
     const auth = useAuth();
     const [fileName, setFileName] = useState<string>("");
     const [showLegalDetails, setShowLegalDetails] = useState(false);
+    const {isDark} = useThemeToggle();
 
     const defaultValues: RegisterFormInput = {
         firstName: "",
@@ -209,17 +211,17 @@ const RegisterPage = () => {
             />
             <PrincipalFormLayout titleText="Create an account">
                 <>
-                    <Typography gutterBottom color={theme.palette.info.contrastText}>
+                    <Typography gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
                         Before you register, please make sure you that you sent a request to the admin for being able create an account!
                     </Typography>
-                    <Typography gutterBottom color={theme.palette.info.contrastText}>
+                    <Typography gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
                         If you did not send a request, try <StyledLink href="/send-request">here</StyledLink>!
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{display: "flex", gap: 2}}>
                             <Box>
                                 {/* Account Section */}
-                                <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                <Typography variant="h6" gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
                                     Account Information
                                 </Typography>
                                 <Box sx={{display: "flex", flexDirection: "row", gap: 2}}>
@@ -240,7 +242,7 @@ const RegisterPage = () => {
                             </Box>
 
                             <Box>
-                                <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                <Typography variant="h6" gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
                                     Legal Address
                                 </Typography>
                                 <FormTextField name="addressLine1" control={control} label="Address Line 1" type="text"/>
@@ -255,7 +257,7 @@ const RegisterPage = () => {
                             <Box>
                                 {showLegalDetails && (
                                     <>
-                                        <Typography variant="h6" gutterBottom color={theme.palette.info.contrastText}>
+                                        <Typography variant="h6" gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
                                             Legal Details
                                         </Typography>
                                         <FormTextField name="companyName" control={control} label="Company Name" type="text"/>

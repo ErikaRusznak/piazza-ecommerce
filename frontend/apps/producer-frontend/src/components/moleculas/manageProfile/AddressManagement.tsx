@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {
     Grid,
 } from "@mui/material";
-import useTheme from "@/theme/themes";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {getSellerByIdApi} from "../../../../api/entities/SellerApi";
 import LegalDetailsForm from "@/components/moleculas/accountDetails/LegalDetailsForm";

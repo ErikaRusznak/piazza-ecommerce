@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Collapse, Typography} from "@mui/material";
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 type GroupChatMessageUserProps = {
     showChats: boolean;
@@ -11,6 +12,7 @@ type GroupChatMessageUserProps = {
 const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessageUserProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
 
     return (
         <Collapse in={showChats}>
@@ -19,10 +21,11 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
                     <Box
                         key={chat.id}
                         sx={{
-                            color: "white", p: 1,
+                            color: theme.palette.info.main,
+                            p: 1,
                             cursor: 'pointer',
                             '&:hover': {
-                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                backgroundColor: isDark ? 'rgba(0, 0, 0, 0.5)' : '#eee',
                             },
                         }}
                         onClick={() => handleOnClick(chat)}

@@ -13,7 +13,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import useTheme from "@/theme/themes";
+import {useTheme} from "@mui/material/styles";
+import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
 import {
     CategoryIcon, ChatIcon,
     ChevronLeftIcon,
@@ -24,6 +25,7 @@ import {
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
+import {useThemeToggle} from "../../../../contexts/ThemeContext";
 
 const drawerWidth = 240;
 
@@ -89,7 +91,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
         const theme = useTheme();
         const openedStyles = openedMixin(theme);
         const closedStyles = closedMixin(theme);
-
+        const { isDark } = useThemeToggle();
         return {
             width: drawerWidth,
             flexShrink: 0,
@@ -97,7 +99,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
             boxSizing: 'border-box',
             '& .MuiDrawer-paper.MuiDrawer-paperAnchorLeft': {
                 backgroundColor: theme.palette.background.default,
-                borderRightColor: theme.palette.background.lighter,
+                borderRightColor: isDark ? theme.palette.info.contrastText : "#eee",
             },
             ...(open && {
                 ...openedStyles,
@@ -147,34 +149,37 @@ export default function Navigation({children}: { children: React.ReactNode }) {
         <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '150vh'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar sx={{backgroundColor: theme.palette.background.lighter}}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && {display: 'none'}),
-                        }}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div" onClick={() => router.push("/")} sx={{cursor: "pointer"}}>
-                        Seller Portal
-                    </Typography>
+                <Toolbar sx={{backgroundColor: theme.palette.background.default, display: "flex", justifyContent: "space-between"}}>
+                    <Box sx={{display: "flex", alignItems: "center"}}>
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                color: theme.palette.primary.main,
+                                marginRight: 5,
+                                ...(open && {display: 'none'}),
+                            }}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" color={theme.palette.primary.main}>
+                            Admin Portal
+                        </Typography>
+                    </Box>
+                    <ThemedSwitch />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
                 <Box sx={{}}>
                     <DrawerHeader sx={{}}>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.info.main}}/> :
-                                <ChevronLeftIcon sx={{color: theme.palette.info.main}}/>}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: theme.palette.primary.main}}/> :
+                                <ChevronLeftIcon sx={{color: theme.palette.primary.main}}/>}
                         </IconButton>
                     </DrawerHeader>
                 </Box>
-                <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
+                <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {informationList.map((listItem) => (
                         <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
@@ -207,7 +212,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                         </ListItem>
                     ))}
                 </List>
-                <Divider sx={{backgroundColor: theme.palette.background.lighter}}/>
+                <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {profileList.map((listItem) => (
                         <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
