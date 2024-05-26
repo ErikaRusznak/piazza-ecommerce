@@ -1,9 +1,8 @@
 "use client";
 
-import React, {useState, createContext, useContext, useEffect} from 'react';
+import {useState, createContext, useContext, useEffect} from 'react';
 import { ThemeProvider} from '@mui/material/styles';
-import {darkTheme, lightTheme} from "@/theme/themes";
-
+import {darkTheme, lightTheme} from "./themes";
 
 const ThemeContext = createContext({
     toggleTheme: () => {},

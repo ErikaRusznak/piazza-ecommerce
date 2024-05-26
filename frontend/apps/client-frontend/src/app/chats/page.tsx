@@ -11,7 +11,7 @@ import {useSearchParams} from "next/navigation";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const ChatPage = () => {
     const theme = useTheme();

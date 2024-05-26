@@ -2,7 +2,7 @@ import React from "react";
 import {Fade, Menu, MenuItem, MenuProps} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/material/styles";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type OrderStatusPopoverProps = {
     open: boolean;

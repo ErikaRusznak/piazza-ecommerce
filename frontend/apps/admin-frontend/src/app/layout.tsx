@@ -1,5 +1,5 @@
 import {AuthProvider} from "components";
-import CustomThemeProvider from "../../context/ThemeContext";
+import {CustomThemeProvider} from "ui";
 
 export const metadata = {
   title: 'Admin Portal',

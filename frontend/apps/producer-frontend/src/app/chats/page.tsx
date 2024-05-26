@@ -15,7 +15,7 @@ import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import {getAllUsersApi} from "../../../api/entities/UserAccount";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const ChatPage = () => {
 

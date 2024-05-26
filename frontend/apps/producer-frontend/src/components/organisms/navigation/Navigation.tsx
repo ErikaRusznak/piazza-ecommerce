@@ -14,7 +14,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useTheme} from "@mui/material/styles";
-import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
+import {ThemedSwitch} from "ui";
 import {
     CategoryIcon, ChatIcon,
     ChevronLeftIcon,
@@ -25,7 +25,7 @@ import {
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const drawerWidth = 240;
 

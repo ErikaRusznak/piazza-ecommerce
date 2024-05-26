@@ -1,12 +1,7 @@
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
-import { styled } from "@mui/system";
-import themes from "@/theme/themes";
-import {SxProps, Theme} from "@mui/material";
-
-const StyledMenuItemDetails = styled(MenuItem)(({ theme }) => ({
-
-}));
+import { SxProps, Theme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 type StyledMenuItemProps = {
     value: number;
@@ -14,20 +9,24 @@ type StyledMenuItemProps = {
     sx?: SxProps<Theme>;
 };
 
-const StyledMenuItem = ({ value, children}:StyledMenuItemProps) => (
-    <MenuItem
-        value={value}
-        sx={{
-            backgroundColor: themes().palette.background.lighter,
-            color: "white",
-            '&:hover': {
-                backgroundColor: themes().palette.primary.main,
-            },
-        }}
-    >
-        {children}
-    </MenuItem>
-);
+const StyledMenuItem = ({ value, children, sx }:StyledMenuItemProps) => {
+    const theme = useTheme();
 
+    return (
+        <MenuItem
+            value={value}
+            sx={{
+                backgroundColor: theme.palette.background.lighter,
+                color: "white",
+                '&:hover': {
+                    backgroundColor: theme.palette.primary.main,
+                },
+                ...sx, // Merge custom styles passed via props
+            }}
+        >
+            {children}
+        </MenuItem>
+    );
+};
 
 export default StyledMenuItem;

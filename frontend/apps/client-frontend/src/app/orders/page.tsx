@@ -18,7 +18,7 @@ import {useTheme} from "@mui/material/styles";
 import {Expand} from "@mui/icons-material";
 import {baseURL} from "components";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const OrdersPage: React.FC = () => {
     const theme = useTheme(); // Apply the custom theme

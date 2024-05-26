@@ -1,9 +1,8 @@
 import * as React from "react";
-// import useTheme from "@/theme/themes";
 import {useRouter} from "next/navigation";
 import Typography from "@mui/material/Typography";
 import StyledButton from "./StyledButton";
-import useTheme from "admin-frontend/src/theme/themes";
+import {useTheme} from "@mui/material/styles";
 
 const UnauthenticatedMessage = () => {
 

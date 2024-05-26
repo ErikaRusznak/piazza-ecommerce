@@ -5,8 +5,7 @@ import {useTheme} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import {useRouter} from "next/navigation";
 import { useAuth, baseURL } from "components";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
-import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
+import {ThemedSwitch} from "ui";
 
 type CategoryType = {
     id: number;

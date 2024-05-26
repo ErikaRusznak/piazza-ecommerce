@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Divider, Box } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type SellerDetailsComponentProps = {
     seller: any;

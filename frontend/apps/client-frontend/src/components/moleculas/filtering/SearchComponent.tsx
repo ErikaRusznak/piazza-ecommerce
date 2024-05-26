@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {useTheme} from "@mui/material/styles";
 import {InputAdornment, IconButton, TextField} from "@mui/material";
 import { SearchIcon } from "@/components/atoms/icons";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type SearchComponentProps = {
     handleSearchChanged: (filterName: any, filterValue: any) => void;

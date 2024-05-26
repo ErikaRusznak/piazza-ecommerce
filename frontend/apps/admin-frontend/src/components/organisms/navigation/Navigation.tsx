@@ -25,8 +25,8 @@ import {
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "components";
-import {useThemeToggle} from "../../../../context/ThemeContext";
-import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
+import {useThemeToggle} from "ui";
+import {ThemedSwitch} from "ui";
 
 const drawerWidth = 240;
 

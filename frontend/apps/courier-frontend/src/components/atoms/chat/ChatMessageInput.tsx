@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {SendIcon} from "@/components/atoms/icons";
 import {Box} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type ChatMessageInputProps = {
     sendMessageFunction: (message: any, setMessage: (value: string) => void) => void;

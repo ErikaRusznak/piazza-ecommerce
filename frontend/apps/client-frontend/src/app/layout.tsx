@@ -3,7 +3,7 @@ import CartProvider from "../../contexts/CartContext";
 import FavoriteProvider from "../../contexts/FavoriteContext";
 import {WebSocketProvider} from "components";
 import ProfilePictureProvider from "../../contexts/ProfilePictureContext";
-import CustomThemeProvider from "../../contexts/ThemeContext";
+import {CustomThemeProvider} from "ui";
 
 export const metadata = {
     title: 'Fresh Corner',

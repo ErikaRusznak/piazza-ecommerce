@@ -19,8 +19,8 @@ import {useAuth} from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
 import {useRouter} from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
-import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
+import {useThemeToggle} from "ui";
+import {ThemedSwitch} from "ui";
 
 type NavigationBarProps = {
     sx?: SxProps<Theme>;

@@ -26,8 +26,8 @@ import {useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "components";
 import {baseURL} from "components";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
-import ThemedSwitch from "@/components/atoms/icons/ThemedSwitch";
+import {useThemeToggle} from "ui";
+import {ThemedSwitch} from "ui";
 
 const NavigationBar = () => {
 

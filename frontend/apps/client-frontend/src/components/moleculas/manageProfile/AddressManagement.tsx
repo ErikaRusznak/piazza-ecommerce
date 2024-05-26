@@ -10,7 +10,7 @@ import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../.
 import {ShippingAddressType} from "@/app/checkout/page";
 import AddressComponent from "@/components/atoms/AddressComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type AddressManagementProps = {
 

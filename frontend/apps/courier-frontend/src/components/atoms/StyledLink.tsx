@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import Link from "next/link";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type StyledLinkProps = {
     color?: "info" | "primary" | "secondary";

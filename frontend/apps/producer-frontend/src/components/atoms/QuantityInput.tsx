@@ -2,7 +2,6 @@ import React from 'react';
 import { styled } from '@mui/system';
 import { Button, Typography } from '@mui/material';
 import {useTheme} from "@mui/material/styles";
-import themes from "@/theme/themes";
 
 type QuantityInputType = {
     quantity: number;
@@ -18,13 +17,13 @@ const QuantityContainer = styled("div")({
 });
 
 const QuantityButton = styled(Button)(({ theme }) => ({
-    color: themes().palette.background.default,
+    color: theme.palette.background.default,
     lineHeight: 1.5,
     height: "60%",
-    backgroundColor: themes().palette.lightColor.main,
+    backgroundColor: theme.palette.lightColor.main,
     '&:hover': {
-        color: themes().palette.background.default,
-        backgroundColor: themes().palette.secondary.main,
+        color: theme.palette.background.default,
+        backgroundColor: theme.palette.secondary.main,
     },
     minWidth: "40px",
 }));

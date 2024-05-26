@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import {Box, Container, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type PrincipalFormLayout = {
     children: ReactElement;

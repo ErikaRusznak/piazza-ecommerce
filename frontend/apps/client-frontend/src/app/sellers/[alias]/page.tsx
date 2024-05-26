@@ -22,7 +22,7 @@ import {useRouteAlias} from "components";
 import {baseURL} from "components";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import SellerMap from "@/components/moleculas/SellerMap";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type SellerPageContentProps = {
     sellerAlias: string;

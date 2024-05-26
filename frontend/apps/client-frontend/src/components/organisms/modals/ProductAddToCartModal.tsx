@@ -10,7 +10,7 @@ import ProductRating from "@/components/moleculas/ProductRating";
 import QuantityInput from "@/components/atoms/QuantityInput";
 import {useTheme} from "@mui/material/styles";
 import StyledButton from "@/components/atoms/StyledButton";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type ProductAddToCartModalProps = {
     isModalOpen: boolean;

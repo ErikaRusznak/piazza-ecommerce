@@ -8,7 +8,7 @@ import StyledButton from '@/components/atoms/StyledButton';
 import {Controller, Resolver, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type AddReviewModalProps = {
     isModalOpen: boolean;

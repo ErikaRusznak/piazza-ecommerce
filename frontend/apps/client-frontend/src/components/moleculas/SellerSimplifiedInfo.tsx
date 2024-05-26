@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import {baseURL} from "components";
 import { Box, Typography } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type SellerSimplifiedInfoProps = {
     seller: any;

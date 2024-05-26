@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 import { getMessagesForGroupChatApi } from "components";
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type UserAndGroupChatsProps = {
     setBuyerId: (value: null | number) => void;

@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {useTheme} from "@mui/material/styles";
 import {ClearIcon} from "@/components/atoms/icons";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type FilterTagProps = {
     filterName: string;

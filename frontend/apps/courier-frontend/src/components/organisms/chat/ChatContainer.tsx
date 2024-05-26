@@ -3,7 +3,7 @@ import {Box, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
 import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetails";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type ChatContainerProps = {
     orderId: number | null;

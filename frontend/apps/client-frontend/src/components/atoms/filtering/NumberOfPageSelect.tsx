@@ -2,7 +2,7 @@ import React from "react";
 import {useTheme} from "@mui/material/styles";
 import {FormControl, InputLabel, Select} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type NumberOfPageSelectProps = {
     handleItemsPerPageChange: (itemsPerPage: number) => void;

@@ -8,7 +8,7 @@ import {baseURL} from "components";
 import {Box} from "@mui/system";
 import {usePathname, useRouter} from "next/navigation";
 import {Typography} from "@mui/material";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const StyledMenu = styled((props: MenuProps) => (
 

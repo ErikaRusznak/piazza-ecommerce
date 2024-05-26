@@ -19,7 +19,7 @@ import * as yup from "yup";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
 import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type LoginFormInput = {
     email: string;

@@ -8,7 +8,7 @@ import StyledButton from "@/components/atoms/StyledButton";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useRouter} from "next/navigation";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 // TODO - make a type for product, not any
 type ProductCardProps = {

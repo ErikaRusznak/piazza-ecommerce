@@ -1,6 +1,6 @@
 import AuthProvider from "../../api/auth/AuthContext";
 import {WebSocketProvider} from "components";
-import CustomThemeProvider from "../../contexts/ThemeContext";
+import {CustomThemeProvider} from "ui";
 
 export const metadata = {
   title: "Seller Portal",

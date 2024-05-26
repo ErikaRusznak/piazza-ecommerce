@@ -2,7 +2,7 @@ import React from "react";
 import {useTheme} from "@mui/material/styles";
 import {Box, Typography} from "@mui/material";
 import {formatHour} from "../../../../services/FormatHour";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type ChatMessageProps = {
     mess: any;

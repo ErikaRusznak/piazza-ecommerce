@@ -6,7 +6,7 @@ import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessages
 import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
 import PrivateChatMessageUser from "@/components/moleculas/chat/PrivateChatMessageUser";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type UserAndGroupChatsProps = {
     id: number;

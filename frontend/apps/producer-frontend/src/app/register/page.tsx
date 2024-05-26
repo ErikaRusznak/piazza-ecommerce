@@ -20,7 +20,7 @@ import UploadController from "@/components/atoms/upload/UploadController";
 import {addImageApi} from "components";
 import FormSelectField from "@/components/atoms/form/light/FormSelectField";
 import DatePickerField from "@/components/atoms/form/light/DatePickerField";
-import {useThemeToggle} from "../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 const sellerTypes = [
     {id: 1, name: "LOCAL_FARMER"},

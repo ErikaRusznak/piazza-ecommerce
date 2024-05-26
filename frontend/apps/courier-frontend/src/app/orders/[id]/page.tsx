@@ -11,7 +11,7 @@ import {useAuth} from "components";
 import OrderStatus from "@/components/atoms/order/OrderStatus";
 import {baseURL} from "components";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
-import {useThemeToggle} from "../../../../contexts/ThemeContext";
+import {useThemeToggle} from "ui";
 
 type OrderPageProps = {
     params: {
