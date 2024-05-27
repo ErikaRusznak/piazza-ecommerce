@@ -23,6 +23,9 @@ export { getOrderByIdApi };
 import { getReviewsApi, getReviewByIdApi } from "./api/entities/ReviewApi";
 export { getReviewsApi, getReviewByIdApi };
 
+import { addCommentApi, getCommentsForReviewApi} from "./api/entities/CommentsApi";
+export { addCommentApi, getCommentsForReviewApi };
+
 // hooks
 import {useRouteAlias} from "./hooks/useRouteAlias";
 import {useRouteId} from "./hooks/useRouteId";

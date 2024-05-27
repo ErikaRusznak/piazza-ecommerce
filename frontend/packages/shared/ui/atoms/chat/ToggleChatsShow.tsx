@@ -1,8 +1,9 @@
-import React from "react";
 import {Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import {KeyboardArrowDownIcon, KeyboardArrowRightIcon} from "@/components/atoms/icons";
 import {useTheme} from "@mui/material/styles";
+import {baseTheme, darkTheme} from "../../themes/themes";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 type ToggleChatsShowProps = {
     label: string;
@@ -12,18 +13,19 @@ type ToggleChatsShowProps = {
 const ToggleChatsShow = ({label, toggle, showChats}:ToggleChatsShowProps) => {
 
     const theme = useTheme();
+
     return (
         <Typography>
             <IconButton
                 sx={{
                     color: theme.palette.info.main,
                     "&:hover": {
-                        color: theme.palette.lightColor.main,
+                        color: darkTheme.palette.lightColor.main,
                     }
                 }}
                 onClick={toggle}
             >
-                <Typography variant="body1" sx={{fontSize: "13px", fontWeight: theme.typography.fontWeightRegular}}>
+                <Typography variant="body1" sx={{fontSize: "13px", fontWeight: baseTheme.typography.fontWeightMedium}}>
                     {label}
                 </Typography>
                 {showChats ? <KeyboardArrowDownIcon sx={{fontSize: "13px"}}/> :

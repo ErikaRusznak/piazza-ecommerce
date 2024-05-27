@@ -1,22 +1,25 @@
-import React, {useEffect, useState} from "react";
-import { useAuth } from "components";
+"use client";
+
+import {useEffect, useState} from "react";
 import {getReviewByIdApi} from "components";
-import ProductRating from "@/components/moleculas/ProductRating";
 import {Box, Button, Typography, useMediaQuery} from "@mui/material";
-import {EditNoteIcon} from "@/components/atoms/icons";
 import {useTheme} from "@mui/material/styles";
-import EditReviewModal from "@/components/organisms/modals/EditReviewModal";
-import {getCommentsForReviewApi} from "../../../../api/entities/CommentApi";
-import CommentsComponent from "@/components/moleculas/reviews/CommentsComponent";
+import {getCommentsForReviewApi} from "components";
+import EditReviewModal from "client-frontend/src/components/organisms/modals/EditReviewModal";
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import ProductRating from "../../atoms/review/ProductRating";
+import CommentsComponent from "../../atoms/review/CommentsComponent";
 
 type ReviewComponentProps = {
     review: any;
-    updateReviewInState: (updatedReview: any) => void;
+    updateReviewInState?: (updatedReview: any) => void;
+    isAuthenticated: boolean;
+    username: string;
 }
 
-const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) => {
+const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username}: ReviewComponentProps) => {
     const theme = useTheme();
-    const {isAuthenticated, username} = useAuth();
+
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const firstLetterOfFirstName = review.buyer.firstName.charAt(0);
     const firstLetterOfLastName = review.buyer.lastName.charAt(0);
@@ -46,8 +49,10 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
     }
 
     const updateReview = (updatedReview: any) => {
-        setSelectedReview(updatedReview);
-        updateReviewInState(updatedReview);
+        if(updateReviewInState) {
+            setSelectedReview(updatedReview);
+            updateReviewInState(updatedReview);
+        }
     };
 
     const getReviewById = (reviewId: number) => {
@@ -57,7 +62,6 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
             })
             .catch((err) => console.log(err));
     }
-
 
     useEffect(() => {
         getReviewById(review.id);
@@ -133,20 +137,22 @@ const ReviewComponent = ({review, updateReviewInState}: ReviewComponentProps) =>
                         </Box>
 
                         {showComments && (
-                            <CommentsComponent reviewId={review.id} comments={comments} setComments={setComments}/>
+                            <CommentsComponent reviewId={review.id} comments={comments} setComments={setComments} isAuthenticated={isAuthenticated}/>
                         )}
                     </Box>
                 </Box>
             </Box>
 
-            <EditReviewModal
-                toggleModal={toggleModal}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                review={review}
-                description={review.description}
-                updateReview={updateReview}
-            />
+            {updateReviewInState && (
+                <EditReviewModal
+                    toggleModal={toggleModal}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    review={review}
+                    description={review.description}
+                    updateReview={updateReview}
+                />
+            )}
         </>
     );
 };

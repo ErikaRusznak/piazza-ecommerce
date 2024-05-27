@@ -1,4 +1,4 @@
-import React from "react";
+
 import {Fade, Menu, MenuItem, MenuProps} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/material/styles";
@@ -10,6 +10,7 @@ type OrderStatusPopoverProps = {
     handleClose: () => void;
     markedAsMessage: string;
     handleChange: () => void;
+    markAsCancelled?: () => void;
 };
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -30,9 +31,8 @@ const StyledMenu = styled((props: MenuProps) => (
         '& .MuiPaper-root': {
             borderRadius: 6,
             minWidth: 280,
-            border: `1px solid ${theme.palette.primary.main}`,
-            backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD",
-            boxShadow: `
+            backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
+            boxShadow:`
                 rgba(255, 255, 255, 0.2) 1px 1px 2px 1px,
                 rgba(0, 0, 0, 0.1) 0px 0px 2px 0px
             `,
@@ -40,16 +40,24 @@ const StyledMenu = styled((props: MenuProps) => (
             '& .MuiMenu-list': {
                 padding: '4px 0',
             },
+            border: `1px solid ${!isDark && theme.palette.primary.main}`,
         },
     };
 });
 
-const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handleChange}: OrderStatusPopoverProps) => {
+const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handleChange, markAsCancelled}: OrderStatusPopoverProps) => {
 
-    const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const handleStatusChange = () => {
         handleChange();
         handleClose();
+    };
+
+    const handleCancel = () => {
+        if(markAsCancelled) {
+            markAsCancelled();
+            handleClose();
+        }
     };
 
     return (
@@ -62,11 +70,13 @@ const OrderStatusPopover = ({open, anchorEl, handleClose, markedAsMessage, handl
             open={open}
             onClose={handleClose}
             TransitionComponent={Fade}
-            sx={{border: `1px solid ${theme.palette.lightColor.main}`}}
         >
-            <MenuItem sx={{"&:hover": {backgroundColor: theme.palette.lightColor.main}}} onClick={handleStatusChange}>
+            <MenuItem sx={{"&:hover": {backgroundColor: isDark ? "#121b32" : "#a5b4fc"}}} onClick={handleStatusChange}>
                 {markedAsMessage}
             </MenuItem>
+            {markAsCancelled && (
+                <MenuItem sx={{"&:hover": {backgroundColor: isDark ? "#121b32" : "#a5b4fc"}}} onClick={handleCancel}>Cancel the order</MenuItem>
+            )}
         </StyledMenu>
     );
 };

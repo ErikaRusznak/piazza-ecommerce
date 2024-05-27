@@ -13,7 +13,7 @@ const ChatMessage = ({ mess }:ChatMessageProps) => {
     const theme = useTheme();
     const {isDark} = useThemeToggle();
 
-    const backgroundColorForOther = isDark ? theme.palette.background.lighter : theme.palette.lightColor.main;
+    const backgroundColorForOther = isDark ? theme.palette.background.lighter : "#94a2e2";
 
     return (
         <Box sx={{

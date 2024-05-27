@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import {formatDate} from "../../../../services/FormatHour";
 import {useTheme} from "@mui/material/styles";
 import ChatMessage from "@/components/atoms/chat/ChatMessage";
-import ChatMessageInput from "@/components/atoms/chat/ChatMessageInput";
+import {ChatMessageInput} from "ui";
 
 type ChatContainerDetailsProps = {
     label: string;

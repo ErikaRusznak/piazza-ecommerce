@@ -1,4 +1,3 @@
-import React from 'react';
 import {Typography} from '@mui/material';
 import {StarReviewsReadOnly} from "ui";
 import {useTheme} from "@mui/material/styles";
@@ -11,12 +10,12 @@ type ProductRatingProps = {
     viewType: 'simple' | 'detailed' | 'extended';
 };
 
-const ProductRating: React.FC<ProductRatingProps> = ({
+const ProductRating= ({
                                                          rating,
                                                          numReviews,
                                                          isRatingDisplayed,
                                                          viewType,
-                                                     }) => {
+                                                     }: ProductRatingProps) => {
     const handleClickScroll = () => {
         const element = document.getElementById('reviews');
         if (element) {
@@ -57,7 +56,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({
                                 },
                             }}
                             onClick={handleClickScroll}>
-                                {numReviews} reviews
+                            {numReviews} reviews
                         </Typography>
                     )}
                 </div>

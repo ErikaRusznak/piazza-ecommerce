@@ -1,14 +1,12 @@
 import React from "react";
-import {Box} from "@mui/material";
-import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles";
 import {CancelIcon, CheckCircleOutlineIcon, LocalShippingIcon, PendingIcon, SyncIcon} from "@/components/atoms/icons";
-import OrderStatusPopover from "@/components/atoms/order/OrderStatusPopover";
 import { markAsReadyToShip,
     markOrderAsCanceledApi,
     markOrderAsProcessingApi,
 } from "../../../../api/entities/OrderApi";
 import {getOrderByIdApi} from "components";
+import {OrderStatusComponent} from "ui";
 
 type OrderStatusProps = {
     orderStatus: string;
@@ -24,18 +22,6 @@ type getStatusOrderInfoType = (status: string, orderId: number) => {
 const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => {
 
     const theme = useTheme();
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
 
     const getOrderStatusInfo: getStatusOrderInfoType = (status: string, orderId: number) => {
         switch (status) {
@@ -106,32 +92,13 @@ const OrderStatus = ({orderStatus, orderId, updateStatus}: OrderStatusProps) => 
     }
 
     return (
-        <Box sx={{display: "flex", gap: 1,}}>
-
-            <Typography
-                color={theme.palette.info.main}
-                sx={{mt: 0.3, cursor: "pointer", "&:hover": {textDecoration: "underline"}}}
-                id="fade-button"
-                aria-controls={open ? 'fade-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-            >
-                Status: {orderStatus}
-            </Typography>
-            {icon}
-            {id && orderStatus !== "DELIVERED" && orderStatus !== "CANCELED" && orderStatus !== "READY_TO_SHIP" && orderStatus !== "SHIPPING"  && (
-                <OrderStatusPopover
-                    open={open}
-                    anchorEl={anchorEl}
-                    handleClose={handleClose}
-                    markedAsMessage={message}
-                    handleChange={handleChangeStatus}
-                    markAsCancelled={() => markOrderAsCanceled()}
-                />
-            )}
-
-        </Box>
+        <OrderStatusComponent
+            orderStatus={orderStatus}
+            icon={icon}
+            message={message}
+            handleChangeStatus={handleChangeStatus}
+            markOrderAsCanceled={markOrderAsCanceled}
+        />
     );
 };
 

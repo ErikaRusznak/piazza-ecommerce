@@ -1,3 +1,5 @@
+"use client";
+
 import "@fontsource/open-sans/300.css";
 import "@fontsource/open-sans/400.css";
 import "@fontsource/open-sans/500.css";
@@ -185,4 +187,4 @@ const darkTheme = createTheme({
     palette: darkPalette
 });
 
-export { lightTheme, darkTheme };
+export { baseTheme, lightTheme, darkTheme };

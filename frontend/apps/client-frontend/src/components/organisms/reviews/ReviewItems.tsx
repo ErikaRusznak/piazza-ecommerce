@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useTheme} from "@mui/material/styles";
 import {getReviewsApi} from "components";
 import {Box, Button, Typography} from "@mui/material";
-import ReviewComponent from "@/components/moleculas/reviews/ReviewComponent";
+import {ReviewComponent} from "ui";
 import { useAuth } from "components";
 import AddReviewModal from "@/components/organisms/modals/AddReviewModal";
 
@@ -13,7 +13,7 @@ type ReviewItemsProps = {
 const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
 
     const theme = useTheme();
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, username} = useAuth();
 
     const [reviews, setReviews] = useState<any>([]);
     const addReview = (newReview: any) => {
@@ -89,6 +89,8 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
                                 key={review.id}
                                 review={review}
                                 updateReviewInState={updateReviewInState}
+                                isAuthenticated={isAuthenticated}
+                                username={username}
                             />
                         </div>
                     ))}

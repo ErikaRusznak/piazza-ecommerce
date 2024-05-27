@@ -2,16 +2,17 @@ import React, {useEffect, useState} from "react";
 import {useTheme} from "@mui/material/styles";
 import {getReviewsApi} from "components";
 import {Box, Typography} from "@mui/material";
-import ReviewComponent from "@/components/atoms/reviews/ReviewComponent";
+import {ReviewComponent} from "ui";
+import {useAuth} from "../../../../api/auth/AuthContext";
 
 type ReviewItemsProps = {
     productId: number;
-
 }
 
 const ReviewItems = ({productId}:ReviewItemsProps) => {
 
     const theme = useTheme();
+    const {isAuthenticated, username} = useAuth();
     const [reviews, setReviews] = useState<any>([]);
 
     const getReviewItems = (productId: number) => {
@@ -47,6 +48,8 @@ const ReviewItems = ({productId}:ReviewItemsProps) => {
                             <ReviewComponent
                                 key={review.id}
                                 review={review}
+                                isAuthenticated={isAuthenticated}
+                                username={username}
                             />
                         </div>
                     ))}

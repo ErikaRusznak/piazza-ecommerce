@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import ProductSpecificInfo from "@/components/atoms/product/ProductSpecificInfo";
+import {ProductSpecificInfo} from "ui";
 
 type ProductInformationProps = {
     product: any;
@@ -20,7 +20,7 @@ const ProductInformation = ({product}: ProductInformationProps) => {
                         sx={{
                             mt: 1,
                             color: theme.palette.info.main,
-                            ml: {xs: 1},
+                            ml: {xxs: 1},
                         }}>
                 {product.description}
             </Typography>

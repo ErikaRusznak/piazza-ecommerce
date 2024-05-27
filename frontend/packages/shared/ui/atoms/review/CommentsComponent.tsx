@@ -1,23 +1,23 @@
-import React, {useState} from 'react';
+"use client";
+import {useState} from 'react';
 import {Box, Typography} from '@mui/material';
-import {addCommentApi} from "../../../../api/entities/CommentApi";
-import { useAuth } from "components";
+import {addCommentApi} from "components";
 import {useTheme} from "@mui/material/styles";
-import {CssTextFieldDarkBackground} from "ui";
-import {StyledButton} from "ui";
+import {CssTextFieldDarkBackground} from "../form/dark/CssTextFieldDarkBackground";
+import StyledButton from "../StyledButton";
 
 type CommentsComponentType = {
     reviewId: number;
     comments: any[];
     setComments: (p: any[]) => void;
+    isAuthenticated: boolean;
 };
 
-const CommentsComponent = ({reviewId, comments, setComments}:CommentsComponentType) => {
+const CommentsComponent = ({reviewId, comments, setComments, isAuthenticated}:CommentsComponentType) => {
 
     const theme = useTheme();
 
     const [newComment, setNewComment] = useState("");
-    const {isAuthenticated} = useAuth();
 
     const handleAddComment = () => {
         const userId = Number(sessionStorage.getItem('id'));

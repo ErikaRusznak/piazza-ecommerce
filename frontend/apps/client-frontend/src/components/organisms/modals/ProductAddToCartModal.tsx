@@ -6,7 +6,7 @@ import { useAuth } from "components";
 import {getProductByIdApi} from "components";
 import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "components";
-import ProductRating from "@/components/moleculas/ProductRating";
+import {ProductRating} from "ui";
 import {QuantityInput} from "ui";
 import {useTheme} from "@mui/material/styles";
 import {StyledButton} from "ui";

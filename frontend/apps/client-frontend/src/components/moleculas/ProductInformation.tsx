@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {Box, Divider, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {QuantityInput} from "ui";
-import ProductSpecificInfo from "@/components/atoms/ProductSpecificInfo";
+import {ProductSpecificInfo} from "ui";
 import AddRemoveWishlist from "@/components/atoms/AddRemoveWishlist";
 import {StyledButton} from "ui";
 

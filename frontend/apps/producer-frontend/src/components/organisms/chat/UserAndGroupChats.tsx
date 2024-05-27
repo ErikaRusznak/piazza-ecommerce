@@ -3,7 +3,7 @@ import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessagesForGroupChatApi } from "components";
-import ToggleChatsShow from "@/components/atoms/chat/ToggleChatsShow";
+import {ToggleChatsShow} from "ui";
 import PrivateChatMessageUser from "@/components/moleculas/chat/PrivateChatMessageUser";
 import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
 import {useThemeToggle} from "ui";

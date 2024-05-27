@@ -27,7 +27,25 @@ export {CssTextField, DatePickerField, FormSelectField, FormTextArea, FormTextFi
 import UploadController from "./atoms/upload/UploadController";
 export {UploadController};
 
+import ToggleChatsShow from "./atoms/chat/ToggleChatsShow";
+import ChatMessage from "./atoms/chat/ChatMessage";
+import ChatMessageInput from "./atoms/chat/ChatMessageInput";
+export {ToggleChatsShow, ChatMessage, ChatMessageInput};
+
+import ProductSpecificInfo from "./atoms/product/ProductSpecificInfo";
+export {ProductSpecificInfo};
+
+import OrderStatusComponent from "./atoms/order/OrderStatusComponent";
+export {OrderStatusComponent};
+
+import ProductRating from "./atoms/review/ProductRating";
+import CommentsComponent from "./atoms/review/CommentsComponent";
+export {ProductRating, CommentsComponent};
+
+
 // moleculas
+import ReviewComponent from "./moleculas/reviews/ReviewComponent";
+export {ReviewComponent};
 
 // organism
 

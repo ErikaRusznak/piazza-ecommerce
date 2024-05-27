@@ -7,7 +7,7 @@ import {useRouteId} from "components";
 import {Box, CircularProgress, Typography, useMediaQuery} from "@mui/material";
 import {BreadcrumbsComponent} from "ui";
 import {useTheme} from "@mui/material/styles";
-import ProductRating from "@/components/moleculas/ProductRating";
+import {ProductRating} from "ui";
 import {baseURL} from "components";
 import ProductInformation from "@/components/moleculas/ProductInformation";
 import ReviewItems from "@/components/organisms/reviews/ReviewItems";
