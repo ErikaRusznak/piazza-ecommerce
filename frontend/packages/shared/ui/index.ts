@@ -64,6 +64,8 @@ import TablePaginationComponent from "./moleculas/table/TablePaginationComponent
 export {TableContainerComponent, TablePaginationComponent};
 
 // organism
+import NavigationAdmProd from "./organisms/navigation/NavigationAdmProd";
+export {NavigationAdmProd};
 
 // pages
 
