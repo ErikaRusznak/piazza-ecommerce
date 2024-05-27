@@ -1,8 +1,9 @@
 import React from "react";
 import {Box, Button, Typography} from "@mui/material";
-import {HighlightOffIcon, UploadIcon} from "@/components/atoms/icons";
 import {useTheme} from "@mui/material/styles";
 import {baseURL} from "components";
+import UploadIcon from '@mui/icons-material/Upload';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 type FormUploadFieldDarkBackgroundProps = {
     onFileChange: (file: File) => void;
@@ -11,6 +12,7 @@ type FormUploadFieldDarkBackgroundProps = {
 };
 
 const UploadController = ({onFileChange, fileName, setFileName}: FormUploadFieldDarkBackgroundProps) => {
+
     const theme = useTheme();
 
     const handleButtonClick = () => {
@@ -72,7 +74,6 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
                 style={{display: "none"}} // Set display to none instead of hidden
                 onChange={handleFileChange}
             />
-
 
             {fileName && (
                 <Box sx={{display: "flex", gap: 2, alignItems: "center", mt: 1}}>

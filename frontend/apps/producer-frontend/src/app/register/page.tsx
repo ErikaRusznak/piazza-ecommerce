@@ -16,7 +16,7 @@ import {StyledLink} from "ui";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import {FormTextField} from "ui";
 import MainLayout from "@/components/templates/MainLayout";
-import UploadController from "@/components/atoms/upload/UploadController";
+import {UploadController} from "ui";
 import {addImageApi} from "components";
 import {FormSelectField} from "ui";
 import {DatePickerField} from "ui";

@@ -12,17 +12,17 @@ export const CssTextFieldDarkBackground = styled(
     return {
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                borderColor: theme.palette.lightColor.main,
+                borderColor: "#a5b4fc",
             },
             '&:hover fieldset': {
-                borderColor: theme.palette.primary.main,
+                borderColor: "#6366f1",
             },
             '&.Mui-focused fieldset': {
-                borderColor: theme.palette.primary.main,
+                borderColor: "#6366f1",
             },
             '&.Mui-disabled': {
                 '& fieldset': {
-                    borderColor: theme.palette.lightColor.main,
+                    borderColor: "#a5b4fc",
                 },
             },
             '& input': {

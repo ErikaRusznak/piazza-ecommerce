@@ -3,13 +3,13 @@ import {Box, Typography} from "@mui/material";
 import {FormTextFieldDarkBackground} from "ui";
 import {FormTextAreaDarkBackground} from "ui";
 import {FormSelectFieldDarkBackground} from "ui";
-import UploadController from "@/components/atoms/upload/UploadController";
 import {StyledButton} from "ui";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {addImageApi} from "components";
 import {useTheme} from "@mui/material/styles";
+import {UploadController} from "ui";
 
 type AddEditProductFormProps = {
     headerText: string;

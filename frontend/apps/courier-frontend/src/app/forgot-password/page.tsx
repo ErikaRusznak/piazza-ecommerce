@@ -9,7 +9,7 @@ import {Box, Button, Divider, Typography} from "@mui/material";
 import { useRouter } from "next/navigation";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
-import {CssTextField} from "@/components/atoms/form/light/CssTextField";
+import {CssTextField} from "ui";
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = React.useState("");

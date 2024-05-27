@@ -3,7 +3,7 @@ import {Box, Typography} from '@mui/material';
 import {addCommentApi} from "../../../../api/entities/CommentApi";
 import { useAuth } from "components";
 import {useTheme} from "@mui/material/styles";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {CssTextFieldDarkBackground} from "ui";
 import {StyledButton} from "ui";
 
 type CommentsComponentType = {

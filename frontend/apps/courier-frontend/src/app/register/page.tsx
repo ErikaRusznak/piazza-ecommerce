@@ -12,12 +12,12 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {BreadcrumbsComponent} from "ui";
 import {Grid} from "@mui/material";
-import FormTextField from "@/components/atoms/form/light/FormTextField";
+import {FormTextField} from "ui";
 import {StyledButton} from "ui";
 import {StyledLink} from "ui";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import {addImageApi} from "components";
-import UploadController from "@/components/atoms/upload/UploadController";
+import {UploadController} from "ui";
 
 type RegisterFormInput = {
     firstName: string,

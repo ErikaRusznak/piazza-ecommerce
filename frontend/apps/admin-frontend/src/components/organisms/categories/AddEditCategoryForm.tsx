@@ -1,6 +1,6 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
-import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
+import {FormTextFieldDarkBackground} from "ui";
 import UploadController from "@/components/atoms/upload/UploadController";
 import {StyledButton} from "ui";
 import {useForm} from "react-hook-form";

@@ -16,7 +16,7 @@ import {useAuth} from "components";
 import {StyledButton} from "ui";
 import {StyledLink} from "ui";
 import * as yup from "yup";
-import FormTextField from "@/components/atoms/form/light/FormTextField";
+import {FormTextField} from "ui";
 import {BreadcrumbsComponent} from "ui";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import {useThemeToggle} from "ui";

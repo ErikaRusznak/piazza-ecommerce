@@ -24,6 +24,8 @@ import FormTextArea from "./atoms/form/light/FormTextArea";
 import FormTextField from "./atoms/form/light/FormTextField";
 export {CssTextField, DatePickerField, FormSelectField, FormTextArea, FormTextField};
 
+import UploadController from "./atoms/upload/UploadController";
+export {UploadController};
 
 // moleculas
 

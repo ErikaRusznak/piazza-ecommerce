@@ -1,6 +1,6 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
-import SimpleTextFieldDarkBackground from "@/components/atoms/form/dark/SimpleTextFieldDarkBackground";
+import {SimpleTextFieldDarkBackground} from "ui";
 import { useTheme } from '@mui/material/styles';
 type LegalDetailsFormProps = {
     name: string;

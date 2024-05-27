@@ -9,7 +9,7 @@ import {Resolver, SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import "yup-phone-lite";
 import {StyledButton} from "ui";
-import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
+import {FormTextFieldDarkBackground} from "ui";
 import {updateUserAccountApi} from "components";
 
 type ProfileInformationFormInput = {

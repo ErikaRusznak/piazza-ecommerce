@@ -2,6 +2,7 @@
 import {Controller} from "react-hook-form";
 import {useTheme} from "@mui/material/styles";
 import {CssTextFieldDarkBackground} from "./CssTextFieldDarkBackground";
+import {useThemeToggle} from "../../../themes/ThemeContext";
 
 type FormSelectFieldDarkBackgroundProps = {
     name: string;
@@ -18,6 +19,8 @@ const FormSelectFieldDarkBackground = ({
                                            items
                                        }: FormSelectFieldDarkBackgroundProps) => {
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
+
     return (
         <Controller
             name={name}
@@ -39,7 +42,7 @@ const FormSelectFieldDarkBackground = ({
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                     InputLabelProps={{

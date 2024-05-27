@@ -8,7 +8,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/light/FormTextField";
+import {FormTextField} from "ui";
 import {StyledButton} from "ui";
 import {useTheme} from "@mui/material/styles";
 
