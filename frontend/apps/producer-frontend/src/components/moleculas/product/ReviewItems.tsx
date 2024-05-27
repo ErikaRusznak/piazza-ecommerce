@@ -44,14 +44,14 @@ const ReviewItems = ({productId}:ReviewItemsProps) => {
                     display: "flex", flexDirection: "column", gap: 2, mt: 2
                 }}>
                     {reviews.map((review: any) => (
-                        <div key={review.id}>
+                        <Box key={review.id}>
                             <ReviewComponent
                                 key={review.id}
                                 review={review}
                                 isAuthenticated={isAuthenticated}
                                 username={username}
                             />
-                        </div>
+                        </Box>
                     ))}
                 </Box>
             </Box>

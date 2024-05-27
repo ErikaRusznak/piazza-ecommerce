@@ -13,6 +13,7 @@
     "react": "^18"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.15.18"
+    "@mui/icons-material": "^5.15.18",
+    "react-hook-form": "^7.51.5"
   }
 }

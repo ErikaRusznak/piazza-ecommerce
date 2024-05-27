@@ -10,7 +10,7 @@ import {getOrdersForCourierApi} from "../../../api/entities/OrderApi";
 import MainLayout from "@/components/templates/MainLayout";
 import {UnauthenticatedMessage} from "ui";
 import {CssTextFieldDarkBackground} from "ui";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import MenuItem from "@mui/material/MenuItem";
 
 type OrderType = {

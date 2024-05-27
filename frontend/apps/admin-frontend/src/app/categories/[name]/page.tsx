@@ -9,9 +9,9 @@ import {Box, Container} from "@mui/material";
 import {getProductsApi} from "components";
 import {baseURL} from "components";
 import {StyledButton} from "ui";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import {useRouter} from "next/navigation";
-import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
+import {TablePaginationComponent} from "ui";
 import {ArrowBackIosNew} from "@mui/icons-material";
 import {useTheme} from "@mui/material/styles";
 

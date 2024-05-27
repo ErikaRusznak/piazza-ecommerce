@@ -114,7 +114,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 );
 
 
-export default function Navigation({children}: { children: React.ReactNode }) {
+export default function Navigation({children, isSeller}: { children: React.ReactNode, isSeller: boolean }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -149,7 +149,11 @@ export default function Navigation({children}: { children: React.ReactNode }) {
         <Box sx={{display: 'flex', backgroundColor: theme.palette.background.default, height: '150vh'}}>
             <CssBaseline/>
             <AppBar position="fixed" open={open}>
-                <Toolbar sx={{backgroundColor: theme.palette.background.default, display: "flex", justifyContent: "space-between"}}>
+                <Toolbar sx={{
+                    backgroundColor: theme.palette.background.default,
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                     <Box sx={{display: "flex", alignItems: "center"}}>
                         <IconButton
                             aria-label="open drawer"
@@ -182,7 +186,8 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {informationList.map((listItem) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
+                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
+                                  className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -215,7 +220,9 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {profileList.map((listItem) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}} className={pathname === listItem.href ? "ActiveLink" : ""}>
+                        <ListItem key={listItem.label}
+                                  disablePadding sx={{display: 'block'}}
+                                  className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -262,18 +269,20 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                 </>
                             ) : (
                                 <>
-                                    <Button variant="outlined"
-                                            sx={{
-                                                color: theme.palette.primary.main,
-                                                borderColor: theme.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.palette.tertiary.main,
-                                                    borderColor: theme.palette.tertiary.main,
-                                                }
-                                            }}
-                                            onClick={() => router.push("/register")}>
-                                        Register
-                                    </Button>
+                                    {isSeller && (
+                                        <Button variant="outlined"
+                                                sx={{
+                                                    color: theme.palette.primary.main,
+                                                    borderColor: theme.palette.primary.main,
+                                                    "&:hover": {
+                                                        color: theme.palette.tertiary.main,
+                                                        borderColor: theme.palette.tertiary.main,
+                                                    }
+                                                }}
+                                                onClick={() => router.push("/register")}>
+                                            Register
+                                        </Button>
+                                    )}
                                     <Button variant="contained"
                                             sx={{
                                                 backgroundColor: theme.palette.primary.main,
@@ -291,21 +300,14 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                         isAuthenticated ? (
                             <ListItemButton
                                 sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-
-                                }}
+                                    minHeight: 48, justifyContent: open ? 'initial' : 'center',}}
                                 onClick={() => {
                                     logout();
                                     router.push("/")
                                 }}
                             >
                                 <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: 1,
-                                        justifyContent: 'center',
-                                    }}
+                                    sx={{minWidth: 0, mr: 1, justifyContent: 'center',}}
                                 >
                                     <LogoutIcon sx={{color: theme.palette.info.main}}/>
                                 </ListItemIcon>
@@ -320,11 +322,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                 onClick={() => router.push("/login")}
                             >
                                 <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: 1,
-                                        justifyContent: 'center',
-                                    }}
+                                    sx={{minWidth: 0, mr: 1, justifyContent: 'center',}}
                                 >
                                     <LoginIcon sx={{color: theme.palette.info.main}}/>
                                 </ListItemIcon>

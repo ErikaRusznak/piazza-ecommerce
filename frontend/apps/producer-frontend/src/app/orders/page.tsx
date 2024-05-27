@@ -10,9 +10,9 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {Button, Container, FormControl, MenuItem} from "@mui/material";
 import moment from 'moment';
 import {UnauthenticatedMessage} from "ui";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import {CssTextFieldDarkBackground} from "ui";
-import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
+import {TablePaginationComponent} from "ui";
 import useProductForm from "../../../hooks/useProductForm";
 
 const tableCellLabels = ["Order Number", "Order Date", "Buyer Name", "Total Price", "Status", "Actions"];

@@ -59,6 +59,10 @@ import AccountManagement from "./moleculas/manageProfile/AccountManagement";
 import ProfilePictureData from "./moleculas/manageProfile/ProfilePictureData";
 export {ProfileInformation, AccountManagement, ProfilePictureData};
 
+import TableContainerComponent from "./moleculas/table/TableContainerComponent";
+import TablePaginationComponent from "./moleculas/table/TablePaginationComponent";
+export {TableContainerComponent, TablePaginationComponent};
+
 // organism
 
 // pages

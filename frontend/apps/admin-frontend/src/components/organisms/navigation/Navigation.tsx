@@ -21,7 +21,6 @@ import {
     ChevronRightIcon, LoginIcon, LogoutIcon,
     MenuIcon, PersonIcon,
 } from "@/components/atoms/icons";
-
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
 import {useAuth} from "components";
@@ -118,6 +117,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 export default function Navigation({children}: { children: React.ReactNode }) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
     const {isAuthenticated, logout} = useAuth();
     const router = useRouter();
     const pathname = usePathname();
@@ -215,7 +215,8 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                 <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
                     {profileList.map((listItem) => (
-                        <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
+                        <ListItem key={listItem.label}
+                                  disablePadding sx={{display: 'block'}}
                                   className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
                                 sx={{
@@ -260,6 +261,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                                     Logout
                                 </Button>
                             ) : (
+
                                 <Button variant="contained"
                                         sx={{
                                             backgroundColor: theme.palette.primary.main,

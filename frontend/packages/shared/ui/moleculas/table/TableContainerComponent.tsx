@@ -1,6 +1,6 @@
-import React from "react";
+
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 
 type TableContainerProps<T> = {
     items: T[];
@@ -20,7 +20,6 @@ const TableContainerComponent = <T,>({items, tableCellLabels, renderCell}:TableC
                                 color: theme.palette.info.main,
                                 textTransform: "uppercase",
                                 fontWeight: "bold",
-
                             }}>
                                 {tableCellLabel}
                             </TableCell>

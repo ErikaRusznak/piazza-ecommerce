@@ -11,7 +11,7 @@ import {
 import {useAuth, baseURL} from "components";
 import {useRouter} from "next/navigation";
 import {UnauthenticatedMessage} from "ui";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import {AddIcon} from "@/components/atoms/icons";
 import {StyledButton} from "ui";
 import {getAllCategoriesApi} from "components";

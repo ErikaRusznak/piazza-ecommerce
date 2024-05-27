@@ -11,11 +11,11 @@ import {baseURL} from "components";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {UnauthenticatedMessage} from "ui";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import {getProductsApi} from "components";
 import {AddIcon} from "@/components/atoms/icons";
 import {StyledButton} from "ui";
-import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
+import {TablePaginationComponent} from "ui";
 import DeleteProductModal from "@/components/organisms/modals/DeleteProductModal";
 import useProductForm from "../../../hooks/useProductForm";
 

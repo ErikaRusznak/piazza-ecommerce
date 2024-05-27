@@ -7,8 +7,8 @@ import {useAuth} from "components";
 import {getSellerRequestsApi} from "../../../api/entities/SellerRequestsApi";
 import MainLayout from "@/components/templates/MainLayout";
 import {UnauthenticatedMessage} from "ui";
-import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TablePaginationComponent} from "ui";
+import {TableContainerComponent} from "ui";
 import {useTheme} from "@mui/material/styles";
 import ApproveRejectRequestModal from "@/components/organisms/modals/ApproveRejectRequestModal";
 

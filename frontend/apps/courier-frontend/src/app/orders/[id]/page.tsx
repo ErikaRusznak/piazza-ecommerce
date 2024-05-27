@@ -10,7 +10,7 @@ import {UnauthenticatedMessage} from "ui";
 import {useAuth} from "components";
 import OrderStatus from "@/components/atoms/order/OrderStatus";
 import {baseURL} from "components";
-import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
+import {TableContainerComponent} from "ui";
 import {useThemeToggle} from "ui";
 
 type OrderPageProps = {
