@@ -3,32 +3,33 @@ import {Box, Collapse, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
 
-type GroupChatMessageUserProps = {
+type PrivateChatMessageUserProps = {
     showChats: boolean;
     chats: any[];
-    handleOnClick: (chat: any) => void;
+    handleOnClick: (value: number) => void;
+    fontWeightForLastMessage: (recipientId: number) => string;
+    lastMessages: { [key: number]: any; };
+    isUserClient: boolean;
 };
 
-const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessageUserProps) => {
+const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, fontWeightForLastMessage, lastMessages}: PrivateChatMessageUserProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-
     return (
         <Collapse in={showChats}>
-            <Box sx={{display: "flex", flexDirection: "column",}}>
-                {chats?.map((chat: any) => (
+            <Box sx={{display: "flex", flexDirection: "column", p: 0}}>
+                {chats?.map((user: any) => (
                     <Box
-                        key={chat.id}
+                        key={user.id}
                         sx={{
-                            color: theme.palette.info.main,
-                            p: 1,
+                            color: theme.palette.info.main, p: 1,
                             cursor: 'pointer',
                             '&:hover': {
                                 backgroundColor: isDark ? 'rgba(0, 0, 0, 0.5)' : '#eee',
                             },
                         }}
-                        onClick={() => handleOnClick(chat)}
+                        onClick={() => handleOnClick(user.id)}
                     >
                         <Box
                             sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
@@ -38,21 +39,26 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
                                 textAlign: "center",
                                 alignContent: "center",
                                 color: theme.palette.info.main,
+                                backgroundColor: fontWeightForLastMessage(user.id) === "bold" ? theme.palette.primary.main : theme.palette.lightColor.main,
                                 borderRadius: "20px",
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "center"
                             }}>
-                                <Typography variant="body2">
-                                    {/*{typeof chat.c === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}*/}
-                                    {chat.id}
-                                </Typography>
-
+                                {isUserClient ? (
+                                    <Typography variant="body2">
+                                        {user.firstName + " " + user.lastName}
+                                    </Typography>
+                                ) : (
+                                    <Typography variant="body2">
+                                        {typeof user.sellerAlias === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}
+                                    </Typography>
+                                )}
                             </Box>
                             <Box sx={{width: "100%"}}>
                                 <Typography sx={{
-                                    color: theme.palette.info.main,
-                                }}>{chat.buyerFirstName}, {chat.sellerFirstName}</Typography>
+                                    fontWeight: fontWeightForLastMessage(user.id),
+                                }}>{user.sellerAlias}</Typography>
                                 <Typography sx={{
                                     fontSize: "13px",
                                     maxWidth: "200px",
@@ -60,8 +66,9 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
                                     textOverflow: "ellipsis",
                                     whiteSpace: "nowrap",
                                     color: "lightgrey",
+                                    fontWeight: fontWeightForLastMessage(user.id),
                                 }}>
-                                    Last message...
+                                    {lastMessages[user.id]?.content}
                                 </Typography>
                             </Box>
                         </Box>
@@ -73,4 +80,4 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
     );
 };
 
-export default GroupChatMessageUser;
+export default PrivateChatMessageUser;

@@ -4,8 +4,8 @@ import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessagesForGroupChatApi } from "components";
 import {ToggleChatsShow} from "ui";
-import PrivateChatMessageUser from "@/components/moleculas/chat/PrivateChatMessageUser";
-import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
+import {PrivateChatMessageUser} from "ui";
+import {GroupChatMessageUser} from "ui";
 import {useThemeToggle} from "ui";
 
 type UserAndGroupChatsProps = {
@@ -158,6 +158,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
                 handleOnClick={handleOnClickForPrivateChats}
                 fontWeightForLastMessage={fontWeightForLastMessage}
                 lastMessages={lastMessages}
+                isUserClient={false}
             />
 
             <ToggleChatsShow label={"Group chats"} toggle={toggleGroupChats} showChats={showGroupChats}/>

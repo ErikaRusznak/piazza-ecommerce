@@ -29,8 +29,9 @@ export {UploadController};
 
 import ToggleChatsShow from "./atoms/chat/ToggleChatsShow";
 import ChatMessage from "./atoms/chat/ChatMessage";
+import ChatMessageForCourier from "./atoms/chat/ChatMessageForCourier";
 import ChatMessageInput from "./atoms/chat/ChatMessageInput";
-export {ToggleChatsShow, ChatMessage, ChatMessageInput};
+export {ToggleChatsShow, ChatMessage, ChatMessageInput, ChatMessageForCourier};
 
 import ProductSpecificInfo from "./atoms/product/ProductSpecificInfo";
 export {ProductSpecificInfo};
@@ -46,6 +47,12 @@ export {ProductRating, CommentsComponent};
 // moleculas
 import ReviewComponent from "./moleculas/reviews/ReviewComponent";
 export {ReviewComponent};
+
+import ChatContainerDetailsWrapper from "./moleculas/chat/ChatContainerDetailsWrapper";
+import ChatContainerDetails from "./moleculas/chat/ChatContainerDetails";
+import GroupChatMessageUser from "./moleculas/chat/GroupChatMessageUser";
+import PrivateChatMessageUser from "./moleculas/chat/PrivateChatMessageUser";
+export {ChatContainerDetailsWrapper, ChatContainerDetails, GroupChatMessageUser, PrivateChatMessageUser};
 
 // organism
 

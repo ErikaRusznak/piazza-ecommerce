@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Collapse, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "ui";
+import {useThemeToggle} from "../../themes/ThemeContext";
 
 type GroupChatMessageUserProps = {
     showChats: boolean;

@@ -1,14 +1,14 @@
 import React from "react";
 import {useTheme} from "@mui/material/styles";
 import {Box, Typography} from "@mui/material";
-import {formatHour} from "../../../../services/FormatHour";
 import {useThemeToggle} from "ui";
+import {formatHour} from "../../services/FormatHour";
 
 type ChatMessageProps = {
     mess: any;
 };
 
-const ChatMessage = ({ mess }:ChatMessageProps) => {
+const ChatMessageForCourier = ({ mess }:ChatMessageProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -41,4 +41,4 @@ const ChatMessage = ({ mess }:ChatMessageProps) => {
     );
 };
 
-export default ChatMessage;
+export default ChatMessageForCourier;

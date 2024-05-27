@@ -2,7 +2,7 @@ import React from "react";
 import {Box, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
-import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetails";
+import {ChatContainerDetails} from "ui";
 import {useThemeToggle} from "ui";
 
 type ChatContainerProps = {
@@ -51,7 +51,9 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
                     label={"Chat with user"}
                     id={id}
                     messages={messages}
-                    sendMessageFunction={sendMessageInternal}/>
+                    sendMessageFunction={sendMessageInternal}
+                    userRole={"SELLER"}
+                />
             ) : (
                 (orderId ?
                     (
@@ -60,7 +62,9 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
                             label={"Chat with group"}
                             id={id}
                             messages={messages}
-                            sendMessageFunction={sendMessageToGroupChatInternal} />
+                            sendMessageFunction={sendMessageToGroupChatInternal}
+                            userRole={"SELLER"}
+                        />
                     ) : null)
             )}
         </Box>

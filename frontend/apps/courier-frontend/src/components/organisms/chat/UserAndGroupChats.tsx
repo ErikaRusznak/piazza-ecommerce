@@ -4,7 +4,7 @@ import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import { getMessagesForGroupChatApi } from "components";
 import {ToggleChatsShow} from "ui";
-import GroupChatMessageUser from "@/components/moleculas/chat/GroupChatMessageUser";
+import {GroupChatMessageUser} from "ui";
 import {useThemeToggle} from "ui";
 
 type UserAndGroupChatsProps = {

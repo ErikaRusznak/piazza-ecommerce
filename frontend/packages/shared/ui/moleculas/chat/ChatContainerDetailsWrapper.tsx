@@ -1,34 +1,22 @@
-import React from "react";
 import {Box, Typography} from "@mui/material";
-import {formatDate} from "../../../../services/FormatHour";
+import {ChatMessageInput} from "../../index";
 import {useTheme} from "@mui/material/styles";
-import {ChatMessage} from "ui";
-import {ChatMessageInput} from "ui";
+import {formatDate} from "../../services/FormatHour";
+import React from "react";
+import ChatMessageForCourier from "../../atoms/chat/ChatMessageForCourier";
+import ChatMessage from "../../atoms/chat/ChatMessage";
 
-type ChatContainerDetailsProps = {
-    label: string
-    id: number;
-    messages: any[];
+type ChatContainerDetailsWrapperProps = {
+    isCourierUser?: boolean;
+    label: string;
+    messages: any;
     sendMessageFunction: (message: any, setMessage: (value: string) => void) => void;
-    privateChat: boolean;
+    distinctSenderFromReceiver?: (mess: any) => boolean;
 };
 
-const ChatContainerDetails = ({label, id, messages, sendMessageFunction, privateChat}: ChatContainerDetailsProps) => {
+const ChatContainerDetailsWrapper = ({isCourierUser=false, label, messages, sendMessageFunction, distinctSenderFromReceiver}:ChatContainerDetailsWrapperProps) => {
 
     const theme = useTheme();
-
-    const distinctSenderFromReceiverPrivateFunction = (mess: any, val: string | number) => {
-        return mess.senderId === val;
-    };
-    const distinctSenderFromReceiverGroupFunction = (mess: any, val: string | number) => {
-        return mess.senderRole === val;
-    };
-    const distinctSenderFromReceiver = (mess: any): boolean => {
-        if(privateChat)
-            return distinctSenderFromReceiverPrivateFunction(mess, id);
-        return distinctSenderFromReceiverGroupFunction(mess, "CLIENT");
-    };
-
     return (
         <>
             <Typography color={theme.palette.info.main} sx={{
@@ -46,7 +34,7 @@ const ChatContainerDetails = ({label, id, messages, sendMessageFunction, private
                 flexDirection: 'column-reverse',
                 gap: 1
             }}>
-                {messages.slice(0).reverse().map((mess, index, array) => {
+                {messages.slice(0).reverse().map((mess: { date: string; }, index: number, array: string | any[]) => {
                     const messageDate = formatDate(mess.date)
                     let shouldDisplayDateHeader = false;
                     if (index === array.length - 1) {
@@ -69,10 +57,18 @@ const ChatContainerDetails = ({label, id, messages, sendMessageFunction, private
                                     {messageDate}
                                 </Typography>
                             )}
-                            <ChatMessage
-                                mess={mess}
-                                distinctChatValue={distinctSenderFromReceiver(mess)}
-                            />
+                            {isCourierUser ? (
+                                <ChatMessageForCourier
+                                    mess={mess}
+                                />
+                            ) : (
+                                distinctSenderFromReceiver && (
+                                    <ChatMessage
+                                        mess={mess}
+                                        distinctChatValue={distinctSenderFromReceiver(mess)}
+                                    />
+                                )
+                            )}
                         </Box>
                     );
                 })}
@@ -84,4 +80,5 @@ const ChatContainerDetails = ({label, id, messages, sendMessageFunction, private
     );
 };
 
-export default ChatContainerDetails;
+export default ChatContainerDetailsWrapper;
+
