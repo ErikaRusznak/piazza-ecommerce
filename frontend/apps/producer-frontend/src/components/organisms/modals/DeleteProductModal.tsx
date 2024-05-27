@@ -1,6 +1,6 @@
 import React from "react";
 import {useTheme} from "@mui/material/styles";
-import BaseModal from "@/components/templates/BaseModal";
+import {BaseModal} from "ui";
 import {useRouter} from "next/navigation";
 import {Box, Button, Typography} from "@mui/material";
 import {deleteProductByIdApi} from "../../../../api/entities/ProductApi";

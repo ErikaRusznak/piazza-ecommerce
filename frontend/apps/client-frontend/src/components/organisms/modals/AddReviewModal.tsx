@@ -1,7 +1,7 @@
 import React from 'react';
 import {addReviewApi} from '../../../../api/entities/ReviewApi';
 import {number, object, string} from 'yup';
-import BaseModal from '@/components/templates/BaseModal';
+import {BaseModal} from "ui";
 import {Box, Rating, Typography, useMediaQuery} from '@mui/material';
 import {FormTextArea, StyledButton} from "ui";
 import {Controller, Resolver, useForm} from 'react-hook-form';

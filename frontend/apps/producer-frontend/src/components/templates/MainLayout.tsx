@@ -11,7 +11,7 @@ type MainLayoutProps = {
 const MainLayout = ({ children }: MainLayoutProps) => {
 
     return (
-        <Navigation>
+        <Navigation isSeller={true}>
             {children}
         </Navigation>
     );

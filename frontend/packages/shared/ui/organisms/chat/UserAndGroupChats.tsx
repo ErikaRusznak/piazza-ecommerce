@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
+"use client";
+
+import {useEffect, useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
-import {getMessagesForGroupChatApi} from "components";
-import {getMessagesForSenderAndRecipientApi, markMessagesAsReadApi} from "components";
-import {ToggleChatsShow} from "ui";
-import {PrivateChatMessageUser} from "ui";
-import {GroupChatMessageUser} from "ui";
-import {useThemeToggle} from "ui";
+import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessagesForGroupChatApi } from "components";
+import {useThemeToggle} from "../../themes/ThemeContext";
+import ToggleChatsShow from "../../atoms/chat/ToggleChatsShow";
+import PrivateChatMessageUser from "../../moleculas/chat/PrivateChatMessageUser";
+import GroupChatMessageUser from "../../moleculas/chat/GroupChatMessageUser";
 
 type UserAndGroupChatsProps = {
     id: number;
@@ -23,15 +24,14 @@ type UserAndGroupChatsProps = {
     groupChats: any[];
 };
 
-const UserAndGroupChats = ({
-                               id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
+const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
                                connectedUsers, groupChats,
                                messages, setMessages
                            }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-    const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const isXs = useMediaQuery(theme.breakpoints.down('xs'));
     const router = useRouter();
 
     const [showGroupChats, setShowGroupChats] = useState(false);
@@ -138,7 +138,7 @@ const UserAndGroupChats = ({
     return (
         <Box
             sx={{
-                flex: isSm ? '1' : '1 1 25%', py: 2,
+                flex: isXs ? '1' : '1 1 25%', py: 2,
                 backgroundColor: isDark ? "#262e3f" : "#E4E8FE",
                 boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.1)' : '5px 5px 15px rgba(0, 0, 0, 0.1)',
             }}>
@@ -148,7 +148,6 @@ const UserAndGroupChats = ({
                     textTransform: 'uppercase', mb: 2, p: 1,
                     borderBottom: `1px solid #d2d9fd`,
                     fontWeight: theme.typography.fontWeightBold,
-
                 }}
             >
                 Chats
@@ -161,7 +160,7 @@ const UserAndGroupChats = ({
                 handleOnClick={handleOnClickForPrivateChats}
                 fontWeightForLastMessage={fontWeightForLastMessage}
                 lastMessages={lastMessages}
-                isUserClient={true}
+                isUserClient={false}
             />
 
             <ToggleChatsShow label={"Group chats"} toggle={toggleGroupChats} showChats={showGroupChats}/>

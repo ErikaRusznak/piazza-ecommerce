@@ -4,7 +4,7 @@ import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
 import { useAuth } from "components";
 import {getProductByIdApi} from "components";
-import BaseModal from "@/components/templates/BaseModal";
+import {BaseModal} from "ui";
 import {baseURL} from "components";
 import {ProductRating} from "ui";
 import {QuantityInput} from "ui";

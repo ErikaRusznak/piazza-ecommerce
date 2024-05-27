@@ -18,7 +18,7 @@ import {StyledLink} from "ui";
 import * as yup from "yup";
 import {FormTextField} from "ui";
 import {BreadcrumbsComponent} from "ui";
-import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import {PrincipalFormLayout} from "ui";
 import {useThemeToggle} from "ui";
 
 type LoginFormInput = {

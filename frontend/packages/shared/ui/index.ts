@@ -67,9 +67,19 @@ export {TableContainerComponent, TablePaginationComponent};
 import NavigationAdmProd from "./organisms/navigation/NavigationAdmProd";
 export {NavigationAdmProd};
 
+import ChatContainer from "./organisms/chat/ChatContainer";
+import UserAndGroupChats from "./organisms/chat/UserAndGroupChats";
+export {ChatContainer, UserAndGroupChats};
+
+import DeleteAccountModal from "./organisms/modals/DeleteAccountModal";
+import PrincipalFormLayout from "./templates/PrincipalFormLayout";
+export {DeleteAccountModal, PrincipalFormLayout};
+
 // pages
 
 // templates
+import BaseModal from "./templates/BaseModal";
+export {BaseModal};
 
 // themes
 import CustomThemeProvider, {useThemeToggle} from "./themes/ThemeContext";

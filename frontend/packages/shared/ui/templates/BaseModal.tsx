@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {Modal, Fade, useMediaQuery, Box} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 

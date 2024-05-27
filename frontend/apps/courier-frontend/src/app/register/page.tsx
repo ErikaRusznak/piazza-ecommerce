@@ -15,7 +15,7 @@ import {Grid} from "@mui/material";
 import {FormTextField} from "ui";
 import {StyledButton} from "ui";
 import {StyledLink} from "ui";
-import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import {PrincipalFormLayout} from "ui";
 import {addImageApi} from "components";
 import {UploadController} from "ui";
 

@@ -8,8 +8,8 @@ import {Box, Container, useMediaQuery} from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
-import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
-import ChatContainer from "@/components/organisms/chat/ChatContainer";
+import {UserAndGroupChats} from "ui";
+import {ChatContainer} from "ui";
 import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
 import {useThemeToggle} from "ui";
 
@@ -115,7 +115,9 @@ const ChatPage = () => {
                                 id={id}
                                 buyerId={buyerId}
                                 courierId={courierId}
-                                sellerId={sellerId} />
+                                sellerId={sellerId}
+                                userRole={"CLIENT"}
+                            />
                         </Box>
                     </Box>
                 </Container>

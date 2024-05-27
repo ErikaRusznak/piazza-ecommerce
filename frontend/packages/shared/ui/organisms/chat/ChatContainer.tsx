@@ -1,9 +1,9 @@
-import React from "react";
+
 import {Box, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
-import {ChatContainerDetails} from "ui";
-import {useThemeToggle} from "ui";
+import {useThemeToggle} from "../../themes/ThemeContext";
+import ChatContainerDetails from "../../moleculas/chat/ChatContainerDetails";
 
 type ChatContainerProps = {
     recipientId: number | null;
@@ -14,10 +14,11 @@ type ChatContainerProps = {
     buyerId: number | null;
     courierId: number | null;
     sellerId: number | null;
+    userRole: string;
 };
 
 const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
-                       buyerId, courierId, sellerId}:ChatContainerProps) => {
+                           buyerId, courierId, sellerId, userRole}:ChatContainerProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -52,7 +53,7 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
                     id={id}
                     messages={messages}
                     sendMessageFunction={sendMessageInternal}
-                    userRole={"CLIENT"}
+                    userRole={userRole}
                 />
             ) : (
                 (orderId ?
@@ -63,7 +64,7 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
                             id={id}
                             messages={messages}
                             sendMessageFunction={sendMessageToGroupChatInternal}
-                            userRole={"CLIENT"}
+                            userRole={userRole}
                         />
                     ) : null)
             )}

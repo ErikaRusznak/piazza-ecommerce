@@ -1,8 +1,8 @@
-import React from "react";
+
 import {useTheme} from "@mui/material/styles";
-import BaseModal from "@/components/templates/BaseModal";
 import {Box, Button, Typography} from "@mui/material";
-import {useThemeToggle} from "ui";
+import {useThemeToggle} from "../../themes/ThemeContext";
+import BaseModal from "../../templates/BaseModal";
 
 type DeleteModalProps = {
     isModalOpen: boolean;

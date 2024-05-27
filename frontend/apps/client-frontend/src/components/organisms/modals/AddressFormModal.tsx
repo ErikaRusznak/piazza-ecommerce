@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import BaseModal from "@/components/templates/BaseModal";
+import {BaseModal} from "ui";
 import {Box} from "@mui/system";
 import {useTheme} from "@mui/material/styles";
 import {COUNTRIES} from "@/components/atoms/countries";

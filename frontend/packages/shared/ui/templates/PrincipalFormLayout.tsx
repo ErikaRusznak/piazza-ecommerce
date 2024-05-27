@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import {ReactElement} from "react";
 import {Box, Container, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
@@ -15,6 +15,7 @@ const PrincipalFormLayout = ({children, titleText="Complete form", alignItems="c
     return (
         <Container
             component="main"
+            maxWidth="xs"
             sx={{
                 backgroundColor: 'rgba(234, 235, 255, 0.6)',
                 borderRadius: theme.shape.borderRadius,

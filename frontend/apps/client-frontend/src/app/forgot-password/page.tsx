@@ -3,7 +3,7 @@
 import React from "react";
 import { forgotPasswordApi } from "../../../api/entities/UserAccount";
 import MainLayout from "@/components/templates/MainLayout";
-import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
+import {PrincipalFormLayout} from "ui";
 import {StyledButton} from "ui";
 import {Box, Button, Divider, Typography} from "@mui/material";
 import { useRouter } from "next/navigation";
