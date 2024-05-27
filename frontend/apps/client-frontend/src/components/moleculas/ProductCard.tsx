@@ -4,7 +4,7 @@ import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon, FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
 import {baseURL} from "components";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useRouter} from "next/navigation";

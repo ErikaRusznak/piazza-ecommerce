@@ -4,7 +4,7 @@ import {number, object, string} from 'yup';
 import BaseModal from '@/components/templates/BaseModal';
 import {FormTextArea} from '@/components/atoms/form/light/FormTextField';
 import {Box, Rating, Typography, useMediaQuery} from '@mui/material';
-import StyledButton from '@/components/atoms/StyledButton';
+import {StyledButton} from "ui";
 import {Controller, Resolver, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useTheme} from "@mui/material/styles";

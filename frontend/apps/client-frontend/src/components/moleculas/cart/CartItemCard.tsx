@@ -1,7 +1,7 @@
 import React from "react";
 import {useCart} from "../../../../contexts/CartContext";
 import {baseURL} from "components";
-import QuantityInput from "@/components/atoms/QuantityInput";
+import {QuantityInput} from "ui";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {Delete} from "@/components/atoms/icons";
@@ -97,6 +97,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                                     <QuantityInput quantity={item.quantity}
                                                    onQuantityChanged={handleQuantityChange}
                                                    availableQuantity={item.product.quantity}
+                                                   userRoleIsClient={true}
                                     />
                                 </Box>
                             )}

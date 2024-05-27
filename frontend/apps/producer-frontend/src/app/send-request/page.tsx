@@ -2,16 +2,16 @@
 
 import React from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import BreadcrumbsComponent from "@/components/atoms/BreadcrumbsComponent";
+import {BreadcrumbsComponent} from "ui";
 import {Container,Typography} from "@mui/material";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/light/FormTextFields";
-import StyledButton from "@/components/atoms/StyledButton";
+import {FormTextField} from "ui";
+import {StyledButton} from "ui";
 import {useTheme} from "@mui/material/styles";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import FormTextArea from "@/components/atoms/form/light/FormTextArea";
+import {FormTextArea} from "ui";
 import {createSellerRequestApi} from "../../../api/entities/SellerRequestApi";
 
 type SendRequestInput = {

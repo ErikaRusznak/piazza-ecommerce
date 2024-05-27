@@ -1,10 +1,8 @@
-import React from "react";
-import {useTheme} from "@mui/material/styles";
 import {Controller} from "react-hook-form";
-import {CssTextField} from "@/components/atoms/form/light/CssTextField";
-import {useThemeToggle} from "ui";
+import {useTheme} from "@mui/material/styles";
+import {CssTextFieldDarkBackground} from "./CssTextFieldDarkBackground";
 
-type FormTextAreaProps = {
+type FormTextFieldProps = {
     name: string;
     control: any;
     label: string;
@@ -12,38 +10,35 @@ type FormTextAreaProps = {
     required?: boolean | undefined;
 }
 
-export const FormTextArea = ({name, control, label, type, required=true}:FormTextAreaProps) => {
+const FormTextFieldDarkBackground = ({name, control, label, type, required=true}:FormTextFieldProps) => {
 
     const theme = useTheme();
-    const {isDark} = useThemeToggle();
 
     return (
         <Controller
             name={name}
             control={control}
             render={({ field, fieldState }) => (
-                <CssTextField
+                <CssTextFieldDarkBackground
                     label={label}
                     fullWidth
                     required={required}
                     type={type}
-                    rows={2}
-                    multiline
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     {...field}
-                    sx={{ my: 1, py: 1 }}
+                    sx={{ py: 1 }}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                         field.onChange(event);
                     }}
                     InputProps={{
                         style: {
-                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
+                            color: theme.palette.info.main,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
+                            color: theme.palette.info.main,
                         }
                     }}
                 />
@@ -52,4 +47,4 @@ export const FormTextArea = ({name, control, label, type, required=true}:FormTex
     );
 };
 
-export default FormTextArea;
+export default FormTextFieldDarkBackground;

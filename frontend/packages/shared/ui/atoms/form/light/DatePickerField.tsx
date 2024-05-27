@@ -1,26 +1,24 @@
-import React from "react";
 import {Controller} from "react-hook-form";
 import {useTheme} from "@mui/material/styles";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {CssTextField} from "./CssTextField";
 
-type FormTextFieldProps = {
+type DatePickerFieldProps = {
     name: string;
     control: any;
     label: string;
     type: string;
     required?: boolean | undefined;
-}
+};
 
-const FormTextFieldDarkBackground = ({name, control, label, type, required=true}:FormTextFieldProps) => {
+const DatePickerField = ({name, control, label, type, required=true}:DatePickerFieldProps) => {
 
     const theme = useTheme();
-
     return (
         <Controller
             name={name}
             control={control}
             render={({ field, fieldState }) => (
-                <CssTextFieldDarkBackground
+                <CssTextField
                     label={label}
                     fullWidth
                     required={required}
@@ -34,12 +32,12 @@ const FormTextFieldDarkBackground = ({name, control, label, type, required=true}
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: theme.palette.info.contrastText,
                         }
                     }}
                 />
@@ -48,4 +46,4 @@ const FormTextFieldDarkBackground = ({name, control, label, type, required=true}
     );
 };
 
-export default FormTextFieldDarkBackground;
+export default DatePickerField;

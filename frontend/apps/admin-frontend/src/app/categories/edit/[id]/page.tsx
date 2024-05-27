@@ -2,8 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
-import {useTheme} from "@mui/material/styles";
+import {UnauthenticatedMessage} from "ui";
 import {useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";

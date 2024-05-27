@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import {useTheme} from "@mui/material/styles";
 import { getOrderByIdApi } from "components";
 import {Box, Container, Grid, Paper} from "@mui/material";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import { useAuth } from "../../../../api/auth/AuthContext";
 import OrderStatus from "@/components/atoms/order/OrderStatus";
 import {baseURL} from "components";

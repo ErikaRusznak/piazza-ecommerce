@@ -5,11 +5,11 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
 import {useAuth} from "components";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import {getUserAccountByEmail} from "components";
 
 const ManageProfilePage = () => {

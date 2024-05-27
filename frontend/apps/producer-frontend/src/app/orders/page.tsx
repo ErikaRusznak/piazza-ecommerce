@@ -9,9 +9,9 @@ import {getOrdersApi} from "../../../api/entities/OrderApi";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {Button, Container, FormControl, MenuItem} from "@mui/material";
 import moment from 'moment';
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {CssTextFieldDarkBackground} from "ui";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 import useProductForm from "../../../hooks/useProductForm";
 

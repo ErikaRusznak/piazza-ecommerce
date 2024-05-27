@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {getProductByIdApi} from "components";
 import {useRouteId} from "components";
 import {Box, CircularProgress, Typography, useMediaQuery} from "@mui/material";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import {useTheme} from "@mui/material/styles";
 import ProductRating from "@/components/moleculas/ProductRating";
 import {baseURL} from "components";

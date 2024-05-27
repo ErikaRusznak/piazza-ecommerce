@@ -13,7 +13,7 @@ import { useWebSocket } from "components";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import { useAuth } from "components";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 
 const ChatPage = () => {
     const theme = useTheme();

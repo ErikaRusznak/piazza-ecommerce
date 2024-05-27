@@ -1,6 +1,9 @@
+"use client";
+
 import { styled } from "@mui/material";
 import Link from "next/link";
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "../themes/ThemeContext";
 
 type StyledLinkProps = {
     color?: "info" | "primary" | "secondary";
@@ -9,12 +12,12 @@ type StyledLinkProps = {
 const StyledLink = styled(Link)<StyledLinkProps>(
     ({ color = "info" }) => {
         const theme = useTheme();
-
+        const {isDark} = useThemeToggle();
         return {
             color: (() => {
                 switch (color) {
                     case "info":
-                        return theme.palette.info.contrastText;
+                        return isDark ? theme.palette.info.contrastText : theme.palette.info.main;
                     case "primary":
                         return theme.palette.primary.main;
                     case "secondary":

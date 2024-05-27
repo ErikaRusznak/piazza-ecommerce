@@ -6,7 +6,7 @@ import { Box, Typography, Container } from "@mui/material";
 import { getAllSellersApi } from "../../../api/entities/SellerApi";
 import SellerSimplifiedInfo from "@/components/moleculas/SellerSimplifiedInfo";
 import {useTheme} from "@mui/material/styles";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 
 const SellersPage = () => {
     const theme = useTheme();

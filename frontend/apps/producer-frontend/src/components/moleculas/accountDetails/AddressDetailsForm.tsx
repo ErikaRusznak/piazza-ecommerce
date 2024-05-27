@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Box, Grid, Typography} from "@mui/material";
-import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
-import StyledButton from "@/components/atoms/StyledButton";
+import {FormTextFieldDarkBackground} from "ui";
+import {StyledButton} from "ui";
 import {object, string} from "yup";
 import "yup-phone-lite";
 import {yupResolver} from "@hookform/resolvers/yup";

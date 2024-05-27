@@ -164,7 +164,7 @@ export default function Navigation({children}: { children: React.ReactNode }) {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" noWrap component="div" color={theme.palette.primary.main}>
-                            Admin Portal
+                            Seller Portal
                         </Typography>
                     </Box>
                     <ThemedSwitch />

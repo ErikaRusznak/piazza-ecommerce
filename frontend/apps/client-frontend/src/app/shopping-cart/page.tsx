@@ -9,8 +9,8 @@ import CartItemCard from "@/components/moleculas/cart/CartItemCard";
 import CartSummary from "@/components/moleculas/cart/CartSummary";
 import {Container, Grid, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import StyledButton from "@/components/atoms/StyledButton";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {StyledButton} from "ui";
+import {BreadcrumbsComponent} from "ui";
 
 const ShoppingCartPage = () => {
 

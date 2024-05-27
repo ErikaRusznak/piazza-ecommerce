@@ -9,17 +9,17 @@ import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {SubmitHandler} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import {Box, Grid, Typography} from "@mui/material";
-import StyledButton from "@/components/atoms/StyledButton";
-import StyledLink from "@/components/atoms/StyledLink";
+import {StyledButton} from "ui";
+import {StyledLink} from "ui";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/light/FormTextFields";
+import {FormTextField} from "ui";
 import MainLayout from "@/components/templates/MainLayout";
 import UploadController from "@/components/atoms/upload/UploadController";
 import {addImageApi} from "components";
-import FormSelectField from "@/components/atoms/form/light/FormSelectField";
-import DatePickerField from "@/components/atoms/form/light/DatePickerField";
+import {FormSelectField} from "ui";
+import {DatePickerField} from "ui";
 import {useThemeToggle} from "ui";
 
 const sellerTypes = [

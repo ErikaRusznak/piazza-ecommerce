@@ -1,11 +1,14 @@
-import React from 'react';
+"use client";
+
 import { styled } from '@mui/system';
 import { Button, Typography } from '@mui/material';
 import {useTheme} from "@mui/material/styles";
 
-type QuantityInputType = {
+type QuantityInput = {
     quantity: number;
-    setQuantity: (value: number) => void;
+    onQuantityChanged: (change: number) => void;
+    availableQuantity?: number;
+    userRoleIsClient?: boolean;
 };
 
 const QuantityContainer = styled("div")({
@@ -28,16 +31,16 @@ const QuantityButton = styled(Button)(({ theme }) => ({
     minWidth: "40px",
 }));
 
-const QuantityInput = ({quantity, setQuantity}:QuantityInputType) => {
+const QuantityInput: React.FC<QuantityInput> = ({ quantity, onQuantityChanged, availableQuantity, userRoleIsClient=false }) => {
     const theme = useTheme();
-    const handleQuantityChange = (newQuantity: number) => {
-        if(quantity + newQuantity > 0) {
-            setQuantity(quantity + newQuantity);
-        }
-    };
+    const disabledCondition = () => {
+        if(!userRoleIsClient) return false;
+        if(availableQuantity && availableQuantity > 0) return quantity >= availableQuantity
+        return false;
+    }
     return (
         <QuantityContainer>
-            <QuantityButton type="button" onClick={() => handleQuantityChange(-1)}>
+            <QuantityButton type="button" disabled={quantity == 1} onClick={() => onQuantityChanged(-1)}>
                 -
             </QuantityButton>
 
@@ -59,7 +62,7 @@ const QuantityInput = ({quantity, setQuantity}:QuantityInputType) => {
                 {quantity}
             </Typography>
 
-            <QuantityButton type="button" onClick={() => handleQuantityChange(1)}>
+            <QuantityButton type="button" disabled={disabledCondition()} onClick={() => onQuantityChanged(1)}>
                 +
             </QuantityButton>
         </QuantityContainer>

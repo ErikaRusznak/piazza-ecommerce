@@ -20,7 +20,7 @@ import { getProductsApi } from "components";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
 import {useRouteAlias} from "components";
 import {baseURL} from "components";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import SellerMap from "@/components/moleculas/SellerMap";
 import {useThemeToggle} from "ui";
 

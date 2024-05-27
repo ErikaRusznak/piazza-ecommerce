@@ -4,7 +4,7 @@ import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useAlert} from "components";
 import {Box, Button} from "@mui/material";
 import {FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 
 type AddRemoveWishListProps = {
     productId: number;

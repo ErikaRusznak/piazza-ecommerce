@@ -8,7 +8,7 @@ import {Button, Container, FormControl, Typography} from "@mui/material";
 import {useAuth} from "components";
 import {getOrdersForCourierApi} from "../../../api/entities/OrderApi";
 import MainLayout from "@/components/templates/MainLayout";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import MenuItem from "@mui/material/MenuItem";

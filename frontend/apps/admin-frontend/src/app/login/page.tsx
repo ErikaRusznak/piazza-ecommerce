@@ -12,12 +12,12 @@ import {
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import FormTextField from "@/components/atoms/form/light/FormTextFields";
-import BreadcrumbsComponent from "@/components/atoms/BreadcrumbsComponent";
 import {useThemeToggle} from "ui";
+import {BreadcrumbsComponent} from "ui";
 
 type LoginFormInput = {
     email: string;

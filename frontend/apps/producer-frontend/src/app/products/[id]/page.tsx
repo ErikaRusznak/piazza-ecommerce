@@ -5,14 +5,14 @@ import {useTheme} from "@mui/material/styles";
 import MainLayout from "@/components/templates/MainLayout";
 import Typography from "@mui/material/Typography";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import {Box, useMediaQuery} from "@mui/material";
 import {getProductByIdApi} from "components";
 import {baseURL} from "components";
 import ProductInformation from "@/components/moleculas/product/ProductInformation";
 import ReviewItems from "@/components/moleculas/product/ReviewItems";
 import {AddIcon} from "@/components/atoms/icons";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import AddProductsInStoreModal from "@/components/organisms/modals/AddProductsInStoreModal";
 
 type ProductPageProps = {

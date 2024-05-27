@@ -4,6 +4,7 @@ import BaseModal from "@/components/templates/BaseModal";
 import {useRouter} from "next/navigation";
 import {Box, Button, Typography} from "@mui/material";
 import {deleteProductByIdApi} from "../../../../api/entities/ProductApi";
+import {useThemeToggle} from "ui";
 
 type DeleteModalProps = {
     isModalOpen: boolean;
@@ -21,6 +22,7 @@ const DeleteProductModal = ({   isModalOpen,
 
     const theme = useTheme();
     const router = useRouter();
+    const {isDark} = useThemeToggle();
 
     const handleDelete = () => {
         deleteProductByIdApi(productId)
@@ -38,7 +40,7 @@ const DeleteProductModal = ({   isModalOpen,
             {productId && (
                 <Box sx={{
                     color: theme.palette.info.main,
-                    backgroundColor: theme.palette.background.lighter,
+                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                     px: 5, py: 3,
                     borderRadius: "14px",
                     border: "1px solid #a5b4fc",

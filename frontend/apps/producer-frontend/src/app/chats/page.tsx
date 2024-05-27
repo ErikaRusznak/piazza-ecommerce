@@ -11,7 +11,7 @@ import {Box, Container, useMediaQuery} from "@mui/material";
 import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
 import ChatContainer from "@/components/organisms/chat/ChatContainer";
 import {getAllUsersApi} from "../../../api/entities/UserAccount";

@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
 import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";

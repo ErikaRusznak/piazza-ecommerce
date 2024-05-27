@@ -10,7 +10,7 @@ import MainProductList from "@/components/organisms/product/MainProductList";
 import FilteringComponent from "@/components/organisms/filtering/FilteringComponent";
 import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect";
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import ProductAddToCartModal from "@/components/organisms/modals/ProductAddToCartModal";
 
 export type SortFilter = {

@@ -1,3 +1,5 @@
+"use client";
+
 import {styled} from "@mui/material/styles";
 import MuiTextField from '@mui/material/TextField';
 import {useTheme} from "@mui/material/styles";

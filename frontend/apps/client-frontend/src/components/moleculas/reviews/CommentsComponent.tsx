@@ -4,7 +4,7 @@ import {addCommentApi} from "../../../../api/entities/CommentApi";
 import { useAuth } from "components";
 import {useTheme} from "@mui/material/styles";
 import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 
 type CommentsComponentType = {
     reviewId: number;

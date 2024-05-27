@@ -6,7 +6,7 @@ import {SubmitHandler} from "react-hook-form";
 import {createProductApi} from "../../../../api/entities/ProductApi";
 import {useAuth} from "../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
 import useProductForm from "../../../../hooks/useProductForm";
 

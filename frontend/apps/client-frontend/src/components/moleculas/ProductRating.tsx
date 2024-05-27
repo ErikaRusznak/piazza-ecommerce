@@ -1,6 +1,6 @@
 import React from 'react';
 import {Typography} from '@mui/material';
-import StarReviewsReadOnly from "@/components/atoms/StarReviewsReadOnly";
+import {StarReviewsReadOnly} from "ui";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
 

@@ -1,9 +1,9 @@
-import React from "react";
 import {useTheme} from "@mui/material/styles";
 import {Controller} from "react-hook-form";
-import {CssTextFieldDarkBackground} from "@/components/atoms/form/dark/CssTextFieldDarkBackground";
+import {useThemeToggle} from "ui";
+import {CssTextField} from "./CssTextField";
 
-type FormTextAreaDarkBackgroundProps = {
+type FormTextAreaProps = {
     name: string;
     control: any;
     label: string;
@@ -11,16 +11,17 @@ type FormTextAreaDarkBackgroundProps = {
     required?: boolean | undefined;
 }
 
-const FormTextAreaDarkBackground = ({name, control, label, type, required=true}:FormTextAreaDarkBackgroundProps) => {
+export const FormTextArea = ({name, control, label, type, required=true}:FormTextAreaProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
 
     return (
         <Controller
             name={name}
             control={control}
             render={({ field, fieldState }) => (
-                <CssTextFieldDarkBackground
+                <CssTextField
                     label={label}
                     fullWidth
                     required={required}
@@ -36,12 +37,12 @@ const FormTextAreaDarkBackground = ({name, control, label, type, required=true}:
                     }}
                     InputProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                     InputLabelProps={{
                         style: {
-                            color: theme.palette.info.main,
+                            color: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                 />
@@ -50,4 +51,4 @@ const FormTextAreaDarkBackground = ({name, control, label, type, required=true}:
     );
 };
 
-export default FormTextAreaDarkBackground;
+export default FormTextArea;

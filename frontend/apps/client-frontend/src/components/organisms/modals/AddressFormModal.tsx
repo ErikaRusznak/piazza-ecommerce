@@ -11,7 +11,7 @@ import {AddressType, ShippingAddressType} from "@/app/checkout/page";
 import {Grid, Typography} from "@mui/material";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
 import CountrySelector from "@/components/atoms/CountrySelector";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 
 type ShippingAddressFormInput = {
     firstName: string;

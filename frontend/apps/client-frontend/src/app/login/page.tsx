@@ -13,11 +13,11 @@ import {
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
-import StyledButton from "@/components/atoms/StyledButton";
-import StyledLink from "@/components/atoms/StyledLink";
+import {StyledButton} from "ui";
+import {StyledLink} from "ui";
 import * as yup from "yup";
 import FormTextField from "@/components/atoms/form/light/FormTextField";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {BreadcrumbsComponent} from "ui";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import {useThemeToggle} from "ui";
 

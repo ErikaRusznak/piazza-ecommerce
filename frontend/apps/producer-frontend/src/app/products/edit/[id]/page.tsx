@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import {useAuth} from "../../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";

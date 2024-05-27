@@ -7,9 +7,9 @@ import {getProductByIdApi} from "components";
 import BaseModal from "@/components/templates/BaseModal";
 import {baseURL} from "components";
 import ProductRating from "@/components/moleculas/ProductRating";
-import QuantityInput from "@/components/atoms/QuantityInput";
+import {QuantityInput} from "ui";
 import {useTheme} from "@mui/material/styles";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import {useThemeToggle} from "ui";
 
 type ProductAddToCartModalProps = {
@@ -104,6 +104,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                                 quantity={quantity}
                                                 onQuantityChanged={updateQuantity}
                                                 availableQuantity={product.quantity}
+                                                userRoleIsClient={true}
                                             />
                                         </Box>
                                     )}

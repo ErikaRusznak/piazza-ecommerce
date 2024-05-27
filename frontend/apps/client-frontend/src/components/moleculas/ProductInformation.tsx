@@ -5,10 +5,10 @@ import {useAlert} from "components";
 import {useRouter} from "next/navigation";
 import {Box, Divider, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import QuantityInput from "@/components/atoms/QuantityInput";
+import {QuantityInput} from "ui";
 import ProductSpecificInfo from "@/components/atoms/ProductSpecificInfo";
 import AddRemoveWishlist from "@/components/atoms/AddRemoveWishlist";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 
 type ProductInformationProps = {
     description: string;
@@ -112,6 +112,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                             quantity={quantity}
                             onQuantityChanged={updateQuantity}
                             availableQuantity={availableQuantity}
+                            userRoleIsClient={true}
                         />
                     </Box>
                     <Divider sx={{backgroundColor: theme.palette.lightColor.main, width: "full", my: 2}}/>

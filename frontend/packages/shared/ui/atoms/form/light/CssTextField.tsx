@@ -1,3 +1,5 @@
+"use client";
+
 import {styled} from "@mui/material/styles";
 import MuiTextField from '@mui/material/TextField';
 import {useTheme} from "@mui/material/styles";
@@ -10,13 +12,13 @@ export const CssTextField = styled(
     return {
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
-                borderColor: theme.palette.background.lighter,
+                borderColor: "#1a2747",
             },
             '&:hover fieldset': {
-                borderColor: theme.palette.background.darker,
+                borderColor: theme.palette.primary.main,
             },
             '&.Mui-focused fieldset': {
-                borderColor: theme.palette.background.darker,
+                borderColor: theme.palette.primary.main,
             },
         },
     };

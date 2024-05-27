@@ -13,12 +13,12 @@ import {
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
-import StyledButton from "@/components/atoms/StyledButton";
-import StyledLink from "@/components/atoms/StyledLink";
+import {StyledButton} from "ui";
+import {StyledLink} from "ui";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
-import FormTextField from "@/components/atoms/form/light/FormTextFields";
-import BreadcrumbsComponent from "@/components/atoms/BreadcrumbsComponent";
+import {FormTextField} from "ui";
+import {BreadcrumbsComponent} from "ui";
 
 type LoginFormInput = {
     email: string;

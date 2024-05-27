@@ -1,7 +1,7 @@
 import React from "react";
 import {Controller} from "react-hook-form";
 import {useTheme} from "@mui/material/styles";
-import {CssTextField} from "@/components/atoms/CssTextField";
+import {CssTextField} from "@/components/atoms/form/light/CssTextField";
 import {useThemeToggle} from "ui";
 
 type FormTextFieldProps = {

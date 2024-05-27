@@ -11,5 +11,8 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "react": "^18"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^5.15.18"
   }
 }

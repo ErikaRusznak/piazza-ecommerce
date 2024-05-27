@@ -4,7 +4,7 @@ import {
     Typography,
 } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import {AddCircleOutlineIcon} from "@/components/atoms/icons";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../../api/entities/BuyerApi";
 import {ShippingAddressType} from "@/app/checkout/page";

@@ -1,7 +1,6 @@
 import {Rating, useMediaQuery} from "@mui/material";
-import React from "react";
 import {useTheme} from "@mui/material/styles";
-import {StarBorderIcon} from "@/components/atoms/icons";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const StarReviewsReadOnly = ({rating}: {rating: number}) => {
 

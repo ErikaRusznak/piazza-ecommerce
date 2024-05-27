@@ -6,7 +6,7 @@ import moment from "moment";
 import {useAuth} from "components";
 import {getSellerRequestsApi} from "../../../api/entities/SellerRequestsApi";
 import MainLayout from "@/components/templates/MainLayout";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import TablePaginationComponent from "@/components/moleculas/table/TablePaginationComponent";
 import TableContainerComponent from "@/components/moleculas/table/TableContainerComponent";
 import {useTheme} from "@mui/material/styles";

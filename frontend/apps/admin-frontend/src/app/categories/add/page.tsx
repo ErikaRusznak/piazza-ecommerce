@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
 import {useAuth} from "components";
 import {useRouter} from "next/navigation";
-import UnauthenticatedMessage from "@/components/atoms/UnauthenticatedMessage";
+import {UnauthenticatedMessage} from "ui";
 import AddEditCategoryForm, {AddEditCategoryInput} from "@/components/organisms/categories/AddEditCategoryForm";
 import {createCategoryApi} from "../../../../api/entities/CategoryApi";
 

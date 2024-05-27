@@ -1,10 +1,10 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
-import FormTextFieldDarkBackground from "@/components/atoms/form/dark/FormTextFieldDarkBackground";
-import FormTextAreaDarkBackground from "@/components/atoms/form/dark/FormTextAreaDarkBackground";
-import FormSelectFieldDarkBackground from "@/components/atoms/form/dark/FormSelectFieldDarkBackground";
+import {FormTextFieldDarkBackground} from "ui";
+import {FormTextAreaDarkBackground} from "ui";
+import {FormSelectFieldDarkBackground} from "ui";
 import UploadController from "@/components/atoms/upload/UploadController";
-import StyledButton from "@/components/atoms/StyledButton";
+import {StyledButton} from "ui";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";

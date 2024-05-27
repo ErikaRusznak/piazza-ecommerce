@@ -5,7 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import {useTheme} from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import StyledLink from "@/components/atoms/StyledLink";
+import {StyledLink} from "ui";
 
 const HomePage = () => {
     const theme = useTheme();

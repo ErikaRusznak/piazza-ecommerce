@@ -13,8 +13,8 @@ import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
 import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import StyledButton from "@/components/atoms/StyledButton";
-import BreadcrumbsComponent from "@/components/atoms/Breadcrumbs";
+import {StyledButton} from "ui";
+import {BreadcrumbsComponent} from "ui";
 import StripeCheckout from "react-stripe-checkout";
 import PaymentTypeRadio from "@/components/atoms/PaymentTypeRadio";
 
