@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
+import {ProfileInformation} from "ui";
 import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import {getUserAccountByEmail} from "components";

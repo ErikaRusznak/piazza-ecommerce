@@ -6,11 +6,12 @@ import {
     Grid, Container,
 } from "@mui/material";
 import {BreadcrumbsComponent} from "ui";
-import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
+import {ProfileInformation} from "ui";
 import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
-import AccountManagement from "@/components/moleculas/manageProfile/AccountManagement";
+import {AccountManagement} from "ui";
 import {getUserAccountByEmail} from "components";
+import {deleteAccountForBuyerByIdApi} from "../../../api/entities/UserAccount";
 
 const ManageProfilePage = () => {
 
@@ -59,7 +60,9 @@ const ManageProfilePage = () => {
                 </Grid>
                 <AddressManagement/>
                 <AccountManagement
-                    user={user}/>
+                    user={user}
+                    deleteAccountApi={deleteAccountForBuyerByIdApi}
+                />
             </Container>
         </MainLayout>
     );

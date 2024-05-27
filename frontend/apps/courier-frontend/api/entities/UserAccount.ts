@@ -1,6 +1,6 @@
 import { api } from "components";
 
-export const deleteAccountForCourierByIdApi = (accountId:string) => {
+export const deleteAccountForCourierByIdApi = (accountId:number) => {
     return api.delete(`/users-courier/${accountId}`)
 }
 

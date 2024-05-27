@@ -1,6 +1,6 @@
-import React from "react";
+
 import {Typography} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
+import { useTheme } from '@mui/material/styles';
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
@@ -13,10 +13,10 @@ import {FormTextFieldDarkBackground} from "ui";
 import {updateUserAccountApi} from "components";
 
 type ProfileInformationFormInput = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  telephone: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    telephone: string;
 };
 
 export type UserType = {
@@ -86,7 +86,7 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
     };
 
     return user ? (
-        <Box sx={{padding: theme.spacing(2), border: "1px solid #a5b4fc", borderRadius: "14px"}}>
+        <Box sx={{border: "1px solid #a5b4fc", borderRadius: "14px", p: 2}}>
             <Typography variant="h5" sx={{color: theme.palette.info.main, mb:2}}>Profile Information</Typography>
             <form onSubmit={handleSubmit(onSubmit)} style={{}}>
                 <FormTextFieldDarkBackground

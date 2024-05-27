@@ -4,7 +4,7 @@ export const getAllUserSellersApi = () => {
     return api.get("/users/sellers");
 };
 
-export const deleteAccountForBuyerByIdApi = (accountId:string) => {
+export const deleteAccountForBuyerByIdApi = (accountId:number) => {
     return api.delete(`/users-buyer/${accountId}`)
 }
 

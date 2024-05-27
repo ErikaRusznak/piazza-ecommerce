@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import { Container} from "@mui/material";
-import ProfileInformation from "@/components/moleculas/manageProfile/ProfileInformation";
+import {ProfileInformation} from "ui";
 import {getUserAccountByEmail} from "components";
 import {useAuth} from "components";
 import {UnauthenticatedMessage} from "ui";

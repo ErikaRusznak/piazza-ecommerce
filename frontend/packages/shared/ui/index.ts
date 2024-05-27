@@ -54,6 +54,11 @@ import GroupChatMessageUser from "./moleculas/chat/GroupChatMessageUser";
 import PrivateChatMessageUser from "./moleculas/chat/PrivateChatMessageUser";
 export {ChatContainerDetailsWrapper, ChatContainerDetails, GroupChatMessageUser, PrivateChatMessageUser};
 
+import ProfileInformation from "./moleculas/manageProfile/ProfileInformation";
+import AccountManagement from "./moleculas/manageProfile/AccountManagement";
+import ProfilePictureData from "./moleculas/manageProfile/ProfilePictureData";
+export {ProfileInformation, AccountManagement, ProfilePictureData};
+
 // organism
 
 // pages
