@@ -1,11 +1,12 @@
-
+"use client";
 import {Typography} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
 import {api} from "components";
-import {Resolver, SubmitHandler, useForm} from "react-hook-form";
+import {Resolver, SubmitHandler} from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import {yupResolver} from "@hookform/resolvers/yup";
 import "yup-phone-lite";
 import {StyledButton} from "ui";

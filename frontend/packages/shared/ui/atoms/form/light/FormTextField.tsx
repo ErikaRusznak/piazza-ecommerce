@@ -1,3 +1,4 @@
+"use client";
 import {Controller} from "react-hook-form";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";

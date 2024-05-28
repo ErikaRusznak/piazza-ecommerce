@@ -1,3 +1,4 @@
+"use client";
 import {useTheme} from "@mui/material/styles";
 import {Controller} from "react-hook-form";
 import {CssTextFieldDarkBackground} from "./CssTextFieldDarkBackground";
