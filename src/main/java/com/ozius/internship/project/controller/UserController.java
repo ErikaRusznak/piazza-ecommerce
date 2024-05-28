@@ -31,8 +31,8 @@ public class UserController {
     @GetMapping("/users/{email}")
     public ResponseEntity<Object> retrieveUserByEmail(@PathVariable String email){
         UserAccount user = userAccountRepository.findByEmail(email);
-        UserAccountDto userAccountDto = modelMapper.map(user, UserAccountDto.class);
         if(user!=null){
+            UserAccountDto userAccountDto = modelMapper.map(user, UserAccountDto.class);
             return ResponseEntity.ok(userAccountDto);
         }
         return ResponseEntity.notFound().build();

@@ -27,11 +27,10 @@ public class SellerService {
         this.userAccountRepository = userAccountRepository;
         this.modelMapper = modelMapper;
     }
-    
+
     @Transactional
-    public SellerDTO getSellerByEmail(String email) {
-        long userId = userAccountRepository.findByEmail(email).getId();
-        Seller seller = sellerRepository.findSellerByAccount_Id(userId);
+    public SellerDTO getSellerById(long id) {
+        Seller seller = sellerRepository.findSellerByAccount_Id(id);
         return modelMapper.map(seller, SellerDTO.class);
     }
 
