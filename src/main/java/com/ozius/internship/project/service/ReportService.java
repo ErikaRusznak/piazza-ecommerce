@@ -45,8 +45,10 @@ public class ReportService {
     public ReportDTO reportComment(long commentId, long userId, String reason) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         UserAccount account = accountRepository.findById(userId).orElseThrow();
-        Report report = new Report(comment, reason);
-        account.addReportFromUserAccount(report);
+        reportRepository.findByReportedCommentAndReportedBy(comment, account.getEmail()).ifPresent(report -> {
+            throw new IllegalStateException("Comment has already been reported by this user.");
+        });
+        Report report = new Report(comment, reason, account.getEmail());
         reportRepository.save(report);
         return modelMapper.map(report, ReportDTO.class);
     }
@@ -55,8 +57,10 @@ public class ReportService {
     public ReportDTO reportReview(long reviewId, long userId, String reason) {
         Review review = reviewRepository.findById(reviewId).orElseThrow();
         UserAccount account = accountRepository.findById(userId).orElseThrow();
-        Report report = new Report(review, reason);
-        account.addReportFromUserAccount(report);
+        reportRepository.findByReportedReviewAndReportedBy(review, account.getEmail()).ifPresent(report -> {
+            throw new IllegalStateException("Review has already been reported by this user.");
+        });
+        Report report = new Report(review, reason, account.getEmail());
         reportRepository.save(report);
         return modelMapper.map(report, ReportDTO.class);
     }

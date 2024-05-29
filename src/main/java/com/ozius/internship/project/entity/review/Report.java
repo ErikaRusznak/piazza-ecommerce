@@ -15,6 +15,7 @@ public class Report extends BaseEntity {
         String REVIEW_ID = "REVIEW_ID";
         String COMMENT_ID = "COMMENT_ID";
         String REASON = "REASON";
+        String REPORTED_BY = "REPORTED_BY";
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,17 +32,22 @@ public class Report extends BaseEntity {
     @Column(name = Columns.REASON, nullable = false)
     private String reason;
 
+    @Column(name = Columns.REPORTED_BY, nullable = false)
+    private String reportedBy;
+
     protected Report(){
     }
 
-    public Report(Review reportedReview, String reason) {
+    public Report(Review reportedReview, String reason, String reportedBy) {
         this.reportedReview = reportedReview;
         this.reason = reason;
+        this.reportedBy = reportedBy;
     }
 
-    public Report(Comment reportedComment, String reason) {
+    public Report(Comment reportedComment, String reason, String reportedBy) {
         this.reportedComment = reportedComment;
         this.reason = reason;
+        this.reportedBy = reportedBy;
     }
 
     @Override

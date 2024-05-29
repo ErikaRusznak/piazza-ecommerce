@@ -4,14 +4,13 @@ import React, {useEffect, useState} from "react";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import Typography from "@mui/material/Typography";
-import {Box, Button, Container} from "@mui/material";
+import {Box, Button, Container, Tooltip} from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";
-import {AddIcon} from "@/components/atoms/icons";
-import DeleteCategoryModal from "@/components/organisms/modals/DeleteCategoryModal";
 import {UnauthenticatedMessage} from "ui";
 import {TableContainerComponent} from "ui";
-import {useAuth, baseURL} from "components";
+import {useAuth} from "components";
 import {getAllReviewsThatHaveReportsApi} from "../../../../api/entities/ReportsApi";
+import moment from "moment/moment";
 
 const ReviewsWithReportsPage = () => {
 
@@ -19,34 +18,55 @@ const ReviewsWithReportsPage = () => {
     const router = useRouter();
     const {isAuthenticated} = useAuth();
     const [reviews, setReviews] = useState([]);
-    // const renderCell = (item: any, key: string) => {
-    //     switch (key) {
-    //         case 'Image':
-    //             return (
-    //                 <img src={`${baseURL}${item.imageName}`} alt={item.name}
-    //                      style={{width: '100%', height: 'auto', maxWidth: '70px'}}/>
-    //             );
-    //         case 'Name':
-    //             return <Typography sx={{fontWeight: theme.typography.fontWeightRegular}}>{item.name}</Typography>;
-    //         case 'Actions':
-    //             return (
-    //                 <>
-    //                     <Button size="small" color="primary"
-    //                             onClick={() => router.push(`/categories/${item.name}`)}>
-    //                         View
-    //                     </Button>
-    //                     <Button size="small" color="secondary" onClick={() => router.push(`/categories/edit/${item.id}`)}>
-    //                         Edit
-    //                     </Button>
-    //                     <Button size="small" color="error" onClick={() => toggleModal(item.id)}>
-    //                         Delete
-    //                     </Button>
-    //                 </>
-    //             );
-    //         default:
-    //             return null;
-    //     }
-    // };
+
+    const tableCellLabels = ["Review", "Published Date", "Published By", "Actions"];
+
+    const renderCell = (item: any, key: string) => {
+        switch (key) {
+            case 'Review':
+                return (
+                    <Tooltip title={item.review} arrow>
+                        <Typography
+                            sx={{
+                                fontSize: "14px",
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 6,
+                                lineHeight: '1.15',
+                                maxHeight: '6.9em',
+                                cursor: "pointer",
+                                whiteSpace: "normal",
+                                fontWeight: theme.typography.fontWeightRegular,
+                            }}
+                        >
+                            {item.review}
+                        </Typography>
+                    </Tooltip>
+                );
+            case 'Published Date':
+                return (
+                    <Typography sx={{fontSize: "14px",}}>
+                        {moment(item.publishedDate).format("YYYY-MM-DD")}
+                    </Typography>
+                );
+
+            case 'Published By':
+                return <Typography sx={{fontSize: "14px",}}>{item.publishedBy}</Typography>;
+            case 'Actions':
+                return (
+                    <>
+                        <Button size="small" color="primary"
+                                onClick={() => router.push(`/reports/reviews/${item.id}`)}>
+                            View details
+                        </Button>
+                    </>
+                );
+            default:
+                return null;
+        }
+    };
 
     const getReviewsWithReports = () => {
         getAllReviewsThatHaveReportsApi()
@@ -60,9 +80,13 @@ const ReviewsWithReportsPage = () => {
         getReviewsWithReports();
     }, []);
 
-    console.log("reviews", reviews);
+    const reviewsToDisplay = reviews?.map((review: any) => ({
+        id: review.id,
+        review: review.description,
+        publishedDate: review.publishDate,
+        publishedBy: review.buyer.email
+    }))
     return (
-
             <MainLayout>
                 {isAuthenticated ? (
                     <Container>
@@ -71,11 +95,11 @@ const ReviewsWithReportsPage = () => {
                                 Reviews that have been reported
                             </Typography>
                         </Box>
-                        {/*<TableContainerComponent*/}
-                        {/*    items={categoriesToDisplay}*/}
-                        {/*    tableCellLabels={tableCellLabels}*/}
-                        {/*    renderCell={renderCell}*/}
-                        {/*/>*/}
+                        <TableContainerComponent
+                            items={reviewsToDisplay}
+                            tableCellLabels={tableCellLabels}
+                            renderCell={renderCell}
+                        />
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

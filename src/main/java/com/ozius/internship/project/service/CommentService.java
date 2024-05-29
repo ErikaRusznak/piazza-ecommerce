@@ -30,6 +30,12 @@ public class CommentService {
     }
 
     @Transactional
+    public CommentDTO getCommentById(long commentId) {
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        return modelMapper.map(comment, CommentDTO.class);
+    }
+
+    @Transactional
     public CommentDTO addComment(long reviewId, long userId, String content) {
         UserAccount userAccount = userAccountRepository.findById(userId).orElseThrow();
         Review review = reviewRepository.findById(reviewId).orElseThrow();

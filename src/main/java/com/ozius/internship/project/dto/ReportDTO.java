@@ -7,4 +7,5 @@ public class ReportDTO {
     private String commentId;
     private String reviewId;
     private String reason;
+    private String reportedBy;
 }

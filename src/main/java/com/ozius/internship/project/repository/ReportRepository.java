@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long> {
@@ -21,5 +22,9 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     List<Report> findByReportedComment(Comment comment);
 
     List<Report> findByReportedReview(Review review);
+
+
+    Optional<Report> findByReportedCommentAndReportedBy(Comment comment, String reportedBy);
+    Optional<Report> findByReportedReviewAndReportedBy(Review review, String reportedBy);
 
 }
