@@ -27,7 +27,7 @@ public class ReportController {
     }
 
     @PostMapping("/reports/comments/{commentId}/{userId}")
-    @PreAuthorize("hasRole('CLIENT') and hasRole('SELLER')")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('SELLER')")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<ReportDTO> reportComment(@PathVariable long commentId, @PathVariable long userId, @RequestBody String reason) {
         ReportDTO reportDTO = reportService.reportComment(commentId, userId, reason);
@@ -35,7 +35,7 @@ public class ReportController {
     }
 
     @PostMapping("/reports/reviews/{reviewId}/{userId}")
-    @PreAuthorize("hasRole('CLIENT') and hasRole('SELLER')")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('SELLER')")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<ReportDTO> reportReview(@PathVariable long reviewId, @PathVariable long userId, @RequestBody String reason) {
         ReportDTO reportDTO = reportService.reportReview(reviewId, userId, reason);

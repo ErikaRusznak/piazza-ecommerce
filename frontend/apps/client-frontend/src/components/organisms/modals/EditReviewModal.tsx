@@ -2,7 +2,7 @@
 import React from 'react';
 import { updateReviewApi } from '../../../../api/entities/ReviewApi';
 import { number, object, string } from 'yup';
-import {BaseModal} from "ui";
+import {BaseModal, useThemeToggle} from "ui";
 import { Box, Rating, Typography, useMediaQuery } from '@mui/material';
 import {FormTextArea, StyledButton} from "ui";
 import { Controller, Resolver, useForm } from 'react-hook-form';
@@ -36,6 +36,7 @@ type EditReviewModalInput = {
 const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, description, review, updateReview}: EditReviewModalProps) => {
 // TODO - rating update gives an error
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const onSubmit = (values: any) => {
         updateReviewApi(review.id, values.description, values.rating)
             .then((res) => {
@@ -77,7 +78,7 @@ const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, description,
                                 border: '1px solid #a5b4fc',
                             }}
                         >
-                            <Typography variant="h6" sx={{ my: 2, color: theme.palette.background.default }}>
+                            <Typography variant="h6" sx={{ my: 2, color: isDark ? theme.palette.info.contrastText : theme.palette.info.main }}>
                                 Edit your review
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
@@ -88,7 +89,7 @@ const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, description,
                                     defaultValue={0}
                                     render={({ field }) => (
                                         <Box sx={{ display: 'flex', flexDirection: smallScreenSize ? 'column' : 'row' }}>
-                                            <Typography sx={{ color: theme.palette.background.default }}>Change the rating: </Typography>
+                                            <Typography sx={{ color:  isDark ? theme.palette.info.contrastText : theme.palette.info.main }}>Change the rating: </Typography>
                                             <Rating
                                                 name="rating"
                                                 value={field.value || 0}

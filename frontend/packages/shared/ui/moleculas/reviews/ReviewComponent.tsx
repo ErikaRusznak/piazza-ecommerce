@@ -9,6 +9,10 @@ import EditReviewModal from "client-frontend/src/components/organisms/modals/Edi
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ProductRating from "../../atoms/review/ProductRating";
 import CommentsComponent from "../../atoms/review/CommentsComponent";
+import {useThemeToggle} from "../../themes/ThemeContext";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Tooltip from '@mui/material/Tooltip';
+import AddReportModal from "../../organisms/modals/AddReportModal";
 
 type ReviewComponentProps = {
     review: any;
@@ -19,18 +23,25 @@ type ReviewComponentProps = {
 
 const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username}: ReviewComponentProps) => {
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const firstLetterOfFirstName = review.buyer.firstName.charAt(0);
     const firstLetterOfLastName = review.buyer.lastName.charAt(0);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const [selectedReview, setSelectedReview] = useState(null);
     const [showComments, setShowComments] = useState(false);
     const [comments, setComments] = useState<any>([]);
 
+    const userId = parseInt(sessionStorage.getItem("id") || "0");
+
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
+    }
+
+    const toggleReportModal = () => {
+        setIsReportModalOpen(!isReportModalOpen);
     }
 
     const getCommentsForReview = (reviewId: number) => {
@@ -85,7 +96,7 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
                                 textAlign: "center",
                                 alignContent: "center",
                                 color: theme.palette.info.main,
-                                backgroundColor: theme.palette.primary.main,
+                                backgroundColor: isDark ? theme.palette.primary.main : theme.palette.lightColor.main,
                                 borderRadius: "20px",
                                 display: "flex",
                                 flexDirection: "column",
@@ -97,19 +108,32 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
                             </Box>
                         )}
                         <Typography sx={{color: theme.palette.info.main, fontWeight: "bold"}}>{review.buyer.firstName} {review.buyer.lastName}</Typography>
-                        {(isAuthenticated && review.buyer.email === username) && (
+                        {(isAuthenticated) && (
                             <Box sx={{
                                 display: "flex", justifyContent: "center", alignItems: "center"
                             }}>
-                                <EditNoteIcon
-                                    sx={{
-                                        pl: 1,
-                                        color: theme.palette.lightColor.main,
-                                        "&:hover": {color: theme.palette.primary.main},
-                                        cursor: "pointer",
-                                    }}
-                                    onClick={toggleModal}
-                                />
+                                {review.buyer.email === username ? (
+                                    <EditNoteIcon
+                                        sx={{
+                                            color: theme.palette.lightColor.main,
+                                            "&:hover": {color: theme.palette.primary.main},
+                                            cursor: "pointer",
+                                        }}
+                                        onClick={toggleModal}
+                                    />
+                                ) : (
+                                    <Tooltip title="Report the review" placement="bottom-end">
+                                        <MoreVertIcon
+                                            sx={{
+                                                color: theme.palette.lightColor.main,
+                                                "&:hover": {color: theme.palette.primary.main},
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={toggleReportModal}
+                                        />
+                                    </Tooltip>
+                                )}
+
                             </Box>
                         )}
                     </Box>
@@ -126,7 +150,7 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
                     display: "flex", justifyContent: "space-between", pt: 1.5
                 }}>
                     <Box sx={{px: 2, pb:3, width: "100%"}}>
-                        <Typography variant="body1" sx={{color: theme.palette.info.main}}>
+                        <Typography variant="body1" sx={{color: theme.palette.info.main, fontWeight: theme.typography.fontWeightRegular}}>
                             {review.description}
                         </Typography>
                         <Box sx={{ display: "flex", justifyContent: "space-between", pt: 1.5 }}>
@@ -153,6 +177,14 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
                     updateReview={updateReview}
                 />
             )}
+
+            <AddReportModal
+                isModalOpen={isReportModalOpen}
+                toggleModal={toggleReportModal}
+                idCommentOrReviewToReport={review.id}
+                userId={userId}
+                reportFor={"review"}
+            />
         </>
     );
 };

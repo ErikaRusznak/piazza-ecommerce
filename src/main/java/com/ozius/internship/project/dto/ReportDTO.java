@@ -6,4 +6,5 @@ import lombok.Data;
 public class ReportDTO {
     private CommentDTO commentDTO;
     private ReviewDTO reviewDTO;
+    private String reason;
 }

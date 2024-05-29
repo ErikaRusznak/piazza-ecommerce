@@ -173,6 +173,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                                     md: "20px"
                                 },
                                 color: theme.palette.info.main,
+                                fontWeight: theme.typography.fontWeightRegular,
                                 "&:hover": {
                                     cursor: "pointer",
                                     textDecoration: "underline",
