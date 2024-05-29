@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Entity
 @Table(name = UserAccount.TABLE_NAME)
 public class UserAccount extends BaseEntity {
 
     public static final String TABLE_NAME = "user_account";
+    public static final String JOIN_TABLE_NAME = "report_user";
 
     interface Columns{
         String FIRST_NAME = "FIRST_NAME";

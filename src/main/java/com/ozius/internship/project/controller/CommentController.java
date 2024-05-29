@@ -27,4 +27,10 @@ public class CommentController {
         List<CommentDTO> comments = commentService.getCommentsForReview(reviewId);
         return ResponseEntity.ok(comments);
     }
+
+    @GetMapping("/comments/{commentId}")
+    public ResponseEntity<CommentDTO> getCommentById(@PathVariable long commentId) {
+        CommentDTO commentDTO = commentService.getCommentById(commentId);
+        return ResponseEntity.ok(commentDTO);
+    }
 }

@@ -203,7 +203,6 @@ const ProductsPage = () => {
     return (
         <>
             <MainLayout>
-                <BreadcrumbsComponent links={breadcrumbsLinks}/>
                 <Box sx={{
                     maxWidth: "872px",
                     margin: "0 auto",
@@ -221,7 +220,7 @@ const ProductsPage = () => {
                         maxWidth: "320px",
                     },
                 }}>
-
+                    <BreadcrumbsComponent links={breadcrumbsLinks}/>
                     <Typography variant="h4" sx={{color: theme.palette.info.main}}>
                         Check the products
                     </Typography>

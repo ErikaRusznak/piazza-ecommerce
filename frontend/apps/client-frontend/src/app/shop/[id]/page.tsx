@@ -81,19 +81,19 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
 
     return (
         <MainLayout>
-            <BreadcrumbsComponent links={breadcrumbsLinks}/>
+
             {product && (
                 <Box sx={{
                     display: "flex", justifyContent: "center", alignItems: "center",
                     flexDirection: "column"
                 }}>
-
                     <Box>
                         <Box>
+                            <BreadcrumbsComponent links={breadcrumbsLinks}/>
                             <Typography variant="h4" sx={{
                                 fontWeight: "",
                                 color: theme.palette.info.main,
-                                mt: 2,
+                                mt: 1,
                                 ml: {xs: 2, sm: 0},
                             }}>
                                 {product.name}

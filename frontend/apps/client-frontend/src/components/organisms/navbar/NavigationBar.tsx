@@ -34,7 +34,7 @@ const NavigationBar = () => {
     const theme = useTheme();
     const { isDark} = useThemeToggle();
     const router = useRouter();
-    const backgroundColor = isDark ? theme.palette.background.default : "#DBE1FD";
+    const backgroundColor = isDark ? theme.palette.background.lighter : "#DBE1FD";
 
     const [categories, setCategories] = useState([]);
     const auth = useAuth();
