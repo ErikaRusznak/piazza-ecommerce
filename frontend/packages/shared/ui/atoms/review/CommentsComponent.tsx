@@ -51,7 +51,7 @@ const CommentsComponent = ({reviewId, comments, setComments, isAuthenticated}: C
                             }}>
                                 {comment.account.firstName} {comment.account.lastName}
                             </Typography>
-                            {(isAuthenticated && userId === comment.account.id) && (
+                            {(isAuthenticated && userId !== comment.account.id) && (
                                 <Tooltip title="Report the comment" placement="bottom-end">
                                     <MoreVertIcon
                                         sx={{

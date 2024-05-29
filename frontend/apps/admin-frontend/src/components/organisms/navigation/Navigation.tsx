@@ -6,6 +6,7 @@ import {
 } from "@/components/atoms/icons";
 import {useAuth} from "components";
 import {NavigationAdmProd} from "ui";
+import ReportIcon from '@mui/icons-material/Report';
 
 export default function Navigation({children}: { children: React.ReactNode }) {
 
@@ -15,6 +16,8 @@ export default function Navigation({children}: { children: React.ReactNode }) {
     const informationList = [
         {label: "Categories", icon: <CategoryIcon sx={{color: theme.palette.info.main}}/>, href: "/categories"},
         {label: "Requests", icon: <PeopleIcon sx={{color: theme.palette.info.main}}/>, href: "/requests"},
+        {label: "Reports for reviews", icon: <ReportIcon sx={{color: theme.palette.info.main}}/>, href: "/reports/reviews"},
+        {label: "Reports for comments", icon: <ReportIcon sx={{color: theme.palette.info.main}}/>, href: "/reports/comments"}
     ];
 
     const profileList = [

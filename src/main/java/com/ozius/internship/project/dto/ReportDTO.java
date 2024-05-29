@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ReportDTO {
-    private CommentDTO commentDTO;
-    private ReviewDTO reviewDTO;
+    private String commentId;
+    private String reviewId;
     private String reason;
 }

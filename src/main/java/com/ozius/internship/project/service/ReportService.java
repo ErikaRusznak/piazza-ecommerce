@@ -46,7 +46,7 @@ public class ReportService {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         UserAccount account = accountRepository.findById(userId).orElseThrow();
         Report report = new Report(comment, reason);
-        report.addReportFromUserAccount(account);
+        account.addReportFromUserAccount(report);
         reportRepository.save(report);
         return modelMapper.map(report, ReportDTO.class);
     }
@@ -56,7 +56,7 @@ public class ReportService {
         Review review = reviewRepository.findById(reviewId).orElseThrow();
         UserAccount account = accountRepository.findById(userId).orElseThrow();
         Report report = new Report(review, reason);
-        report.addReportFromUserAccount(account);
+        account.addReportFromUserAccount(report);
         reportRepository.save(report);
         return modelMapper.map(report, ReportDTO.class);
     }
