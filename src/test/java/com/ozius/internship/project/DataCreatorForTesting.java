@@ -73,15 +73,15 @@ public class DataCreatorForTesting {
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Buyers.buyer3 = createBuyer(em, account3);
 
-        UserAccount account4 = new UserAccount(
-                "Erika",
-                "Rusznak",
-                "erika.rusznak@student.upt.ro",
-                "none",
-                "0747871208",
-                UserRole.CLIENT);
-        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Buyers.buyer4 = createBuyer(em, account4);
+//        UserAccount account4 = new UserAccount(
+//                "Erika",
+//                "Rusznak",
+//                "erika.rusznak@student.upt.ro",
+//                "none",
+//                "0747871208",
+//                UserRole.CLIENT);
+//        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Buyers.buyer4 = createBuyer(em, account4);
 
     }
 

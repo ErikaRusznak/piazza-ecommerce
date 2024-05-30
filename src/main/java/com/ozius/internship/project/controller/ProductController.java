@@ -1,5 +1,6 @@
 package com.ozius.internship.project.controller;
 
+import com.ozius.internship.project.aspect.RequireApprovedSeller;
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.ReviewDTO;
 import com.ozius.internship.project.entity.product.Product;
@@ -60,6 +61,7 @@ public class ProductController {
         return ResponseEntity.ok(reviews);
     }
 
+    @RequireApprovedSeller
     @PostMapping("/products")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {

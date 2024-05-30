@@ -1,7 +1,9 @@
 package com.ozius.internship.project.service;
 
+import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.user.RequestStatus;
 import com.ozius.internship.project.entity.user.SellerRequest;
+import com.ozius.internship.project.repository.SellerRepository;
 import com.ozius.internship.project.repository.SellerRequestRepository;
 import com.ozius.internship.project.service.email.EmailService;
 import jakarta.transaction.Transactional;
@@ -15,17 +17,12 @@ public class SellerRequestService {
 
     private final SellerRequestRepository sellerRequestRepository;
     private final EmailService emailService;
+    private final SellerRepository sellerRepository;
 
-    public SellerRequestService(SellerRequestRepository sellerRequestRepository, EmailService emailService) {
+    public SellerRequestService(SellerRequestRepository sellerRequestRepository, EmailService emailService, SellerRepository sellerRepository) {
         this.sellerRequestRepository = sellerRequestRepository;
         this.emailService = emailService;
-    }
-
-    @Transactional
-    public SellerRequest createSellerRequest(SellerRequest sellerRequest){
-        SellerRequest createdSellerRequest = new SellerRequest(sellerRequest.getReason(), sellerRequest.getSellerEmail());
-        sellerRequestRepository.save(createdSellerRequest);
-        return createdSellerRequest;
+        this.sellerRepository = sellerRepository;
     }
 
     @Transactional
@@ -46,6 +43,9 @@ public class SellerRequestService {
     @Transactional
     public SellerRequest rejectSellerRequest(long id) {
         SellerRequest sellerRequest = sellerRequestRepository.findById(id).orElseThrow();
+        String sellerEmail = sellerRequest.getSellerEmail();
+        Seller sellerByEmail = sellerRepository.findSellerByAccount_Email(sellerEmail).orElseThrow();
+        sellerRepository.delete(sellerByEmail);
         sellerRequest.setStatus(RequestStatus.REJECTED);
         sellerRequestRepository.save(sellerRequest);
         emailService.sendRejectionEmailToUser(sellerRequest);

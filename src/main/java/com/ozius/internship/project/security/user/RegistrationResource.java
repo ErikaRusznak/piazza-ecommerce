@@ -67,11 +67,8 @@ public class RegistrationResource {
 
     @PostMapping("/register-seller")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void registerSeller(@Valid @RequestBody RegisterSellerDTO sellerDTO) throws Exception {
-        SellerRequest sellerRequest = sellerRequestRepository.findBySellerEmailAndStatus(sellerDTO.getEmail(), RequestStatus.APPROVED);
-        if(sellerRequest == null) {
-            throw new Exception("Can't create an account, Admin has not approved the request");
-        }
+    public void registerSeller(@Valid @RequestBody RegisterSellerDTO sellerDTO){
+
         UserAccount userAccount = new UserAccount(
                 sellerDTO.getFirstName(),
                 sellerDTO.getLastName(),
@@ -95,6 +92,7 @@ public class RegistrationResource {
         SellerType sellerType = sellerDTO.getSellerType();
 
         Seller seller;
+        SellerRequest sellerRequest;
         if(sellerType != SellerType.LOCAL_FARMER) {
             LegalDetails legalDetails = new LegalDetails(
                     sellerDTO.getCompanyName(),
@@ -103,10 +101,13 @@ public class RegistrationResource {
                             sellerDTO.getSerialNumber(), sellerDTO.getDateOfRegistration())
             );
             seller = new Seller(sellerAlias, sellerType, userAccount, legalAddress, legalDetails);
+            sellerRequest = new SellerRequest(sellerDTO.getReason(), sellerDTO.getEmail(), sellerDTO.getCui(), sellerType);
         } else {
             seller = new Seller(sellerAlias, sellerType, userAccount, legalAddress);
+            sellerRequest = new SellerRequest(sellerDTO.getReason(), sellerDTO.getEmail(), sellerType);
         }
         sellerRepository.save(seller);
+        sellerRequestRepository.save(sellerRequest);
     }
 
 
