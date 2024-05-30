@@ -3,7 +3,6 @@ package com.ozius.internship.project.controller;
 import com.ozius.internship.project.entity.user.SellerRequest;
 import com.ozius.internship.project.service.SellerRequestService;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,6 @@ public class SellerRequestController {
 
     public SellerRequestController(SellerRequestService sellerRequestService) {
         this.sellerRequestService = sellerRequestService;
-    }
-
-    @PostMapping("/seller-request")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<SellerRequest> createSellerRequest(@RequestBody SellerRequest sellerRequest) {
-        SellerRequest createdSellerRequest = sellerRequestService.createSellerRequest(sellerRequest);
-        return ResponseEntity.ok(createdSellerRequest);
     }
 
     @GetMapping("/seller-request")

@@ -9,7 +9,7 @@ import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {SubmitHandler} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {BreadcrumbsComponent} from "ui";
+import {BreadcrumbsComponent, FormTextArea} from "ui";
 import {Box, Grid, Typography} from "@mui/material";
 import {StyledButton} from "ui";
 import {StyledLink} from "ui";
@@ -60,6 +60,7 @@ type RegisterFormInput = {
     dateOfRegistration?: string;
     companyName?: string;
     cui?: string;
+    reason: string;
 };
 
 const getCharacterValidationError = (str: string) => {
@@ -120,6 +121,7 @@ const RegisterSchema = yup.object().shape({
         is: (sellerType: any) => sellerType !== "LOCAL_FARMER",
         then: () => yup.string().required("Date of registration is required"),
     }),
+    reason: yup.string().required("You need to provide a reason!"),
 });
 
 const RegisterPage = () => {
@@ -151,6 +153,7 @@ const RegisterPage = () => {
         numericCodeByState: 0,
         serialNumber: 0,
         dateOfRegistration: "2017-05-24",
+        reason: "",
     };
 
     const {
@@ -211,12 +214,6 @@ const RegisterPage = () => {
             />
             <PrincipalFormLayout titleText="Create an account">
                 <>
-                    <Typography gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
-                        Before you register, please make sure you that you sent a request to the admin for being able create an account!
-                    </Typography>
-                    <Typography gutterBottom color={isDark ? theme.palette.info.contrastText : theme.palette.info.main}>
-                        If you did not send a request, try <StyledLink href="/send-request">here</StyledLink>!
-                    </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{display: "flex", gap: 2}}>
                             <Box>
@@ -270,6 +267,7 @@ const RegisterPage = () => {
                                 )}
                             </Box>
                         </Box>
+                        <FormTextArea name="reason" control={control} label={"Reason for registration"} type={"area"} />
                     </form>
                     <StyledButton
                         type="submit"

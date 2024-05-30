@@ -12,7 +12,7 @@ import {TableContainerComponent} from "ui";
 import {useTheme} from "@mui/material/styles";
 import ApproveRejectRequestModal from "@/components/organisms/modals/ApproveRejectRequestModal";
 
-const tableCellLabels = ["Email", "Reason", "Date", "Status", "Actions"];
+const tableCellLabels = ["Email", "Reason", "Date", "Seller Type", "CUI", "Status", "Actions"];
 
 const RequestsPage = () => {
 
@@ -20,7 +20,7 @@ const RequestsPage = () => {
 
         switch (key) {
             case 'Email':
-                return item.email;
+                return <Typography sx={{fontSize: "14px"}}>{item.email}</Typography>
             case 'Reason':
                 return (
                     <Tooltip title={item.reason} arrow>
@@ -31,9 +31,9 @@ const RequestsPage = () => {
                                 textOverflow: 'ellipsis',
                                 display: '-webkit-box',
                                 WebkitBoxOrient: 'vertical',
-                                WebkitLineClamp: 6,
+                                WebkitLineClamp: 5,
                                 lineHeight: '1.15',
-                                maxHeight: '6.9em',
+                                maxHeight: '5.75em',
                                 cursor: "pointer",
                                 whiteSpace: "normal"
                             }}
@@ -44,6 +44,10 @@ const RequestsPage = () => {
                 );
             case 'Date':
                 return moment(item.date).format("YYYY-MM-DD HH:mm");
+            case 'Seller Type':
+                return item.sellerType;
+            case 'CUI':
+                return item.cui;
             case 'Status':
                 return item.status;
             case 'Actions':
@@ -105,13 +109,16 @@ const RequestsPage = () => {
             )
         );
     };
+    console.log("requests", requests)
 
     const requestsToDisplay = requests?.map((request: any) => ({
         id: request.id,
         email: request.sellerEmail,
         reason: request.reason,
         date: request.date,
-        status: request.status
+        status: request.status,
+        cui: request.sellerCui,
+        sellerType: request.sellerType,
     }))
 
     return (

@@ -38,4 +38,5 @@ public class RegisterSellerDTO {
     private LocalDate dateOfRegistration;
     private int numericCodeByState;
     private int serialNumber;
+    private String reason;
 }
