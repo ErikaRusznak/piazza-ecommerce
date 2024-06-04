@@ -3,7 +3,10 @@ package com.ozius.internship.project.entity.cart;
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
 @Table(name = CartItem.TABLE_NAME)
 public class CartItem extends BaseEntity {
@@ -15,6 +18,7 @@ public class CartItem extends BaseEntity {
         String CART_ID = "CART_ID";
     }
 
+    @Setter
     @Column(name = Columns.QUANTITY, nullable = false)
     private float quantity;
 
@@ -29,18 +33,6 @@ public class CartItem extends BaseEntity {
     CartItem(float quantity, Product product) {
         this.quantity = quantity;
         this.product = product;
-    }
-
-    public float getQuantity() {
-        return quantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setQuantity(float quantity) {
-        this.quantity = quantity;
     }
 
     @Override

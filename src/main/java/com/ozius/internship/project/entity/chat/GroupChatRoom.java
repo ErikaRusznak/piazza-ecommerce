@@ -18,7 +18,6 @@ public class GroupChatRoom extends BaseEntity {
         String SELLER_ID = "SELLER_ID";
         String BUYER_ID = "BUYER_ID";
         String ORDER_ID = "ORDER_ID";
-        String SENDER_ID = "SENDER_ID";
     }
 
     @Getter

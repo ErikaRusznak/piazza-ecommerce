@@ -3,7 +3,9 @@ package com.ozius.internship.project.entity.order;
 import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = OrderItem.TABLE_NAME)
 public class OrderItem extends BaseEntity {
@@ -44,26 +46,6 @@ public class OrderItem extends BaseEntity {
         this.productName = product.getName();
         this.itemPrice = product.getPrice();
         this.description = product.getDescription();
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public float getQuantity() {
-        return quantity;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public float getItemPrice() {
-        return itemPrice;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
 

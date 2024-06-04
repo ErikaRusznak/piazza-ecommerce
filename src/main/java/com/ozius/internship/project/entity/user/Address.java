@@ -1,9 +1,11 @@
 package com.ozius.internship.project.entity.user;
 
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 @Embeddable
 public class Address {
 
@@ -24,30 +26,6 @@ public class Address {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.zipCode = zipCode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getAddressLine1() {
-        return addressLine1;
-    }
-
-    public String getAddressLine2() {
-        return addressLine2;
-    }
-
-    public String getZipCode() {
-        return zipCode;
     }
 
     @Override

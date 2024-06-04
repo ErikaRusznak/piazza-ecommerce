@@ -125,12 +125,12 @@ public class Order extends BaseEntity {
     private String buyerFirstName;
 
     @Getter
-    @Column(name = Columns.ORDER_NUMBER, nullable = false)
-    private String orderNumber;
-
-    @Getter
     @Column(name = Columns.BUYER_LAST_NAME, nullable = false)
     private String buyerLastName;
+
+    @Getter
+    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    private String orderNumber;
 
     @Getter
     @Column(name = Columns.ORDER_DATE, nullable = false)

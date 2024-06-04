@@ -11,19 +11,11 @@ public class ChatNotification {
     public static final String TABLE_NAME = "chat_notification";
 
     interface Columns{
-//        String CHAT_ROOM_CODE = "CHAT_ROOM_CODE";
         String ID = "ID";
         String CONTENT = "CONTENT";
         String SENDER_ID = "SENDER_ID";
         String RECIPIENT_ID = "RECIPIENT_ID";
     }
-
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @Setter
-////    @JoinColumn(name = Columns.CHAT_ROOM_CODE, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.CHAT_ROOM_CODE + ") REFERENCES " + ChatRoom.TABLE_NAME + " (" + ChatRoom.Columns.CHAT_ROOM_CODE + ") ON DELETE SET NULL"))
-//    @JoinColumn(name = Columns.CHAT_ROOM_CODE, nullable = false)
-//    private ChatRoom chatRoom;
 
     @Id
     @Column(name = Columns.ID)

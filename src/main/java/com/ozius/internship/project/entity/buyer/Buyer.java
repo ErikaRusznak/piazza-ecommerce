@@ -7,6 +7,7 @@ import com.ozius.internship.project.entity.user.UserAccount;
 import com.ozius.internship.project.entity.exception.IllegalAddressException;
 import com.ozius.internship.project.entity.exception.IllegalItemException;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class Buyer extends BaseEntity {
 
     }
 
+    @Getter
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = Columns.ACCOUNT_ID, nullable = false)
     private UserAccount account;
@@ -49,10 +51,6 @@ public class Buyer extends BaseEntity {
         this.account = account;
         this.favoriteProducts = new HashSet<>();
         this.addresses = new HashSet<>();
-    }
-
-    public UserAccount getAccount() {
-        return account;
     }
 
     public Set<Product> getFavoriteProducts() {

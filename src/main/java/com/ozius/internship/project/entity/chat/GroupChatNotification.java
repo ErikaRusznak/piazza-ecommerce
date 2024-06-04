@@ -36,7 +36,7 @@ public class GroupChatNotification {
     @Column(name = Columns.SELLER_ID, nullable = false)
     private long sellerId;
 
-    @Column(name = ChatMessage.Columns.SENDER_ROLE)
+    @Column(name = Columns.SENDER_ROLE)
     @Enumerated(EnumType.STRING)
     private UserRole senderRole;
 

@@ -24,10 +24,8 @@ public class ChatMessage extends BaseEntity {
         String SENDER_ROLE = "SENDER_ROLE";
     }
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @Setter
-//    @JoinColumn(name = Columns.CHAT_ROOM_CODE, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.CHAT_ROOM_CODE + ") REFERENCES " + ChatRoom.TABLE_NAME + " (" + ChatRoom.Columns.CHAT_ROOM_CODE + ") ON DELETE CASCADE"))
     @JoinColumn(name = Columns.CHAT_ROOM_CODE)
     private ChatRoom chatRoom;
 
@@ -83,6 +81,7 @@ public class ChatMessage extends BaseEntity {
     public long getRecipientId() {
         return this.chatRoom != null ? this.chatRoom.getRecipient().getId() : -1;
     }
+
     public long getBuyerId() {
         return this.groupChatRoom != null ? this.groupChatRoom.getBuyerId() : -1;
     }
