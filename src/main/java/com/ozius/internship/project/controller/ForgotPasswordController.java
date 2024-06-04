@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/forgot-password")
 public class ForgotPasswordController {
 
     private final UserAccountRepository userAccountRepository;
@@ -33,17 +35,17 @@ public class ForgotPasswordController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/forgot-password-client")
+    @PostMapping("/client")
     public ResponseEntity<?> forgotPasswordClient(@RequestParam String email) {
         return forgotPassword(email, resetPasswordLinkClient, UserRole.CLIENT);
     }
 
-    @PostMapping("/forgot-password-seller")
+    @PostMapping("/seller")
     public ResponseEntity<?> forgotPasswordSeller(@RequestParam String email) {
         return forgotPassword(email, resetPasswordLinkSeller, UserRole.SELLER);
     }
 
-    @PostMapping("/forgot-password-courier")
+    @PostMapping("/courier")
     public ResponseEntity<?> forgotPasswordCourier(@RequestParam String email) {
         return forgotPassword(email, resetPasswordLinkCourier, UserRole.COURIER);
     }

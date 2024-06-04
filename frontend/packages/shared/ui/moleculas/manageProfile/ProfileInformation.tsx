@@ -43,7 +43,7 @@ const profileInformationSchema = object().shape({
                 return true;
             }
             return new Promise((resolve) => {
-                api.get(`/users/${value}`)
+                api.get(`/api/users/${value}`)
                     .then(() => resolve(false))
                     .catch(() => resolve(true))
             });

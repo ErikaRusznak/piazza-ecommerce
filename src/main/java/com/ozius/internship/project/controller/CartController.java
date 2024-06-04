@@ -13,6 +13,7 @@ import java.security.Principal;
 import java.util.Comparator;
 
 @RestController
+@RequestMapping("/api/cart")
 public class CartController {
 
     private final CartService cartService;
@@ -23,7 +24,7 @@ public class CartController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/my-cart")
+    @GetMapping
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<Object> retrieveCartByUserEmail(Principal principal) {
         String loggedUserName = principal.getName();
@@ -38,7 +39,7 @@ public class CartController {
         return ResponseEntity.ok(cartDTO);
     }
 
-    @PutMapping("/my-cart")
+    @PutMapping
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<String> updateCartItemByProductId(Principal principal,
                                                             @RequestParam(value = "productId") long productId,
@@ -50,7 +51,7 @@ public class CartController {
         return ResponseEntity.ok("updated cart item");
     }
 
-    @DeleteMapping("/my-cart")
+    @DeleteMapping
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<String> deleteCartItemByProductId(@RequestParam(value = "productId") long productId, Principal principal) {
         String loggedUserName = principal.getName();

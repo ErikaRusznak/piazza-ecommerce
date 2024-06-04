@@ -1,5 +1,5 @@
 import {api} from "components";
 
 export const getSellerByIdApi = (id: number) => {
-    return api.get(`/seller/${id}`);
+    return api.get(`/api/sellers/${id}`);
 }

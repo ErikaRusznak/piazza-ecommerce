@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ModelMapper modelMapper;
@@ -30,7 +31,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/products")
+    @GetMapping
     public ApiPaginationResponse<List<ProductDTO>> getProductsByFilter(
             @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
             @RequestParam(name = "page", defaultValue = "1") int page,
@@ -49,38 +50,38 @@ public class ProductController {
         return new ApiPaginationResponse<>(page, itemsPerPage, numOfTotalProds, productDTO);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductWithReviews(@PathVariable long id) {
         ProductDTO productWithRatingsDTO = productService.getProductWithReviews(id);
         return ResponseEntity.ok(productWithRatingsDTO);
     }
 
-    @GetMapping("/products/{id}/reviews")
+    @GetMapping("/{id}/reviews")
     public ResponseEntity<List<ReviewDTO>> getReviewsForProduct(@PathVariable long id) {
         List<ReviewDTO> reviews = productService.getReviewsForProduct(id);
         return ResponseEntity.ok(reviews);
     }
 
     @RequireApprovedSeller
-    @PostMapping("/products")
+    @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.createProduct(product);
         return ResponseEntity.ok(createdProduct);
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProductById(@PathVariable long id) {
         productService.deleteProduct(id);
     }
 
-    @PutMapping("/products")
+    @PutMapping
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
         Product updatedProduct = productService.updateProduct(product);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> addProductsInStore(@PathVariable long id, @RequestBody float quantity) {
         Product updatedProduct = productService.addProductsInStore(id, quantity);
         ProductDTO productDTO = modelMapper.map(updatedProduct, ProductDTO.class);

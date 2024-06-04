@@ -1,8 +1,5 @@
 package com.ozius.internship.project.controller;
 
-import lombok.Getter;
-
-@Getter
 public class ApiPaginationResponse<T> {
 
     private final int page;
@@ -16,6 +13,22 @@ public class ApiPaginationResponse<T> {
         this.itemsPerPage = itemsPerPage;
         this.data = data;
         this.numberOfElements = numberOfElements;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public int getItemsPerPage() {
+        return itemsPerPage;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public int getNumberOfElements() {
+        return numberOfElements;
     }
 
 }

@@ -1,22 +1,22 @@
 import { api } from 'components'
 
 export const createProductApi = (product:any) => {
-    return api.post("/products",
+    return api.post("/api/products",
         product
     );
 }
 
 export const deleteProductByIdApi = (productId:number) => {
-    return api.delete(`/products/${productId}`)
+    return api.delete(`/api/products/${productId}`)
 }
 
 export const updateProductApi = (product:any) => {
-    return api.put("/products",
+    return api.put("/api/products",
         product
     );
 }
 
 export const addProductsInStoreApi = (productId: number, quantity: number) => {
-    return api.put(`/products/${productId}`, quantity, { headers: { 'Content-Type': 'application/json' } });
+    return api.put(`/api/products/${productId}`, quantity, { headers: { 'Content-Type': 'application/json' } });
 }
 

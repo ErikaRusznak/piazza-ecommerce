@@ -1,7 +1,6 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.SellerDTO;
-import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.service.SellerService;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/sellers")
 public class SellerController {
 
     private final SellerService sellerService;
@@ -18,7 +18,7 @@ public class SellerController {
         this.sellerService = service;
     }
 
-    @GetMapping("/seller/{id}")
+    @GetMapping("/{id}")
     private ResponseEntity<SellerDTO> getSellerById(@PathVariable long id) {
         SellerDTO sellerDTO = sellerService.getSellerById(id);
         return ResponseEntity.ok(sellerDTO);
@@ -30,22 +30,13 @@ public class SellerController {
         return ResponseEntity.ok(sellerDTO);
     }
 
-    @GetMapping("/sellers")
+    @GetMapping
     private ResponseEntity<List<SellerDTO>> getSellers() {
         List<SellerDTO> sellers = sellerService.getAllSellers();
         return ResponseEntity.ok(sellers);
     }
 
-    @PutMapping("/seller/legal-details/{id}")
-    public ResponseEntity<Void> updateSellerLegalDetails(
-            @PathVariable long id,
-            @RequestBody LegalDetails legalDetails
-    ) {
-        sellerService.updateSellerLegalDetails(id, legalDetails);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/seller/legal-address/{id}")
+    @PutMapping("/legal-address/{id}")
     public ResponseEntity<Void> updateSellerLegalAddress(@PathVariable long id, @RequestBody Address legalAddress) {
         sellerService.updateSellerAddress(id, legalAddress);
         return ResponseEntity.ok().build();

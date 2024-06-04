@@ -4,12 +4,14 @@ import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.repository.SellerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 public class LocationController {
 
     private final SellerRepository sellerRepository;

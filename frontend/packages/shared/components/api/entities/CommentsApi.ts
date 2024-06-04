@@ -1,7 +1,7 @@
 import {api} from "../ApiClient";
 
 export const addCommentApi = (reviewId: number, userId: number, content: string) => {
-    return api.post(`/comments/${reviewId}/${userId}`, content, {
+    return api.post(`/api/reviews/comments/${reviewId}/${userId}`, content, {
         headers: {
             'Content-Type': 'text/plain'
         }
@@ -9,5 +9,5 @@ export const addCommentApi = (reviewId: number, userId: number, content: string)
 }
 
 export const getCommentsForReviewApi = (reviewId: number) => {
-    return api.get(`/reviews/${reviewId}/comments`)
+    return api.get(`/api/reviews/${reviewId}/comments`)
 }

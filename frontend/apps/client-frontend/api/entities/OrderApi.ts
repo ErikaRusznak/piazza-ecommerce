@@ -8,7 +8,7 @@ export const submitOrder = (
         productId: any }[] | undefined,
     email: string,
     paymentType: string) => {
-    return api.post('/orders', {
+    return api.post('/api/orders', {
         shippingAddress: shippingAddress,
         products: products,
         email: email,
@@ -17,15 +17,15 @@ export const submitOrder = (
 }
 
 export const getFullOrderByIdApi = (fullOrderId: number) => {
-    return api.get(`/fullOrder/${fullOrderId}`)
+    return api.get(`/api/orders/fullOrder/${fullOrderId}`)
 }
 
 export const getFullOrdersForBuyer = () => {
-    return api.get(`fullOrder`)
+    return api.get(`/api/orders/fullOrder`)
 }
 
 export const paymentByCardApi = (token: any, cartTotalPrice: number, shippingPrice: number) => {
-    return api.post(`${baseURL}/payment/charge`, "", {
+    return api.post(`${baseURL}/api/payment/charge`, "", {
         headers: {
             token: token.id,
             amount: cartTotalPrice + shippingPrice,

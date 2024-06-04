@@ -1,11 +1,11 @@
 import {api} from "components";
 
 export const getCartItems = () => {
-    return api.get(`/my-cart`)
+    return api.get(`/api/cart`)
 }
 
 export const removeCartItem = (productId: number) => {
-    return api.delete('/my-cart',{
+    return api.delete('/api/cart',{
         params:{
             productId
         }
@@ -13,7 +13,7 @@ export const removeCartItem = (productId: number) => {
 }
 
 export const addOrUpdateCartItem = (productId:number, quantity:number) => {
-    return api.put('/my-cart',{}, {
+    return api.put('/api/cart',{}, {
         params:{
             productId,
             quantity

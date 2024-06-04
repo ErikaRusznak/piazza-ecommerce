@@ -1,17 +1,17 @@
 import { api } from 'components';
 
 export const createCategoryApi = (category: any) => {
-    return api.post("/categories", category);
+    return api.post("/api/categories", category);
 }
 
 export const deleteCategoryByIdApi = (categoryId: number) => {
-    return api.delete(`/categories/${categoryId}`);
+    return api.delete(`/api/categories/${categoryId}`);
 }
 
 export const updateCategoryApi = (category: any) => {
-    return api.put("/categories", category);
+    return api.put("/api/categories", category);
 }
 
 export const getCategoryByIdApi = (categoryId: number) => {
-    return api.get(`/categories/${categoryId}`);
+    return api.get(`/api/categories/${categoryId}`);
 }

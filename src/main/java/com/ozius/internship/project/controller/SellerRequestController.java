@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/seller-requests")
 public class SellerRequestController {
 
     private final SellerRequestService sellerRequestService;
@@ -16,21 +17,21 @@ public class SellerRequestController {
         this.sellerRequestService = sellerRequestService;
     }
 
-    @GetMapping("/seller-request")
+    @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<SellerRequest>> getAllSellerRequests(@RequestParam int page, @RequestParam int itemsPerPage) {
         Page<SellerRequest> sellerRequests = sellerRequestService.getSellerRequests(page-1, itemsPerPage);
         return ResponseEntity.ok(sellerRequests);
     }
 
-    @PutMapping("/seller-request/{id}/approve")
+    @PutMapping("/{id}/approve")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SellerRequest> approveSellerRequest(@PathVariable long id) {
         SellerRequest approvedSellerRequest = sellerRequestService.approveSellerRequest(id);
         return ResponseEntity.ok(approvedSellerRequest);
     }
 
-    @PutMapping("/seller-request/{id}/reject")
+    @PutMapping("/{id}/reject")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SellerRequest> rejectSellerRequest(@PathVariable long id) {
         SellerRequest approvedSellerRequest = sellerRequestService.rejectSellerRequest(id);

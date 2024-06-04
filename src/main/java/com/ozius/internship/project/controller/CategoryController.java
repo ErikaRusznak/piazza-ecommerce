@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
@@ -21,14 +22,14 @@ public class CategoryController {
         this.categoryRepository = categoryRepository;
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     public ApiResponse<List<Category>> getCategories() {
         int numberOfCategories = categoryService.getCategories().size();
         List<Category> categories = categoryService.getCategories();
         return new ApiResponse<>(numberOfCategories, categories);
     }
 
-    @GetMapping("/categories/categoryNames")
+    @GetMapping("/categoryNames")
     public ResponseEntity<List<String>> getAllCategoryNames() {
         List<Category> categoryList = categoryRepository.findAll();
         List<String> categoryNames = categoryList.stream()
@@ -38,27 +39,27 @@ public class CategoryController {
         return ResponseEntity.ok(categoryNames);
     }
 
-    @PostMapping("/categories")
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> createCategory(@RequestBody Category category) {
         Category createdCategory = categoryService.createCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
     }
 
-    @PutMapping("/categories")
+    @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
         Category updatedCategory = categoryService.updateCategory(category);
         return ResponseEntity.ok(updatedCategory);
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteCategoryById(@PathVariable long id) {
         categoryService.deleteCategory(id);
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable long id) {
         Category category = categoryService.getCategoryById(id);
         return ResponseEntity.ok(category);
