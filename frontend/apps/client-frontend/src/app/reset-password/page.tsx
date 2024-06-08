@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {resetPasswordApi} from "../../../api/entities/UserAccount";
 import MainLayout from "@/components/templates/MainLayout";
@@ -11,7 +11,6 @@ import {PrincipalFormLayout} from "ui";
 import {FormTextField} from "ui";
 import {StyledButton} from "ui";
 import {useTheme} from "@mui/material/styles";
-import {useAlert} from "components";
 
 type ResetPasswordPageProps = {
     searchParams: {
@@ -45,8 +44,11 @@ const ResetPasswordSchema = yup.object().shape({
 const ResetPasswordPage = ({searchParams}:ResetPasswordPageProps) => {
     const router = useRouter();
     const theme = useTheme();
+
+    const [error, setError] = useState<string|null>("");
+    const [success, setSuccess] = useState(false);
+
     const token  = decodeURIComponent(searchParams.token);
-    const {pushAlert} = useAlert();
 
     const defaultValues = {
         password: "",
@@ -67,20 +69,11 @@ const ResetPasswordPage = ({searchParams}:ResetPasswordPageProps) => {
         e?.preventDefault();
         resetPasswordApi(token, data.newPassword)
             .then((res) => {
-                pushAlert({
-                    type: "success",
-                    title: "Password reset",
-                    paragraph: "Password was updated successfully!"
-                });
+                setSuccess(true);
                 router.push("/login")
             })
             .catch((err) => {
-                console.error(err);
-                pushAlert({
-                    type: "error",
-                    title: "Password reset",
-                    paragraph: "Could not update password."
-                });
+                setError("Failed to reset password.")
             })
     };
 

@@ -25,7 +25,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
     const [quantity, setQuantity] = useState(1);
     const {updateCartItemQuantity} = useCart()
     const {isAuthenticated} = useAuth();
-    const {pushAlert} = useAlert();
+    // const {pushAlert, clearAlert} = useAlert()
     const router = useRouter();
     const theme = useTheme();
     const updateQuantity = (input: number) => {
@@ -53,11 +53,15 @@ const ProductInformation = ({description, price, category, producer, city, produ
         if (isAuthenticated) {
             addItemToCart(productId, quantity);
             updateAvailability();
-            pushAlert({
-                type: "success",
-                title: "Cart updated",
-                paragraph: "This product has been added to your cart."
-            });
+            // pushAlert({
+            //     type: "info",
+            //     title: "Product Added To Cart",
+            //     paragraph: "You will be redirected..."
+            // })
+            // setTimeout(() => {
+            //     router.push("/account/cart");
+            //     clearAlert();
+            // }, 2000)
         } else {
             router.push("/login");
         }

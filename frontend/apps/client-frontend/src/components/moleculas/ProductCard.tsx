@@ -3,7 +3,7 @@ import {useTheme} from "@mui/material/styles";
 import {Box, Card, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import {AddIcon, FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
-import {baseURL, useAlert} from "components";
+import {baseURL} from "components";
 import {StyledButton} from "ui";
 import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
@@ -21,7 +21,7 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
     const {isDark} = useThemeToggle();
     const router = useRouter();
     const {isAuthenticated} = useAuth();
-    const {pushAlert} = useAlert();
+
     const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
 
     const [isFavorite, setIsFavorite] = useState(false);
@@ -34,18 +34,8 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
     const toggleFavorite = () => {
         if (!isFavorite) {
             addToFavorite(product.id);
-            pushAlert({
-                type: "info",
-                title: "Product Added To Wishlist",
-                paragraph: "This product has been added to your wishlist."
-            });
         } else {
             removeFromFavorite(product.id);
-            pushAlert({
-                type: "info",
-                title: "Product Removed From Wishlist",
-                paragraph: "This product has been removed from your wishlist."
-            });
         }
     };
 

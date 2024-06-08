@@ -41,8 +41,8 @@ const ManageProfilePage = () => {
 
     return user && (
         <MainLayout>
+            <BreadcrumbsComponent links={breadcrumbsLinks}/>
             <Container maxWidth="lg" sx={{mt: 2}}>
-                <BreadcrumbsComponent links={breadcrumbsLinks}/>
                 <Grid container spacing={2}>
 
                     <Grid item xs={12} md={4}>

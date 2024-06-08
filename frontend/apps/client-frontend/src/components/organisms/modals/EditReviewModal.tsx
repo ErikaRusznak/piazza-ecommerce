@@ -3,12 +3,11 @@ import React from 'react';
 import { updateReviewApi } from '../../../../api/entities/ReviewApi';
 import { number, object, string } from 'yup';
 import {BaseModal, useThemeToggle} from "ui";
-import { Box, Typography } from '@mui/material';
+import { Box, Rating, Typography, useMediaQuery } from '@mui/material';
 import {FormTextArea, StyledButton} from "ui";
-import { Resolver, useForm } from 'react-hook-form';
+import { Controller, Resolver, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {useTheme} from "@mui/material/styles";
-import {useAlert} from "components";
 
 type EditReviewModalProps = {
     isModalOpen: boolean;
@@ -35,30 +34,18 @@ type EditReviewModalInput = {
 };
 
 const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, description, review, updateReview}: EditReviewModalProps) => {
-
+// TODO - rating update gives an error
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-    const {pushAlert} = useAlert();
     const onSubmit = (values: any) => {
         updateReviewApi(review.id, values.description, values.rating)
             .then((res) => {
                 updateReview(res.data)
                 setIsModalOpen(false);
-                pushAlert({
-                    type: "success",
-                    title: "Review updated",
-                    paragraph: "Your review was updated successfully!"
-                });
             })
-            .catch((err) => {
-                console.error(err);
-                pushAlert({
-                    type: "error",
-                    title: "Review update",
-                    paragraph: "Could not update the review."
-                });
-            })
-    };
+            .catch((err) => console.log(err))
+    }
+    const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
 
     const {
         register,
@@ -96,6 +83,24 @@ const EditReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, description,
                             </Typography>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <FormTextArea name="description" control={control} label="Description" type="text" />
+                                <Controller
+                                    name="rating"
+                                    control={control}
+                                    defaultValue={0}
+                                    render={({ field }) => (
+                                        <Box sx={{ display: 'flex', flexDirection: smallScreenSize ? 'column' : 'row' }}>
+                                            <Typography sx={{ color:  isDark ? theme.palette.info.contrastText : theme.palette.info.main }}>Change the rating: </Typography>
+                                            <Rating
+                                                name="rating"
+                                                value={field.value || 0}
+                                                precision={0.5}
+                                                onChange={(_, value) => {
+                                                    field.onChange(value);
+                                                }}
+                                            />
+                                        </Box>
+                                    )}
+                                />
                                 <StyledButton
                                     type="submit"
                                     fullWidth

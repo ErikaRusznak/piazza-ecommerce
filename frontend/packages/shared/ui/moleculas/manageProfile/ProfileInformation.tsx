@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import {Box} from "@mui/material";
 import {object} from "yup";
 import * as yup from "yup";
-import {api, useAlert} from "components";
+import {api} from "components";
 import {Resolver, SubmitHandler} from "react-hook-form";
 import { useForm } from 'react-hook-form';
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -60,7 +60,7 @@ const profileInformationSchema = object().shape({
 const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
 
     const theme = useTheme();
-    const {pushAlert} = useAlert();
+    // TODO - add alert when profile is updated successfully
 
     const {
         handleSubmit,
@@ -80,19 +80,9 @@ const ProfileInformation = ({user, setUser}:ProfileInformationProps) => {
         updateUserAccountApi(user.id, values.firstName, values.lastName, values.email, user.imageName, values.telephone)
             .then((res) => {
                 setUser(res.data);
-                pushAlert({
-                    type: "success",
-                    title: "Profile information",
-                    paragraph: "Profile information was updated successfully!"
-                });
             })
             .catch((err) => {
                 console.error(err);
-                pushAlert({
-                    type: "error",
-                    title: "Profile information",
-                    paragraph: "Could not update profile information."
-                });
             })
     };
 

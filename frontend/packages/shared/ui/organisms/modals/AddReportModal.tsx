@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { BaseModal, useThemeToggle } from "ui";
 import { Box, Button, Divider, FormControl, FormControlLabel, Radio, RadioGroup, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
-import {reportCommentApi, reportReviewApi, useAlert} from "components";
+import {reportCommentApi, reportReviewApi} from "components";
 
 type AddReportModalProps = {
     isModalOpen: boolean;
@@ -16,7 +16,7 @@ const AddReportModal = ({ isModalOpen, toggleModal, idCommentOrReviewToReport, u
     const theme = useTheme();
     const { isDark } = useThemeToggle();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
-    const {pushAlert} = useAlert();
+
     const [selectedReason, setSelectedReason] = useState('');
     const [isTopShadowVisible, setIsTopShadowVisible] = useState(false);
     const [isBottomShadowVisible, setIsBottomShadowVisible] = useState(true);
@@ -32,37 +32,23 @@ const AddReportModal = ({ isModalOpen, toggleModal, idCommentOrReviewToReport, u
             if(reportFor === "review") {
                 reportReviewApi(idCommentOrReviewToReport, userId, selectedReason)
                     .then(response => {
-                        pushAlert({
-                            type: "success",
-                            title: "Report submitted",
-                            paragraph: "Your report was submitted successfully!"
-                        });
+                        console.log("Report submitted successfully", response);
+                        toggleModal();
                     })
                     .catch(error => {
-                        pushAlert({
-                            type: "error",
-                            title: "Report submitted",
-                            paragraph: error.response.data.message
-                        });
+                        console.error("Error reporting review", error);
                     });
             } else if(reportFor === "comment") {
                 reportCommentApi(idCommentOrReviewToReport, userId, selectedReason)
                     .then(response => {
-                        pushAlert({
-                            type: "success",
-                            title: "Report submitted",
-                            paragraph: "Your report was submitted successfully!"
-                        });
+                        console.log("Report submitted successfully", response);
+                        toggleModal();
                     })
                     .catch(error => {
-                        pushAlert({
-                            type: "error",
-                            title: "Report submitted",
-                            paragraph: error.response.data.message
-                        });
+                        console.error("Error reporting review", error);
                     });
             }
-            toggleModal();
+
         } else {
             console.error("No reason selected");
         }

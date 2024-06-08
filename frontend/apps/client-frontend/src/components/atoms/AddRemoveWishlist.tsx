@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
-import { Box } from "@mui/material";
-import { useFavorite } from "../../../contexts/FavoriteContext";
-import { useAlert } from "components";
-import { FavoriteBorderIcon, FavoriteIcon } from "@/components/atoms/icons";
-import { StyledButton } from "ui";
+import { useAuth } from "components";
+import {useFavorite} from "../../../contexts/FavoriteContext";
+import {useAlert} from "components";
+import {Box, Button} from "@mui/material";
+import {FavoriteBorderIcon, FavoriteIcon} from "@/components/atoms/icons";
+import {StyledButton} from "ui";
 
 type AddRemoveWishListProps = {
     productId: number;
-};
+}
+const AddRemoveWishlist = ({productId}: AddRemoveWishListProps) => {
 
-const AddRemoveWishlist = ({ productId }: AddRemoveWishListProps) => {
-    const { allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite } = useFavorite();
+    const {allFavorites, addToFavorite, removeFromFavorite, checkIsFavorite} = useFavorite();
     const [isFavorite, setIsFavorite] = useState(false);
-    const { pushAlert } = useAlert();
+    // const {pushAlert, clearAlert} = useAlert()
 
     useEffect(() => {
         setIsFavorite(checkIsFavorite(allFavorites, productId));
@@ -21,30 +22,41 @@ const AddRemoveWishlist = ({ productId }: AddRemoveWishListProps) => {
     const toggleFavorite = () => {
         if (!isFavorite) {
             addToFavorite(productId);
-            pushAlert({
-                type: "info",
-                title: "Product Added To Wishlist",
-                paragraph: "This product has been added to your wishlist."
-            });
+            // pushAlert({
+            //     type: "info",
+            //     title: "Product Added To Wishlist"
+            // })
+            // setTimeout(() => {
+            //     clearAlert();
+            // }, 2000)
         } else {
             removeFromFavorite(productId);
-            pushAlert({
-                type: "info",
-                title: "Product Removed From Wishlist",
-                paragraph: "This product has been removed from your wishlist."
-            });
+            // pushAlert({
+            //     type: "info",
+            //     title: "Product Removed From Wishlist"
+            // })
+            // setTimeout(() => {
+            //     clearAlert();
+            // }, 2000)
         }
     };
-
     return (
         <StyledButton
             variant="contained"
             onClick={toggleFavorite}>
-            <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+            <Box sx={{display: "flex", flexDirection: "row", gap: 1}}>
                 <Box>
-                    {isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+                    {isFavorite ? (
+                        "Remove from wishlist"
+                    ) : (
+                        "Add to wishlist"
+                    )}
                 </Box>
-                {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                {isFavorite ? (
+                    <FavoriteIcon/>
+                ) : (
+                    <FavoriteBorderIcon/>
+                )}
             </Box>
         </StyledButton>
     );

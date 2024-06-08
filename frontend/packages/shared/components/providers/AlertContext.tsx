@@ -1,46 +1,53 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {createContext, useContext, useState} from "react";
+import { Alert } from "@mui/material";
 
 interface AlertContextType {
-    pushAlert: (newAlert: AlertType) => void;
-    alert: AlertType | null;
+    pushAlert: (newAlert: any) => void;
+    clearAlert: () => void;
 }
-
-const AlertContext = createContext<AlertContextType | undefined>(undefined);
-
+const AlertContext = createContext<AlertContextType | undefined>(undefined)
 export const useAlert = (): AlertContextType => {
     const context = useContext(AlertContext);
-    if (!context) {
+    if(!context) {
         throw new Error("useAlert must be used within an AlertProvider");
     }
     return context;
 }
 
 type AlertType = {
-    type: "success" | "info" | "warning" | "error"; // can be success, info (blue), warning(orange), error
+    type: any; // can be success, info (blue), warning(orange), error
     title: string;
     paragraph: string;
 }
 
-const AlertProvider = ({ children }: { children: ReactNode }) => {
-    const [alert, setAlert] = useState<AlertType | null>(null);
-    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+const AlertProvider = ({children} : {children : React.ReactNode}) => {
 
-    const pushAlert = (newAlert: AlertType) => {
-        if (timeoutId) {
+    const [alert, setAlert] = useState<AlertType |null>(null);
+    const [timeoutId, setTimeoutId] = useState(0);
+
+    const pushAlert = (newAlert:any) => {
+        if(!!timeoutId){
             clearTimeout(timeoutId);
         }
-        setAlert(newAlert);
-        const id = setTimeout(() => {
-            setAlert(null);
-            setTimeoutId(null);
-        }, 2000);
-        setTimeoutId(id);
+        setAlert(newAlert)
+        if(newAlert.type==='success'){
+            // @ts-ignore
+            // TODO - fix
+            setTimeoutId(setTimeout(()=>setAlert(null), 2000));
+        }
     }
 
-    return (
-        <AlertContext.Provider value={{ pushAlert, alert }}>
+    const clearAlert = () => {
+        setAlert(null)
+    }
+// TODO - add title and paragraph too
+    return(
+
+        <AlertContext.Provider value={{pushAlert, clearAlert}}>
+            {!!alert &&
+                <Alert severity={alert.type}>{alert.title}</Alert>}
             {children}
         </AlertContext.Provider>
     );
