@@ -187,7 +187,7 @@ const CheckoutPage = () => {
             .catch((err) => {
                 console.log(err);
             })
-    }
+    };
 
     const handlePaymentTypeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setPaymentType(event.target.value);
