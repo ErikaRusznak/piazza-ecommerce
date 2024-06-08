@@ -72,5 +72,4 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
         </Collapse>
     );
 };
-
 export default GroupChatMessageUser;
