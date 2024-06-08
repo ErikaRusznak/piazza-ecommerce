@@ -9,6 +9,7 @@ import Link from "next/link";
 import {baseURL} from "components";
 import {Delete} from "@/components/atoms/icons";
 import {useTheme} from "@mui/material/styles";
+import {useThemeToggle} from "ui";
 
 const StyledFavoriteIcon = styled(FavoriteBorderIcon)(({theme}) => ({
     fontSize: 24,
@@ -18,7 +19,7 @@ const StyledFavoriteIcon = styled(FavoriteBorderIcon)(({theme}) => ({
 const FavoriteStyledIcon = () => {
 
     const theme = useTheme();
-
+    const {isDark} = useThemeToggle();
     const {allFavorites, numberOfFavorites, removeFromFavorite} = useFavorite();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -62,7 +63,7 @@ const FavoriteStyledIcon = () => {
                     <ClickAwayListener onClickAway={handleClose}>
                         <Box sx={{
                             p: 2, width: "200px",
-                            backgroundColor: theme.palette.background.lighter,
+                            backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                             borderRadius: "14px",
                         }}>
                             {allFavorites.map((item) => (

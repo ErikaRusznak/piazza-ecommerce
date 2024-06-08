@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import {useCart} from "../../../contexts/CartContext";
-import { useAuth } from "components";
+import {useAlert, useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {addShippingAddress, getBuyerAddresses, updateShippingAddress} from "../../../api/entities/BuyerApi";
 import {paymentByCardApi, submitOrder} from "../../../api/entities/OrderApi";
@@ -34,14 +34,13 @@ export type ShippingAddressType = {
     telephone: string;
 }
 const CheckoutPage = () => {
-    const {allCartItems, numberOfCartItems, cartTotalPrice, refreshCart} = useCart()
-    // const {pushAlert, clearAlert} = useAlert()
+    const {allCartItems, numberOfCartItems, cartTotalPrice, refreshCart} = useCart();
 
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [selectedShippingAddress, setSelectedShippingAddress] = useState<ShippingAddressType | null>(null);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
     const [paymentType, setPaymentType] = useState<string>('CASH');
-
+    const {pushAlert} = useAlert();
     const shippingPrice = 10;
 
     const {username} = useAuth()
@@ -83,9 +82,6 @@ const CheckoutPage = () => {
         const selectedId = parseInt(event.target.value, 10); // Convert the value to a number
         const selectedAddress = shippingAddresses.find((address) => address.id === selectedId);
         setSelectedShippingAddress(selectedAddress || null);
-        // if (!!shippingAddress) {
-        //     clearAlert()
-        // }
     };
     const handleEditAddress = (address: ShippingAddressType) => {
         setEditingAddress(address);
@@ -101,15 +97,39 @@ const CheckoutPage = () => {
         if (values.id === 0) {
             addShippingAddress(values)
                 .then(() => {
-                    getShippingAddresses()
+                    getShippingAddresses();
+                    pushAlert({
+                        type: "success",
+                        title: "Add address",
+                        paragraph: "A new shipping address was added successfully!"
+                    });
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.error(err);
+                    pushAlert({
+                        type: "error",
+                        title: "Add address",
+                        paragraph: "Could not add a new shipping address."
+                    });
+                })
         } else if (JSON.stringify(values) !== JSON.stringify(selectedShippingAddress)) {
             updateShippingAddress(values)
                 .then(() => {
-                    getShippingAddresses()
+                    getShippingAddresses();
+                    pushAlert({
+                        type: "success",
+                        title: "Update address",
+                        paragraph: "The shipping address was updated successfully!"
+                    });
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.error(err);
+                    pushAlert({
+                        type: "error",
+                        title: "Update address",
+                        paragraph: "Could not update the shipping address."
+                    });
+                })
         }
         setIsModalOpen(false);
     };
@@ -127,11 +147,11 @@ const CheckoutPage = () => {
                 .then(
                     (response) => {
                         const orderId = response.data.id;
-                        // pushAlert({
-                        //     type: "success",
-                        //     title: "Order Placed",
-                        //     paragraph: "You will be redirected..."
-                        // })
+                        pushAlert({
+                            type: "success",
+                            title: "Order Placed",
+                            paragraph: "You will be redirected..."
+                        })
                         setTimeout(() => {
                             refreshCart();
                             router.push(`/order-successful/${orderId}`);}, 2000)
@@ -140,11 +160,11 @@ const CheckoutPage = () => {
                     console.log(e)
                 })
         } else {
-            // pushAlert({
-            //     type: 'danger',
-            //     title: "Validation Error",
-            //     paragraph: "Can't place an order without an address. Please select address or add a new one."
-            // });
+            pushAlert({
+                type: "error",
+                title: "Validation Error",
+                paragraph: "Can't place an order without an address. Please select address or add a new one."
+            });
         }
     };
 

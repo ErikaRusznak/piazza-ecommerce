@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Typography, useMediaQuery} from '@mui/material';
 import {useRouter} from "next/navigation";
 import {useCart} from "../../../../contexts/CartContext";
-import { useAuth } from "components";
+import {useAlert, useAuth} from "components";
 import {getProductByIdApi} from "components";
 import {BaseModal} from "ui";
 import {baseURL} from "components";
@@ -29,6 +29,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
     const {isDark} = useThemeToggle();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const router = useRouter();
+    const {pushAlert} = useAlert();
 
     const [product, setProduct] = useState<any | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
@@ -64,6 +65,11 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
     const handleAddToCart = () => {
         if (isAuthenticated) {
             addItemToCart(product.id, quantity);
+            pushAlert({
+                type: "success",
+                title: "Cart updated",
+                paragraph: "This product has been added to your cart."
+            });
         } else {
             router.push('/login');
         }

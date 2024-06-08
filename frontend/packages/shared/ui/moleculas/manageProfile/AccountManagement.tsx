@@ -3,7 +3,7 @@
 import {useState} from "react";
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
-import {useAuth} from "components";
+import {useAlert, useAuth} from "components";
 import {AxiosResponse} from "axios";
 import {DeleteAccountModal} from "ui";
 
@@ -16,6 +16,7 @@ const AccountManagement = ({user, deleteAccountApi}:AccountManagementProps) => {
 
     const router = useRouter();
     const {logout} = useAuth();
+    const {pushAlert} = useAlert();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,9 +28,21 @@ const AccountManagement = ({user, deleteAccountApi}:AccountManagementProps) => {
         deleteAccountApi(user.id)
             .then(res => {
                 logout();
+                pushAlert({
+                    type: "success",
+                    title: "Account deletion",
+                    paragraph: "Account was deleted successfully!"
+                });
                 router.push("/login");
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Profile information",
+                    paragraph: "Could not delete account."
+                });
+            })
     };
 
     return (
