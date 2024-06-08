@@ -16,8 +16,8 @@ public class ChatMessage extends BaseEntity {
     public static final String TABLE_NAME = "chat_message";
 
     interface Columns {
-        String CHAT_ROOM_CODE = "CHAT_ROOM_CODE";
-        String GROUP_CHAT_ROOM_CODE = "GROUP_CHAT_ROOM_CODE";
+        String CHAT_ROOM_CODE = "CHAT_ROOM_ID";
+        String GROUP_CHAT_ROOM_CODE = "GROUP_CHAT_ROOM_ID";
         String CONTENT = "CONTENT";
         String DATE = "DATE";
         String IS_READ = "IS_READ";

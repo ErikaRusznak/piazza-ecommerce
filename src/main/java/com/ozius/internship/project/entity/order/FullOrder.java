@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
@@ -20,7 +20,7 @@ public class FullOrder extends BaseEntity {
     public static final String TABLE_NAME = "full_order";
 
     interface Columns {
-        String PUBLISH_DATE = "PUBLISH_DATE";
+        String PUBLISH_DATE = "CREATION_DATE";
         String BUYER_EMAIL = "BUYER_EMAIL";
         String TOTAL_PRICE = "TOTAL_PRICE";
         String ORDER_NUMBER = "ORDER_NUMBER";
@@ -35,7 +35,7 @@ public class FullOrder extends BaseEntity {
     @Getter
     @Column(name = Columns.PUBLISH_DATE, nullable = false, updatable = false)
     @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate publishDate;
+    private LocalDateTime publishDate;
 
     @Getter
     @Column(name = Columns.BUYER_EMAIL, nullable = false)
@@ -47,7 +47,7 @@ public class FullOrder extends BaseEntity {
     private float totalPrice;
 
     @Getter
-    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    @Column(name = Columns.ORDER_NUMBER, nullable = false, unique = true)
     private String orderNumber;
 
     @Getter
@@ -72,7 +72,7 @@ public class FullOrder extends BaseEntity {
     }
 
     public FullOrder(String buyerEmail, Address shippingAddress, PaymentType paymentType) {
-        this.publishDate = LocalDate.now();
+        this.publishDate = LocalDateTime.now();
         this.orders = new HashSet<>();
         this.buyerEmail = buyerEmail;
         this.shippingAddress = shippingAddress;
@@ -89,7 +89,7 @@ public class FullOrder extends BaseEntity {
         return Collections.unmodifiableSet(orders);
     }
 
-    public static String generateRandomOrderNumber() {
+    private static String generateRandomOrderNumber() {
         int randomPart = new Random().nextInt(900000) + 100000;
         return String.format("%06d", randomPart);
     }

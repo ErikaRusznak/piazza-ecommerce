@@ -1,10 +1,9 @@
 package com.ozius.internship.project.controller;
 
 import com.ozius.internship.project.dto.ChatMessageDTO;
+import com.ozius.internship.project.dto.ChatNotificationDTO;
+import com.ozius.internship.project.dto.GroupChatNotificationDTO;
 import com.ozius.internship.project.entity.chat.ChatMessage;
-import com.ozius.internship.project.entity.chat.ChatNotification;
-import com.ozius.internship.project.entity.chat.GroupChatNotification;
-import com.ozius.internship.project.repository.ChatNotificationRepository;
 import com.ozius.internship.project.service.ChatMessageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +24,11 @@ public class ChatController {
 
     private final ChatMessageService chatMessageService;
     private final SimpMessagingTemplate messagingTemplate;
-    private final ChatNotificationRepository chatNotificationRepository;
     private final ModelMapper modelMapper;
 
-    public ChatController(ChatMessageService chatMessageService, SimpMessagingTemplate messagingTemplate, ChatNotificationRepository chatNotificationRepository, ModelMapper modelMapper) {
+    public ChatController(ChatMessageService chatMessageService, SimpMessagingTemplate messagingTemplate, ModelMapper modelMapper) {
         this.chatMessageService = chatMessageService;
         this.messagingTemplate = messagingTemplate;
-        this.chatNotificationRepository = chatNotificationRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -43,13 +40,12 @@ public class ChatController {
                 chatMessageDTO.getRecipientId(),
                 chatMessageDTO.getContent());
 
-        ChatNotification cn = new ChatNotification(
+        ChatNotificationDTO cn = new ChatNotificationDTO(
                 savedMessage.getId(),
                 savedMessage.getContent(),
                 savedMessage.getSenderId(),
                 savedMessage.getRecipientId()
                 );
-        chatNotificationRepository.save(cn);
 //         john/queue/messages
         messagingTemplate.convertAndSendToUser(Long.toString(chatMessageDTO.getRecipientId()),
                 "/queue/messages", cn);
@@ -72,7 +68,7 @@ public class ChatController {
         );
 
         for (Long participantId : participantIds) {
-            GroupChatNotification cn = new GroupChatNotification(
+            GroupChatNotificationDTO gcn = new GroupChatNotificationDTO(
                     savedMessage.getId(),
                     savedMessage.getContent(),
                     savedMessage.getBuyerId(),
@@ -83,7 +79,7 @@ public class ChatController {
             messagingTemplate.convertAndSendToUser(
                     String.valueOf(participantId),
                     "/queue/group-messages",
-                    cn);
+                    gcn);
         }
     }
 

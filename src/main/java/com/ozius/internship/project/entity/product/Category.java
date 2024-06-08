@@ -1,5 +1,6 @@
-package com.ozius.internship.project.entity;
+package com.ozius.internship.project.entity.product;
 
+import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 

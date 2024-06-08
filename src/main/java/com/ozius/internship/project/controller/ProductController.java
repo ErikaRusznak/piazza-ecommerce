@@ -65,8 +65,8 @@ public class ProductController {
     @RequireApprovedSeller
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody Product product) {
+        ProductDTO createdProduct = productService.createProduct(product);
         return ResponseEntity.ok(createdProduct);
     }
 
@@ -83,9 +83,8 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> addProductsInStore(@PathVariable long id, @RequestBody float quantity) {
-        Product updatedProduct = productService.addProductsInStore(id, quantity);
-        ProductDTO productDTO = modelMapper.map(updatedProduct, ProductDTO.class);
-        return ResponseEntity.ok(productDTO);
+        ProductDTO updatedProduct = productService.addProductsInStore(id, quantity);
+        return ResponseEntity.ok(updatedProduct);
     }
 
 }

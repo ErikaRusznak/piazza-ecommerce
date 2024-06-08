@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 @MappedSuperclass
 public abstract class BaseEntity {
 
@@ -16,10 +18,6 @@ public abstract class BaseEntity {
     @GeneratedValue
     @Column(name = ID)
     private long id;
-
-    public long getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {

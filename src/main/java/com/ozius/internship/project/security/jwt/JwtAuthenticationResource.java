@@ -1,6 +1,5 @@
 package com.ozius.internship.project.security.jwt;
 
-import com.ozius.internship.project.repository.UserAccountRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,12 +19,10 @@ public class JwtAuthenticationResource {
 
     private final JwtEncoder jwtEncoder;
     private final AuthenticationManager authenticationManager;
-    private final UserAccountRepository userAccountRepository;
 
-    public JwtAuthenticationResource(JwtEncoder jwtEncoder, AuthenticationManager authenticationManager, UserAccountRepository userAccountRepository) {
+    public JwtAuthenticationResource(JwtEncoder jwtEncoder, AuthenticationManager authenticationManager) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManager = authenticationManager;
-        this.userAccountRepository = userAccountRepository;
     }
 
     @PostMapping("/authenticate")

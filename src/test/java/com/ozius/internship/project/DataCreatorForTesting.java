@@ -1,16 +1,14 @@
 package com.ozius.internship.project;
 
-import com.ozius.internship.project.entity.*;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.courier.Courier;
+import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.review.Review;
 import com.ozius.internship.project.entity.seller.*;
-import com.ozius.internship.project.entity.user.Address;
-import com.ozius.internship.project.entity.user.UserAccount;
-import com.ozius.internship.project.entity.user.UserRole;
+import com.ozius.internship.project.entity.user.*;
 import jakarta.persistence.EntityManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -171,6 +169,19 @@ public class DataCreatorForTesting {
         return seller;
     }
 
+
+    public static void createSellerRequestForLocalFarmer(EntityManager em, String reason, String sellerEmail, SellerType sellerType) {
+        SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerType);
+        sellerRequest.setStatus(RequestStatus.APPROVED);
+        em.persist(sellerRequest);
+    }
+
+    public static void createSellerRequestForCompanyOrPfa(EntityManager em, String reason, String sellerEmail, String sellerCui, SellerType sellerType) {
+        SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerCui, sellerType);
+        sellerRequest.setStatus(RequestStatus.APPROVED);
+        em.persist(sellerRequest);
+    }
+
     public static void createSellerBaseData(EntityManager em, PasswordEncoder passwordEncoder){
 
         UserAccount account1 = new UserAccount("Alex",
@@ -190,6 +201,7 @@ public class DataCreatorForTesting {
                 account1,
                 "Mega Fresh"
         );
+        createSellerRequestForLocalFarmer(em, "Reason", account1.getEmail(), SellerType.LOCAL_FARMER);
 
         UserAccount account2 = new UserAccount("Stefan",
                 "Rusznak",
@@ -208,6 +220,7 @@ public class DataCreatorForTesting {
                 account2,
                 "Eco Tech"
         );
+        createSellerRequestForLocalFarmer(em, "Reason", account2.getEmail(), SellerType.LOCAL_FARMER);
 
         UserAccount account3 = new UserAccount("Ozius",
                 "Solutions",
@@ -228,7 +241,7 @@ public class DataCreatorForTesting {
                 SellerType.COMPANY,
                 new LegalDetails("Mega Fresh SRL", "10234567",
                         new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
-
+        createSellerRequestForCompanyOrPfa(em, "Reason", account3.getEmail(), "10234567", SellerType.COMPANY);
     }
 
     public static Category createCategory(EntityManager em, String name, String image) {

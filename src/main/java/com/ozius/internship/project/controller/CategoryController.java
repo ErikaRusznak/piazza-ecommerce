@@ -1,6 +1,6 @@
 package com.ozius.internship.project.controller;
 
-import com.ozius.internship.project.entity.Category;
+import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.repository.CategoryRepository;
 import com.ozius.internship.project.service.CategoryService;
 import org.springframework.http.HttpStatus;

@@ -44,9 +44,9 @@ public class ProductService {
     }
 
     @Transactional
-    public Product createProduct(Product product) {
+    public ProductDTO createProduct(Product product) {
         productRepository.save(product);
-        return modelMapper.map(product, Product.class);
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     @Transactional
@@ -66,10 +66,10 @@ public class ProductService {
     }
 
     @Transactional
-    public Product addProductsInStore(long id, float quantity) {
+    public ProductDTO addProductsInStore(long id, float quantity) {
         Product updatedProduct = productRepository.findById(id).orElseThrow();
         updatedProduct.addProductsInStore(quantity);
-        return updatedProduct;
+        return modelMapper.map(updatedProduct, ProductDTO.class);
     }
 
 }

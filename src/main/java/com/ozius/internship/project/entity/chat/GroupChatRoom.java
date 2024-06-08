@@ -24,7 +24,7 @@ public class GroupChatRoom extends BaseEntity {
     @Column(name = Columns.GROUP_ROOM_CODE, nullable = false)
     private String groupRoomCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = Columns.ORDER_ID, nullable = false)
     private Order order;
 
