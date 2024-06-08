@@ -1,13 +1,13 @@
 import {api} from "components";
 
 export const getOrdersForCourierApi = (email: string) => {
-    return api.get(`/orders/${email}`)
+    return api.get(`/api/orders/${email}`)
 }
 
 export const markOrderAsShippingApi = (id: number) => {
-    return api.put(`/orders/${id}/shipping`)
+    return api.put(`/api/orders/${id}/shipping`)
 }
 
 export const markOrderAsDeliveredApi = (id: number) => {
-    return api.put(`/orders/${id}/delivered`)
+    return api.put(`/api/orders/${id}/delivered`)
 }

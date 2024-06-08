@@ -5,6 +5,7 @@ import com.ozius.internship.project.entity.user.UserAccount;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = Courier.TABLE_NAME)
 public class Courier extends BaseEntity {
@@ -15,7 +16,6 @@ public class Courier extends BaseEntity {
         String ACCOUNT_ID = "ACCOUNT_ID";
     }
 
-    @Getter
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = Columns.ACCOUNT_ID, nullable = false)
     private UserAccount account;

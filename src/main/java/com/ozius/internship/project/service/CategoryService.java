@@ -1,6 +1,6 @@
 package com.ozius.internship.project.service;
 
-import com.ozius.internship.project.entity.Category;
+import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

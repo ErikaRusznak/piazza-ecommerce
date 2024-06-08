@@ -101,7 +101,6 @@ public class OrderService {
                 return order;
             });
 
-
             //add product to the retrieved order
             orderPersisted.addProduct(product, checkoutItemDto.getQuantity());
         }
@@ -166,7 +165,7 @@ public class OrderService {
     @Transactional
     public void markOrderAsReadyToShip(long id) {
         Order order = orderRepository.findById(id).orElseThrow();
-        order.markAsReadyToShip();;
+        order.markAsReadyToShip();
     }
 
     @Transactional

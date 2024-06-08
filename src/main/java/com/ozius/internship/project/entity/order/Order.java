@@ -7,7 +7,6 @@ import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.exception.IllegalItemException;
 import com.ozius.internship.project.entity.exception.IllegalOrderState;
 import com.ozius.internship.project.entity.product.Product;
-import com.ozius.internship.project.entity.seller.LegalDetails;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.entity.seller.SellerType;
 import jakarta.persistence.*;
@@ -25,14 +24,14 @@ public class Order extends BaseEntity {
     public static final String TABLE_NAME = "customer_order";
 
     interface Columns {
-        String ORDER_ID = "ORDER_ID";
+        String ORDER_ID = "FULL_ORDER_ID";
         String BUYER_EMAIL = "BUYER_EMAIL";
         String BUYER_FIRST_NAME = "BUYER_FIRST_NAME";
         String BUYER_LAST_NAME = "BUYER_LAST_NAME";
         String SELLER_ID = "SELLER_ID";
         String BUYER_ID = "BUYER_ID";
         String COURIER_ID = "COURIER_ID";
-        String TELEPHONE = "TELEPHONE";
+        String TELEPHONE = "BUYER_TELEPHONE";
         String ORDER_STATUS = "ORDER_STATUS";
         String ORDER_DATE = "ORDER_DATE";
         String TOTAL_PRICE = "TOTAL_PRICE";
@@ -44,12 +43,6 @@ public class Order extends BaseEntity {
         String ZIP_CODE = "ZIP_CODE";
         String SELLER_EMAIL = "SELLER_EMAIL";
         String SELLER_ALIAS = "SELLER_ALIAS";
-        String COMPANY_NAME = "COMPANY_NAME";
-        String CUI = "CUI";
-        String COMPANY_TYPE = "COMPANY_TYPE";
-        String NUMERIC_CODE_BY_STATE = "NUMERIC_CODE_BY_STATE";
-        String SERIAL_NUMBER = "SERIAL_NUMBER";
-        String DATE_OF_REGISTRATION = "DATE_OF_REGISTRATION";
         String SELLER_TYPE = "SELLER_TYPE";
         String ORDER_NUMBER = "ORDER_NUMBER";
     }
@@ -95,18 +88,6 @@ public class Order extends BaseEntity {
     private String sellerAlias;
 
     @Getter
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "name", column = @Column(name = Columns.COMPANY_NAME)),
-            @AttributeOverride(name = "cui", column = @Column(name = Columns.CUI, length = 10)),
-            @AttributeOverride(name = "registrationNumber.companyType", column = @Column(name = Columns.COMPANY_TYPE, length = 10)),
-            @AttributeOverride(name = "registrationNumber.numericCodeByState", column = @Column(name = Columns.NUMERIC_CODE_BY_STATE, length = 10)),
-            @AttributeOverride(name = "registrationNumber.serialNumber", column = @Column(name = Columns.SERIAL_NUMBER, length = 10)),
-            @AttributeOverride(name = "registrationNumber.dateOfRegistration", column = @Column(name = Columns.DATE_OF_REGISTRATION, length = 10))
-    })
-    private LegalDetails legalDetails;
-
-    @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = Columns.SELLER_TYPE)
     private SellerType sellerType;
@@ -125,12 +106,12 @@ public class Order extends BaseEntity {
     private String buyerFirstName;
 
     @Getter
-    @Column(name = Columns.ORDER_NUMBER, nullable = false)
-    private String orderNumber;
-
-    @Getter
     @Column(name = Columns.BUYER_LAST_NAME, nullable = false)
     private String buyerLastName;
+
+    @Getter
+    @Column(name = Columns.ORDER_NUMBER, nullable = false)
+    private String orderNumber;
 
     @Getter
     @Column(name = Columns.ORDER_DATE, nullable = false)
@@ -162,11 +143,10 @@ public class Order extends BaseEntity {
 
         this.sellerEmail = seller.getAccount().getEmail();
         this.sellerAlias = seller.getAlias();
-        this.legalDetails = seller.getLegalDetails();
         this.sellerType = seller.getSellerType();
 
         this.buyerEmail = buyerEmail;
-        this.orderDate = LocalDateTime.now();
+        this.orderDate = fullOrder.getPublishDate();
 
         this.telephone = buyerTelephone;
 
@@ -191,7 +171,6 @@ public class Order extends BaseEntity {
 
         this.sellerEmail = seller.getAccount().getEmail();
         this.sellerAlias = seller.getAlias();
-        this.legalDetails = seller.getLegalDetails();
         this.sellerType = seller.getSellerType();
 
         this.buyerEmail = buyerEmail;
@@ -296,7 +275,7 @@ public class Order extends BaseEntity {
                 ", seller=" + seller +
                 ", sellerEmail='" + sellerEmail + '\'' +
                 ", sellerAlias='" + sellerAlias + '\'' +
-                ", legalDetails=" + legalDetails +
+//                ", legalDetails=" + legalDetails +
                 ", sellerType=" + sellerType +
                 ", orderItems=" + orderItems +
                 ", buyerEmail='" + buyerEmail + '\'' +

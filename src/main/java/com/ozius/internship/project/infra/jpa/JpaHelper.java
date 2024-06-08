@@ -1,7 +1,5 @@
 package com.ozius.internship.project.infra.jpa;
 
-import com.ozius.internship.project.infra.jpa.JpaCallback;
-import com.ozius.internship.project.infra.jpa.JpaCallbackVoid;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -27,19 +25,7 @@ public class JpaHelper {
             em.getTransaction().commit();
             return result;
         }
-
     }
 
-    public void doManaged(JpaCallbackVoid callback){
-        try(EntityManager em = emf.createEntityManager()){
-            callback.execute(em);
-        }
-    }
-
-    public <T> T doManaged(JpaCallback<T> callback) {
-        try (EntityManager em = emf.createEntityManager()) {
-            return callback.execute(em);
-        }
-    }
 
 }

@@ -1,5 +1,5 @@
 import { api } from "components";
 
 export const getAllCategoryNames = () => {
-    return api.get("/categories/categoryNames")
+    return api.get("/api/categories/categoryNames")
 }

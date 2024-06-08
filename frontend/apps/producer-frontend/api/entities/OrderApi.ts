@@ -12,13 +12,13 @@ export const getOrdersApi = (page:number, itemsPerPage:number, sortSpecs:any, fi
 }
 
 export const markOrderAsProcessingApi = (id: number) => {
-    return api.put(`/orders/${id}/processing`)
+    return api.put(`/api/orders/${id}/processing`)
 }
 
 export const markAsReadyToShip = (id: number) => {
-    return api.put(`/orders/${id}/ready-to-ship`)
+    return api.put(`/api/orders/${id}/ready-to-ship`)
 }
 
 export const markOrderAsCanceledApi = (id: number) => {
-    return api.put(`/orders/${id}/canceled`)
+    return api.put(`/api/orders/${id}/canceled`)
 }

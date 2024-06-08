@@ -1,33 +1,33 @@
 import { api } from 'components';
 
 export const getAllCommentsThatHaveReportsApi = () => {
-    return api.get("/reports/comments");
+    return api.get("/api/reports/comments");
 }
 
 export const getAllReviewsThatHaveReportsApi = () => {
-    return api.get("/reports/reviews");
+    return api.get("/api/reports/reviews");
 }
 
 export const getReportsForSpecificCommentApi = (commentId: number) => {
-    return api.get(`reports/comments/${commentId}`);
+    return api.get(`/api/reports/comments/${commentId}`);
 }
 
 export const getReportsForSpecificReviewApi = (reviewId: number) => {
-    return api.get(`reports/reviews/${reviewId}`);
+    return api.get(`/api/reports/reviews/${reviewId}`);
 }
 
 export const deleteCommentApi = (commentId: number) => {
-    return api.delete(`/comments/${commentId}`);
+    return api.delete(`/api/comments/${commentId}`);
 }
 
 export const deleteReviewApi = (reviewId: number) => {
-    return api.delete(`/reviews/${reviewId}`);
+    return api.delete(`/api/reviews/${reviewId}`);
 }
 
 export const deleteReportsForSpecificCommentApi = (commentId: number) => {
-    return api.delete(`/reports/comments/${commentId}`);
+    return api.delete(`/api/reports/comments/${commentId}`);
 }
 
 export const deleteReportsForSpecificReviewApi = (reviewId: number) => {
-    return api.delete(`/reports/reviews/${reviewId}`);
+    return api.delete(`/api/reports/reviews/${reviewId}`);
 }

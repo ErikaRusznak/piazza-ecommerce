@@ -19,6 +19,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/api/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -31,7 +32,7 @@ public class OrderController {
         this.entityManager = entityManager;
     }
 
-    @PostMapping("/orders")
+    @PostMapping
     @PreAuthorize("hasRole('CLIENT') and #orderFromCartItemsDTO.email == authentication.name")
     public ResponseEntity<FullOrderDTO> makeOrders(@RequestBody OrderFromCartItemsDTO orderFromCartItemsDTO) {
         FullOrderDTO fullOrderDTO = orderService.makeOrdersFromCheckout(orderFromCartItemsDTO.getEmail(), orderFromCartItemsDTO.getShippingAddress(), orderFromCartItemsDTO.getProducts(), orderFromCartItemsDTO.getPaymentType());
@@ -53,7 +54,7 @@ public class OrderController {
         return ResponseEntity.ok(fullOrderDTO);
     }
 
-    @GetMapping("/orders")
+    @GetMapping
     @PreAuthorize("hasRole('SELLER')")
     public ApiPaginationResponse<List<OrderDTO>> getOrdersByFilter(
             @RequestParam(name = "itemsPerPage", defaultValue = "10") int itemsPerPage,
@@ -75,43 +76,43 @@ public class OrderController {
 //    http://localhost:8080/orders-try?filter=%5B%22orderStatus%5Beq%5DPENDING%22%2C%22sellerAlias%5Beq%5DMega%20Fresh%22%5D
 
 
-    @GetMapping("/order/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable long id) {
         OrderDTO orderDTO = orderService.getOrderById(id);
         return ResponseEntity.ok(orderDTO);
     }
 
-    @PutMapping("/orders/{id}/processing")
+    @PutMapping("/{id}/processing")
     @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsProcessing(@PathVariable long id) {
         orderService.markOrderAsProcessing(id);
     }
 
-    @PutMapping("/orders/{id}/ready-to-ship")
+    @PutMapping("/{id}/ready-to-ship")
     @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsReadyToShip(@PathVariable long id) {
         orderService.markOrderAsReadyToShip(id);
     }
 
-    @PutMapping("/orders/{id}/shipping")
+    @PutMapping("/{id}/shipping")
     @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsShipping(@PathVariable long id) {
         orderService.markOrderAsShipping(id);
     }
 
-    @PutMapping("/orders/{id}/delivered")
+    @PutMapping("/{id}/delivered")
     @PreAuthorize("hasRole('COURIER')")
     public void markOrderAsDelivered(@PathVariable long id) {
         orderService.markOrderAsDelivered(id);
     }
 
-    @PutMapping("/orders/{id}/canceled")
+    @PutMapping("/{id}/canceled")
     @PreAuthorize("hasRole('SELLER')")
     public void markOrderAsCanceled(@PathVariable long id) {
         orderService.markOrderAsCanceled(id);
     }
 
-    @GetMapping("/orders/{courierEmail}")
+    @GetMapping("/{courierEmail}")
     @PreAuthorize("hasRole('COURIER')")
     public ResponseEntity<List<OrderDTO>> getOrdersByCourierEmail(@PathVariable String courierEmail) {
         List<OrderDTO> orderDTOS = orderService.getOrdersByCourier(courierEmail);

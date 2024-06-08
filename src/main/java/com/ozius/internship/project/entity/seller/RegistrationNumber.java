@@ -3,10 +3,12 @@ package com.ozius.internship.project.entity.seller;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Getter
 @Embeddable
 public class RegistrationNumber {
 
@@ -24,22 +26,6 @@ public class RegistrationNumber {
         this.numericCodeByState = numericCodeByState;
         this.serialNumber = serialNumber;
         this.dateOfRegistration = dateOfRegistration;
-    }
-
-    public CompanyType getCompanyType() {
-        return companyType;
-    }
-
-    public int getNumericCodeByState() {
-        return numericCodeByState;
-    }
-
-    public int getSerialNumber() {
-        return serialNumber;
-    }
-
-    public LocalDate getDateOfRegistration() {
-        return dateOfRegistration;
     }
 
     @Override

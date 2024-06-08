@@ -12,8 +12,8 @@ import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
 import {UnauthenticatedMessage} from "ui";
-import UserAndGroupChats from "@/components/organisms/chat/UserAndGroupChats";
-import ChatContainer from "@/components/organisms/chat/ChatContainer";
+import {UserAndGroupChats} from "ui";
+import {ChatContainer} from "ui";
 import {getAllUsersApi} from "../../../api/entities/UserAccount";
 import {useThemeToggle} from "ui";
 
@@ -60,7 +60,6 @@ const ChatPage = () => {
             .catch((err) => console.log(err))
     };
 
-
     const getAllBuyers = () => {
         getAllUsersApi()
             .then((res) => {
@@ -69,7 +68,7 @@ const ChatPage = () => {
                 setConnectedUsers(connectedUsers);
             })
             .catch((err) => console.log(err))
-    };
+    }
 
     useEffect(() => {
         getAllBuyers();
@@ -115,6 +114,7 @@ const ChatPage = () => {
                                 setMessages={setMessages}
                                 connectedUsers={connectedUsers}
                                 groupChats={groupChats}
+                                isUserClient={false}
                             />
                             <ChatContainer
                                 recipientId={recipientId}
@@ -124,7 +124,8 @@ const ChatPage = () => {
                                 id={id}
                                 buyerId={buyerId}
                                 courierId={courierId}
-                                sellerId={sellerId} />
+                                sellerId={sellerId}
+                                userRole={"SELLER"}/>
                         </Box>
                     </Box>
                     </Container>

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserAccountRepository userAccountRepository;
@@ -28,7 +29,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/users/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<Object> retrieveUserByEmail(@PathVariable String email){
         UserAccount user = userAccountRepository.findByEmail(email);
         if(user!=null){
@@ -38,14 +39,14 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<UserAccountDto>> getAllUsers() {
         List<UserAccountDto> userAccountList = userService.getAllUsers();
         return ResponseEntity.ok(userAccountList);
 
     }
 
-    @GetMapping("/users/{email}/role")
+    @GetMapping("/{email}/role")
     public ResponseEntity<Object> retrieveUserRole(@PathVariable String email) {
         UserAccount userAccount = userAccountRepository.findByEmail(email);
         if(userAccount!=null) {
@@ -54,7 +55,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/users/sellers")
+    @GetMapping("/sellers")
     public ResponseEntity<List<SimpleSellerDTO>> retrieveSellerUsers() {
         List<SimpleSellerDTO> simpleSellerDTOS = userService.getAllSellerUsersWithSellerAlias();
         if(simpleSellerDTOS != null) {
@@ -63,23 +64,23 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserAccountDto> updateUserAccount(@PathVariable long id, @RequestBody UserAccount userAccount) {
         UserAccountDto newUserAccount = userService.updateUserAccount(id, userAccount.getFirstName(), userAccount.getLastName(), userAccount.getEmail(), userAccount.getImageName(), userAccount.getTelephone());
         return ResponseEntity.ok(newUserAccount);
     }
 
-    @DeleteMapping("/users-buyer/{id}")
+    @DeleteMapping("/buyer/{id}")
     public void deleteAccountForBuyerById(@PathVariable long id) {
         userService.deleteAccountForBuyer(id);
     }
 
-    @DeleteMapping("/users-seller/{id}")
+    @DeleteMapping("/seller/{id}")
     public void deleteAccountForSellerById(@PathVariable long id) {
         userService.deleteAccountForSeller(id);
     }
 
-    @DeleteMapping("/users-courier/{id}")
+    @DeleteMapping("/courier/{id}")
     public void deleteAccountForCourierById(@PathVariable long id) {
         userService.deleteAccountForCourier(id);
     }

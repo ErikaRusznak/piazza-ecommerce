@@ -1,15 +1,15 @@
 import { api } from 'components';
 
 export const getAllUserSellersApi = () => {
-    return api.get("/users/sellers");
+    return api.get("/api/users/sellers");
 };
 
 export const deleteAccountForBuyerByIdApi = (accountId:number) => {
-    return api.delete(`/users-buyer/${accountId}`)
+    return api.delete(`/api/users/buyer/${accountId}`)
 }
 
 export const forgotPasswordApi = (email: string) => {
-    return api.post(`/forgot-password-client`, {},{
+    return api.post(`/api/forgot-password/client`, {},{
         params: {
             email: email
         }
@@ -17,7 +17,7 @@ export const forgotPasswordApi = (email: string) => {
 }
 
 export const resetPasswordApi = (token: string, newPassword: string) => {
-    return api.post("/reset-password", {}, {
+    return api.post("/api/users/reset-password", {}, {
         params: {
             token: token,
             newPassword: newPassword

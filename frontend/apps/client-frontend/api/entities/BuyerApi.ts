@@ -2,23 +2,23 @@ import {api} from "components";
 import {ShippingAddressType} from "@/app/checkout/page";
 
 export const getBuyerByEmailApi = (email: string) => {
-    return api.get(`/buyer/${email}`)
+    return api.get(`/api/buyer/${email}`)
 }
 
 export const getBuyerAddresses = () => {
-    return api.get("/my-buyer-addresses")
+    return api.get("/api/buyer/my-buyer-addresses")
 }
 
 export const updateShippingAddress = (shippingAddress: ShippingAddressType) => {
-    return api.put('/my-buyer-addresses', shippingAddress)
+    return api.put('/api/buyer/my-buyer-addresses', shippingAddress)
 }
 
 export const addShippingAddress = (shippingAddress: ShippingAddressType) => {
-    return api.post('/my-buyer-addresses', shippingAddress)
+    return api.post('/api/buyer/my-buyer-addresses', shippingAddress)
 }
 
 export const addFavorite = (productId: number) => {
-    return api.put('/my-favorites', {},{
+    return api.put('/api/buyer/my-favorites', {},{
         params: {
             productId
         }
@@ -26,7 +26,7 @@ export const addFavorite = (productId: number) => {
 }
 
 export const removeFavorite = (productId: number) => {
-    return api.delete('/my-favorites',{
+    return api.delete('/api/buyer/my-favorites',{
         params:{
             productId
         }
@@ -34,5 +34,5 @@ export const removeFavorite = (productId: number) => {
 }
 
 export const getFavorites = () => {
-    return api.get(`/my-favorites`)
+    return api.get(`/api/buyer/my-favorites`)
 }

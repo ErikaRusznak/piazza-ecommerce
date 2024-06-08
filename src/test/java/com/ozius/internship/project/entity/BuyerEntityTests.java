@@ -7,6 +7,7 @@ import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.buyer.BuyerAddress;
 import com.ozius.internship.project.entity.exception.IllegalAddressException;
 import com.ozius.internship.project.entity.exception.IllegalItemException;
+import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.seller.Seller;

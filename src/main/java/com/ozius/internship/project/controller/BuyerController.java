@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
+@RequestMapping("/api/buyer")
 public class BuyerController {
 
     private final BuyerService buyerService;
@@ -81,7 +82,7 @@ public class BuyerController {
         buyerService.addBuyerAddress(loggedUserName, shippingAddress);
     }
 
-    @GetMapping("/buyer/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<BuyerDTO> getBuyerByEmailDTO(@PathVariable String email) {
         BuyerDTO buyerDTO = buyerService.getBuyerByEmailDTO(email);
         return ResponseEntity.ok(buyerDTO);

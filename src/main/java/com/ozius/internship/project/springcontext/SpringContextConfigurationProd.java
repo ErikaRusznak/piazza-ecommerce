@@ -66,7 +66,7 @@ public class SpringContextConfigurationProd {
         return new AwsS3ImageHandlingService(amazonS3);
     }
 
-    @Bean //TODO implement better through vault
+    @Bean
     public KeyStore keyStore() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         KeyStore keyStore = KeyStore.getInstance(KEY_STORE_TYPE);
         keyStore.load(new ClassPathResource(KEY_STORE).getInputStream(), KEY_STORE_PASSWORD.toCharArray());

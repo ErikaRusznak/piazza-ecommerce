@@ -4,6 +4,7 @@ import com.ozius.internship.project.DataCreatorForTesting;
 import com.ozius.internship.project.EntityFinder;
 import com.ozius.internship.project.JpaBaseEntity;
 import com.ozius.internship.project.entity.exception.IllegalPriceException;
+import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
 import com.ozius.internship.project.entity.seller.Seller;

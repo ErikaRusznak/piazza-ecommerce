@@ -2,7 +2,7 @@ import {api} from "../ApiClient";
 
 export const getProductsApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
 
-    return api.get(`/products`, {
+    return api.get(`/api/products`, {
         params: {
             page: page,
             itemsPerPage: itemsPerPage,
@@ -13,5 +13,5 @@ export const getProductsApi = (page:number, itemsPerPage:number, sortSpecs:any, 
 }
 
 export const getProductByIdApi = (productId:number) => {
-    return api.get(`/products/${productId}`)
+    return api.get(`/api/products/${productId}`)
 }

@@ -1,7 +1,6 @@
 package com.ozius.internship.project.entity.product;
 
 import com.ozius.internship.project.entity.BaseEntity;
-import com.ozius.internship.project.entity.Category;
 import com.ozius.internship.project.entity.DomainEventPublisherProvider;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.exception.IllegalPriceException;

@@ -16,6 +16,7 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
+
     return (
         <Collapse in={showChats}>
             <Box sx={{display: "flex", flexDirection: "column", p: 0}}>
@@ -45,9 +46,9 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                                 flexDirection: "column",
                                 justifyContent: "center"
                             }}>
-                                {isUserClient ? (
+                                {!isUserClient ? (
                                     <Typography variant="body2">
-                                        {user.firstName + " " + user.lastName}
+                                        {user.firstName[0] + user.lastName[0]}
                                     </Typography>
                                 ) : (
                                     <Typography variant="body2">
@@ -58,7 +59,7 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                             <Box sx={{width: "100%"}}>
                                 <Typography sx={{
                                     fontWeight: fontWeightForLastMessage(user.id),
-                                }}>{user.sellerAlias}</Typography>
+                                }}>{!isUserClient ? user.firstName + " " + user.lastName : user.sellerAlias}</Typography>
                                 <Typography sx={{
                                     fontSize: "13px",
                                     maxWidth: "200px",

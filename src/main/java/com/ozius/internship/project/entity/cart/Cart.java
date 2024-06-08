@@ -19,7 +19,6 @@ import java.util.Set;
 public class Cart extends BaseEntity {
     public static final String TABLE_NAME = "cart";
 
-    //TODO column for shipping price?
     interface Columns {
         String BUYER_ID = "BUYER_ID";
         String TOTAL_PRICE = "TOTAL_PRICE";
@@ -59,7 +58,6 @@ public class Cart extends BaseEntity {
         return cartItem.getQuantity() * cartItem.getProduct().getPrice();
     }
 
-    //TODO modify Entities to big decimal instead of double
     public double calculateTotalPrice() {
         double sum = cartItems.stream()
                 .mapToDouble(this::calculateItemPrice)

@@ -22,11 +22,12 @@ type UserAndGroupChatsProps = {
     setMessages: (value: any[]) => void;
     connectedUsers: any[];
     groupChats: any[];
+    isUserClient?: boolean;
 };
 
 const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
                                connectedUsers, groupChats,
-                               messages, setMessages
+                               messages, setMessages, isUserClient=true,
                            }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
@@ -160,7 +161,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
                 handleOnClick={handleOnClickForPrivateChats}
                 fontWeightForLastMessage={fontWeightForLastMessage}
                 lastMessages={lastMessages}
-                isUserClient={false}
+                isUserClient={isUserClient}
             />
 
             <ToggleChatsShow label={"Group chats"} toggle={toggleGroupChats} showChats={showGroupChats}/>

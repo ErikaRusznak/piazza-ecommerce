@@ -2,11 +2,11 @@ package com.ozius.internship.project.controller;
 
 public class ApiPaginationResponse<T> {
 
-    private int page;
-    private int itemsPerPage;
-    private T data;
+    private final int page;
+    private final int itemsPerPage;
+    private final T data;
 
-    private int numberOfElements;
+    private final int numberOfElements;
 
     public ApiPaginationResponse(int page, int itemsPerPage, int numberOfElements, T data) {
         this.page = page;

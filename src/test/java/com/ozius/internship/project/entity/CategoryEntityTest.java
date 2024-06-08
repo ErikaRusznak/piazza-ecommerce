@@ -2,6 +2,7 @@ package com.ozius.internship.project.entity;
 
 import com.ozius.internship.project.EntityFinder;
 import com.ozius.internship.project.JpaBaseEntity;
+import com.ozius.internship.project.entity.product.Category;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 

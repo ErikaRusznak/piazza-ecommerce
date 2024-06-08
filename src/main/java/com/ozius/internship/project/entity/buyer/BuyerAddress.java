@@ -3,7 +3,9 @@ package com.ozius.internship.project.entity.buyer;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = BuyerAddress.TABLE_NAME)
 public class BuyerAddress extends BaseEntity {
@@ -51,22 +53,6 @@ public class BuyerAddress extends BaseEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephone = telephone;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getTelephone() {
-        return telephone;
     }
 
     void updateAddress(Address address, String firstName, String lastName, String telephone) {

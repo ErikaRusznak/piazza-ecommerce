@@ -1,7 +1,10 @@
-package com.ozius.internship.project.entity;
+package com.ozius.internship.project.entity.product;
 
+import com.ozius.internship.project.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = Category.TABLE_NAME)
 public class Category extends BaseEntity {
@@ -24,14 +27,6 @@ public class Category extends BaseEntity {
     public Category(String name, String imageName) {
         this.name = name;
         this.imageName = imageName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getImageName() {
-        return imageName;
     }
 
     public void updateCategory(String name, String imageName) {

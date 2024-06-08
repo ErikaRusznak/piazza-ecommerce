@@ -23,12 +23,10 @@ public class ChatRoom extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = Columns.SENDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.SENDER_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
-//    @JoinColumn(name = Columns.SENDER_ID, nullable = false)
     private UserAccount sender;
 
     @ManyToOne
     @JoinColumn(name = Columns.RECIPIENT_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.RECIPIENT_ID + ") REFERENCES " + UserAccount.TABLE_NAME + " (" + BaseEntity.ID + ") ON DELETE SET NULL"))
-//    @JoinColumn(name = Columns.RECIPIENT_ID, nullable = false)
     private UserAccount recipient;
 
     protected ChatRoom() {
