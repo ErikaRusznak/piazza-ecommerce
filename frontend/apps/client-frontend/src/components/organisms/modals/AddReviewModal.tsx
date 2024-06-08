@@ -8,6 +8,7 @@ import {Controller, Resolver, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
+import {useAlert} from "components";
 
 type AddReviewModalProps = {
     isModalOpen: boolean;
@@ -36,6 +37,7 @@ const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, ha
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
+    const {pushAlert} = useAlert();
     const smallScreenSize = useMediaQuery(theme.breakpoints.down("sm"));
     const onSubmit = (values: any) => {
         const userId = Number(sessionStorage.getItem('id'));
@@ -44,6 +46,11 @@ const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, ha
                 .then((res) => {
                     handleAddReview(res.data);
                     setIsModalOpen(false);
+                    pushAlert({
+                        type: "success",
+                        title: "Review added",
+                        paragraph: "Your review was added successfully!"
+                    });
                 })
                 .catch((err) => console.error(err));
         }

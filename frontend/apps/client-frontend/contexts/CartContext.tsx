@@ -1,6 +1,6 @@
 "use client"
 import {createContext, useContext, useEffect, useState} from 'react';
-import { useAuth } from "components";
+import {useAlert, useAuth} from "components";
 import { addOrUpdateCartItem, removeCartItem, getCartItems } from "../api/entities/CartApi";
 
 interface CartContextType {
@@ -25,7 +25,6 @@ const CartProvider = ({ children }: any) => {
     const [allCartItems, setAllCartItems] = useState<any[] | null>(null);
     const [numberOfCartItems, setNumberOfCartItems] = useState<number>(0);
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
-
     const { isAuthenticated, username } = useAuth();
 
     function loadCartItems() {

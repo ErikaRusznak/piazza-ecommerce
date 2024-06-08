@@ -11,6 +11,7 @@ import {ShippingAddressType} from "@/app/checkout/page";
 import AddressComponent from "@/components/atoms/AddressComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import {useThemeToggle} from "ui";
+import {useAlert} from "components";
 
 type AddressManagementProps = {
 
@@ -22,7 +23,7 @@ const AddressManagement = ({  }: AddressManagementProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [shippingAddresses, setShippingAddresses] = useState<ShippingAddressType[]>([]);
     const [editingAddress, setEditingAddress] = useState<ShippingAddressType | null>(null);
-
+    const {pushAlert} = useAlert();
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
@@ -43,15 +44,39 @@ const AddressManagement = ({  }: AddressManagementProps) => {
         if (values.id === 0) {
             addShippingAddress(values)
                 .then(() => {
-                    getShippingAddresses()
+                    getShippingAddresses();
+                    pushAlert({
+                        type: "success",
+                        title: "Add address",
+                        paragraph: "A new shipping address was added successfully!"
+                    });
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.error(err);
+                    pushAlert({
+                        type: "error",
+                        title: "Add address",
+                        paragraph: "Could not add a new shipping address."
+                    });
+                })
         } else {
             updateShippingAddress(values)
                 .then(() => {
-                    getShippingAddresses()
+                    getShippingAddresses();
+                    pushAlert({
+                        type: "success",
+                        title: "Update address",
+                        paragraph: "The shipping address was updated successfully!"
+                    });
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    console.error(err);
+                    pushAlert({
+                        type: "error",
+                        title: "Update address",
+                        paragraph: "Could not update the shipping address."
+                    });
+                })
         }
         setIsModalOpen(false);
     };

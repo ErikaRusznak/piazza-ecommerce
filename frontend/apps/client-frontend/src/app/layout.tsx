@@ -1,4 +1,4 @@
-import {AuthProvider} from "components";
+import {AlertProvider, AuthProvider} from "components";
 import CartProvider from "../../contexts/CartContext";
 import FavoriteProvider from "../../contexts/FavoriteContext";
 import {WebSocketProvider} from "components";
@@ -18,23 +18,25 @@ export default function RootLayout({
 
     return (
         <CustomThemeProvider>
-            <AuthProvider userRole="CLIENT" registerPath="register-client">
-                <WebSocketProvider senderRole="CLIENT">
-                    <CartProvider>
-                        <FavoriteProvider>
-                            <ProfilePictureProvider>
-                                <html lang="en" style={{margin: 0, padding: 0}}>
-                                <body style={{margin: 0, padding: 0}}>
-                                {/*<NavigationBar />*/}
-                                {children}
-                                {/*<Footer />*/}
-                                </body>
-                                </html>
-                            </ProfilePictureProvider>
-                        </FavoriteProvider>
-                    </CartProvider>
-                </WebSocketProvider>
-            </AuthProvider>
+            <AlertProvider>
+                <AuthProvider userRole="CLIENT" registerPath="register-client">
+                    <WebSocketProvider senderRole="CLIENT">
+                        <CartProvider>
+                            <FavoriteProvider>
+                                <ProfilePictureProvider>
+                                    <html lang="en" style={{margin: 0, padding: 0}}>
+                                    <body style={{margin: 0, padding: 0}}>
+                                    {/*<NavigationBar />*/}
+                                    {children}
+                                    {/*<Footer />*/}
+                                    </body>
+                                    </html>
+                                </ProfilePictureProvider>
+                            </FavoriteProvider>
+                        </CartProvider>
+                    </WebSocketProvider>
+                </AuthProvider>
+            </AlertProvider>
         </CustomThemeProvider>
 
     )
