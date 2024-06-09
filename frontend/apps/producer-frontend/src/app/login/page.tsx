@@ -6,14 +6,12 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     Alert, AlertTitle,
-    Checkbox, Container,
-    FormControlLabel,
-    Grid,
+    Container, Grid,
 } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
 import {useAuth} from "../../../api/auth/AuthContext";
-import {StyledButton} from "ui";
+import {StyledButton, useThemeToggle} from "ui";
 import {StyledLink} from "ui";
 import * as yup from "yup";
 import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
@@ -34,10 +32,8 @@ const LoginPage = () => {
 
     const theme = useTheme();
     const router = useRouter();
-
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const auth = useAuth();
-    const textColor = theme.palette.info.contrastText;
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -81,8 +77,9 @@ const LoginPage = () => {
                                     color: theme.palette.error.contrastText,
                                 }}
                             >
-                                <AlertTitle sx={{fontSize: "0.9rem"}}>Authentication Failed. Please check your
-                                    credentials</AlertTitle>
+                                <AlertTitle sx={{fontSize: "0.9rem"}}>
+                                    Authentication Failed. Please check your credentials
+                                </AlertTitle>
                             </Alert>
                         )}
                         <form style={{marginTop: 1}}>
@@ -96,11 +93,6 @@ const LoginPage = () => {
                                 control={control}
                                 label="Password"
                                 type="password"/>
-                            <FormControlLabel
-                                control={<Checkbox value="remember" sx={{color: textColor}}/>}
-                                label="Remember me"
-                                sx={{color: textColor}}
-                            />
                             <StyledButton
                                 type="submit"
                                 fullWidth

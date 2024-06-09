@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {SubmitHandler} from "react-hook-form";
-import {useAuth} from "components";
+import {useAlert, useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {UnauthenticatedMessage} from "ui";
 import AddEditCategoryForm, {AddEditCategoryInput} from "@/components/organisms/categories/AddEditCategoryForm";
@@ -13,7 +13,7 @@ const AddProductPage = () => {
 
     const { isAuthenticated } = useAuth();
     const router = useRouter();
-
+    const {pushAlert} = useAlert();
     const [fileName, setFileName] = useState<string>("");
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
@@ -28,8 +28,20 @@ const AddProductPage = () => {
         })
             .then((res) => {
                 router.push(`/categories`);
+                pushAlert({
+                    type: "success",
+                    title: "Add category",
+                    paragraph: "Category was added successfully!"
+                });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Add category",
+                    paragraph: "Could not add category."
+                });
+            });
     };
 
     return  (

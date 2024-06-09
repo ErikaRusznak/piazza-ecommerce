@@ -18,7 +18,7 @@ export const useAlert = (): AlertContextType => {
 }
 
 type AlertType = {
-    type: "success" | "info" | "warning" | "error"; // can be success, info (blue), warning(orange), error
+    type: "success" | "info" | "warning" | "error";
     title: string;
     paragraph: string;
 }

@@ -18,7 +18,7 @@ type ReportsFromSpecificReviewPageProps = {
     }
 }
 
-const ReportsFromSpecificReviewPage = ({params}:ReportsFromSpecificReviewPageProps) => {
+const ReportsFromSpecificReviewPage = ({params}: ReportsFromSpecificReviewPageProps) => {
 
     const {isAuthenticated} = useAuth();
     const reviewId = Number(params.id);
@@ -78,13 +78,12 @@ const ReportsFromSpecificReviewPage = ({params}:ReportsFromSpecificReviewPagePro
                 <Container>
                     {reviewId && (
                         <>
-
-                                <ReviewDetails
-                                    reviewId={review?.id}
-                                    reviewDescription={review?.description}
-                                    publishDate={review?.publishDate}
-                                    publishedBy={review?.buyer.email}
-                                />
+                            <ReviewDetails
+                                reviewId={review?.id}
+                                reviewDescription={review?.description}
+                                publishDate={review?.publishDate}
+                                publishedBy={review?.buyer.email}
+                            />
 
                             <Box sx={{mt: 2}}>
                                 <TableContainerComponent

@@ -59,7 +59,7 @@ const CategoryProducts = ({params}: ProductPageProps) => {
                 setProducts(res.data.data);
                 setTotalNumberOfProducts(res.data.numberOfElements);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     useEffect(() => {

@@ -23,7 +23,7 @@ const ManageProfilePage = () => {
             .then((res) => {
                 setUser(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
 
     useEffect(() => {
@@ -37,29 +37,27 @@ const ManageProfilePage = () => {
         {label: "Profile", link: ""},
     ];
     return (
-        <>
-            <MainLayout>
-                {isAuthenticated && user ? (
-                    <>
+        <MainLayout>
+            {isAuthenticated && user ? (
+                <>
+                    <Container maxWidth="lg" sx={{mt: 2}}>
                         <BreadcrumbsComponent links={breadcrumbsLinks}/>
-                        <Container maxWidth="lg" sx={{mt: 2}}>
-                            <Grid container spacing={2}>
-                                <ProfileInformation
-                                    user={user}
-                                    setUser={setUser}
-                                />
-                            </Grid>
-                            <AccountManagement
+                        <Grid container spacing={2} mt={1}>
+                            <ProfileInformation
                                 user={user}
-                                deleteAccountApi={deleteAccountForCourierByIdApi}
+                                setUser={setUser}
                             />
-                        </Container>
-                    </>
-                ) : (
-                    <UnauthenticatedMessage/>
-                )}
-            </MainLayout>
-        </>
+                        </Grid>
+                        <AccountManagement
+                            user={user}
+                            deleteAccountApi={deleteAccountForCourierByIdApi}
+                        />
+                    </Container>
+                </>
+            ) : (
+                <UnauthenticatedMessage/>
+            )}
+        </MainLayout>
     );
 };
 

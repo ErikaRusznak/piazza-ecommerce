@@ -42,14 +42,14 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}:Filt
             .then((res) => {
                 setCityOptions(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
     const getCategoryNames = () => {
         getAllCategoryNames()
             .then((res) => {
                 setCategoryOptions(res.data)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
 
     useEffect(() => {

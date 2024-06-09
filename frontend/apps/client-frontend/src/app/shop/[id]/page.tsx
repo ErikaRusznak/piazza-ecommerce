@@ -65,7 +65,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                 setProduct(res.data)
                 setProductRating(res.data.productRating)
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
 
     useEffect(() => {

@@ -124,7 +124,7 @@ const RegisterPage = () => {
                 setFileName(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             })
     };
 

@@ -65,7 +65,7 @@ const NavigationBar = () => {
             .then((res: { data: { data: React.SetStateAction<never[]>; }; }) => {
                 setCategories(res.data.data);
             })
-            .catch((err: any) => console.log(err));
+            .catch((err: any) => console.error(err));
     };
 
     useEffect(() => {

@@ -35,9 +35,7 @@ const AddressManagement = ({  }: AddressManagementProps) => {
                     setShippingAddresses(response.data);
                 }
             )
-            .catch(
-                (err) => console.log(err)
-            );
+            .catch((err) => console.error(err));
     };
 
     const handleSaveForm = (values: ShippingAddressType) => {

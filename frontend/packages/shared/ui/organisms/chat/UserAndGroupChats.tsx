@@ -117,7 +117,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             .then((res) => {
                 return;
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     const handleOnClickForPrivateChats = (userId: number) => {

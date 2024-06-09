@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import {BaseModal} from "ui";
 import {Box, Button, Typography} from "@mui/material";
 import {approveSellerRequestsApi, rejectSellerRequestApi} from "../../../../api/entities/SellerRequestsApi";
+import {useAlert} from "components";
 
 type ApproveRejectRequestModalProps = {
     isModalOpen: boolean;
@@ -22,14 +23,25 @@ const ApproveRejectRequestModal = ({ isModalOpen,
                                    }: ApproveRejectRequestModalProps) => {
 
     const theme = useTheme();
+    const {pushAlert} = useAlert();
 
     const getRequestApproved = () => {
         approveSellerRequestsApi(requestId)
             .then((res) => {
                 updateRequest(requestId, res.data.status);
+                pushAlert({
+                    type: "success",
+                    title: "Approve request",
+                    paragraph: "Email was sent to the seller!"
+                });
             })
             .catch((err) => {
                 console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Approve request",
+                    paragraph: "Could not approve request."
+                });
             })
     };
 
@@ -37,9 +49,19 @@ const ApproveRejectRequestModal = ({ isModalOpen,
         rejectSellerRequestApi(requestId)
             .then((res) => {
                 updateRequest(requestId, res.data.status);
+                pushAlert({
+                    type: "success",
+                    title: "Reject request",
+                    paragraph: "Email was sent to the seller!"
+                });
             })
             .catch((err) => {
                 console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Reject request",
+                    paragraph: "Could not reject request."
+                });
             })
     };
 

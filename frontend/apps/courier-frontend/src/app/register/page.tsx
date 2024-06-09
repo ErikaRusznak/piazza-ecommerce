@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import * as yup from "yup";
-import {api} from "components";
+import {api, useAlert} from "components";
 import "yup-phone-lite";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
@@ -68,6 +68,7 @@ const RegisterPage = () => {
     const theme = useTheme();
     const router = useRouter();
     const auth = useAuth();
+    const {pushAlert} = useAlert();
     const [fileName, setFileName] = useState<string>("");
 
     const breadcrumbsLinks = [
@@ -98,9 +99,18 @@ const RegisterPage = () => {
         if (Object.keys(errors).length === 0) {
             try {
                 await auth.registerUser(data.email, data.password, data.firstName, data.lastName, data.telephone, fileName, "COURIER");
+                pushAlert({
+                    type: "success",
+                    title: "Account created",
+                    paragraph: "The account was created successfully!"
+                });
                 router.push("/login");
             } catch (error) {
-                console.error("Could not register user");
+                pushAlert({
+                    type: "success",
+                    title: "Account created",
+                    paragraph: "Could not register account."
+                });
             }
         } else {
             console.log("The data is not provided correctly");
@@ -113,7 +123,7 @@ const RegisterPage = () => {
                 setFileName(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             })
     };
 

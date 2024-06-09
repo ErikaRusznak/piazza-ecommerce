@@ -79,7 +79,7 @@ const AddEditProductForm = ({
                 setErrorImageMessage("");
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setErrorImageMessage("Failed to upload image. Please try again.")
             })
     };

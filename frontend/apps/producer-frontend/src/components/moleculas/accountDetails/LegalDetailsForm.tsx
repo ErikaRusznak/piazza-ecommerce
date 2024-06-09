@@ -1,7 +1,7 @@
 import React from "react";
-import {Box, Typography} from "@mui/material";
-import {SimpleTextFieldDarkBackground} from "ui";
-import {useTheme} from "@mui/material/styles";
+import { Box, Typography } from "@mui/material";
+import { SimpleTextFieldDarkBackground } from "ui";
+import { useTheme } from "@mui/material/styles";
 
 type LegalDetailsFormProps = {
     name: string;
@@ -12,8 +12,7 @@ type LegalDetailsFormProps = {
     dateOfRegistration: Date;
 };
 
-const LegalDetailsForm = ({ name, cui, companyType, numericCodeByState, serialNumber, dateOfRegistration}:LegalDetailsFormProps) => {
-
+const LegalDetailsForm = ({ name, cui, companyType, numericCodeByState, serialNumber, dateOfRegistration }: LegalDetailsFormProps) => {
     const theme = useTheme();
     const legalDetails = {
         name: name,
@@ -26,15 +25,12 @@ const LegalDetailsForm = ({ name, cui, companyType, numericCodeByState, serialNu
 
     return (
         <Box sx={{ p: 2, border: '1px solid #a5b4fc', borderRadius: '14px' }}>
-            <Typography variant="h5" sx={{ color: theme.palette.info.main, mb: 2}}>Legal Details</Typography>
+            <Typography variant="h5" sx={{ color: theme.palette.info.main, mb: 2 }}>Legal Details</Typography>
             <SimpleTextFieldDarkBackground value={legalDetails.name} label={"Company name"} />
-            <SimpleTextFieldDarkBackground value={legalDetails.companyType} label={"Company type"} />
             <SimpleTextFieldDarkBackground value={legalDetails.cui} label={"CUI"} />
-            <SimpleTextFieldDarkBackground value={legalDetails.numericCodeByState} label={"Numeric Code By State"} />
-            <SimpleTextFieldDarkBackground value={legalDetails.serialNumber} label={"Serial Number"} />
+            <SimpleTextFieldDarkBackground value={`${legalDetails.companyType}-${legalDetails.numericCodeByState}/${legalDetails.serialNumber}/${legalDetails.dateOfRegistration.toString().slice(0,4)}`} label={"Company Details"} />
             <SimpleTextFieldDarkBackground value={legalDetails.dateOfRegistration} label={"Registration Date"} />
         </Box>
-
     );
 };
 

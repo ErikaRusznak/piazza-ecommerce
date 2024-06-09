@@ -8,6 +8,7 @@ import {
 } from "../../../../api/entities/ReportsApi";
 import {useRouter} from "next/navigation";
 import DeleteReportsRelatedModal from "@/components/organisms/modals/DeleteReportsRelatedModal";
+import {useAlert} from "components";
 
 type CommentDetailsProps = {
     commentId: number;
@@ -19,7 +20,7 @@ const CommentDetails = ({commentId, commentDescription, publishedBy}: CommentDet
 
     const theme = useTheme();
     const router = useRouter();
-
+    const {pushAlert} = useAlert();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [descriptionForModal, setDescriptionForModal] = useState<string>("");
@@ -32,19 +33,41 @@ const CommentDetails = ({commentId, commentDescription, publishedBy}: CommentDet
     const deleteAllReportsRelatedToAComment = () => {
         deleteReportsForSpecificCommentApi(commentId)
             .then((res) => {
-                console.log("delete was successful");
                 router.push("/reports/comments");
+                pushAlert({
+                    type: "success",
+                    title: "Delete reports",
+                    paragraph: "Reports for comment were deleted!"
+                });
             })
-            .catch((err) => console.error(err))
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Delete reports",
+                    paragraph: "Could not delete reports for comment."
+                });
+            })
     }
 
     const deleteComment = () => {
         deleteCommentApi(commentId)
             .then((res) => {
-                console.log("delete was successful");
                 router.push("/reports/comments");
+                pushAlert({
+                    type: "success",
+                    title: "Delete comment",
+                    paragraph: "Comment was deleted successfully!"
+                });
             })
-            .catch((err) => console.error(err))
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Delete comment",
+                    paragraph: "Could not delete comment."
+                });
+            })
     }
 
     const handleDismissReports = () => {

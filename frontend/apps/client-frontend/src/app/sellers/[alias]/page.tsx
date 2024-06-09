@@ -63,7 +63,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                 setProducts(res.data.data);
                 setTotalNumberOfProducts(res.data.numberOfElements);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     const getSeller = (sellerAlias: string) => {
@@ -71,7 +71,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
             .then((res) => {
                 setSeller(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     useEffect(() => {

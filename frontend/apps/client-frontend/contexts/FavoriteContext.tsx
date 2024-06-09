@@ -33,7 +33,7 @@ const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
                     setAllFavorites(res.data);
                     setNumberOfFavorites(res.data.length);
                 })
-                .catch((err: any) => console.log(err));
+                .catch((err: any) => console.error(err));
         }
     };
 
@@ -42,7 +42,7 @@ const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
             .then(() => {
                 loadFavoriteItems();
             })
-            .catch((err: any) => console.log(err));
+            .catch((err: any) => console.error(err));
     };
 
     const checkIsFavorite = (favoritesArray: any[], id: number) => {
@@ -54,7 +54,7 @@ const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
             .then(() => {
                 loadFavoriteItems();
             })
-            .catch((err: any) => console.log(err));
+            .catch((err: any) => console.error(err));
     };
 
     useEffect(() => {

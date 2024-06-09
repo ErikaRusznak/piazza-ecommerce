@@ -22,7 +22,7 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
             .then((res) => {
                 setBuyer(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
     useEffect(() => {
         getBuyerDetails(buyerEmail);

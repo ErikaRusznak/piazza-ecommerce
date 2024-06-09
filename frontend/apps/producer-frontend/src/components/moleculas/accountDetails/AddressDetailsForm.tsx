@@ -11,7 +11,7 @@ import {COUNTRIES} from "@/components/atoms/country/countries";
 import {useTheme} from "@mui/material/styles";
 import {updateSellerAddressApi} from "../../../../api/entities/UserAccount";
 import {useRouter} from "next/navigation";
-
+import {useAlert} from "components";
 
 const AddressSchema = object().shape({
     addressLine1: string()
@@ -72,8 +72,7 @@ const AddressDetailsForm = ({
 
     const [isOpen, setIsOpen] = useState(false);
     const [countryLocal, setCountryLocal] = useState<string | undefined>(COUNTRIES?.find(option => option.title === country)?.title)
-    const router = useRouter();
-
+    const {pushAlert} = useAlert();
     const {
         handleSubmit,
         control,
@@ -85,16 +84,24 @@ const AddressDetailsForm = ({
         defaultValues: defaultValues,
     });
 
-    console.log("id", id)
     const onSubmit = () => {
         const values = getValues();
         updateSellerAddressApi(id, values)
             .then(response => {
-                router.push("/profile")
-                // todo - add alert here
+
+                pushAlert({
+                    type: "success",
+                    title: "Legal Address",
+                    paragraph: "Legal Address was updated successfully!"
+                });
             })
             .catch(error => {
                 console.error('Error updating legal address:', error);
+                pushAlert({
+                    type: "error",
+                    title: "Legal Address",
+                    paragraph: "Could not update legal address."
+                });
             });
     };
     return (

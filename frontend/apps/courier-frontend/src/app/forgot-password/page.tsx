@@ -10,28 +10,34 @@ import { useRouter } from "next/navigation";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
 import {CssTextField} from "ui";
+import {useAlert} from "components";
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = React.useState("");
-    const [errorMessage, setErrorMessage] = React.useState("");
-    const [successMessage, setSuccessMessage] = React.useState("");
     const theme = useTheme();
     const router = useRouter();
     const {isDark} = useThemeToggle();
     const textColor = isDark ? theme.palette.info.contrastText : theme.palette.info.main;
+    const {pushAlert} = useAlert();
 
     const handleForgotPassword = async () => {
         forgotPasswordApi(email)
             .then((res) => {
-                setSuccessMessage(res.data);
-                setErrorMessage("");
+                setEmail("");
+                pushAlert({
+                    type: "success",
+                    title: "Email sent",
+                    paragraph: res.data
+                });
             })
             .catch((err) => {
-                setErrorMessage(err.response.data);
-                setSuccessMessage("");
+                pushAlert({
+                    type: "error",
+                    title: "Product Added To Wishlist",
+                    paragraph: err.response.data
+                });
             })
     };
-
 
     return (
         <MainLayout>
@@ -41,16 +47,6 @@ const ForgotPasswordPage = () => {
                     <Typography variant="body1" sx={{ mb: 2, color: textColor }}>
                         To reset your password, please provide your email address below.
                     </Typography>
-                    {errorMessage && (
-                        <Typography color="error" variant="body2" sx={{mb: 2}}>
-                            {errorMessage}
-                        </Typography>
-                    )}
-                    {successMessage && (
-                        <Typography color="green" variant="body2" sx={{ mb: 2 }}>
-                            {successMessage}
-                        </Typography>
-                    )}
                     <CssTextField
                         label="Email"
                         value={email}

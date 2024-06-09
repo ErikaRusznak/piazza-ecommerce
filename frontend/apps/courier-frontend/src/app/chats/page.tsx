@@ -42,7 +42,7 @@ const ChatPage = () => {
                 setCourierId(res.data.id);
                 connectToWebSocket(res.data.id, onMessageReceived);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     const getAllGroupChats = (email: string) => {
@@ -50,7 +50,7 @@ const ChatPage = () => {
             .then((res) => {
                 setGroupChats(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     const fetchChatHistory = async (buyerId: number, courierId: number, sellerId: number, orderId: number) => {

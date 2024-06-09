@@ -6,8 +6,6 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {
     Alert, AlertTitle,
-    Checkbox,
-    FormControlLabel,
     Grid,
 } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
@@ -36,10 +34,8 @@ const LoginPage = () => {
     const theme = useTheme();
     const router = useRouter();
 
-    const {isDark} = useThemeToggle();
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const auth = useAuth();
-    const textColor = isDark ? theme.palette.info.contrastText : theme.palette.info.main;
 
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -102,11 +98,6 @@ const LoginPage = () => {
                             control={control}
                             label="Password"
                             type="password"/>
-                        <FormControlLabel
-                            control={<Checkbox value="remember" sx={{color: textColor}}/>}
-                            label="Remember me"
-                            sx={{color: textColor}}
-                        />
                         <StyledButton
                             type="submit"
                             fullWidth

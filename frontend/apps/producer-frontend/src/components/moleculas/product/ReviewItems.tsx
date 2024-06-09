@@ -21,7 +21,7 @@ const ReviewItems = ({productId}:ReviewItemsProps) => {
                 setReviews(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
             })
     }
 
