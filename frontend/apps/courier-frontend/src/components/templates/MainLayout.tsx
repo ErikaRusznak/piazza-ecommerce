@@ -1,8 +1,9 @@
 'use client';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NavigationBar from "@/components/organisms/navbar/NavigationBar";
-import {Box, SxProps, Theme} from "@mui/material";
+import {Alert, AlertTitle, Box, LinearProgress, SxProps, Theme} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
+import { useAlert } from "components";
 
 interface MainLayoutProps {
     children: React.ReactNode;
@@ -11,7 +12,18 @@ const MainLayout = ({
                         children,
                     }: MainLayoutProps) => {
     const theme = useTheme();
+    const { alert } = useAlert();
+    const [showProgress, setShowProgress] = useState(false);
 
+    useEffect(() => {
+        if (alert) {
+            setShowProgress(true);
+            const timer = setTimeout(() => {
+                setShowProgress(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [alert]);
     const styles = {
         root: {
             display: "flex",
@@ -33,7 +45,13 @@ const MainLayout = ({
             // backgroundSize: "cover",
             padding: theme.spacing(5, 2, 2, 2),
         },
+        alertContainer: {
+            position: "fixed",
+            top: "70px",
+            right: 0,
+            zIndex: 1000,
 
+        },
     };
 
     let mainStyles: SxProps<Theme> = [styles.layoutPaddings, styles.main];
@@ -41,13 +59,19 @@ const MainLayout = ({
     return (
         <main>
             <NavigationBar />
+            {alert && (
+                <Box sx={styles.alertContainer}>
+                    <Alert severity={alert.type}>
+                        <AlertTitle>{alert.title}</AlertTitle>
+                        {alert.paragraph}
+                    </Alert>
+                    {showProgress && <LinearProgress  />} {/* Linear progress bar */}
+                </Box>
+            )}
             <Box sx={styles.root} id="root">
                 <Box component="main" sx={mainStyles}>
                     {children}
                 </Box>
-                {/*<Box sx={[styles.layoutPaddings]}>*/}
-                {/*    <Footer />*/}
-                {/*</Box>*/}
             </Box>
         </main>
     );
