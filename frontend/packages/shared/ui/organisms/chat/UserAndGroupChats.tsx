@@ -36,7 +36,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
     const router = useRouter();
 
     const [showGroupChats, setShowGroupChats] = useState(false);
-    const [showConnectedUsers, setShowConnectedUsers] = useState(false);
+    const [showConnectedUsers, setShowConnectedUsers] = useState(true);
 
     const [lastMessages, setLastMessages] = useState<{ [key: number]: any }>({});
 
@@ -60,9 +60,9 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
         setShowGroupChats((prev) => !prev);
     };
 
-    const createQueryString = (name: string, value: string) => {
+    const createQueryString = (name: string, value: string, isPrivate: string) => {
         const params = new URLSearchParams();
-        params.set("private", "true");
+        params.set("private", isPrivate);
         params.set(name, value);
         return params.toString();
     };
@@ -127,13 +127,13 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
         setSellerId(null);
         setOrderId(null);
         fetchChatHistory(userId);
-        router.push(`/chats?${createQueryString("recipientId", String(userId))}`)
+        router.push(`/chats?${createQueryString("recipientId", String(userId), "true")}`)
     };
 
     const handleOnCLickForGroupChats = (chat: any) => {
         setRecipientId(null);
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
-        router.push(`/chats?${createQueryString("orderId", chat.orderId)}`)
+        router.push(`/chats?${createQueryString("orderId", chat.orderId, "false")}`)
     };
 
     return (

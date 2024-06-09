@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {getBuyerByEmailApi} from "../../../../api/entities/BuyerApi";
-import {AddressType} from "@/app/checkout/page";
-import {Box, Divider, Typography} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { getBuyerByEmailApi } from "../../../../api/entities/BuyerApi";
+import { AddressType } from "@/app/checkout/page";
+import { Box, Divider, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 type FullOrderInformationProps = {
     orderNumber: number;
@@ -11,10 +11,8 @@ type FullOrderInformationProps = {
     buyerEmail: string;
 };
 
-const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:FullOrderInformationProps) => {
-
-    const [buyer, setBuyer] = useState<any|null>(null);
-    // TODO - buyer type
+const FullOrderInformation = ({ orderNumber, date, shippingAddress, buyerEmail }: FullOrderInformationProps) => {
+    const [buyer, setBuyer] = useState<any | null>(null);
     const theme = useTheme();
 
     const getBuyerDetails = (buyerEmail: string) => {
@@ -22,43 +20,44 @@ const FullOrderInformation = ({orderNumber, date, shippingAddress, buyerEmail}:F
             .then((res) => {
                 setBuyer(res.data);
             })
-            .catch((err) => console.error(err))
-    }
+            .catch((err) => console.error(err));
+    };
+
     useEffect(() => {
         getBuyerDetails(buyerEmail);
     }, []);
 
     const textStyle = {
-        fontSize: "18px", fontWeight: theme.typography.fontWeightRegular
-    }
+        fontSize: "16px",
+        fontWeight: theme.typography.fontWeightRegular,
+        marginBottom: theme.spacing(1),
+    };
+
     return (
         buyer && (
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.lightColor.main }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: theme.spacing(2) }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", color: theme.palette.primary.main }}>
                     Order Information
                 </Typography>
-
-                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main, mb:1 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.text.primary }}>
                     <Typography sx={textStyle}>{`Order number: #${orderNumber}`}</Typography>
                     <Typography sx={textStyle}>{`Date: ${date}`}</Typography>
                 </Box>
-                <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
+                <Divider />
 
-                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.4, color: theme.palette.lightColor.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", color: theme.palette.primary.main }}>
                     Shipping Address
                 </Typography>
-
-                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main, mb:1 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.text.primary }}>
                     <Typography sx={textStyle}>{`${shippingAddress.addressLine1}, ${shippingAddress.addressLine2}, ${shippingAddress.zipCode}`}</Typography>
                     <Typography sx={textStyle}>{`${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.country}`}</Typography>
                 </Box>
-                <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
+                <Divider />
 
-                <Typography variant="h6" sx={{ fontWeight: "bold", mt: 0.4, color: theme.palette.lightColor.main }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold", color: theme.palette.primary.main }}>
                     Buyer Info
                 </Typography>
-
-                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.info.main }}>
+                <Box sx={{ display: "flex", flexDirection: "column", color: theme.palette.text.primary }}>
                     <Typography sx={textStyle}>{`${buyer.firstName} ${buyer.lastName}`}</Typography>
                     <Typography sx={textStyle}>{buyerEmail}</Typography>
                     <Typography sx={textStyle}>{buyer.telephone}</Typography>

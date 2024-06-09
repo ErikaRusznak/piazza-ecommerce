@@ -2,13 +2,37 @@ import React from "react";
 import {Box, Collapse, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
+import {baseURL} from "components";
 
+type ChatType = {
+    id: number;
+    email: string;
+    firstName: string;
+    imageName: string;
+    lastName: string;
+    password: string;
+    telephone: string;
+    userRole: string;
+}
+
+type MessageType = {
+    buyerId: number;
+    content: string;
+    courierId: number;
+    date: Date | string;
+    orderId: number;
+    read: boolean;
+    recipientId: number;
+    sellerId: number;
+    senderId: number;
+    senderRole: null | string;
+}
 type PrivateChatMessageUserProps = {
     showChats: boolean;
-    chats: any[];
+    chats: ChatType[];
     handleOnClick: (value: number) => void;
     fontWeightForLastMessage: (recipientId: number) => string;
-    lastMessages: { [key: number]: any; };
+    lastMessages: { [key: number]: MessageType };
     isUserClient: boolean;
 };
 
@@ -47,13 +71,17 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                                 justifyContent: "center"
                             }}>
                                 {!isUserClient ? (
-                                    <Typography variant="body2">
-                                        {user.firstName[0] + user.lastName[0]}
-                                    </Typography>
+                                    user.imageName ? (
+                                        <img src={`${baseURL}${user.imageName}`} alt={user.imageName} style={{ width: '2rem', height: '2rem', borderRadius: "20px", }} />
+                                    ) : (
+                                        <Typography variant="body2">{user.firstName[0] + user.lastName[0]}</Typography>
+                                    )
                                 ) : (
-                                    <Typography variant="body2">
-                                        {typeof user.sellerAlias === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}
-                                    </Typography>
+                                    user.imageName ? (
+                                        <img src={`${baseURL}${user.imageName}`} alt={user.imageName} style={{ width: '2rem', height: '2rem', borderRadius: "20px", }} />
+                                    ) : (
+                                        <Typography variant="body2">{typeof user.sellerAlias === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}</Typography>
+                                    )
                                 )}
                             </Box>
                             <Box sx={{width: "100%"}}>
@@ -66,7 +94,7 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
                                     whiteSpace: "nowrap",
-                                    color: "lightgrey",
+                                    color: isDark ? "lightgrey" : "grey",
                                     fontWeight: fontWeightForLastMessage(user.id),
                                 }}>
                                     {lastMessages[user.id]?.content}

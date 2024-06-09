@@ -64,7 +64,7 @@ const ChatPage = () => {
         getAllUsersApi()
             .then((res) => {
                 let connectedUsers = res.data;
-                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER");
+                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER" && user.userRole !== "ADMIN");
                 setConnectedUsers(connectedUsers);
             })
             .catch((err) => console.error(err))

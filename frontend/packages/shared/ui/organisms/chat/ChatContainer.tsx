@@ -49,22 +49,22 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
             {recipientId ? (
                 <ChatContainerDetails
                     privateChat={true}
-                    label={"Chat with user"}
                     id={id}
                     messages={messages}
                     sendMessageFunction={sendMessageInternal}
                     userRole={userRole}
+                    recipientId={recipientId}
                 />
             ) : (
                 (orderId ?
                     (
                         <ChatContainerDetails
                             privateChat={false}
-                            label={"Chat with group"}
                             id={id}
                             messages={messages}
                             sendMessageFunction={sendMessageToGroupChatInternal}
                             userRole={userRole}
+                            orderId={orderId}
                         />
                     ) : null)
             )}

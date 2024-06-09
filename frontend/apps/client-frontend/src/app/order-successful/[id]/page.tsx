@@ -7,6 +7,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {CheckCircleOutlineIcon} from "@/components/atoms/icons";
+import moment from "moment";
 
 type OrderSuccessfulPageProps = {
     params: {
@@ -33,6 +34,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
 
     const smallerScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const variantForTitle = smallerScreen ? "h5" : "h4";
+    console.log(fullOrder);
 
     return (
         fullOrder && (
@@ -79,7 +81,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
                             <Box>
                                 <FullOrderInformation
                                     orderNumber={fullOrder.orderNumber}
-                                    date={fullOrder.publishDate}
+                                    date={moment(fullOrder.publishDate).format("YYYY-MM-DD")}
                                     shippingAddress={fullOrder.shippingAddress}
                                     buyerEmail={fullOrder.buyerEmail}
                                 />

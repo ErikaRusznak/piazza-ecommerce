@@ -45,7 +45,7 @@ public class DataCreatorForTesting {
                 "Erika",
                 "Rusznak",
                 "erikarusznak@gmail.com",
-                "none",
+                "/images/burger.jpg",
                 "0747871208",
                 UserRole.CLIENT);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -55,7 +55,7 @@ public class DataCreatorForTesting {
                 "Alex",
                 "Dulfu",
                 "alexdulfu@gmail.com",
-                "none",
+                null,
                 "0758418097",
                 UserRole.CLIENT);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -65,7 +65,7 @@ public class DataCreatorForTesting {
                 "Giulia",
                 "Lucaciu",
                 "giulialucaciu@gmail.com",
-                "none",
+                null,
                 "0796854752",
                 UserRole.CLIENT);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -75,7 +75,7 @@ public class DataCreatorForTesting {
 //                "Erika",
 //                "Rusznak",
 //                "erika.rusznak@student.upt.ro",
-//                "none",
+//               null,
 //                "0747871208",
 //                UserRole.CLIENT);
 //        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -107,7 +107,7 @@ public class DataCreatorForTesting {
                 "Andrei",
                 "Pop",
                 "andreipop@gmail.com",
-                "none",
+                null,
                 "0787523948",
                 UserRole.COURIER);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -117,7 +117,7 @@ public class DataCreatorForTesting {
                 "Monica",
                 "Rusznak",
                 "monicarusznak@gmail.com",
-                "none",
+                null,
                 "0758418047",
                 UserRole.COURIER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -127,7 +127,7 @@ public class DataCreatorForTesting {
                 "Mihai",
                 "Rusu",
                 "mihairusu@gmail.com",
-                "none",
+                null,
                 "0796859752",
                 UserRole.COURIER);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -137,7 +137,7 @@ public class DataCreatorForTesting {
                 "Vlad",
                 "Popesescu",
                 "vladpopescu@gmail.com",
-                "none",
+                null,
                 "0736859752",
                 UserRole.COURIER);
         account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -147,7 +147,7 @@ public class DataCreatorForTesting {
                 "Stefania",
                 "Osan",
                 "stefiosan@gmail.com",
-                "none",
+                null,
                 "0776859752",
                 UserRole.COURIER);
         account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
