@@ -15,7 +15,7 @@ type ChatType = {
     userRole: string;
 }
 
-type MessageType = {
+export type MessageType = {
     buyerId: number;
     content: string;
     courierId: number;
@@ -85,9 +85,9 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                                 )}
                             </Box>
                             <Box sx={{width: "100%"}}>
-                                <Typography sx={{
-                                    fontWeight: fontWeightForLastMessage(user.id),
-                                }}>{!isUserClient ? user.firstName + " " + user.lastName : user.sellerAlias}</Typography>
+                                <Typography sx={{fontWeight: fontWeightForLastMessage(user.id),}}>
+                                    {!isUserClient ? `${user.firstName} ${user.lastName}` : user.sellerAlias}
+                                </Typography>
                                 <Typography sx={{
                                     fontSize: "13px",
                                     maxWidth: "200px",

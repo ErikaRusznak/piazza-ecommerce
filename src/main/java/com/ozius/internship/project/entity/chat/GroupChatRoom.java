@@ -67,7 +67,6 @@ public class GroupChatRoom extends BaseEntity {
     public long getSellerId() {
         return seller.getId();
     }
-
     public String getSellerFirstName() {
         return seller.getFirstName();
     }
@@ -93,6 +92,9 @@ public class GroupChatRoom extends BaseEntity {
 
     public long getOrderId() {
         return order.getId();
+    }
+    public String getOrderNumber() {
+        return order.getOrderNumber();
     }
 
     @Override

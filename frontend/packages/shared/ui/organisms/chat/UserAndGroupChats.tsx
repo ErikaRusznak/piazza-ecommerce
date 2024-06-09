@@ -8,7 +8,7 @@ import { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessages
 import {useThemeToggle} from "../../themes/ThemeContext";
 import ToggleChatsShow from "../../atoms/chat/ToggleChatsShow";
 import PrivateChatMessageUser from "../../moleculas/chat/PrivateChatMessageUser";
-import GroupChatMessageUser from "../../moleculas/chat/GroupChatMessageUser";
+import GroupChatMessageUser, {GroupChatType} from "../../moleculas/chat/GroupChatMessageUser";
 
 type UserAndGroupChatsProps = {
     id: number;
@@ -21,7 +21,7 @@ type UserAndGroupChatsProps = {
     messages: any[];
     setMessages: (value: any[]) => void;
     connectedUsers: any[];
-    groupChats: any[];
+    groupChats: GroupChatType[];
     isUserClient?: boolean;
 };
 
@@ -39,12 +39,17 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
     const [showConnectedUsers, setShowConnectedUsers] = useState(true);
 
     const [lastMessages, setLastMessages] = useState<{ [key: number]: any }>({});
+    const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
 
     useEffect(() => {
         connectedUsers?.forEach((user: any) => {
             fetchLastMessage(id, user.id);
         });
-    }, [connectedUsers, messages]);
+        groupChats?.forEach((gc: any) => {
+            console.log(gc.orderId);
+            fetchLastMessageForGroup(gc.buyerId, gc.courierId, gc.sellerId, gc.orderId);
+        });
+    }, [connectedUsers, messages, groupChats]);
 
 
     useEffect(() => {
@@ -104,6 +109,19 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             .catch((err) => console.error(err));
     };
 
+    const fetchLastMessageForGroup = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
+            .then((res) => {
+                if(res.data.length > 0) {
+                    const lastMessageForGroup = res.data[res.data.length - 1];
+                    setLastMessagesForGroup(prevState => ({
+                        ...prevState,
+                        [orderId]: lastMessageForGroup,
+                    }))
+                }
+            })
+    }
+
     const fontWeightForLastMessage = (recipientId: number) => {
         if (!lastMessages[recipientId] || lastMessages[recipientId].read || lastMessages[recipientId].senderId === id) {
             return "normal";
@@ -130,7 +148,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
         router.push(`/chats?${createQueryString("recipientId", String(userId), "true")}`)
     };
 
-    const handleOnCLickForGroupChats = (chat: any) => {
+    const handleOnClickForGroupChats = (chat: any) => {
         setRecipientId(null);
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
         router.push(`/chats?${createQueryString("orderId", chat.orderId, "false")}`)
@@ -168,7 +186,8 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             <GroupChatMessageUser
                 showChats={showGroupChats}
                 chats={groupChats}
-                handleOnClick={handleOnCLickForGroupChats}
+                handleOnClick={handleOnClickForGroupChats}
+                lastMessages={lastMessagesForGroup}
             />
         </Box>
     );

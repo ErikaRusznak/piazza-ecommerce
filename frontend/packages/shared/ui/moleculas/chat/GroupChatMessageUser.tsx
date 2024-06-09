@@ -1,19 +1,40 @@
-import React from "react";
-import {Box, Collapse, Typography} from "@mui/material";
+"use client";
+
+import {Box, Collapse} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "../../themes/ThemeContext";
+import GroupTextChat from "../../atoms/chat/GroupTextChat";
+import {MessageType} from "./PrivateChatMessageUser";
 
+export type GroupChatType = {
+    buyerEmail: string;
+    buyerFirstName: string;
+    buyerId: number;
+    buyerLastName: string;
+    courierEmail: string;
+    courierFirstName: string;
+    courierId: number;
+    courierLastName: string;
+    groupRoomCode: string;
+    id: number;
+    orderId: number;
+    sellerEmail: string;
+    sellerFirstName: string;
+    sellerId: number;
+    sellerLastName: string;
+    orderNumber: string;
+}
 type GroupChatMessageUserProps = {
     showChats: boolean;
-    chats: any[];
-    handleOnClick: (chat: any) => void;
+    chats: GroupChatType[];
+    handleOnClick: (chat: GroupChatType) => void;
+    lastMessages: { [key: number]: MessageType };
 };
 
-const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessageUserProps) => {
+const GroupChatMessageUser = ({showChats, chats, handleOnClick, lastMessages}:GroupChatMessageUserProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-
     return (
         <Collapse in={showChats}>
             <Box sx={{display: "flex", flexDirection: "column",}}>
@@ -21,51 +42,14 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick}:GroupChatMessage
                     <Box
                         key={chat.id}
                         sx={{
-                            color: theme.palette.info.main,
-                            p: 1,
-                            cursor: 'pointer',
-                            '&:hover': {
+                            color: theme.palette.info.main, p: 1, cursor: 'pointer',
+                            "&:hover": {
                                 backgroundColor: isDark ? 'rgba(0, 0, 0, 0.5)' : '#eee',
                             },
                         }}
                         onClick={() => handleOnClick(chat)}
                     >
-                        <Box
-                            sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
-                            <Box sx={{
-                                width: "2rem",
-                                height: "2rem",
-                                textAlign: "center",
-                                alignContent: "center",
-                                color: theme.palette.info.main,
-                                borderRadius: "20px",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center"
-                            }}>
-                                <Typography variant="body2">
-                                    {/*{typeof chat.c === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}*/}
-                                    {chat.id}
-                                </Typography>
-
-                            </Box>
-                            <Box sx={{width: "100%"}}>
-                                <Typography sx={{
-                                    color: theme.palette.info.main,
-                                }}>{chat.buyerFirstName}, {chat.sellerFirstName}</Typography>
-                                <Typography sx={{
-                                    fontSize: "13px",
-                                    maxWidth: "200px",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                    color: "lightgrey",
-                                }}>
-                                    Last message...
-                                </Typography>
-                            </Box>
-                        </Box>
-
+                        <GroupTextChat chat={chat} lastMessage={lastMessages[chat.orderId]?.content}/>
                     </Box>
                 ))}
             </Box>
