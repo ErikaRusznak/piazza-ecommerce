@@ -3,6 +3,7 @@ import {Box, Collapse, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
 import {baseURL} from "components";
+import CircleIcon from '@mui/icons-material/Circle';
 
 type ChatType = {
     id: number;
@@ -36,7 +37,14 @@ type PrivateChatMessageUserProps = {
     isUserClient: boolean;
 };
 
-const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, fontWeightForLastMessage, lastMessages}: PrivateChatMessageUserProps) => {
+const PrivateChatMessageUser = ({
+                                    isUserClient,
+                                    showChats,
+                                    chats,
+                                    handleOnClick,
+                                    fontWeightForLastMessage,
+                                    lastMessages
+                                }: PrivateChatMessageUserProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -56,50 +64,61 @@ const PrivateChatMessageUser = ({isUserClient, showChats, chats, handleOnClick, 
                         }}
                         onClick={() => handleOnClick(user.id)}
                     >
-                        <Box
-                            sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
-                            <Box sx={{
-                                width: "2rem",
-                                height: "2rem",
-                                textAlign: "center",
-                                alignContent: "center",
-                                color: theme.palette.info.main,
-                                backgroundColor: fontWeightForLastMessage(user.id) === "bold" ? theme.palette.primary.main : theme.palette.lightColor.main,
-                                borderRadius: "20px",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "center"
-                            }}>
-                                {!isUserClient ? (
-                                    user.imageName ? (
-                                        <img src={`${baseURL}${user.imageName}`} alt={user.imageName} style={{ width: '2rem', height: '2rem', borderRadius: "20px", }} />
-                                    ) : (
-                                        <Typography variant="body2">{user.firstName[0] + user.lastName[0]}</Typography>
-                                    )
-                                ) : (
-                                    user.imageName ? (
-                                        <img src={`${baseURL}${user.imageName}`} alt={user.imageName} style={{ width: '2rem', height: '2rem', borderRadius: "20px", }} />
-                                    ) : (
-                                        <Typography variant="body2">{typeof user.sellerAlias === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}</Typography>
-                                    )
-                                )}
-                            </Box>
-                            <Box sx={{width: "100%"}}>
-                                <Typography sx={{fontWeight: fontWeightForLastMessage(user.id),}}>
-                                    {!isUserClient ? `${user.firstName} ${user.lastName}` : user.sellerAlias}
-                                </Typography>
-                                <Typography sx={{
-                                    fontSize: "13px",
-                                    maxWidth: "200px",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                    color: isDark ? "lightgrey" : "grey",
-                                    fontWeight: fontWeightForLastMessage(user.id),
+                        <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                            <Box
+                                sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
+                                <Box sx={{
+                                    width: "2rem",
+                                    height: "2rem",
+                                    textAlign: "center",
+                                    alignContent: "center",
+                                    color: theme.palette.info.main,
+                                    backgroundColor: fontWeightForLastMessage(user.id) === "bold" ? theme.palette.primary.main : theme.palette.lightColor.main,
+                                    borderRadius: "20px",
                                 }}>
-                                    {lastMessages[user.id]?.content}
-                                </Typography>
+                                    {!isUserClient ? (
+                                        user.imageName ? (
+                                            <img src={`${baseURL}${user.imageName}`} alt={user.imageName}
+                                                 style={{width: '2rem', height: '2rem', borderRadius: "20px",}}/>
+                                        ) : (
+                                            <Typography
+                                                variant="body2">{user.firstName[0] + user.lastName[0]}</Typography>
+                                        )
+                                    ) : (
+                                        user.imageName ? (
+                                            <img src={`${baseURL}${user.imageName}`} alt={user.imageName}
+                                                 style={{width: '2rem', height: '2rem', borderRadius: "20px",}}/>
+                                        ) : (
+                                            <Typography
+                                                variant="body2">{typeof user.sellerAlias === 'string' && user.sellerAlias.substring(0, Math.min(user.sellerAlias.length, 2))}</Typography>
+                                        )
+                                    )}
+                                </Box>
+                                <Box sx={{width: "100%"}}>
+                                    <Typography sx={{fontWeight: fontWeightForLastMessage(user.id),}}>
+                                        {!isUserClient ? `${user.firstName} ${user.lastName}` : user.sellerAlias}
+                                    </Typography>
+                                    <Typography sx={{
+                                        fontSize: "13px",
+                                        maxWidth: "200px",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        whiteSpace: "nowrap",
+                                        color: isDark ? "lightgrey" : "grey",
+                                        fontWeight: fontWeightForLastMessage(user.id),
+                                    }}>
+                                        {lastMessages[user.id]?.content}
+                                    </Typography>
+                                </Box>
                             </Box>
+                            {!lastMessages[user.id]?.read && lastMessages[user.id]?.senderId === user.id && (
+                                <CircleIcon sx={{
+                                    width: "18px",
+                                    height: "18px",
+                                    color: theme.palette.primary.main,
+                                    mr: 2,
+                                }}/>
+                            )}
                         </Box>
 
                     </Box>

@@ -135,8 +135,10 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
 
     const fontWeightForLastMessage = (recipientId: number) => {
         if (!lastMessages[recipientId] || lastMessages[recipientId].read || lastMessages[recipientId].senderId === id) {
+
             return "normal";
         } else {
+
             return "bold";
         }
     };
