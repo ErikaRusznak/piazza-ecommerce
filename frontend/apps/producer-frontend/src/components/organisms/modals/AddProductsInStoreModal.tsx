@@ -5,6 +5,7 @@ import {Box, Typography} from "@mui/material";
 import {addProductsInStoreApi} from "../../../../api/entities/ProductApi";
 import {QuantityInput} from "ui";
 import {StyledButton, useThemeToggle} from "ui";
+import {useAlert} from "components";
 
 type DeleteModalProps = {
     isModalOpen: boolean;
@@ -25,11 +26,17 @@ const AddProductsInStoreModal = (
     const theme = useTheme();
     const {isDark} = useThemeToggle();
     const [quantity, setQuantity] = useState<number>(1);
+    const {pushAlert} = useAlert();
     const handleAddProductsInStore = (quantity: number) => {
         addProductsInStoreApi(productId, quantity)
             .then(res => {
                 updateProductData(res.data);
                 setIsModalOpen(false);
+                pushAlert({
+                    type: "success",
+                    title: "Add products",
+                    paragraph: "More products were added into the store!"
+                });
             })
             .catch(err => console.log(err))
     };

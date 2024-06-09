@@ -239,9 +239,9 @@ public class DataCreatorForTesting {
                 account3,
                 "Ozius Solutions",
                 SellerType.COMPANY,
-                new LegalDetails("Mega Fresh SRL", "10234567",
+                new LegalDetails("Mega Fresh SRL", "1023456",
                         new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
-        createSellerRequestForCompanyOrPfa(em, "Reason", account3.getEmail(), "10234567", SellerType.COMPANY);
+        createSellerRequestForCompanyOrPfa(em, "Reason", account3.getEmail(), "1023456", SellerType.COMPANY);
     }
 
     public static Category createCategory(EntityManager em, String name, String image) {

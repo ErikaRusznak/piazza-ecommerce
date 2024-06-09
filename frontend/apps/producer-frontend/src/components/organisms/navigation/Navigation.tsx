@@ -3,8 +3,7 @@ import {useTheme} from "@mui/material/styles";
 import {NavigationAdmProd} from "ui";
 import {
     CategoryIcon, ChatIcon,
-    NotificationsIcon, PersonIcon,
-    ShoppingCartCheckoutIcon
+    PersonIcon, ShoppingCartCheckoutIcon
 } from "@/components/atoms/icons";
 import {useAuth} from "../../../../api/auth/AuthContext";
 
@@ -21,11 +20,6 @@ export default function Navigation({children}: { children: React.ReactNode, isSe
 
     const profileList = [
         {label: "Profile", icon: <PersonIcon sx={{color: theme.palette.info.main}}/>, href: "/profile"},
-        {
-            label: "Notifications",
-            icon: <NotificationsIcon sx={{color: theme.palette.info.main}}/>,
-            href: "/notifications"
-        },
     ];
 
     return (

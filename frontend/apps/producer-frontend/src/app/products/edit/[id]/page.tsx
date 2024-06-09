@@ -7,7 +7,7 @@ import {UnauthenticatedMessage} from "ui";
 import {useAuth} from "../../../../../api/auth/AuthContext";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
-import {getProductByIdApi} from "components";
+import {getProductByIdApi, useAlert} from "components";
 import useProductForm from "../../../../../hooks/useProductForm";
 import {updateProductApi} from "../../../../../api/entities/ProductApi";
 
@@ -23,7 +23,7 @@ const EditProductPage = ({params}: EditProductPageProps) => {
     const router = useRouter();
     const { categories, seller, UNIT_OF_MEASURES } = useProductForm();
     const [product, setProduct] = useState<any>();
-
+    const {pushAlert} = useAlert();
     const [fileName, setFileName] = useState<string>(product?.imageName);
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
@@ -62,10 +62,21 @@ const EditProductPage = ({params}: EditProductPageProps) => {
             unitOfMeasure: selectedUnitOfMeasure
         })
             .then((res) => {
-                console.log(res);
                 router.push(`/products`);
+                pushAlert({
+                    type: "success",
+                    title: "Update product",
+                    paragraph: "Product was updated successfully!"
+                });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Update product",
+                    paragraph: "Could not update product."
+                });
+            });
     };
 
     return categories && (

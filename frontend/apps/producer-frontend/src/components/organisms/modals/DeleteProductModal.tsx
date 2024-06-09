@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import {Box, Button, Typography} from "@mui/material";
 import {deleteProductByIdApi} from "../../../../api/entities/ProductApi";
 import {useThemeToggle} from "ui";
+import {useAlert} from "components";
 
 type DeleteModalProps = {
     isModalOpen: boolean;
@@ -23,15 +24,27 @@ const DeleteProductModal = ({   isModalOpen,
     const theme = useTheme();
     const router = useRouter();
     const {isDark} = useThemeToggle();
+    const {pushAlert} = useAlert();
 
     const handleDelete = () => {
         deleteProductByIdApi(productId)
             .then(res => {
                 onDelete(productId);
                 router.push("/products");
+                pushAlert({
+                    type: "success",
+                    title: "Delete product",
+                    paragraph: "Product was deleted successfully!"
+                });
                 setIsModalOpen(false);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                pushAlert({
+                    type: "error",
+                    title: "Delete product",
+                    paragraph: "Could not delete product."
+                });
+            })
 
     };
 

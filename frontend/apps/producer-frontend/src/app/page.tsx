@@ -5,10 +5,12 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import {useTheme} from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import {useThemeToggle} from "ui";
 
 const HomePage = () => {
     const theme = useTheme();
     const router = useRouter();
+    const {isDark} = useThemeToggle();
 
     return (
         <MainLayout>
@@ -25,7 +27,7 @@ const HomePage = () => {
                 <Typography
                     variant="h2"
                     sx={{
-                        color: theme.palette.lightColor.main,
+                        color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main,
                         fontSize: { xxs: "32px", sm: "40px", md: "50px" },
                         lineHeight: { xxs: 1.2 },
                         mb: 2,
@@ -55,8 +57,8 @@ const HomePage = () => {
                         variant="contained"
                         sx={{
                             background: theme.palette.secondary.main,
-                            color: theme.palette.info.main,
-                            "&:hover": { background: theme.palette.tertiary.main },
+                            color: isDark ? theme.palette.info.main : theme.palette.info.contrastText,
+                            "&:hover": { background: isDark ? theme.palette.tertiary.main : theme.palette.primary.main },
                             fontSize: { xxs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {

@@ -9,13 +9,14 @@ import {useRouter} from "next/navigation";
 import {UnauthenticatedMessage} from "ui";
 import AddEditProductForm, {AddEditProductInput} from "@/components/organisms/products/AddEditProductForm";
 import useProductForm from "../../../../hooks/useProductForm";
+import {useAlert} from "components";
 
 const AddProductPage = () => {
 
     const { isAuthenticated } = useAuth();
     const router = useRouter();
     const { categories, seller, UNIT_OF_MEASURES } = useProductForm();
-
+    const {pushAlert} = useAlert();
     const [fileName, setFileName] = useState<string>("");
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
@@ -37,8 +38,20 @@ const AddProductPage = () => {
         })
             .then((res) => {
                 router.push(`/products`);
+                pushAlert({
+                    type: "success",
+                    title: "Add product",
+                    paragraph: "Product was added successfully!"
+                });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Add product",
+                    paragraph: "Could not add product."
+                });
+            });
     };
 
     return categories && (
