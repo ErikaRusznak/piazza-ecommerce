@@ -100,6 +100,7 @@ const ChatPage = () => {
                                     setOrderId={setOrderId}
                                     setMessages={setMessages}
                                     groupChats={groupChats}
+                                    messages={messages}
                                 />
                                 <ChatContainer
                                     orderId={orderId}

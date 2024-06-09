@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
@@ -14,9 +14,10 @@ type UserAndGroupChatsProps = {
     setOrderId: (value: null | number) => void;
     setMessages: (value: any[]) => void;
     groupChats: any[];
+    messages: any[];
 };
 
-const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, setMessages }: UserAndGroupChatsProps) => {
+const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, messages, setMessages }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -24,6 +25,13 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
     const router = useRouter();
 
     const [showGroupChats, setShowGroupChats] = useState(false);
+    const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
+
+    useEffect(() => {
+        groupChats?.forEach((gc: any) => {
+            fetchLastMessageForGroup(gc.buyerId, gc.courierId, gc.sellerId, gc.orderId);
+        });
+    }, [groupChats, messages]);
 
     const toggleGroupChats = () => {
         setShowGroupChats((prev) => !prev);
@@ -47,6 +55,19 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
             })
             .catch((err) => console.error(err));
     };
+
+    const fetchLastMessageForGroup = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
+            .then((res) => {
+                if(res.data.length > 0) {
+                    const lastMessageForGroup = res.data[res.data.length - 1];
+                    setLastMessagesForGroup(prevState => ({
+                        ...prevState,
+                        [orderId]: lastMessageForGroup,
+                    }))
+                }
+            })
+    }
 
     const handleOnClickForGroupChats = (chat: any) => {
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
@@ -74,6 +95,7 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
                 showChats={showGroupChats}
                 chats={groupChats}
                 handleOnClick={handleOnClickForGroupChats}
+                lastMessages={lastMessagesForGroup}
             />
         </Box>
     );

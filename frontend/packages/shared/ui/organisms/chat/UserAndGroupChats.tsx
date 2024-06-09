@@ -46,7 +46,6 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             fetchLastMessage(id, user.id);
         });
         groupChats?.forEach((gc: any) => {
-            console.log(gc.orderId);
             fetchLastMessageForGroup(gc.buyerId, gc.courierId, gc.sellerId, gc.orderId);
         });
     }, [connectedUsers, messages, groupChats]);
