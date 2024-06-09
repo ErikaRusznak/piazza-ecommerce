@@ -2,7 +2,7 @@
 
 import {ChatContainerDetailsWrapper} from "../../index";
 import {useEffect, useState} from "react";
-import {getUserByIdApi} from "components";
+import {getOrderByIdApi, getUserByIdApi} from "components";
 import {getSellerByIdApi} from "producer-frontend/api/entities/SellerApi";
 
 type ChatContainerDetailsProps = {
@@ -18,6 +18,8 @@ type ChatContainerDetailsProps = {
 const ChatContainerDetails = ({id, messages, sendMessageFunction, privateChat, userRole, recipientId, orderId}: ChatContainerDetailsProps) => {
 
     const [username, setUsername] = useState<string>("");
+    const [orderNumber, setOrderNumber] = useState<string>("");
+
     const distinctSenderFromReceiverPrivateFunction = (mess: any, val: string | number) => {
         return mess.senderId === val;
     };
@@ -50,6 +52,16 @@ const ChatContainerDetails = ({id, messages, sendMessageFunction, privateChat, u
             })
     }
 
+    const getOrderById = (id: number) => {
+        getOrderByIdApi(id)
+            .then((res) => {
+                setOrderNumber(res.data.orderNumber);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+
     useEffect(() => {
         if(recipientId) {
             if(userRole === "SELLER")
@@ -57,11 +69,14 @@ const ChatContainerDetails = ({id, messages, sendMessageFunction, privateChat, u
             if(userRole === "CLIENT")
                 getSellerById(recipientId);
         }
-    }, [recipientId]);
+        if(orderId) {
+            getOrderById(orderId);
+        }
+    }, [recipientId, orderId]);
 
     return (
         <ChatContainerDetailsWrapper
-            label={`Chat with ${username}`}
+            label={recipientId ? `Chat with ${username}` : `Chat for Order #${orderNumber}`}
             messages={messages}
             sendMessageFunction={sendMessageFunction}
             distinctSenderFromReceiver={distinctSenderFromReceiver}

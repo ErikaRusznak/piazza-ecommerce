@@ -61,10 +61,21 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
             .then((res) => {
                 if(res.data.length > 0) {
                     const lastMessageForGroup = res.data[res.data.length - 1];
+                    let sender: string = "";
+                    switch (lastMessageForGroup.senderId) {
+                        case buyerId:
+                            sender = "Buyer"; break;
+                        case sellerId:
+                            sender = "Seller"; break;
+                        case courierId:
+                            sender = "Courier"; break;
+                        default:
+                            sender = "Unknown"; break;
+                    }
                     setLastMessagesForGroup(prevState => ({
                         ...prevState,
-                        [orderId]: lastMessageForGroup,
-                    }))
+                        [orderId]: { ...lastMessageForGroup, content: `${sender}: ${lastMessageForGroup.content}` },
+                    }));
                 }
             })
     }

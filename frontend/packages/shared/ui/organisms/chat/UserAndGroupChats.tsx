@@ -111,12 +111,24 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
     const fetchLastMessageForGroup = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
         getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
             .then((res) => {
-                if(res.data.length > 0) {
+                if (res.data.length > 0) {
                     const lastMessageForGroup = res.data[res.data.length - 1];
+                    let sender: string = "";
+                    switch (lastMessageForGroup.senderId) {
+                        case buyerId:
+                            sender = "Buyer"; break;
+                        case sellerId:
+                            sender = "Seller"; break;
+                        case courierId:
+                            sender = "Courier"; break;
+                        default:
+                            sender = "Unknown"; break;
+                    }
+
                     setLastMessagesForGroup(prevState => ({
                         ...prevState,
-                        [orderId]: lastMessageForGroup,
-                    }))
+                        [orderId]: { ...lastMessageForGroup, content: `${sender}: ${lastMessageForGroup.content}` },
+                    }));
                 }
             })
     }

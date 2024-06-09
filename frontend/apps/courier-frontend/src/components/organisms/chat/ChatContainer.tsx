@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Box, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {useWebSocket} from "components";
+import {getOrderByIdApi, useWebSocket} from "components";
 import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetails";
 import {useThemeToggle} from "ui";
 
@@ -22,6 +22,7 @@ const ChatContainer = ({
     const theme = useTheme();
     const {isDark} = useThemeToggle();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const [orderNumber, setOrderNumber] = useState<string>("");
 
     const {sendMessageToGroupChat} = useWebSocket();
 
@@ -30,6 +31,22 @@ const ChatContainer = ({
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
+
+    const getOrderById = (id: number) => {
+        getOrderByIdApi(id)
+            .then((res) => {
+                setOrderNumber(res.data.orderNumber);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    };
+
+    useEffect(() => {
+        if(orderId) {
+            getOrderById(orderId);
+        }
+    }, [orderId]);
 
     return (
         <Box sx={{
@@ -41,7 +58,7 @@ const ChatContainer = ({
         }}>
             {buyerId && sellerId && orderId ?
                 <ChatContainerDetails
-                    label={"Chat with group"}
+                    label={`Chat for Order #${orderNumber}`}
                     messages={messages}
                     sendMessageFunction={sendMessageToGroupChatInternal}/>
                 : null

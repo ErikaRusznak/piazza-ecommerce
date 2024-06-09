@@ -1,7 +1,7 @@
 import {api} from "components";
 
 export const getOrdersApi = (page:number, itemsPerPage:number, sortSpecs:any, filterSpecs:any) => {
-    return api.get(`/orders`, {
+    return api.get(`/api/orders`, {
         params: {
             page: page,
             itemsPerPage: itemsPerPage,
