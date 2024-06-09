@@ -37,7 +37,6 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
-
     return (
         <Box sx={{
             flex: isSm ? '1' : '1 1 75%',

@@ -15,9 +15,11 @@ type UserAndGroupChatsProps = {
     setMessages: (value: any[]) => void;
     groupChats: any[];
     messages: any[];
+    unreadGroupMessages: { [key: number]: boolean };
+    setUnreadGroupMessages: (newValue: (prevState: any) => any) => void;
 };
 
-const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, messages, setMessages }: UserAndGroupChatsProps) => {
+const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, messages, setMessages, unreadGroupMessages, setUnreadGroupMessages }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -80,7 +82,15 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
             })
     }
 
+    const markGroupMessagesAsRead = (groupId: number) => {
+        setUnreadGroupMessages(prevState => ({
+            ...prevState,
+            [groupId]: false
+        }));
+    };
+
     const handleOnClickForGroupChats = (chat: any) => {
+        markGroupMessagesAsRead(chat.orderId);
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
         router.push(`/chats?${createQueryString("orderId", chat.orderId)}`)
     };
@@ -107,6 +117,7 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
                 chats={groupChats}
                 handleOnClick={handleOnClickForGroupChats}
                 lastMessages={lastMessagesForGroup}
+                unreadGroupMessages={unreadGroupMessages}
             />
         </Box>
     );

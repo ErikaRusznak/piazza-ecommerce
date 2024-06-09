@@ -25,6 +25,7 @@ const ChatPage = () => {
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+    const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const searchParams = useSearchParams();
     const [messages, setMessages] = useState<any[]>([]);
@@ -46,7 +47,12 @@ const ChatPage = () => {
             return;
         }
         if (message.senderRole !== "SELLER") {
+            console.log(message.orderId)
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            setUnreadGroupMessages(prevState => ({
+                ...prevState,
+                [message.orderId]: true
+            }));
         }
     };
 
@@ -115,6 +121,8 @@ const ChatPage = () => {
                                 connectedUsers={connectedUsers}
                                 groupChats={groupChats}
                                 isUserClient={false}
+                                unreadGroupMessages={unreadGroupMessages}
+                                setUnreadGroupMessages={setUnreadGroupMessages}
                             />
                             <ChatContainer
                                 recipientId={recipientId}

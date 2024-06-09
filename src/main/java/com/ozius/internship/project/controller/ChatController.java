@@ -73,6 +73,7 @@ public class ChatController {
                     savedMessage.getContent(),
                     savedMessage.getBuyerId(),
                     savedMessage.getCourierId(),
+                    savedMessage.getOrderId(),
                     savedMessage.getSellerId(),
                     savedMessage.getSenderRole()
             );

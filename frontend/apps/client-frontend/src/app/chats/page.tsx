@@ -19,6 +19,7 @@ const ChatPage = () => {
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const searchParams = useSearchParams();
     const [messages, setMessages] = useState<any[]>([]);
@@ -41,6 +42,10 @@ const ChatPage = () => {
         }
         if (message.senderRole !== "CLIENT") {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            setUnreadGroupMessages(prevState => ({
+                ...prevState,
+                [message.orderId]: true
+            }));
             return;
         }
     };
@@ -107,6 +112,8 @@ const ChatPage = () => {
                                 setMessages={setMessages}
                                 connectedUsers={connectedUsers}
                                 groupChats={groupChats}
+                                unreadGroupMessages={unreadGroupMessages}
+                                setUnreadGroupMessages={setUnreadGroupMessages}
                             />
                             <ChatContainer
                                 recipientId={recipientId}

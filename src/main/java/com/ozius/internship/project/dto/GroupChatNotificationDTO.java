@@ -13,6 +13,7 @@ public class GroupChatNotificationDTO {
     private String content;
     private long buyerId;
     private long courierId;
+    private long orderId;
     private long sellerId;
     private UserRole senderRole;
 }

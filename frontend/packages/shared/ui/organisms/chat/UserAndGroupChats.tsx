@@ -23,11 +23,14 @@ type UserAndGroupChatsProps = {
     connectedUsers: any[];
     groupChats: GroupChatType[];
     isUserClient?: boolean;
+    unreadGroupMessages: { [key: number]: boolean };
+    setUnreadGroupMessages: (newValue: (prevState: any) => any) => void;
 };
 
 const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrderId, recipientId, setRecipientId,
                                connectedUsers, groupChats,
                                messages, setMessages, isUserClient=true,
+                                unreadGroupMessages, setUnreadGroupMessages
                            }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
@@ -40,6 +43,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
 
     const [lastMessages, setLastMessages] = useState<{ [key: number]: any }>({});
     const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
+
 
     useEffect(() => {
         connectedUsers?.forEach((user: any) => {
@@ -135,10 +139,8 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
 
     const fontWeightForLastMessage = (recipientId: number) => {
         if (!lastMessages[recipientId] || lastMessages[recipientId].read || lastMessages[recipientId].senderId === id) {
-
             return "normal";
         } else {
-
             return "bold";
         }
     };
@@ -161,8 +163,16 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
         router.push(`/chats?${createQueryString("recipientId", String(userId), "true")}`)
     };
 
+    const markGroupMessagesAsRead = (groupId: number) => {
+        setUnreadGroupMessages(prevState => ({
+            ...prevState,
+            [groupId]: false
+        }));
+    };
+
     const handleOnClickForGroupChats = (chat: any) => {
         setRecipientId(null);
+        markGroupMessagesAsRead(chat.orderId);
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
         router.push(`/chats?${createQueryString("orderId", chat.orderId, "false")}`)
     };
@@ -201,6 +211,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
                 chats={groupChats}
                 handleOnClick={handleOnClickForGroupChats}
                 lastMessages={lastMessagesForGroup}
+                unreadGroupMessages={unreadGroupMessages}
             />
         </Box>
     );

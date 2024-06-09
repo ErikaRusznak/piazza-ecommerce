@@ -20,6 +20,7 @@ const ChatPage = () => {
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const { isAuthenticated } = useAuth();
     const [messages, setMessages] = useState<any[]>([]);
+    const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const [courierId, setCourierId] = useState<number | null>(null);
     const [buyerId, setBuyerId] = useState<number | null>(null);
@@ -33,6 +34,10 @@ const ChatPage = () => {
     const onMessageReceived = (message: any) => {
         if (message.senderRole !== "COURIER") {
             setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            setUnreadGroupMessages(prevState => ({
+                ...prevState,
+                [message.orderId]: true
+            }));
         }
     };
 
@@ -101,6 +106,8 @@ const ChatPage = () => {
                                     setMessages={setMessages}
                                     groupChats={groupChats}
                                     messages={messages}
+                                    unreadGroupMessages={unreadGroupMessages}
+                                    setUnreadGroupMessages={setUnreadGroupMessages}
                                 />
                                 <ChatContainer
                                     orderId={orderId}

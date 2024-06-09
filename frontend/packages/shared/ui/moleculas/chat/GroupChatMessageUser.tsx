@@ -29,9 +29,10 @@ type GroupChatMessageUserProps = {
     chats: GroupChatType[];
     handleOnClick: (chat: GroupChatType) => void;
     lastMessages: { [key: number]: MessageType };
+    unreadGroupMessages: { [key: number]: boolean };
 };
 
-const GroupChatMessageUser = ({showChats, chats, handleOnClick, lastMessages}:GroupChatMessageUserProps) => {
+const GroupChatMessageUser = ({showChats, chats, handleOnClick, lastMessages, unreadGroupMessages}:GroupChatMessageUserProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
@@ -49,7 +50,7 @@ const GroupChatMessageUser = ({showChats, chats, handleOnClick, lastMessages}:Gr
                         }}
                         onClick={() => handleOnClick(chat)}
                     >
-                        <GroupTextChat chat={chat} lastMessage={lastMessages[chat.orderId]?.content}/>
+                        <GroupTextChat chat={chat} lastMessage={lastMessages[chat.orderId]?.content} isUnread={unreadGroupMessages[chat.orderId]}/>
                     </Box>
                 ))}
             </Box>
