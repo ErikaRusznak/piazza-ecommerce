@@ -73,9 +73,7 @@ const CheckoutPage = () => {
                     setShippingAddresses(response.data);
                     setSelectedShippingAddress(response.data[0])
                 })
-            .catch(
-                (err) => console.log(err)
-            );
+            .catch((err) => console.error(err));
     };
 
     const handleAddressSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,7 +183,7 @@ const CheckoutPage = () => {
                 handlePlaceOrder();
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             })
     };
 

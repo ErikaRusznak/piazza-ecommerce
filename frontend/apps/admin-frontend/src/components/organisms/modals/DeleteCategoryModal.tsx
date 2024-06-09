@@ -4,6 +4,7 @@ import {BaseModal} from "ui";
 import {useRouter} from "next/navigation";
 import {Box, Button, Typography} from "@mui/material";
 import {deleteCategoryByIdApi} from "../../../../api/entities/CategoryApi";
+import {useAlert} from "components";
 
 type DeleteModalProps = {
     isModalOpen: boolean;
@@ -21,15 +22,28 @@ const DeleteCategoryModal = ({   isModalOpen,
 
     const theme = useTheme();
     const router = useRouter();
+    const {pushAlert} = useAlert();
 
     const handleDelete = () => {
         deleteCategoryByIdApi(categoryId)
             .then(res => {
                 onDelete(categoryId);
                 router.push("/categories");
+                pushAlert({
+                    type: "success",
+                    title: "Delete category",
+                    paragraph: "Category was deleted successfully!"
+                });
                 setIsModalOpen(false);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Delete category",
+                    paragraph: "Could not delete category."
+                });
+            })
 
     };
 

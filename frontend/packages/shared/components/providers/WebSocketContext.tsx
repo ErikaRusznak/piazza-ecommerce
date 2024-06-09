@@ -61,7 +61,7 @@ const WebSocketProvider = ({children, senderRole}: WebSocketProviderType) => {
     };
 
     const onError = (error: any) => {
-        console.log(error);
+        console.error(error);
     }
 
     const sendMessage = (message: string, id: number, recipientId: number) => {

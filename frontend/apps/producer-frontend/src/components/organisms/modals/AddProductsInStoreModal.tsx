@@ -38,7 +38,7 @@ const AddProductsInStoreModal = (
                     paragraph: "More products were added into the store!"
                 });
             })
-            .catch(err => console.log(err))
+            .catch(err => console.error(err))
     };
 
     const changeQuantity = (num:number) => {

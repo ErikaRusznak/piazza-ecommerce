@@ -36,7 +36,7 @@ const CartProvider = ({ children }: any) => {
                     setCartTotalPrice(response.data.totalCartPrice);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                     setAllCartItems([]);
                 });
         } else {
@@ -52,7 +52,7 @@ const CartProvider = ({ children }: any) => {
                 refreshCart();
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -61,7 +61,7 @@ const CartProvider = ({ children }: any) => {
             .then(() => {
                 refreshCart();
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
 
     function refreshCart() {

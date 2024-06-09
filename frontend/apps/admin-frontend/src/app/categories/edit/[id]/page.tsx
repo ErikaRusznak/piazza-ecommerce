@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
 import {UnauthenticatedMessage} from "ui";
-import {useAuth} from "components";
+import {useAlert, useAuth} from "components";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
 import {getCategoryByIdApi, updateCategoryApi} from "../../../../../api/entities/CategoryApi";
@@ -21,7 +21,7 @@ const EditCategoryPage = ({params}: EditCategoryPageProps) => {
     const { isAuthenticated, username } = useAuth();
     const router = useRouter();
     const [category, setCategory] = useState<any>();
-
+    const {pushAlert} = useAlert();
     const [fileName, setFileName] = useState<string>(category?.imageName);
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
@@ -30,7 +30,7 @@ const EditCategoryPage = ({params}: EditCategoryPageProps) => {
             .then((res) => {
                 setCategory(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
 
     useEffect(() => {
@@ -54,8 +54,20 @@ const EditCategoryPage = ({params}: EditCategoryPageProps) => {
         })
             .then((res) => {
                 router.push(`/categories`);
+                pushAlert({
+                    type: "success",
+                    title: "Update category",
+                    paragraph: "Category was updated successfully!"
+                });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Update category",
+                    paragraph: "Could not updated category."
+                });
+            });
     };
 
     return (

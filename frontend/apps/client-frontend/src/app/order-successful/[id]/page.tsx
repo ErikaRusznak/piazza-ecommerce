@@ -24,7 +24,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
             .then((res) => {
                 setFullOrder(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     useEffect(() => {

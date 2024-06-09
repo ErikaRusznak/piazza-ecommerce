@@ -28,7 +28,7 @@ export const useSessionStorage = (key: any, initialValue: any) => {
                 setState(valueToStore)
                 sessionStorage.setItem(key, JSON.stringify(valueToStore))
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         },
         [key, setState]
@@ -38,7 +38,7 @@ export const useSessionStorage = (key: any, initialValue: any) => {
         try {
             sessionStorage.removeItem(key)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }, [key])
 

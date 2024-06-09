@@ -74,7 +74,7 @@ const ProductsPage = () => {
                 setLoading(false)
 
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     useEffect(() => {

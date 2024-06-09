@@ -49,7 +49,7 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
             .then((res) => {
                 setComments(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
 
     const toggleComments = () => {
@@ -71,7 +71,7 @@ const ReviewComponent = ({review, updateReviewInState, isAuthenticated, username
             .then((res) => {
                 setSelectedReview(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
 
     useEffect(() => {

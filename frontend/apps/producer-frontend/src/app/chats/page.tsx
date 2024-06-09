@@ -57,7 +57,7 @@ const ChatPage = () => {
                 setSellerId(res.data.id);
                 connectToWebSocket(res.data.id, onMessageReceived);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     const getAllBuyers = () => {
@@ -67,7 +67,7 @@ const ChatPage = () => {
                 connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER");
                 setConnectedUsers(connectedUsers);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
 
     useEffect(() => {
@@ -86,7 +86,7 @@ const ChatPage = () => {
             .then((res) => {
                 setGroupChats(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     };
 
     return (

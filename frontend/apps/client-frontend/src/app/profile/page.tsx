@@ -22,7 +22,7 @@ const ManageProfilePage = () => {
             .then((res) => {
                 setUser(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
 
     useEffect(() => {

@@ -1,7 +1,6 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
-import {FormTextFieldDarkBackground} from "ui";
-import UploadController from "@/components/atoms/upload/UploadController";
+import {FormTextFieldDarkBackground, UploadController} from "ui";
 import {StyledButton} from "ui";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -25,9 +24,6 @@ export type AddEditCategoryInput = {
 const AddCategorySchema = yup.object().shape({
     name: yup.string().required("You must provide a product name"),
 });
-
-// todo - take unit of measures from the backend
-
 
 const AddEditCategoryForm = ({
                                 headerText,
@@ -56,7 +52,7 @@ const AddEditCategoryForm = ({
                 setErrorImageMessage("");
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setErrorImageMessage("Failed to upload image. Please try again.")
             })
     };

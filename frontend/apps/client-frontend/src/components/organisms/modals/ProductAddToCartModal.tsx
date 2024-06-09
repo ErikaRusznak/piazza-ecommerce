@@ -44,7 +44,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
             .then((res) => {
                 setProduct(res.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 
     const addItemToCart = (productId: number, quantity: number) => {

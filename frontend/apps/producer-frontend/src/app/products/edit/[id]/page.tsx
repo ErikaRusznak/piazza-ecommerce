@@ -32,7 +32,7 @@ const EditProductPage = ({params}: EditProductPageProps) => {
             .then((res) => {
                 setProduct(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.error(err))
     }
 
     useEffect(() => {

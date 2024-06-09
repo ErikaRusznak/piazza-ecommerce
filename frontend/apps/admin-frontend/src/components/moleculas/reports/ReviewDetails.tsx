@@ -6,6 +6,7 @@ import moment from "moment";
 import {deleteReportsForSpecificReviewApi, deleteReviewApi} from "../../../../api/entities/ReportsApi";
 import {useRouter} from "next/navigation";
 import DeleteReportsRelatedModal from "@/components/organisms/modals/DeleteReportsRelatedModal";
+import {useAlert} from "components";
 
 type ReviewDetailsProps = {
     reviewId: number;
@@ -18,7 +19,7 @@ const ReviewDetails = ({reviewId, reviewDescription, publishDate, publishedBy}: 
 
     const theme = useTheme();
     const router = useRouter();
-
+    const {pushAlert} = useAlert();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [descriptionForModal, setDescriptionForModal] = useState<string>("");
@@ -31,19 +32,41 @@ const ReviewDetails = ({reviewId, reviewDescription, publishDate, publishedBy}: 
     const deleteAllReportsRelatedToAReview = () => {
         deleteReportsForSpecificReviewApi(reviewId)
             .then((res) => {
-                console.log("delete was successful");
                 router.push("/reports/reviews");
+                pushAlert({
+                    type: "success",
+                    title: "Delete reports",
+                    paragraph: "Reports for review were deleted!"
+                });
             })
-            .catch((err) => console.error(err))
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Delete reports",
+                    paragraph: "Could not delete reports for review."
+                });
+            })
     }
 
     const deleteReview = () => {
         deleteReviewApi(reviewId)
             .then((res) => {
-                console.log("delete was successful");
                 router.push("/reports/reviews");
+                pushAlert({
+                    type: "success",
+                    title: "Delete review",
+                    paragraph: "Review was deleted successfully!"
+                });
             })
-            .catch((err) => console.error(err))
+            .catch((err) => {
+                console.error(err);
+                pushAlert({
+                    type: "error",
+                    title: "Delete review",
+                    paragraph: "Could not delete review."
+                });
+            })
     }
 
     const handleDismissReports = () => {

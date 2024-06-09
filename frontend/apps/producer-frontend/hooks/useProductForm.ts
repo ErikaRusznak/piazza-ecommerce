@@ -20,7 +20,7 @@ const useProductForm = () => {
                 .then((res) => {
                     setCategories(res.data.data);
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => console.error(err));
         };
 
         const getSellerById = (id: number) => {
@@ -29,7 +29,7 @@ const useProductForm = () => {
                     .then((res) => {
                         setSeller(res.data);
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) => console.error(err));
             }
         };
 

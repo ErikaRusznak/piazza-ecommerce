@@ -35,7 +35,7 @@ const CommentsComponent = ({reviewId, comments, setComments, isAuthenticated}: C
                 setComments([...comments, res.data]);
                 setNewComment("");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     }
     const userId = parseInt(sessionStorage.getItem("id") || "0");
 
