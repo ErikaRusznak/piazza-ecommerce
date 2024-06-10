@@ -45,7 +45,7 @@ public class DataCreatorForTesting {
                 "Erika",
                 "Rusznak",
                 "erikarusznak@gmail.com",
-                "none",
+                "/images/burger.jpg",
                 "0747871208",
                 UserRole.CLIENT);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -55,7 +55,7 @@ public class DataCreatorForTesting {
                 "Alex",
                 "Dulfu",
                 "alexdulfu@gmail.com",
-                "none",
+                null,
                 "0758418097",
                 UserRole.CLIENT);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -65,7 +65,7 @@ public class DataCreatorForTesting {
                 "Giulia",
                 "Lucaciu",
                 "giulialucaciu@gmail.com",
-                "none",
+                null,
                 "0796854752",
                 UserRole.CLIENT);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -75,7 +75,7 @@ public class DataCreatorForTesting {
 //                "Erika",
 //                "Rusznak",
 //                "erika.rusznak@student.upt.ro",
-//                "none",
+//               null,
 //                "0747871208",
 //                UserRole.CLIENT);
 //        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -107,7 +107,7 @@ public class DataCreatorForTesting {
                 "Andrei",
                 "Pop",
                 "andreipop@gmail.com",
-                "none",
+                null,
                 "0787523948",
                 UserRole.COURIER);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -117,41 +117,41 @@ public class DataCreatorForTesting {
                 "Monica",
                 "Rusznak",
                 "monicarusznak@gmail.com",
-                "none",
+                null,
                 "0758418047",
                 UserRole.COURIER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Couriers.courier2 = createCourier(em, account2);
 
-        UserAccount account3 = new UserAccount(
-                "Mihai",
-                "Rusu",
-                "mihairusu@gmail.com",
-                "none",
-                "0796859752",
-                UserRole.COURIER);
-        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier3 = createCourier(em, account3);
-
-        UserAccount account4 = new UserAccount(
-                "Vlad",
-                "Popesescu",
-                "vladpopescu@gmail.com",
-                "none",
-                "0736859752",
-                UserRole.COURIER);
-        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier4 = createCourier(em, account4);
-
-        UserAccount account5 = new UserAccount(
-                "Stefania",
-                "Osan",
-                "stefiosan@gmail.com",
-                "none",
-                "0776859752",
-                UserRole.COURIER);
-        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier5 = createCourier(em, account5);
+//        UserAccount account3 = new UserAccount(
+//                "Mihai",
+//                "Rusu",
+//                "mihairusu@gmail.com",
+//                null,
+//                "0796859752",
+//                UserRole.COURIER);
+//        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier3 = createCourier(em, account3);
+//
+//        UserAccount account4 = new UserAccount(
+//                "Vlad",
+//                "Popesescu",
+//                "vladpopescu@gmail.com",
+//                null,
+//                "0736859752",
+//                UserRole.COURIER);
+//        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier4 = createCourier(em, account4);
+//
+//        UserAccount account5 = new UserAccount(
+//                "Stefania",
+//                "Osan",
+//                "stefiosan@gmail.com",
+//                null,
+//                "0776859752",
+//                UserRole.COURIER);
+//        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier5 = createCourier(em, account5);
 
     }
 

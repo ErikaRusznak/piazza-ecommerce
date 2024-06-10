@@ -67,7 +67,6 @@ const OrderPage = ({ params }: OrderPageProps) => {
         getOrderByIdApi(id)
             .then((res) => {
                 setOrder(res.data);
-                console.log(res.data);
             })
             .catch((err) => console.error(err));
     };

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useRouter} from "next/navigation";
@@ -14,16 +14,26 @@ type UserAndGroupChatsProps = {
     setOrderId: (value: null | number) => void;
     setMessages: (value: any[]) => void;
     groupChats: any[];
+    messages: any[];
+    unreadGroupMessages: { [key: number]: boolean };
+    setUnreadGroupMessages: (newValue: (prevState: any) => any) => void;
 };
 
-const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, setMessages }: UserAndGroupChatsProps) => {
+const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, groupChats, messages, setMessages, unreadGroupMessages, setUnreadGroupMessages }: UserAndGroupChatsProps) => {
 
     const theme = useTheme();
     const {isDark} = useThemeToggle();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const router = useRouter();
 
-    const [showGroupChats, setShowGroupChats] = useState(false);
+    const [showGroupChats, setShowGroupChats] = useState(true);
+    const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
+
+    useEffect(() => {
+        groupChats?.forEach((gc: any) => {
+            fetchLastMessageForGroup(gc.buyerId, gc.courierId, gc.sellerId, gc.orderId);
+        });
+    }, [groupChats, messages]);
 
     const toggleGroupChats = () => {
         setShowGroupChats((prev) => !prev);
@@ -48,7 +58,39 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
             .catch((err) => console.error(err));
     };
 
+    const fetchLastMessageForGroup = (buyerId: number, courierId: number, sellerId: number, orderId: number) => {
+        getMessagesForGroupChatApi(buyerId, courierId, sellerId, orderId)
+            .then((res) => {
+                if(res.data.length > 0) {
+                    const lastMessageForGroup = res.data[res.data.length - 1];
+                    let sender: string = "";
+                    switch (lastMessageForGroup.senderId) {
+                        case buyerId:
+                            sender = "Buyer"; break;
+                        case sellerId:
+                            sender = "Seller"; break;
+                        case courierId:
+                            sender = "Courier"; break;
+                        default:
+                            sender = "Unknown"; break;
+                    }
+                    setLastMessagesForGroup(prevState => ({
+                        ...prevState,
+                        [orderId]: { ...lastMessageForGroup, content: `${sender}: ${lastMessageForGroup.content}` },
+                    }));
+                }
+            })
+    }
+
+    const markGroupMessagesAsRead = (groupId: number) => {
+        setUnreadGroupMessages(prevState => ({
+            ...prevState,
+            [groupId]: false
+        }));
+    };
+
     const handleOnClickForGroupChats = (chat: any) => {
+        markGroupMessagesAsRead(chat.orderId);
         fetchChatHistoryForGroupChat(chat.buyerId, chat.courierId, chat.sellerId, chat.orderId);
         router.push(`/chats?${createQueryString("orderId", chat.orderId)}`)
     };
@@ -74,6 +116,8 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
                 showChats={showGroupChats}
                 chats={groupChats}
                 handleOnClick={handleOnClickForGroupChats}
+                lastMessages={lastMessagesForGroup}
+                unreadGroupMessages={unreadGroupMessages}
             />
         </Box>
     );

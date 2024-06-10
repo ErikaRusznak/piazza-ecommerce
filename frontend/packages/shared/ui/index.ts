@@ -84,4 +84,5 @@ export {BaseModal};
 // themes
 import CustomThemeProvider, {useThemeToggle} from "./themes/ThemeContext";
 import ThemeSwitch from "./themes/ThemeSwitch";
-export {CustomThemeProvider, useThemeToggle, ThemeSwitch};
+import GlobalScrollBar from "./themes/GlobalScrollBar";
+export {CustomThemeProvider, useThemeToggle, ThemeSwitch, GlobalScrollBar};

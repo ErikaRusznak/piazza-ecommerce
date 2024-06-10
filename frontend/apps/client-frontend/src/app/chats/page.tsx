@@ -19,6 +19,7 @@ const ChatPage = () => {
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const searchParams = useSearchParams();
     const [messages, setMessages] = useState<any[]>([]);
@@ -35,15 +36,24 @@ const ChatPage = () => {
     const [orderId, setOrderId] = useState<number | null>(null);
 
     const onMessageReceived = (message: any) => {
+        const updateMessages = () => {
+            setMessages(prevMessages => [...prevMessages, { ...message, date: new Date().toISOString() }]);
+        };
         if (!!recipientId && recipientId === message.senderId) {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            updateMessages();
             return;
         }
-        if (message.senderRole !== "CLIENT") {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+        if (!!message.senderRole && message.senderRole !== "CLIENT") {
+            updateMessages();
+            setUnreadGroupMessages(prevState => ({
+                ...prevState,
+                [message.orderId]: true
+            }));
             return;
         }
+        updateMessages();
     };
+
 
     const getBuyerByEmail = (username: string) => {
         getUserAccountByEmail(username)
@@ -88,7 +98,7 @@ const ChatPage = () => {
                 <Container>
                     <Box sx={{
                         boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.5)' : '0px 5px 15px rgba(0, 0, 0, 0.1)',
-                        borderRadius: '14px', overflow: 'hidden'
+                        borderRadius: '14px', overflow: 'hidden',
                     }}>
                         <Box sx={{
                             display: 'flex',
@@ -107,6 +117,8 @@ const ChatPage = () => {
                                 setMessages={setMessages}
                                 connectedUsers={connectedUsers}
                                 groupChats={groupChats}
+                                unreadGroupMessages={unreadGroupMessages}
+                                setUnreadGroupMessages={setUnreadGroupMessages}
                             />
                             <ChatContainer
                                 recipientId={recipientId}

@@ -25,6 +25,7 @@ const ChatPage = () => {
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+    const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const searchParams = useSearchParams();
     const [messages, setMessages] = useState<any[]>([]);
@@ -41,14 +42,24 @@ const ChatPage = () => {
     const [orderId, setOrderId] = useState<number | null>(null);
 
     const onMessageReceived = (message: any) => {
+        const updateMessages = () => {
+            setMessages(prevMessages => [...prevMessages, { ...message, date: new Date().toISOString() }]);
+        };
         if (!!recipientId && recipientId === message.senderId) {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            updateMessages();
             return;
         }
-        if (message.senderRole !== "SELLER") {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+        if (!!message.senderRole && message.senderRole !== "SELLER") {
+            updateMessages();
+            setUnreadGroupMessages(prevState => ({
+                ...prevState,
+                [message.orderId]: true
+            }));
+            return;
         }
+        updateMessages();
     };
+
 
     const getSellerByEmail = (username: string) => {
         getUserAccountByEmail(username)
@@ -64,7 +75,7 @@ const ChatPage = () => {
         getAllUsersApi()
             .then((res) => {
                 let connectedUsers = res.data;
-                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER");
+                connectedUsers = connectedUsers.filter((user: any) => user.userRole !== "SELLER" && user.userRole !== "COURIER" && user.userRole !== "ADMIN");
                 setConnectedUsers(connectedUsers);
             })
             .catch((err) => console.error(err))
@@ -115,6 +126,8 @@ const ChatPage = () => {
                                 connectedUsers={connectedUsers}
                                 groupChats={groupChats}
                                 isUserClient={false}
+                                unreadGroupMessages={unreadGroupMessages}
+                                setUnreadGroupMessages={setUnreadGroupMessages}
                             />
                             <ChatContainer
                                 recipientId={recipientId}

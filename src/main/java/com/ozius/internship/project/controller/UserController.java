@@ -30,13 +30,20 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<Object> retrieveUserByEmail(@PathVariable String email){
+    public ResponseEntity<UserAccountDto> retrieveUserByEmail(@PathVariable String email){
         UserAccount user = userAccountRepository.findByEmail(email);
         if(user!=null){
             UserAccountDto userAccountDto = modelMapper.map(user, UserAccountDto.class);
             return ResponseEntity.ok(userAccountDto);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserAccountDto> getUserById(@PathVariable long id){
+        UserAccount userAccount = userAccountRepository.findById(id).orElseThrow();
+        UserAccountDto userAccountDto = modelMapper.map(userAccount, UserAccountDto.class);
+        return ResponseEntity.ok(userAccountDto);
     }
 
     @GetMapping

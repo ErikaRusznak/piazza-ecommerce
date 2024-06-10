@@ -1,7 +1,6 @@
 package com.ozius.internship.project.dto;
 
 import lombok.Data;
-import org.apache.logging.log4j.util.Strings;
 
 @Data
 public class GroupChatDTO {
@@ -20,5 +19,6 @@ public class GroupChatDTO {
     protected String sellerLastName;
     protected String sellerEmail;
     protected long orderId;
+    protected String orderNumber;
 
 }

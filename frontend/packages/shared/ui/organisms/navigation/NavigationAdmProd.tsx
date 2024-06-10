@@ -124,7 +124,7 @@ type NavigationProps = {
 
 export default function NavigationAdmProd({children, isSeller, isAuthenticated, logout, nameOfPortal, informationList, profileList}: NavigationProps) {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const router = useRouter();
     const pathname = usePathname();

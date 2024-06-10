@@ -29,6 +29,9 @@ export { addCommentApi, getCommentsForReviewApi };
 import { reportReviewApi, reportCommentApi } from "./api/entities/ReportsApi";
 export { reportReviewApi, reportCommentApi }
 
+import { getUserByIdApi } from "./api/entities/UserAccount";
+export { getUserByIdApi }
+
 // hooks
 import {useRouteAlias} from "./hooks/useRouteAlias";
 import {useRouteId} from "./hooks/useRouteId";

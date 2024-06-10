@@ -37,34 +37,34 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
         setMessages(prevMessages => [...prevMessages, chatMessage]);
         setMessage("");
     };
-
     return (
         <Box sx={{
             flex: isSm ? '1' : '1 1 75%',
             py: 2,
             display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: isDark ? "#3e4554" : "#edf0fe"
+            flexDirection: "column",
+            backgroundColor: isDark ? "#3e4554" : "#edf0fe",
+            overflowY: 'auto',
         }}>
             {recipientId ? (
                 <ChatContainerDetails
                     privateChat={true}
-                    label={"Chat with user"}
                     id={id}
                     messages={messages}
                     sendMessageFunction={sendMessageInternal}
                     userRole={userRole}
+                    recipientId={recipientId}
                 />
             ) : (
                 (orderId ?
                     (
                         <ChatContainerDetails
                             privateChat={false}
-                            label={"Chat with group"}
                             id={id}
                             messages={messages}
                             sendMessageFunction={sendMessageToGroupChatInternal}
                             userRole={userRole}
+                            orderId={orderId}
                         />
                     ) : null)
             )}

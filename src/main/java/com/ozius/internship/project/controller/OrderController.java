@@ -112,7 +112,7 @@ public class OrderController {
         orderService.markOrderAsCanceled(id);
     }
 
-    @GetMapping("/{courierEmail}")
+    @GetMapping("/email/{courierEmail}")
     @PreAuthorize("hasRole('COURIER')")
     public ResponseEntity<List<OrderDTO>> getOrdersByCourierEmail(@PathVariable String courierEmail) {
         List<OrderDTO> orderDTOS = orderService.getOrdersByCourier(courierEmail);

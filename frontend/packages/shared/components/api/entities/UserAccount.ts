@@ -17,3 +17,7 @@ export const updateUserAccountApi = (id: number, firstName: string, lastName: st
         telephone: telephone,
     })
 };
+
+export const getUserByIdApi = (id: number) => {
+    return api.get(`/api/users/id/${id}`);
+}

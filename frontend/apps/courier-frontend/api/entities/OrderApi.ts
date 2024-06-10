@@ -1,7 +1,7 @@
 import {api} from "components";
 
 export const getOrdersForCourierApi = (email: string) => {
-    return api.get(`/api/orders/${email}`)
+    return api.get(`/api/orders/email/${email}`)
 }
 
 export const markOrderAsShippingApi = (id: number) => {
