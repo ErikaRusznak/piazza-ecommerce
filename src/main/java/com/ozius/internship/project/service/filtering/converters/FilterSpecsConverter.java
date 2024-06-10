@@ -1,11 +1,11 @@
-package com.ozius.internship.project.service.converters;
+package com.ozius.internship.project.service.filtering.converters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.ozius.internship.project.service.queries.filter.*;
-import com.ozius.internship.project.service.queries.filter.converter.FilterConfiguration;
-import com.ozius.internship.project.service.queries.filter.converter.FilterValueConverter;
+import com.ozius.internship.project.service.filtering.filter.*;
+import com.ozius.internship.project.service.filtering.filter.converter.FilterConfiguration;
+import com.ozius.internship.project.service.filtering.filter.converter.FilterValueConverter;
 import jakarta.annotation.Nullable;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.filter;
+package com.ozius.internship.project.service.filtering.filter;
 
 import java.util.HashSet;
 import java.util.Set;

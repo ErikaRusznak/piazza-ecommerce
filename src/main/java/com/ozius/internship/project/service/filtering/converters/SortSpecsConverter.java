@@ -1,12 +1,12 @@
-package com.ozius.internship.project.service.converters;
+package com.ozius.internship.project.service.filtering.converters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.ozius.internship.project.service.queries.sort.SortCriteria;
-import com.ozius.internship.project.service.queries.sort.SortOrder;
+import com.ozius.internship.project.service.filtering.sort.SortCriteria;
+import com.ozius.internship.project.service.filtering.sort.SortOrder;
+import com.ozius.internship.project.service.filtering.sort.SortSpecs;
 import org.springframework.core.convert.converter.Converter;
-import com.ozius.internship.project.service.queries.sort.SortSpecs;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

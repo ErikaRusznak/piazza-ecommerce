@@ -1,16 +1,15 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import {getLocationsApi} from "../../../../api/entities/LocationApi";
 import {getAllCategoryNames} from "../../../../api/entities/CategoryApi";
 import Tag from "@/components/atoms/filtering/Tag";
 import SearchComponent from "@/components/moleculas/filtering/SearchComponent";
 import ExpandableItem from "@/components/moleculas/filtering/ExpandableItem";
-import {Box, Typography, useMediaQuery} from "@mui/material";
+import {Box, useMediaQuery} from "@mui/material";
 import RangeFilterComponent from "@/components/moleculas/filtering/RangeFilterComponent";
 import MultipleChoiceFilterComponent from "@/components/moleculas/filtering/MultipleChoiceFilterComponent";
 import SortFilterComponent from "@/components/moleculas/filtering/SortFilterComponent";
 import FilterTagContainer from "@/components/moleculas/filtering/FilterTagContainer";
 import {FilterOptions, SortFilter} from "@/app/shop/page";
-import Button from "@mui/material/Button";
 import {useTheme} from "@mui/material/styles";
 
 type FilteringComponentProps = {
@@ -177,23 +176,6 @@ const FilteringComponent = ({filterOptions, onFilterChanged, onSortChanged}: Fil
             {/*                zIndex: 999,*/}
             {/*            }}*/}
             {/*        >*/}
-            {/*            <Box pt={8} pl={1}>*/}
-            {/*                <Typography variant="h6" color={theme.palette.info.main}>Filters</Typography>*/}
-            {/*                <Box sx={{position: "static"}} pt={2}>*/}
-            {/*                    <RangeFilterComponent*/}
-            {/*                        smallPageSize={true}*/}
-            {/*                        handleRangeChanged={(from, to) => {*/}
-            {/*                            // Handle range change*/}
-            {/*                        }}*/}
-            {/*                        getRangeFrom={filterOptions.priceFrom}*/}
-            {/*                        getRangeTo={filterOptions.priceTo}*/}
-            {/*                    />*/}
-            {/*                </Box>*/}
-
-        {/*                /!*<Button variant="contained" onClick={handleSaveFilters}>*!/*/}
-            {/*                /!*    Save Filters*!/*/}
-            {/*                /!*</Button>*!/*/}
-            {/*            </Box>*/}
             {/*        </Box>*/}
             {/*    </>*/}
             {/*    ) : (*/}

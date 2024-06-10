@@ -5,9 +5,9 @@ import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.dto.ReviewDTO;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.service.ProductService;
-import com.ozius.internship.project.service.queries.ProductPaginationSearchQuery;
-import com.ozius.internship.project.service.queries.filter.FilterSpecs;
-import com.ozius.internship.project.service.queries.sort.SortSpecs;
+import com.ozius.internship.project.service.filtering.ProductPaginationSearchQuery;
+import com.ozius.internship.project.service.filtering.filter.FilterSpecs;
+import com.ozius.internship.project.service.filtering.sort.SortSpecs;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -38,15 +38,11 @@ public class ProductController {
             @RequestParam(name = "sort", required = false) SortSpecs sortSpecs,
             @RequestParam(name = "filter", required = false) FilterSpecs filterSpecs) {
 
-
         ProductPaginationSearchQuery query = new ProductPaginationSearchQuery(modelMapper, entityManager)
                 .filterBy(filterSpecs)
                 .orderBy(sortSpecs);
-
         int numOfTotalProds = query.getResultList().size();
-
         List<ProductDTO> productDTO = query.getPagingResultList(itemsPerPage, page-1);
-
         return new ApiPaginationResponse<>(page, itemsPerPage, numOfTotalProds, productDTO);
     }
 

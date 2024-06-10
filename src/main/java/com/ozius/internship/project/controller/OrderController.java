@@ -5,9 +5,9 @@ import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.dto.OrderFromCartItemsDTO;
 
 import com.ozius.internship.project.service.OrderService;
-import com.ozius.internship.project.service.queries.OrderPaginationSearchQuery;
-import com.ozius.internship.project.service.queries.filter.FilterSpecs;
-import com.ozius.internship.project.service.queries.sort.SortSpecs;
+import com.ozius.internship.project.service.filtering.OrderPaginationSearchQuery;
+import com.ozius.internship.project.service.filtering.filter.FilterSpecs;
+import com.ozius.internship.project.service.filtering.sort.SortSpecs;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;

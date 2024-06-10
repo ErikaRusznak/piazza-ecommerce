@@ -1,6 +1,6 @@
-package com.ozius.internship.project.service.queries.filter.converter;
+package com.ozius.internship.project.service.filtering.filter.converter;
 
-import com.ozius.internship.project.service.queries.filter.Operation;
+import com.ozius.internship.project.service.filtering.filter.Operation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

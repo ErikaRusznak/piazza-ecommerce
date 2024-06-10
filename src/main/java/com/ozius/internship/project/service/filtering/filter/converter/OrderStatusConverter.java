@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.filter.converter;
+package com.ozius.internship.project.service.filtering.filter.converter;
 
 import com.ozius.internship.project.entity.order.OrderStatus;
 

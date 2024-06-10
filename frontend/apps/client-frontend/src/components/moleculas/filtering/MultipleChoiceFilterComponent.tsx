@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
 import {useTheme} from "@mui/material/styles";
-import {Box, Button, Checkbox} from "@mui/material";
+import {Box, Button, Checkbox, Typography} from "@mui/material";
 import {FilterOptionKeys} from "@/components/organisms/filtering/FilteringComponent";
 
 type MultipleChoiceFilterComponentProps = {
-    onClickInside?: (e: any) => any;
-    toggleFilter?: () => void;
+    onClickInside: (e: any) => any;
+    toggleFilter: () => void;
     list: string[];
     handleListChanged: (filterName: FilterOptionKeys, filterValues: string[]) => void;
     filterName: string;
@@ -74,14 +74,13 @@ const MultipleChoiceFilterComponent = ({
                                 },
                             }}
                         />
-                        <span
-                            style={{
+                        <Typography
+                            sx={{
                                 marginLeft: '5px',
                                 color: theme.palette.info.main,
-                            }}
-                        >
+                            }}>
                               {item}
-                            </span>
+                        </Typography>
                     </Box>
                 ))}
             </Box>

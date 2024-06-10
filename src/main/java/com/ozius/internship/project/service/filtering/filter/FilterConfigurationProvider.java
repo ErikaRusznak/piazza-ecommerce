@@ -1,9 +1,9 @@
-package com.ozius.internship.project.service.queries.filter;
+package com.ozius.internship.project.service.filtering.filter;
 
-import com.ozius.internship.project.service.queries.filter.converter.CapitalizeConverter;
-import com.ozius.internship.project.service.queries.filter.converter.FilterConfiguration;
-import com.ozius.internship.project.service.queries.filter.converter.NoTransformationConverter;
-import com.ozius.internship.project.service.queries.filter.converter.OrderStatusConverter;
+import com.ozius.internship.project.service.filtering.filter.converter.CapitalizeConverter;
+import com.ozius.internship.project.service.filtering.filter.converter.FilterConfiguration;
+import com.ozius.internship.project.service.filtering.filter.converter.NoTransformationConverter;
+import com.ozius.internship.project.service.filtering.filter.converter.OrderStatusConverter;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
