@@ -98,7 +98,7 @@ const ChatPage = () => {
                 <Container>
                     <Box sx={{
                         boxShadow: isDark ? '-5px 5px 15px rgba(255,255,255, 0.5)' : '0px 5px 15px rgba(0, 0, 0, 0.1)',
-                        borderRadius: '14px', overflow: 'hidden'
+                        borderRadius: '14px', overflow: 'hidden',
                     }}>
                         <Box sx={{
                             display: 'flex',

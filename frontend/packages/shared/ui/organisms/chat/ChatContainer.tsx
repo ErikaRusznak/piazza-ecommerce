@@ -42,8 +42,9 @@ const ChatContainer = ({recipientId, orderId, messages, setMessages, id,
             flex: isSm ? '1' : '1 1 75%',
             py: 2,
             display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: isDark ? "#3e4554" : "#edf0fe"
+            flexDirection: "column",
+            backgroundColor: isDark ? "#3e4554" : "#edf0fe",
+            overflowY: 'auto',
         }}>
             {recipientId ? (
                 <ChatContainerDetails

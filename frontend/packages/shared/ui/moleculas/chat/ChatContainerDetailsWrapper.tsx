@@ -1,5 +1,5 @@
 import {Box, Typography} from "@mui/material";
-import {ChatMessageInput} from "../../index";
+import {ChatMessageInput, useThemeToggle} from "../../index";
 import {useTheme} from "@mui/material/styles";
 import {formatDate} from "../../services/FormatHour";
 import React from "react";
@@ -54,6 +54,7 @@ const ChatContainerDetailsWrapper = ({
     const theme = useTheme();
     const searchParams = useSearchParams();
     const recipientId = Number(searchParams.get("recipientId")) ?? null;
+    const {isDark} = useThemeToggle();
 
     return (
         <>
@@ -70,7 +71,21 @@ const ChatContainerDetailsWrapper = ({
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column-reverse',
-                gap: 1
+                gap: 1,
+                '::-webkit-scrollbar': {
+                    width: '10px',
+                },
+                '::-webkit-scrollbar-track': {
+                    background: isDark ? "#262e3f" : '#E4E8FE',
+                    borderRadius: '5px',
+                },
+                '::-webkit-scrollbar-thumb': {
+                    background: isDark ? theme.palette.background.lighter : theme.palette.lightColor.main,
+                    borderRadius: '5px',
+                },
+                '::-webkit-scrollbar-thumb:hover': {
+                    background: isDark ? theme.palette.background.lighter : theme.palette.primary.main,
+                },
             }}>
                 {messages.slice(0).reverse().map((mess: ChatMessForGroup | ChatMessForPrivate, index: number, array: string | any[]) => {
                     const messageDate = formatDate(mess.date)
