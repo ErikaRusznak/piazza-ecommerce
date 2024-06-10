@@ -4,14 +4,15 @@ import {useTheme} from "@mui/material/styles";
 import FilterComponentLayout from "@/components/templates/FilterComponentLayout";
 
 type RangeFilterComponentProps = {
-    onClickInside: (e: any) => any;
-    toggleRangeFilter: () => void;
+    onClickInside?: (e: any) => any;
+    toggleRangeFilter?: () => void;
     handleRangeChanged: (priceFrom: number, priceTo: number) => void;
     getRangeFrom: number | null;
     getRangeTo: number | null;
+    smallPageSize?: boolean;
 };
 
-const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChanged, getRangeFrom, getRangeTo }: RangeFilterComponentProps) => {
+const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChanged, getRangeFrom, getRangeTo, smallPageSize=false }: RangeFilterComponentProps) => {
 
     // TODO - find the smallest price and biggest price to put them in the RangeFilterComponent instead of 0 and 100
     const theme = useTheme();
@@ -29,6 +30,7 @@ const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChan
     return (
         <FilterComponentLayout
             onClick={onClickInside}
+            smallPageSize={smallPageSize}
         >
             <Slider
                 value={value}
@@ -49,7 +51,7 @@ const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChan
                 }}
                 onClick={() => {
                     handleRangeChanged(value[0], value[1]);
-                    toggleRangeFilter();
+                    if(toggleRangeFilter) toggleRangeFilter();
                 }}
             >
                 Save

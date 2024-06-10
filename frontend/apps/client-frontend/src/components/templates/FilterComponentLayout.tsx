@@ -5,8 +5,9 @@ import {useTheme} from "@mui/material/styles";
 type FilterComponentLayoutProps = {
     children: React.ReactNode;
     onClick?: (e:any) => any;
+    smallPageSize: boolean;
 }
-const FilterComponentLayout = ({children, onClick}:FilterComponentLayoutProps) => {
+const FilterComponentLayout = ({children, onClick, smallPageSize}:FilterComponentLayoutProps) => {
     const theme = useTheme();
     return (
         <Box sx={{
@@ -14,7 +15,7 @@ const FilterComponentLayout = ({children, onClick}:FilterComponentLayoutProps) =
             border: "1px solid #a5b4fc",
             borderRadius: "14px",
             mt:2, p:2,
-            position: "absolute",
+            position: smallPageSize ? "static" : "absolute",
             top: 20,
             zIndex: 1000,
             backgroundColor: theme.palette.background.default,

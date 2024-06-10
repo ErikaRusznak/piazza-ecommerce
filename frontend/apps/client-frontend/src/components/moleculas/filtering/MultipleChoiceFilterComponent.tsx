@@ -5,8 +5,8 @@ import {Box, Button, Checkbox} from "@mui/material";
 import {FilterOptionKeys} from "@/components/organisms/filtering/FilteringComponent";
 
 type MultipleChoiceFilterComponentProps = {
-    onClickInside: (e: any) => any;
-    toggleFilter: () => void;
+    onClickInside?: (e: any) => any;
+    toggleFilter?: () => void;
     list: string[];
     handleListChanged: (filterName: FilterOptionKeys, filterValues: string[]) => void;
     filterName: string;
