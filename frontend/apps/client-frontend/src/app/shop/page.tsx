@@ -217,7 +217,7 @@ const ProductsPage = () => {
                         maxWidth: "567px",
                     },
                     [theme.breakpoints.only("xs")]: {
-                        maxWidth: "320px",
+                        maxWidth: "567px",
                     },
                 }}>
                     <BreadcrumbsComponent links={breadcrumbsLinks}/>
@@ -241,13 +241,25 @@ const ProductsPage = () => {
                             toggleModal={(productId: number) => toggleModal(productId)}
                         />
                     </Box>
-                    <Box sx={{display: "flex", justifyContent: "space-between", mt: 2}}>
-                        <Box sx={{left: 0}}>
+                    <Box sx={{display: "flex", justifyContent: "space-between", mt: 2,
+                        [theme.breakpoints.down("sm")]: {
+                            justifyContent: "center",
+                        },
+                      }}>
+                        <Box sx={{left: 0,
+                            [theme.breakpoints.down("sm")]: {
+                                display: "none",
+                            },}}>
                             <NumberOfPageSelect
                                 handleItemsPerPageChange={handleItemsPerPageChange}
                             />
                         </Box>
-                        <Box sx={{position: "absolute", left: "50%", transform: "translateX(-50%)"}}>
+                        <Box sx={{position: "absolute", left: "50%", transform: "translateX(-50%)",
+                            [theme.breakpoints.down("sm")]: {
+                                position: "static",
+                                left: 0, transform: "none",
+                            },
+                           }}>
                             <PaginationComponent
                                 numberOfPages={numberOfPages}
                                 currentPage={currentPage}

@@ -33,9 +33,11 @@ const MainProductList = ({products, toggleModal}:MainProductListProps) => {
                 },
                 [theme.breakpoints.only("xs")]: {
                     maxWidth: "320px",
+                    justifyContent: "center",
                 },
                 [theme.breakpoints.only("xxs")]: {
-                    maxWidth: "148px",
+                    maxWidth: "180px",
+                    justifyContent: "center",
                 },
                 flexWrap: "wrap",
                 columnGap: theme.spacing(3),
@@ -56,7 +58,7 @@ const MainProductList = ({products, toggleModal}:MainProductListProps) => {
                             maxWidth: "173px",
                         },
                         [theme.breakpoints.only("xs")]: {
-                            maxWidth: "148px",
+                            maxWidth: "200px",
                         },
                         [theme.breakpoints.only("xxs")]: {
                             maxWidth: "148px",
