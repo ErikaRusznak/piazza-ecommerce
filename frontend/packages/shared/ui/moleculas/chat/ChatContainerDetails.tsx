@@ -80,6 +80,7 @@ const ChatContainerDetails = ({id, messages, sendMessageFunction, privateChat, u
             messages={messages}
             sendMessageFunction={sendMessageFunction}
             distinctSenderFromReceiver={distinctSenderFromReceiver}
+            id={id}
         />
     );
 };

@@ -34,7 +34,6 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
 
     const smallerScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const variantForTitle = smallerScreen ? "h5" : "h4";
-    console.log(fullOrder);
 
     return (
         fullOrder && (

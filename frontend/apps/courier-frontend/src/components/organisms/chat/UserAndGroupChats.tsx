@@ -26,7 +26,7 @@ const UserAndGroupChats = ({ setBuyerId, setCourierId, setSellerId, setOrderId, 
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const router = useRouter();
 
-    const [showGroupChats, setShowGroupChats] = useState(false);
+    const [showGroupChats, setShowGroupChats] = useState(true);
     const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
 
     useEffect(() => {

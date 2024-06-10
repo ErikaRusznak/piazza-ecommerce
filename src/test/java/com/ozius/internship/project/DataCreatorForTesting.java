@@ -123,35 +123,35 @@ public class DataCreatorForTesting {
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Couriers.courier2 = createCourier(em, account2);
 
-        UserAccount account3 = new UserAccount(
-                "Mihai",
-                "Rusu",
-                "mihairusu@gmail.com",
-                null,
-                "0796859752",
-                UserRole.COURIER);
-        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier3 = createCourier(em, account3);
-
-        UserAccount account4 = new UserAccount(
-                "Vlad",
-                "Popesescu",
-                "vladpopescu@gmail.com",
-                null,
-                "0736859752",
-                UserRole.COURIER);
-        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier4 = createCourier(em, account4);
-
-        UserAccount account5 = new UserAccount(
-                "Stefania",
-                "Osan",
-                "stefiosan@gmail.com",
-                null,
-                "0776859752",
-                UserRole.COURIER);
-        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier5 = createCourier(em, account5);
+//        UserAccount account3 = new UserAccount(
+//                "Mihai",
+//                "Rusu",
+//                "mihairusu@gmail.com",
+//                null,
+//                "0796859752",
+//                UserRole.COURIER);
+//        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier3 = createCourier(em, account3);
+//
+//        UserAccount account4 = new UserAccount(
+//                "Vlad",
+//                "Popesescu",
+//                "vladpopescu@gmail.com",
+//                null,
+//                "0736859752",
+//                UserRole.COURIER);
+//        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier4 = createCourier(em, account4);
+//
+//        UserAccount account5 = new UserAccount(
+//                "Stefania",
+//                "Osan",
+//                "stefiosan@gmail.com",
+//                null,
+//                "0776859752",
+//                UserRole.COURIER);
+//        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier5 = createCourier(em, account5);
 
     }
 

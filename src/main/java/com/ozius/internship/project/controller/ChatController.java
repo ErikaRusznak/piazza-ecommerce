@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,11 +62,20 @@ public class ChatController {
                 chatMessageDTO.getContent(),
                 chatMessageDTO.getSenderRole()
                 );
-        List<Long> participantIds = Arrays.asList(
+        List<Long> participantIds = new ArrayList<>(Arrays.asList(
                 savedMessage.getBuyerId(),
                 savedMessage.getCourierId(),
                 savedMessage.getSellerId()
-        );
+        ));
+
+        switch (chatMessageDTO.getSenderRole()) {
+            case SELLER:
+                participantIds.remove(savedMessage.getSellerId()); break;
+            case COURIER:
+                participantIds.remove(savedMessage.getCourierId()); break;
+            case CLIENT:
+                participantIds.remove(savedMessage.getBuyerId()); break;
+        }
 
         for (Long participantId : participantIds) {
             GroupChatNotificationDTO gcn = new GroupChatNotificationDTO(

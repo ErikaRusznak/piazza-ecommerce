@@ -36,19 +36,24 @@ const ChatPage = () => {
     const [orderId, setOrderId] = useState<number | null>(null);
 
     const onMessageReceived = (message: any) => {
+        const updateMessages = () => {
+            setMessages(prevMessages => [...prevMessages, { ...message, date: new Date().toISOString() }]);
+        };
         if (!!recipientId && recipientId === message.senderId) {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+            updateMessages();
             return;
         }
-        if (message.senderRole !== "CLIENT") {
-            setMessages(prevMessages => [...prevMessages, {...message, date: new Date().toISOString()}]);
+        if (!!message.senderRole && message.senderRole !== "CLIENT") {
+            updateMessages();
             setUnreadGroupMessages(prevState => ({
                 ...prevState,
                 [message.orderId]: true
             }));
             return;
         }
+        updateMessages();
     };
+
 
     const getBuyerByEmail = (username: string) => {
         getUserAccountByEmail(username)
