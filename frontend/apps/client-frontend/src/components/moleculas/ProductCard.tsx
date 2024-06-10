@@ -85,12 +85,12 @@ const ProductCard = ({product, toggleModal}: ProductCardProps) => {
                     width: "173px",
                 },
                 [theme.breakpoints.only("xs")]: {
-                    height: isAuthenticated ? "280px" : "260px",
-                    width: "148px",
+                    height: isAuthenticated ? "330px" : "300px",
+                    width: "200px",
                 },
                 [theme.breakpoints.only("xxs")]: {
                     height: isAuthenticated ? "280px" : "260px",
-                    width: "148px",
+                    width: "180px",
                 },
                 borderRadius: "20px",
                 boxShadow: "0px 1px 1px 1px #ffffff20",
