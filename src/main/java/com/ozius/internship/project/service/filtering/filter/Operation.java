@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.filter;
+package com.ozius.internship.project.service.filtering.filter;
 
 public enum Operation {
     EQ("="),

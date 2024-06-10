@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.sort;
+package com.ozius.internship.project.service.filtering.sort;
 
 import java.util.Objects;
 

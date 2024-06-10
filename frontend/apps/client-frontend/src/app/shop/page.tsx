@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import MainLayout from "@/components/templates/MainLayout";
-import {Box, Typography} from "@mui/material";
+import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {getProductsApi} from "components";
@@ -12,6 +12,7 @@ import NumberOfPageSelect from "@/components/atoms/filtering/NumberOfPageSelect"
 import PaginationComponent from "@/components/moleculas/PaginationComponent";
 import {BreadcrumbsComponent} from "ui";
 import ProductAddToCartModal from "@/components/organisms/modals/ProductAddToCartModal";
+import SearchComponent from "@/components/moleculas/filtering/SearchComponent";
 
 export type SortFilter = {
     criteria: "productPrice" | "productName" | null;
@@ -200,6 +201,8 @@ const ProductsPage = () => {
         {label: "Shop", link: "/shop"}
     ];
 
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <>
             <MainLayout>
@@ -224,10 +227,20 @@ const ProductsPage = () => {
                     <Typography variant="h4" sx={{color: theme.palette.info.main}}>
                         Check the products
                     </Typography>
-                    <FilteringComponent
-                        filterOptions={filterOptions}
-                        onFilterChanged={handleOnFilterChanged}
-                        onSortChanged={handleSortChanged}/>
+                    {isSmallScreen && (
+                        <Box sx={{my: 2}}>
+                            <SearchComponent
+                                handleSearchChanged={handleOnFilterChanged}
+                                filterName="productName"
+                            />
+                        </Box>
+                    )}
+                    {!isSmallScreen && (
+                        <FilteringComponent
+                            filterOptions={filterOptions}
+                            onFilterChanged={handleOnFilterChanged}
+                            onSortChanged={handleSortChanged}/>
+                    )}
 
                     <Box sx={{
                         display: "flex",

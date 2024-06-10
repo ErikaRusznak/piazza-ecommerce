@@ -3,6 +3,7 @@ import FilterComponentLayout from "@/components/templates/FilterComponentLayout"
 import {Box, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {SortFilter} from "@/app/shop/page";
+import {useThemeToggle} from "ui";
 
 type SortFilterComponentProps = {
     onSortChanged: (newSortFilter: SortFilter) => void;
@@ -11,6 +12,7 @@ type SortFilterComponentProps = {
 const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
     const handleSortClick = (criteria: "productPrice" | "productName", orderSort: "asc" | "desc") => {
         const newSort = { criteria, orderSort }
         onSortChanged(newSort);
@@ -26,14 +28,12 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                             color: theme.palette.info.main,
                         }}
                     >
-                        {/*TODO - create component for every box*/}
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.background.lighter,
+                                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.lightColor.main,
                                 },
-                                pb: 1,
-                                borderBottom: "1px solid #a5b4fc",
+                                pb: 1, borderBottom: "1px solid #a5b4fc",
                             }}
                             onClick={() => handleSortClick("productPrice", "asc")}
                         >
@@ -42,7 +42,7 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.background.lighter,
+                                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.lightColor.main,
                                 },
                                 py: 1,
                                 borderBottom: "1px solid #a5b4fc",
@@ -54,7 +54,7 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.background.lighter,
+                                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.lightColor.main,
                                 },
                                 py: 1,
                                 borderBottom: "1px solid #a5b4fc",
@@ -66,7 +66,7 @@ const SortFilterComponent = ({onSortChanged}: SortFilterComponentProps) => {
                         <Box
                             sx={{
                                 "&:hover": {
-                                    backgroundColor: theme.palette.background.lighter,
+                                    backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.lightColor.main,
                                 },
                                 pt: 1,
                             }}

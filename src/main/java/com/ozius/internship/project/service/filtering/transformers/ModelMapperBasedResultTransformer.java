@@ -1,4 +1,4 @@
-package com.ozius.internship.project.service.queries.transformers;
+package com.ozius.internship.project.service.filtering.transformers;
 
 import org.modelmapper.ModelMapper;
 

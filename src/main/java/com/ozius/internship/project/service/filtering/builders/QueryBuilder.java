@@ -1,11 +1,11 @@
-package com.ozius.internship.project.service.queries.builders;
+package com.ozius.internship.project.service.filtering.builders;
 
-import com.ozius.internship.project.service.queries.filter.FilterCriteria;
-import com.ozius.internship.project.service.queries.filter.FilterSpecs;
-import com.ozius.internship.project.service.queries.filter.Operation;
-import com.ozius.internship.project.service.queries.sort.SortCriteria;
-import com.ozius.internship.project.service.queries.sort.SortOrder;
-import com.ozius.internship.project.service.queries.sort.SortSpecs;
+import com.ozius.internship.project.service.filtering.filter.FilterCriteria;
+import com.ozius.internship.project.service.filtering.filter.FilterSpecs;
+import com.ozius.internship.project.service.filtering.filter.Operation;
+import com.ozius.internship.project.service.filtering.sort.SortCriteria;
+import com.ozius.internship.project.service.filtering.sort.SortOrder;
+import com.ozius.internship.project.service.filtering.sort.SortSpecs;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,14 +116,11 @@ public class QueryBuilder {
 
     /***
      * Build where conditions based on search criteria.
-     *
      * example:
      * Input:
      * ProductName = 'rosii'
      * Price > '12'
      * => where p.name = 'rosii' and p.price > 12
-     *
-     *
      * example:
      * Input:
      * ProductName = 'rosii'
@@ -152,7 +149,6 @@ public class QueryBuilder {
              * Builds condition for a certain filter and set of criterias
              * example:
              * (filter1 = val1 or filter1 like val2 or filter1=val3)
-             *
              * example:
              * filter 1 = val1 --- for a single filter criteria
              **/

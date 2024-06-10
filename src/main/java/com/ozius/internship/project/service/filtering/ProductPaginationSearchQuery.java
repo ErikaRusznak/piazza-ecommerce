@@ -1,12 +1,12 @@
-package com.ozius.internship.project.service.queries;
+package com.ozius.internship.project.service.filtering;
 
 import com.ozius.internship.project.dto.ProductDTO;
 import com.ozius.internship.project.entity.product.Product;
-import com.ozius.internship.project.service.queries.transformers.ModelMapperBasedResultTransformer;
-import com.ozius.internship.project.service.queries.builders.PagingJpaQueryBuilder;
-import com.ozius.internship.project.service.queries.transformers.ResultTransformer;
-import com.ozius.internship.project.service.queries.filter.FilterSpecs;
-import com.ozius.internship.project.service.queries.sort.SortSpecs;
+import com.ozius.internship.project.service.filtering.transformers.ModelMapperBasedResultTransformer;
+import com.ozius.internship.project.service.filtering.builders.PagingJpaQueryBuilder;
+import com.ozius.internship.project.service.filtering.transformers.ResultTransformer;
+import com.ozius.internship.project.service.filtering.filter.FilterSpecs;
+import com.ozius.internship.project.service.filtering.sort.SortSpecs;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 

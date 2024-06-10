@@ -116,7 +116,7 @@ const lightPalette = {
     background: {
         paper: "#fff",
         lighter: "#1a2747",
-        default: "white",
+        default: "#f7f7f7",
         darker: "white",
         gradient:
             "linear-gradient(267.27deg, #6366f1 0%, #4338ca 100%)",

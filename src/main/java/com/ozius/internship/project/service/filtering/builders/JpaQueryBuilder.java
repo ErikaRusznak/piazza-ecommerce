@@ -1,6 +1,6 @@
-package com.ozius.internship.project.service.queries.builders;
+package com.ozius.internship.project.service.filtering.builders;
 
-import com.ozius.internship.project.service.queries.transformers.ResultTransformer;
+import com.ozius.internship.project.service.filtering.transformers.ResultTransformer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
