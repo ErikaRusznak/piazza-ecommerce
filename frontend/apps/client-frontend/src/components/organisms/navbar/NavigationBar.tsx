@@ -188,8 +188,7 @@ const NavigationBar = () => {
                                     <List
                                         sx={{
                                             boxShadow: `0px 4px 10px rgba(0, 0, 0, 0.1)`,
-                                            backgroundColor: theme.palette.lightColor.main,
-                                            // backgroundColor: theme.palette.background.lighter,
+                                            backgroundColor: backgroundColor,
                                         }}
                                     >
                                         <ListItemButton onClick={() => router.push("/chats")}>

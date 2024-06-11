@@ -77,7 +77,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                         {item.product.name}
                     </Typography>
                     <Typography variant="body2" mt={1} color={theme.palette.info.main}>
-                        {belowSmallSize ? "" : `Price per ${item.product.unitOfMeasure}: `}
+                        {belowSmallSize ? "" : `Price per ${item.product.unitOfMeasure.toLowerCase()}: `}
                         {item.product.price} RON
                     </Typography>
                 </Box>

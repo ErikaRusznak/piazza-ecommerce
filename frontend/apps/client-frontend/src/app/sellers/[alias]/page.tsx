@@ -110,7 +110,6 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                 setIsModalOpen={setIsModalOpen}
                 productId={productId}
             />
-            <BreadcrumbsComponent links={breadcrumbsLinks}/>
             <Container sx={{ mx: "auto", maxWidth: "7xl", px: 2 }}>
                 <Box
                     sx={{
@@ -118,18 +117,19 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                         justifyContent: "center",
                         alignItems: "center",
                         gap: 8,
-                        mt: 4,
+                        mt: 0,
                         flexDirection: "column",
                     }}
                 >
                     <Box sx={{ flex: "1" }}>
+                        <BreadcrumbsComponent links={breadcrumbsLinks}/>
                         <Paper
                             sx={{
                                 borderRadius: "xl",
                                 overflow: "hidden",
                                 border: "1px solid #a5b4fc",
                                 boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
-                                backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD",
+                                backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.darker,
                             }}
                         >
                             <Box sx={{ p: 6, display: "flex", flexDirection: "row",
@@ -148,7 +148,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                     <img
                                         src={`${baseURL}${seller.account.imageName}`}
                                         alt={seller.account.imageName}
-                                        style={{ width: "100%" }}
+                                        style={{ width: "60%" }}
                                     />
                                     <Box sx={{display: "flex", justifyContent: "center", flexDirection: "column",
                                         alignItems: "center", [theme.breakpoints.down("sm")]: {alignItems: "left"}

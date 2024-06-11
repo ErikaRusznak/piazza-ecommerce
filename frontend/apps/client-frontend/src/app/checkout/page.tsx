@@ -185,7 +185,7 @@ const CheckoutPage = () => {
             .catch((err) => {
                 console.error(err);
             })
-    };
+    }
 
     const handlePaymentTypeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setPaymentType(event.target.value);
@@ -198,7 +198,7 @@ const CheckoutPage = () => {
                     <Grid item xs={12} md={6}>
                         <BreadcrumbsComponent links={breadcrumbsLinks}/>
 
-                        <Typography variant="h5" fontWeight="bold" mt={2} color={theme.palette.info.main}>
+                        <Typography variant="h5" fontWeight="bold" mt={1.5} color={theme.palette.info.main}>
                             Order Summary
                         </Typography>
                         {numberOfCartItems !== 0 && (

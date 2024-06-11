@@ -108,7 +108,7 @@ const RegisterPage = () => {
             } catch (error) {
                 console.error(error);
                 pushAlert({
-                    type: "success",
+                    type: "error",
                     title: "Account created",
                     paragraph: "Could not register account."
                 });

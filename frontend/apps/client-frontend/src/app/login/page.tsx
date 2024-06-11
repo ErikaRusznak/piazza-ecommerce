@@ -17,7 +17,6 @@ import * as yup from "yup";
 import {FormTextField} from "ui";
 import {BreadcrumbsComponent} from "ui";
 import {PrincipalFormLayout} from "ui";
-import {useThemeToggle} from "ui";
 
 type LoginFormInput = {
     email: string;
@@ -52,13 +51,9 @@ const LoginPage = () => {
     };
 
     const {
-        register,
         handleSubmit,
         control,
-        watch,
-        setValue,
         formState: {errors},
-        getValues,
     } = useForm<LoginFormInput>({
         resolver: yupResolver(LoginSchema),
         defaultValues: {
@@ -108,7 +103,7 @@ const LoginPage = () => {
                         </StyledButton>
                     </form>
                     <Grid container gap={1} mt={2}>
-                        <Grid item xs>
+                        <Grid item sm>
                             <StyledLink href="/forgot-password" sx={{fontSize: "0.9rem"}}>
                                 Forgot password?
                             </StyledLink>

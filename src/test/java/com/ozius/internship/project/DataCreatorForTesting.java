@@ -218,7 +218,7 @@ public class DataCreatorForTesting {
                         "nr 2",
                         "307773"),
                 account2,
-                "Eco Tech"
+                "Bio Fruits"
         );
         createSellerRequestForLocalFarmer(em, "Reason", account2.getEmail(), SellerType.LOCAL_FARMER);
 
@@ -237,7 +237,7 @@ public class DataCreatorForTesting {
                         "nr 2",
                         "300125"),
                 account3,
-                "Ozius Solutions",
+                "Farmer Shop",
                 SellerType.COMPANY,
                 new LegalDetails("Mega Fresh SRL", "1023456",
                         new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
@@ -272,15 +272,15 @@ public class DataCreatorForTesting {
 
     public static void createProductsBaseData(EntityManager em){
 
-        product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 12.7f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 8.2f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM,5);
-        Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_UNIT, 3);
-        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 5f, Categories.category1, Sellers.seller3, UnitOfMeasure.GRAM, 10);
-        Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 10);
-        Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 11);
+        product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 4.5f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM,5);
+        Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.GRAM, 3);
+        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 2f, Categories.category1, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 10);
+        Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 6f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 10);
+        Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 4f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 11);
         Products.product7 = createProduct(em, "Orange", "This is an orange! It is a fruit!", "/images/orange.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product8 = createProduct(em, "Potato", "This is a potato! It is a vegetable!", "/images/potato.jpeg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product9 = createProduct(em, "Pepper", "This is a pepper! It is a vegetable!", "/images/pepper.jpg", 5f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 15);
+        Products.product8 = createProduct(em, "Potato", "This is a potato! It is a vegetable!", "/images/potato.jpeg", 3f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product9 = createProduct(em, "Pepper", "This is a pepper! It is a vegetable!", "/images/pepper.jpg", 4.8f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 15);
     }
 
     public static void createAddresses(){

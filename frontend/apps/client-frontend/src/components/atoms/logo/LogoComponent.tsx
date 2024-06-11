@@ -1,20 +1,23 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {Box} from "@mui/material";
+import {Box, useMediaQuery} from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
 const LogoComponent = () => {
 
+    const theme = useTheme();
+    const isSmallerScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const src = isSmallerScreen ? "/small-fresh-corner-logo.png" : "/fresh-corner-logo.png";
     return (
         <Box>
             <Link href={"/"}>
                 <Image
-                    src="./icon1.svg"
+                    src={src}
                     alt="icon"
-                    width={40}
-                    height={40}
+                    width={isSmallerScreen ? 40 : 135}
+                    height={isSmallerScreen ? 40 : 30}
                     priority={true}
-                    style={{ filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)' }}
                 />
             </Link>
         </Box>

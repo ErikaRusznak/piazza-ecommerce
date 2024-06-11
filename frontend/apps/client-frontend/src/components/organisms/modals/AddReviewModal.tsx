@@ -113,7 +113,7 @@ const AddReviewModal = ({isModalOpen, toggleModal, setIsModalOpen, productId, ha
                                 variant="contained"
                                 sx={{mt: 3, mb: 2, backgroundColor: theme.palette.background.lighter}}
                             >
-                                Update review
+                                Add review
                             </StyledButton>
                         </form>
                     </Box>
