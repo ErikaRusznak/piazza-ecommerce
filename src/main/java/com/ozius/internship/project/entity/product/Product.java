@@ -101,8 +101,9 @@ public class Product extends BaseEntity {
         this.numberReviews = 0;
         this.isRatingApplicable = false;
         this.reviews = new HashSet<>();
-        this.quantity = quantity;
         setAvailability(quantity);
+        this.quantity = quantity;
+
     }
 
     public Review addReview(Buyer buyer, String description, float rating){

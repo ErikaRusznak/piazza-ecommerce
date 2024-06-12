@@ -52,14 +52,10 @@ const FormSelectField = ({
                     sx={{
                         py: 1, mt: 1,
                         '.MuiSvgIcon-root ': {
-                            fill: theme.palette.info.contrastText,
+                            fill: isDark ? theme.palette.info.contrastText : theme.palette.info.main,
                         }
                     }}
                 >
-                    {/* todo - add another option to stop overlaping the label*/}
-                    <option key={"null"} value={""}>
-                        {""}
-                    </option>
                     {items?.map((option, index) => (
                         <option key={`option.name-${index}`} value={option.name}>
                             {option.name}

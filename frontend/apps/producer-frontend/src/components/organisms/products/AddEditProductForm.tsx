@@ -28,6 +28,7 @@ export type AddEditProductInput = {
     price: number;
     category: string;
     unitOfMeasure: string;
+    quantity: number;
 }
 
 const AddProductSchema = yup.object().shape({
@@ -41,9 +42,11 @@ const AddProductSchema = yup.object().shape({
         .required("You must choose a category"),
     unitOfMeasure: yup.string()
         .required("You must choose a unit of measure"),
+    quantity: yup.number()
+        .min(1, 'Quantity must be greater than or equal to 0')
+        .required('You must provide a quantity'),
 });
 
-// todo - take unit of measures from the backend
 
 
 const AddEditProductForm = ({
@@ -63,6 +66,7 @@ const AddEditProductForm = ({
         price: product ? product.price : "",
         category: product ? product.category.name : "",
         unitOfMeasure: product ? product.unitOfMeasure.name : "",
+        quantity: product ? product.quantity : "",
     }
     const {
         handleSubmit,
@@ -119,6 +123,11 @@ const AddEditProductForm = ({
                     label="Unit of measure"
                     items={UNIT_OF_MEASURES}
                 />
+                <FormTextFieldDarkBackground
+                    name="quantity"
+                    control={control}
+                    label="Quantity"
+                    type="number"/>
 
                 <UploadController
                     onFileChange={handleAddImage}
