@@ -70,7 +70,6 @@ const LoginPage = () => {
 
     return (
         <MainLayout>
-            <BreadcrumbsComponent links={breadcrumbsLinks}/>
             <PrincipalFormLayout titleText="Sign in to your account">
                 <>
                     {showErrorMessage && (

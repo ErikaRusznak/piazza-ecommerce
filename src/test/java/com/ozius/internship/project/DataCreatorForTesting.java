@@ -175,6 +175,12 @@ public class DataCreatorForTesting {
         sellerRequest.setStatus(RequestStatus.APPROVED);
         em.persist(sellerRequest);
     }
+    public static void createSellerRequestRejectedForLocalFarmer(EntityManager em, String reason, String sellerEmail, SellerType sellerType) {
+        SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerType);
+        sellerRequest.setStatus(RequestStatus.REJECTED);
+        em.persist(sellerRequest);
+    }
+
 
     public static void createSellerRequestForCompanyOrPfa(EntityManager em, String reason, String sellerEmail, String sellerCui, SellerType sellerType) {
         SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerCui, sellerType);
@@ -201,7 +207,7 @@ public class DataCreatorForTesting {
                 account1,
                 "Mega Fresh"
         );
-        createSellerRequestForLocalFarmer(em, "Reason", account1.getEmail(), SellerType.LOCAL_FARMER);
+        createSellerRequestForLocalFarmer(em, "I really want to show my products to other people!", account1.getEmail(), SellerType.LOCAL_FARMER);
 
         UserAccount account2 = new UserAccount("Stefan",
                 "Rusznak",
@@ -220,7 +226,7 @@ public class DataCreatorForTesting {
                 account2,
                 "Bio Fruits"
         );
-        createSellerRequestForLocalFarmer(em, "Reason", account2.getEmail(), SellerType.LOCAL_FARMER);
+        createSellerRequestForLocalFarmer(em, "I have too many products that I can not consume myself", account2.getEmail(), SellerType.LOCAL_FARMER);
 
         UserAccount account3 = new UserAccount("Ozius",
                 "Solutions",
@@ -241,7 +247,7 @@ public class DataCreatorForTesting {
                 SellerType.COMPANY,
                 new LegalDetails("Mega Fresh SRL", "1023456",
                         new RegistrationNumber(CompanyType.J, 12, 254, LocalDate.now())));
-        createSellerRequestForCompanyOrPfa(em, "Reason", account3.getEmail(), "1023456", SellerType.COMPANY);
+        createSellerRequestForCompanyOrPfa(em, "We are a company that wants to enter this platform because I like the idea of this website.", account3.getEmail(), "1023456", SellerType.COMPANY);
     }
 
     public static Category createCategory(EntityManager em, String name, String image) {
