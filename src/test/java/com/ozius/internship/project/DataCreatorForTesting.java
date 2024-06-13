@@ -52,7 +52,7 @@ public class DataCreatorForTesting {
         Buyers.buyer1 = createBuyer(em, account1);
 
         UserAccount account2 = new UserAccount(
-                "Alex",
+                "Andrei",
                 "Dulfu",
                 "alexdulfu@gmail.com",
                 null,
@@ -311,6 +311,8 @@ public class DataCreatorForTesting {
 
         Cart cart2 = createCart(em, Buyers.buyer2);
         addItemToCart(em, cart2, product1, 2F);
+
+        createCart(em, Buyers.buyer3);
 
     }
 

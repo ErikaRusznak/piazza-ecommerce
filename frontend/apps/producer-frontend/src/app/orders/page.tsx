@@ -167,7 +167,6 @@ const OrdersPage = () => {
                                 value={selectedStatusFilter || ""}
                                 onChange={handleFilterChange}
                             >
-                                {/*<MenuItem value="ALL">All</MenuItem>*/}
                                 <MenuItem value="PENDING">Pending</MenuItem>
                                 <MenuItem value="PROCESSING">Processing</MenuItem>
                                 <MenuItem value="SHIPPING">Shipping</MenuItem>

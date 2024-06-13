@@ -95,7 +95,7 @@ const OrderPage = ({ params }: OrderPageProps) => {
                         <Grid container spacing={3} sx={{mt: 2}}>
                             <Grid item xs={12} md={6}>
                                 <Paper sx={{ p: 2, backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD", border: "1px solid #a5b4fc" }}>
-                                    <Typography variant="h6" color={theme.palette.lightColor.main} sx={{ mb: 2 }}>
+                                    <Typography variant="h6" color={isDark ? theme.palette.lightColor.main : theme.palette.primary.main} sx={{ mb: 2 }}>
                                         Customer Details
                                     </Typography>
                                     <Typography variant="body1" color={theme.palette.info.main}>
@@ -111,7 +111,7 @@ const OrderPage = ({ params }: OrderPageProps) => {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Paper sx={{ p: 2, backgroundColor: isDark ? theme.palette.background.lighter : "#DBE1FD", border: "1px solid #a5b4fc" }}>
-                                    <Typography variant="h6" color={theme.palette.lightColor.main} sx={{ mb: 2 }}>
+                                    <Typography variant="h6" color={isDark ? theme.palette.lightColor.main : theme.palette.primary.main} sx={{ mb: 2 }}>
                                         Shipping Address
                                     </Typography>
                                     <Typography variant="body1" color={theme.palette.info.main}>
@@ -125,7 +125,7 @@ const OrderPage = ({ params }: OrderPageProps) => {
                             </Grid>
                         </Grid>
                         <Box mt={4}>
-                            <Typography variant="h6" color={theme.palette.lightColor.main} sx={{fontWeight: "bold"}}>
+                            <Typography variant="h6" color={isDark ? theme.palette.lightColor.main : theme.palette.primary.main} sx={{fontWeight: "bold"}}>
                                 Order Items
                             </Typography>
                             <TableContainerComponent

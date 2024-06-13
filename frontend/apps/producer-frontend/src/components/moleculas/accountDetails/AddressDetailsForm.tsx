@@ -10,7 +10,6 @@ import CountrySelector from "@/components/atoms/country/CountrySelector";
 import {COUNTRIES} from "@/components/atoms/country/countries";
 import {useTheme} from "@mui/material/styles";
 import {updateSellerAddressApi} from "../../../../api/entities/UserAccount";
-import {useRouter} from "next/navigation";
 import {useAlert} from "components";
 
 const AddressSchema = object().shape({
@@ -78,7 +77,6 @@ const AddressDetailsForm = ({
         control,
         setValue,
         getValues,
-        reset
     } = useForm<AddressDetailsFormInput>({
         resolver: yupResolver(AddressSchema),
         defaultValues: defaultValues,
@@ -88,7 +86,6 @@ const AddressDetailsForm = ({
         const values = getValues();
         updateSellerAddressApi(id, values)
             .then(response => {
-
                 pushAlert({
                     type: "success",
                     title: "Legal Address",
@@ -108,26 +105,38 @@ const AddressDetailsForm = ({
         <Box sx={{p: 2, border: '1px solid #a5b4fc', borderRadius: '14px'}}>
             <Typography variant="h5" sx={{color: theme.palette.info.main, mb: 2}}>Legal Address</Typography>
             <form>
-                <FormTextFieldDarkBackground
-                    name="addressLine1"
-                    control={control}
-                    label="Street, number"
-                    type="text"/>
-                <FormTextFieldDarkBackground
-                    name="addressLine2"
-                    control={control}
-                    label="Block, apartment"
-                    type="text"/>
-                <FormTextFieldDarkBackground
-                    name="city"
-                    control={control}
-                    label="City"
-                    type="text"/>
-                <FormTextFieldDarkBackground
-                    name="state"
-                    control={control}
-                    label="State"
-                    type="text"/>
+                <Grid container gap={1}>
+                    <Grid item xs>
+                        <FormTextFieldDarkBackground
+                            name="addressLine1"
+                            control={control}
+                            label="Street, number"
+                            type="text"/>
+                    </Grid>
+                    <Grid item xs>
+                        <FormTextFieldDarkBackground
+                            name="addressLine2"
+                            control={control}
+                            label="Block, apartment"
+                            type="text"/>
+                    </Grid>
+                </Grid>
+                <Grid container gap={1}>
+                    <Grid item xs>
+                        <FormTextFieldDarkBackground
+                            name="city"
+                            control={control}
+                            label="City"
+                            type="text"/>
+                    </Grid>
+                    <Grid item xs>
+                        <FormTextFieldDarkBackground
+                            name="state"
+                            control={control}
+                            label="State"
+                            type="text"/>
+                    </Grid>
+                </Grid>
                 <Grid container gap={1}>
                     <Grid item xs>
                         <FormTextFieldDarkBackground
