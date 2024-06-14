@@ -3,6 +3,8 @@ package com.ozius.internship.project;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
 import com.ozius.internship.project.entity.courier.Courier;
+import com.ozius.internship.project.entity.order.FullOrder;
+import com.ozius.internship.project.entity.order.PaymentType;
 import com.ozius.internship.project.entity.product.Category;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.product.UnitOfMeasure;
@@ -18,6 +20,12 @@ import static com.ozius.internship.project.DataCreatorForTesting.Products.produc
 
 
 public class DataCreatorForTesting {
+
+    public static FullOrder createFullOrder(EntityManager em, String buyerEmail, Address shippAddress, PaymentType paymentType) {
+        FullOrder fullOrder = new FullOrder(buyerEmail, shippAddress, paymentType);
+        em.persist(fullOrder);
+        return fullOrder;
+    }
 
     public static void createBaseDataForProduct(EntityManager em, PasswordEncoder passwordEncoder) {
         createCategoriesBaseData(em);
@@ -175,12 +183,6 @@ public class DataCreatorForTesting {
         sellerRequest.setStatus(RequestStatus.APPROVED);
         em.persist(sellerRequest);
     }
-    public static void createSellerRequestRejectedForLocalFarmer(EntityManager em, String reason, String sellerEmail, SellerType sellerType) {
-        SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerType);
-        sellerRequest.setStatus(RequestStatus.REJECTED);
-        em.persist(sellerRequest);
-    }
-
 
     public static void createSellerRequestForCompanyOrPfa(EntityManager em, String reason, String sellerEmail, String sellerCui, SellerType sellerType) {
         SellerRequest sellerRequest = new SellerRequest(reason, sellerEmail, sellerCui, sellerType);
