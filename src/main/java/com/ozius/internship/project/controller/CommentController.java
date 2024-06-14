@@ -21,7 +21,7 @@ public class CommentController {
         this.reportService = reportService;
     }
 
-    @PostMapping("/comments/{reviewId}/{userId}")
+    @PostMapping("/reviews/comments/{reviewId}/{userId}")
     public ResponseEntity<CommentDTO> addComment(@PathVariable long reviewId, @PathVariable long userId, @RequestBody String content) {
         CommentDTO commentDTO = commentService.addComment(reviewId, userId, content);
         return ResponseEntity.ok(commentDTO);

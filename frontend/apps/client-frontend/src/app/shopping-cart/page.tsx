@@ -31,8 +31,8 @@ const ShoppingCartPage = () => {
 
     return (
         <MainLayout>
-            <BreadcrumbsComponent links={breadcrumbsLinks}/>
-            <Container sx={{paddingTop: 2}}>
+            <Container>
+                <BreadcrumbsComponent links={breadcrumbsLinks}/>
                 {numberOfCartItems !== 0 && (
                     <Typography variant="h4" align="center"
                                 sx={{mb: 2, fontWeight: "bold", color: theme.palette.info.main}}>

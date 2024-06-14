@@ -60,7 +60,7 @@ const HomePage = () => {
                         sx={{
                             background: isDark ? theme.palette.secondary.main : theme.palette.lightColor.main,
                             color: theme.palette.info.main,
-                            "&:hover": { background: theme.palette.tertiary.main },
+                            "&:hover": { background: theme.palette.primary.main },
                             fontSize: { xs: "14px", sm: "16px", md: "18px" },
                         }}
                         onClick={() => {

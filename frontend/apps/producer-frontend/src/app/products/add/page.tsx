@@ -34,7 +34,8 @@ const AddProductPage = () => {
             price: data.price,
             category: selectedCategory,
             seller: seller,
-            unitOfMeasure: selectedUnitOfMeasure
+            unitOfMeasure: selectedUnitOfMeasure,
+            quantity: data.quantity,
         })
             .then((res) => {
                 router.push(`/products`);

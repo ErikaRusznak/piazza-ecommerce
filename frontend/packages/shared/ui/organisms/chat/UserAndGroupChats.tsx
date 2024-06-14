@@ -212,6 +212,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
                 handleOnClick={handleOnClickForGroupChats}
                 lastMessages={lastMessagesForGroup}
                 unreadGroupMessages={unreadGroupMessages}
+                isUserClient={isUserClient}
             />
         </Box>
     );

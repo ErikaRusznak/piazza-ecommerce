@@ -11,8 +11,9 @@ type GroupTextChatProps = {
     chat: GroupChatType;
     lastMessage: string;
     isUnread: boolean;
+    isUserClient: boolean;
 }
-const GroupTextChat = ({chat, lastMessage, isUnread}: GroupTextChatProps) => {
+const GroupTextChat = ({chat, lastMessage, isUnread, isUserClient}: GroupTextChatProps) => {
     const theme = useTheme();
     const [sellerAlias, setSellerAlias] = useState();
     const {isDark} = useThemeToggle();
@@ -30,8 +31,10 @@ const GroupTextChat = ({chat, lastMessage, isUnread}: GroupTextChatProps) => {
     useEffect(() => {
         getSellerByEmail();
     }, []);
-    return (
 
+    const groupChatText = isUserClient ? `#${chat.orderNumber}, ${sellerAlias}` : `Order #${chat.orderNumber}`;
+
+    return (
         <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <Box sx={{display: "flex", alignItems: "center", gap: 1, width: "100%"}}>
                 <GroupsIcon/>
@@ -40,7 +43,7 @@ const GroupTextChat = ({chat, lastMessage, isUnread}: GroupTextChatProps) => {
                         color: theme.palette.info.main,
                         fontWeight: isUnread ? "bold" : "normal",
                     }}>
-                        #{chat.orderNumber}, {sellerAlias}
+                        {groupChatText}
                     </Typography>
                     <Typography sx={{
                         fontSize: "13px",

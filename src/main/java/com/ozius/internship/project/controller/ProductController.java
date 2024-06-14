@@ -61,8 +61,8 @@ public class ProductController {
     @RequireApprovedSeller
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody Product product) {
-        ProductDTO createdProduct = productService.createProduct(product);
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.createProduct(productDTO);
         return ResponseEntity.ok(createdProduct);
     }
 

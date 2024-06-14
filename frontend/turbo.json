@@ -1,12 +1,20 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "globalEnv": [
+    "NEXT_PUBLIC_REACT_APP_BACKEND_URL",
+    "NEXT_PUBLIC_STRIPE_KEY",
+    "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
+  ],
+  "tasks": {
     "dev": {
       "cache": false,
       "outputs": []
     },
     "build": {
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "lint": {
       "outputs": []
@@ -14,6 +22,5 @@
     "format": {
       "outputs": []
     }
-  },
-  "globalEnv": ["NEXT_PUBLIC_REACT_APP_BACKEND_URL", "NEXT_PUBLIC_STRIPE_KEY", "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"]
+  }
 }

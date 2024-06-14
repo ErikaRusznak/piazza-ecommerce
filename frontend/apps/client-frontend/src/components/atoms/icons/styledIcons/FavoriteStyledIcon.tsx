@@ -62,7 +62,7 @@ const FavoriteStyledIcon = () => {
                 >
                     <ClickAwayListener onClickAway={handleClose}>
                         <Box sx={{
-                            p: 2, width: "200px",
+                            p:1, width: "200px",
                             backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                             borderRadius: "14px",
                         }}>
@@ -108,7 +108,6 @@ const FavoriteStyledIcon = () => {
                                             </Box>
                                             <Box sx={{maxWidth: "118px"}}>
                                                 <Typography
-                                                    variant="subtitle1"
                                                     sx={{fontWeight: "bold", color: theme.palette.info.main}}
                                                 >
                                                     {item.name}

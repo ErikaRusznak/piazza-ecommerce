@@ -5,7 +5,7 @@ import {useTheme} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import {useRouter} from "next/navigation";
 import { useAuth, baseURL } from "components";
-import {ThemedSwitch} from "ui";
+import {ThemedSwitch, useThemeToggle} from "ui";
 
 type CategoryType = {
     id: number;
@@ -25,6 +25,8 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
     const theme = useTheme();
     const router = useRouter();
     const auth = useAuth();
+    const {isDark} = useThemeToggle();
+
     const [openCategories, setOpenCategories] = useState(false);
     const handleOpenCategories = () => {
         setOpenCategories(!openCategories);
@@ -83,7 +85,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                                 alt={item.name}
                                                 width={30}
                                                 height={30}
-                                                style={{filter: 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)'}}
+                                                style={{filter: isDark ? 'brightness(0) saturate(100%) invert(100%) sepia(100%) hue-rotate(100deg)': ""}}
                                             />
                                             <ListItemText sx={{pl: 2, color: textColor}} primary={item.name}/>
                                         </ListItemButton>
@@ -150,7 +152,7 @@ const HamburgerMenu = ({isAuthenticated, mobileMenuOpen, onMenuIconClick, catego
                                         sx={{
                                             ...buttonStyle,
                                             background: theme.palette.primary.main,
-                                            color: theme.palette.info.main,
+                                            color: isDark ? theme.palette.info.main : theme.palette.info.contrastText,
                                             "&:hover": {background: theme.palette.secondary.main}
                                         }}
                                         onClick={() => {

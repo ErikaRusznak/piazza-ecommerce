@@ -66,6 +66,6 @@ public class ForgotPasswordController {
         String emailContent = "Please click the link below to reset your password: " + resetLinkWithToken;
         emailService.sendEmail(email, "Password Reset", emailContent);
 
-        return ResponseEntity.ok("Password reset instructions sent to your email");
+        return ResponseEntity.ok("Password reset instructions were sent to your email");
     }
 }

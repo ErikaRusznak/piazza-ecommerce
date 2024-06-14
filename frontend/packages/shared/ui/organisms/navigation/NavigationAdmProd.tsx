@@ -98,7 +98,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
             boxSizing: 'border-box',
             '& .MuiDrawer-paper.MuiDrawer-paperAnchorLeft': {
                 backgroundColor: theme.palette.background.default,
-                borderRightColor: isDark ? theme.palette.info.contrastText : "#eee",
+                borderRightColor: isDark ? theme.palette.info.contrastText : "#ddd",
             },
             ...(open && {
                 ...openedStyles,

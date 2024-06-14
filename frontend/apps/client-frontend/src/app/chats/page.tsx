@@ -103,7 +103,7 @@ const ChatPage = () => {
                         <Box sx={{
                             display: 'flex',
                             flexDirection: isSm ? 'column' : 'row',
-                            height: '75vh',
+                            height: '80vh',
                         }}>
                             <UserAndGroupChats
                                 id={id}
