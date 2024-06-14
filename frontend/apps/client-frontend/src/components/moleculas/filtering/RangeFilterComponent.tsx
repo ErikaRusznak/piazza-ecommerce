@@ -30,7 +30,6 @@ const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChan
     return (
         <FilterComponentLayout
             onClick={onClickInside}
-            smallPageSize={smallPageSize}
         >
             <Slider
                 value={value}
