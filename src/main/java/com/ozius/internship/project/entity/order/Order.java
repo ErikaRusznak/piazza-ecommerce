@@ -155,32 +155,6 @@ public class Order extends BaseEntity {
         this.orderNumber = fullOrder.getOrderNumber();
     }
 
-    // TODO - delete this eventually AND change tests
-    public Order(Address shippingAddress, Buyer buyer, Seller seller, String buyerEmail, String buyerFirstName, String buyerLastName, String buyerTelephone) {
-        this.orderStatus = OrderStatus.PENDING;
-
-        this.shippingAddress = shippingAddress;
-
-        this.buyerFirstName = buyerFirstName;
-        this.buyerLastName = buyerLastName;
-
-        this.buyer = buyer;
-        this.seller = seller;
-
-        this.orderItems = new HashSet<>();
-
-        this.sellerEmail = seller.getAccount().getEmail();
-        this.sellerAlias = seller.getAlias();
-        this.sellerType = seller.getSellerType();
-
-        this.buyerEmail = buyerEmail;
-        this.orderDate = LocalDateTime.now();
-
-        this.telephone = buyerTelephone;
-
-        this.totalPrice = 0f;
-    }
-
     public OrderItem addProduct(Product product, float quantity) {
 
         if(this.orderItems.stream().map(OrderItem::getProduct).anyMatch(item -> item.equals(product))){

@@ -156,7 +156,7 @@ public class CartEntityTest extends JpaBaseEntity {
         // ----Arrange
         Product productSaved = doTransaction(em -> {
             Cart cart = new Cart();
-            Product product = createProduct(em, "popcorn", "descriere popcorn", "/popcorn", 5F, category1, seller1, UnitOfMeasure.KILOGRAM, 15);
+            Product product = createProduct(em, "popcorn", "descriere popcorn", "/popcorn", 5F, category1, seller1, UnitOfMeasure.KILOGRAM, 22);
             cart.addOrUpdateItem(product, 2);
             em.persist(cart);
 
