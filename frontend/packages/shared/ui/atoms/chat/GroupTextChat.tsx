@@ -1,6 +1,6 @@
 import GroupsIcon from "@mui/icons-material/Groups";
 import {Box, Typography} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {GroupChatType} from "../../moleculas/chat/GroupChatMessageUser";
 import {useTheme} from "@mui/material/styles";
 import {getSellerByIdApi} from "producer-frontend/api/entities/SellerApi";

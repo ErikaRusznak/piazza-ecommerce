@@ -6,7 +6,6 @@ type SimpleTextFieldDarkBackgroundProps = {
     label: string;
 }
 
-
 const SimpleTextFieldDarkBackground = ({label, value}:SimpleTextFieldDarkBackgroundProps) => {
 
     const theme = useTheme();
