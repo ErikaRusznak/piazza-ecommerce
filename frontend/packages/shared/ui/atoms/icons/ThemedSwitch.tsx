@@ -1,5 +1,6 @@
-import {useThemeToggle} from "ui";
+
 import ThemeSwitch from "../../themes/ThemeSwitch";
+import {useThemeToggle} from "../../themes/ThemeContext";
 
 const ThemedSwitch = () => {
     const { isDark, toggleTheme } = useThemeToggle();

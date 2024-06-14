@@ -16,6 +16,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
-    "react-hook-form": "^7.51.5"
+    "react-hook-form": "^7.51.5",
+    "components": "*"
   }
 }
