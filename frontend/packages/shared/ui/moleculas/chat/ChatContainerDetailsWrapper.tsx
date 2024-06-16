@@ -56,6 +56,7 @@ const ChatContainerDetailsWrapper = ({
     const recipientId = Number(searchParams.get("recipientId")) ?? null;
     const {isDark} = useThemeToggle();
 
+
     return (
         <>
             <Typography color={theme.palette.info.main} sx={{
