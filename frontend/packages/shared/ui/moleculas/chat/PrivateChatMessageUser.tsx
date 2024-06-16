@@ -4,6 +4,7 @@ import {useTheme} from "@mui/material/styles";
 import {useThemeToggle} from "ui";
 import {baseURL} from "components";
 import CircleIcon from '@mui/icons-material/Circle';
+import moment from "moment";
 
 type ChatType = {
     id: number;
@@ -107,8 +108,13 @@ const PrivateChatMessageUser = ({
                                         color: isDark ? "lightgrey" : "grey",
                                         fontWeight: fontWeightForLastMessage(user.id),
                                     }}>
-                                        {lastMessages[user.id]?.content}
+                                        {lastMessages[user.id]?.content && (
+                                            <>
+                                                {lastMessages[user.id].content}  {moment(lastMessages[user.id].date)?.format("HH:mm")}
+                                            </>
+                                        )}
                                     </Typography>
+
                                 </Box>
                             </Box>
                             {!lastMessages[user.id]?.read && lastMessages[user.id]?.senderId === user.id && (
