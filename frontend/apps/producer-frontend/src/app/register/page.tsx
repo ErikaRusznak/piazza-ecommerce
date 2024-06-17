@@ -17,7 +17,7 @@ import PrincipalFormLayout from "@/components/templates/PrincipalFormLayout";
 import {FormTextField} from "ui";
 import MainLayout from "@/components/templates/MainLayout";
 import {UploadController} from "ui";
-import {addImageApi} from "components";
+import {addImageApi, useAlert} from "components";
 import {FormSelectField} from "ui";
 import {DatePickerField} from "ui";
 import {useThemeToggle} from "ui";
@@ -127,6 +127,7 @@ const RegisterSchema = yup.object().shape({
 const RegisterPage = () => {
     const theme = useTheme();
     const router = useRouter();
+    const {pushAlert} = useAlert();
     const auth = useAuth();
     const [fileName, setFileName] = useState<string>("");
     const [showLegalDetails, setShowLegalDetails] = useState(false);
@@ -187,6 +188,11 @@ const RegisterPage = () => {
                 router.push("/login");
             } catch (error) {
                 console.error("Could not register user");
+                pushAlert({
+                    type: "error",
+                    title: "Register",
+                    paragraph: "Data not provided correctly!"
+                });
             }
         } else {
             console.log("The data is not provided correctly");

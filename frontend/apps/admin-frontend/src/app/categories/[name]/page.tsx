@@ -23,9 +23,17 @@ type ProductPageProps = {
 
 const tableCellLabels = ["Image", "Name", "Category", "Price"];
 
+type ProductType = {
+    id: number;
+    category: string;
+    imageName: string;
+    name: string;
+    price: number;
+};
+
 const CategoryProducts = ({params}: ProductPageProps) => {
 
-    const renderCell = (item: any, key: string) => {
+    const renderCell = (item: ProductType, key: string) => {
         switch (key) {
             case 'Image':
                 return (
@@ -47,7 +55,7 @@ const CategoryProducts = ({params}: ProductPageProps) => {
     const router = useRouter();
     const categoryName = params.name;
     const {isAuthenticated} = useAuth();
-    const [products, setProducts] = useState<any>([]);
+    const [products, setProducts] = useState<ProductType[]>([]);
     const [totalNumberOfProducts, setTotalNumberOfProducts] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);

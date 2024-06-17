@@ -10,6 +10,19 @@ import {getAllCommentsThatHaveReportsApi} from "../../../../api/entities/Reports
 import MainLayout from "@/components/templates/MainLayout";
 import {UnauthenticatedMessage} from "ui";
 import {TableContainerComponent} from "ui";
+import {UserType} from "@/app/profile/page";
+
+export type CommentType = {
+    id: number;
+    content: string;
+    account: UserType;
+};
+
+type CommentTableType = {
+    id: number;
+    comment: string;
+    publishedBy: string;
+};
 
 const CommentsWithReportsPage = () => {
 
@@ -20,7 +33,7 @@ const CommentsWithReportsPage = () => {
 
     const tableCellLabels = ["Comment", "Published By", "Actions"];
 
-    const renderCell = (item: any, key: string) => {
+    const renderCell = (item: CommentTableType, key: string) => {
         switch (key) {
             case 'Comment':
                 return (
@@ -72,11 +85,11 @@ const CommentsWithReportsPage = () => {
         getCommentsWithReports();
     }, []);
 
-    const commentsToDisplay = comments?.map((comment: any) => ({
+    const commentsToDisplay = comments?.map((comment: CommentType) => ({
         id: comment.id,
         comment: comment.content,
         publishedBy: comment.account.email
-    }))
+    }));
 
     return (
         <MainLayout>

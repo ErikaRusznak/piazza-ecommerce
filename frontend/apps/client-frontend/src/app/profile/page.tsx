@@ -7,15 +7,23 @@ import {
 } from "@mui/material";
 import {BreadcrumbsComponent} from "ui";
 import {ProfileInformation} from "ui";
-import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
+import ProfilePicture, {UserType} from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import {AccountManagement} from "ui";
-import {getUserAccountByEmail} from "components";
+import {getUserAccountByEmail, useAuth} from "components";
 import {deleteAccountForBuyerByIdApi} from "../../../api/entities/UserAccount";
-
+import {useRouter} from "next/navigation";
 const ManageProfilePage = () => {
 
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType | null>(null);
+
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
 
     const getBuyerByEmail = (email: string) => {
         getUserAccountByEmail(email)

@@ -14,10 +14,30 @@ import ApproveRejectRequestModal from "@/components/organisms/modals/ApproveReje
 
 const tableCellLabels = ["Email", "Reason", "Date", "Seller Type", "CUI", "Status", "Actions"];
 
+type RequestSellerType = {
+    id: number;
+    date: string;
+    reason: string;
+    sellerCui: string | null;
+    sellerEmail: string;
+    sellerType: string;
+    status: string;
+};
+
+type RequestSellerItemType = {
+    id: number;
+    date: string;
+    reason: string;
+    cui: string | null;
+    email: string;
+    sellerType: string;
+    status: string;
+};
+
 const RequestsPage = () => {
 
-    const renderCell = (item: any, key: string) => {
-
+    const renderCell = (item: RequestSellerItemType, key: string) => {
+        console.log("item", item)
         switch (key) {
             case 'Email':
                 return <Typography sx={{fontSize: "14px"}}>{item.email}</Typography>
@@ -71,7 +91,7 @@ const RequestsPage = () => {
     const theme = useTheme();
     const {isAuthenticated} = useAuth();
 
-    const [requests, setRequests] = useState<any>([]);
+    const [requests, setRequests] = useState<RequestSellerType[]>([]);
     const [totalNumberOfRequests, setTotalNumberOfRequests] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
@@ -103,15 +123,14 @@ const RequestsPage = () => {
     };
 
     const updateRequestStatus = (requestId: number, status: string) => {
-        setRequests((prevRequests: any[]) =>
-            prevRequests.map((request: any) =>
+        setRequests((prevRequests: RequestSellerType[]) =>
+            prevRequests.map((request: RequestSellerType) =>
                 request.id === requestId ? { ...request, status: status } : request
             )
         );
     };
-    console.log("requests", requests)
 
-    const requestsToDisplay = requests?.map((request: any) => ({
+    const requestsToDisplay = requests?.map((request: RequestSellerType) => ({
         id: request.id,
         email: request.sellerEmail,
         reason: request.reason,
@@ -119,7 +138,7 @@ const RequestsPage = () => {
         status: request.status,
         cui: request.sellerCui,
         sellerType: request.sellerType,
-    }))
+    }));
 
     return (
         <>

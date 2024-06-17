@@ -5,8 +5,8 @@ import { Box, Divider, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 type FullOrderInformationProps = {
-    orderNumber: number;
-    date: any;
+    orderNumber: string;
+    date: string;
     shippingAddress: AddressType;
     buyerEmail: string;
 };

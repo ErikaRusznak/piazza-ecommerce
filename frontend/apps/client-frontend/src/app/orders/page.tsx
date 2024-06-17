@@ -16,19 +16,28 @@ import MainLayout from "@/components/templates/MainLayout";
 import {getFullOrdersForBuyer} from "../../../api/entities/OrderApi";
 import {useTheme} from "@mui/material/styles";
 import {Expand} from "@mui/icons-material";
-import {baseURL} from "components";
+import {baseURL, useAuth} from "components";
 import {BreadcrumbsComponent} from "ui";
 import {useThemeToggle} from "ui";
+import {FullOrderType, OrderItemType, OrderType} from "@/app/order-successful/[id]/page";
+import {useRouter} from "next/navigation";
 
-const OrdersPage: React.FC = () => {
-    const theme = useTheme(); // Apply the custom theme
+const OrdersPage = () => {
+    const theme = useTheme();
     const {isDark} = useThemeToggle();
-    const [fullOrders, setFullOrders] = useState([]);
+    const [fullOrders, setFullOrders] = useState<FullOrderType[]>([]);
+
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
 
     const getAllFullOrders = () => {
         getFullOrdersForBuyer()
             .then((res) => {
-                console.log(res.data)
                 setFullOrders(res.data);
             })
             .catch((err) => console.error(err));
@@ -52,7 +61,7 @@ const OrdersPage: React.FC = () => {
                 <Typography variant="h4" color={theme.palette.info.main} gutterBottom sx={{marginTop: 3}}>
                     Order History
                 </Typography>
-                {fullOrders.map((fullOrder: any) => (
+                {fullOrders.map((fullOrder: FullOrderType) => (
                     <Accordion key={fullOrder.orderNumber}>
                         <AccordionSummary expandIcon={<Expand sx={{color: theme.palette.lightColor.main,}}/>} sx={{
                             backgroundColor: colorToUse,
@@ -69,7 +78,7 @@ const OrdersPage: React.FC = () => {
                         </AccordionSummary>
                         <AccordionDetails sx={{background: isDark ? "#303c59" : "white"}}>
                             <Grid container spacing={3} sx={{}}>
-                                {fullOrder.orders.map((order: any) => (
+                                {fullOrder.orders.map((order: OrderType) => (
                                     <Grid item xs={12} md={6} key={order.id} sx={{}}>
                                         <Card sx={{
                                             background: isDark ? "#303c59" : "#dbe1fd",
@@ -106,7 +115,7 @@ const OrdersPage: React.FC = () => {
                                                     <span style={{fontWeight: "bold"}}>Items</span>:
                                                 </Typography>
                                                 <Grid container spacing={2}>
-                                                    {order.orderItems.map((item: any) => (
+                                                    {order.orderItems.map((item: OrderItemType) => (
                                                         <Grid item xs={12} key={item.product.id}>
                                                             <CardMedia
                                                                 component="img"

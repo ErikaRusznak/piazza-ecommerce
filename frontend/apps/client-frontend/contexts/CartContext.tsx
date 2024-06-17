@@ -1,10 +1,67 @@
 "use client"
 import {createContext, useContext, useEffect, useState} from 'react';
-import {useAlert, useAuth} from "components";
+import {useAuth} from "components";
 import { addOrUpdateCartItem, removeCartItem, getCartItems } from "../api/entities/CartApi";
 
+export type SellerType = {
+    account: AccountType;
+    addressLine1: string;
+    addressLine2: string;
+    alias: string;
+    city: string;
+    companyName: string | null;
+    companyType: string | null;
+    country: string;
+    cui: string | null;
+    dateOfRegistration: string | null;
+    id: number;
+    numericCodeByState: number;
+    sellerType: string;
+    serialNumber: number;
+    state: string;
+    zipCode: string;
+};
+
+export type CategoryType = {
+    id: number;
+    name: string;
+};
+
+export type AccountType = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageName: string | null;
+    password: string;
+    telephone: string;
+    userRole: string;
+};
+
+export type ProductType = {
+    id: number;
+    availability: string;
+    category: CategoryType;
+    description: string;
+    imageName: string | null;
+    name: string;
+    numberReviews: number;
+    price: number;
+    productRating: number;
+    quantity: number;
+    ratingApplicable: boolean;
+    seller: SellerType;
+    unitOfMeasure: string;
+}
+
+export type CartItemType = {
+    id: number;
+    product: ProductType;
+    quantity: number;
+}
+
 interface CartContextType {
-    allCartItems: any[] | null;
+    allCartItems: CartItemType[] | null;
     numberOfCartItems: number;
     cartTotalPrice: number;
     updateCartItemQuantity: (productId: number, newQuantity: number) => void;
@@ -21,8 +78,8 @@ export const useCart = (): CartContextType => {
     return context;
 }
 
-const CartProvider = ({ children }: any) => {
-    const [allCartItems, setAllCartItems] = useState<any[] | null>(null);
+const CartProvider = ({ children }: {children: React.ReactNode}) => {
+    const [allCartItems, setAllCartItems] = useState<CartItemType[] | null>(null);
     const [numberOfCartItems, setNumberOfCartItems] = useState<number>(0);
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
     const { isAuthenticated, username } = useAuth();
@@ -77,7 +134,6 @@ const CartProvider = ({ children }: any) => {
             setNumberOfCartItems(allCartItems.length);
         }
     }, [allCartItems]);
-
 
     return (
         <CartContext.Provider value={{ allCartItems, numberOfCartItems, cartTotalPrice, updateCartItemQuantity, deleteCartItem, refreshCart }}>

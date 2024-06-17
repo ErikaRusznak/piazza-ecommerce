@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import {useCart} from "../../../contexts/CartContext";
 import {useRouter} from "next/navigation";
 import MainLayout from "@/components/templates/MainLayout";
@@ -11,24 +11,27 @@ import {Container, Grid, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {StyledButton} from "ui";
 import {BreadcrumbsComponent} from "ui";
+import {useAuth} from "components";
 
 const ShoppingCartPage = () => {
 
     const {allCartItems, numberOfCartItems, cartTotalPrice} = useCart();
     const shippingPrice = 10;
-    // const {isAuthenticated} = useAuth();
-    // if (!isAuthenticated) {
-    //     redirect("/login");
-    // }
-    // TODO - redirect pages if not authenticated
+
     const theme = useTheme();
 
-    const router = useRouter();
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
         {label: "Cart", link: ""},
     ];
 
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
     return (
         <MainLayout>
             <Container>

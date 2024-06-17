@@ -7,10 +7,11 @@ import {getAllSellersApi} from "../../../api/entities/SellerApi";
 import SellerSimplifiedInfo from "@/components/moleculas/SellerSimplifiedInfo";
 import {useTheme} from "@mui/material/styles";
 import {BreadcrumbsComponent, useThemeToggle} from "ui";
+import {SellerType} from "../../../contexts/CartContext";
 
 const SellersPage = () => {
     const theme = useTheme();
-    const [sellers, setSellers] = useState([]);
+    const [sellers, setSellers] = useState<SellerType[]>([]);
     const {isDark} = useThemeToggle();
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
@@ -48,7 +49,7 @@ const SellersPage = () => {
                                     gap: 4,
                                 }}
                             >
-                                {sellers.map((seller: any) => (
+                                {sellers.map((seller: SellerType) => (
                                     <Box
                                         key={seller.id}
                                         sx={{

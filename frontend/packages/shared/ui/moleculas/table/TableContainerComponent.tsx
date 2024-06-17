@@ -27,7 +27,7 @@ const TableContainerComponent = <T,>({items, tableCellLabels, renderCell}:TableC
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {items?.map((item:any, index:number) => (
+                    {items?.map((item:T, index:number) => (
                         <TableRow key={index}>
                             {tableCellLabels.map((key: string, index: number) => (
                                 <TableCell key={index} sx={{

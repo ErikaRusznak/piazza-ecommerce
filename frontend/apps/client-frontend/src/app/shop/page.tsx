@@ -30,6 +30,7 @@ export type FilterOptions = {
 }
 
 const buildFilterOptionsFromQueryParams = (queryParams: any) => {
+    console.log("q", queryParams)
     return {
         priceFrom: queryParams.get('priceFrom') ? parseInt(queryParams.get('priceFrom')) : null,
         priceTo: queryParams.get('priceTo') ? parseInt(queryParams.get('priceTo')) : null,
