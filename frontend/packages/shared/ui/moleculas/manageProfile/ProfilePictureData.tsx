@@ -11,7 +11,7 @@ type ProfilePictureDataProps = {
     setUser: (data: UserType)=>void;
     user: UserType;
     handleProfilePicUpdate: (file: File) => Promise<any>;
-    fileName: string;
+    fileName: string | null;
 };
 
 const ProfilePictureData = ({user, setUser, handleProfilePicUpdate, fileName}:ProfilePictureDataProps) => {

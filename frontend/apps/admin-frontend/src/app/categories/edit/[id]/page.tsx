@@ -15,14 +15,20 @@ type EditCategoryPageProps = {
     }
 };
 
+type CategoryType = {
+    id: number;
+    name: string;
+    imageName: string;
+};
+
 const EditCategoryPage = ({params}: EditCategoryPageProps) => {
 
     const id = Number(params.id);
     const { isAuthenticated, username } = useAuth();
     const router = useRouter();
-    const [category, setCategory] = useState<any>();
+    const [category, setCategory] = useState<CategoryType>();
     const {pushAlert} = useAlert();
-    const [fileName, setFileName] = useState<string>(category?.imageName);
+    const [fileName, setFileName] = useState<string|undefined>(category?.imageName);
     const [errorImageMessage, setErrorImageMessage] = useState<string>("");
 
     const getCategoryById = (categoryId: number) => {

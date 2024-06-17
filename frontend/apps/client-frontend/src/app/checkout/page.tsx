@@ -13,10 +13,11 @@ import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
 import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {StyledButton} from "ui";
+import {StyledButton, UnauthenticatedMessage} from "ui";
 import {BreadcrumbsComponent} from "ui";
 import StripeCheckout from "react-stripe-checkout";
 import PaymentTypeRadio from "@/components/atoms/PaymentTypeRadio";
+import ErrorComponent from "@/components/organisms/error/ErrorComponent";
 
 export type AddressType = {
     addressLine1: string;
@@ -43,7 +44,7 @@ const CheckoutPage = () => {
     const {pushAlert} = useAlert();
     const shippingPrice = 10;
 
-    const {username} = useAuth()
+    const {username, isAuthenticated} = useAuth();
     const router = useRouter();
     const theme = useTheme();
 
@@ -193,83 +194,93 @@ const CheckoutPage = () => {
 
     return (
         <MainLayout>
-            <Container>
-                <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
-                        <BreadcrumbsComponent links={breadcrumbsLinks}/>
-
-                        <Typography variant="h5" fontWeight="bold" mt={1.5} color={theme.palette.info.main}>
-                            Order Summary
-                        </Typography>
-                        {numberOfCartItems !== 0 && (
-                            <Grid container spacing={2} mt={2}>
-                                {allCartItems?.map((item) => (
-                                    <Grid item key={item.id} xs={12}>
-                                        <CartItemCard item={item} isModifiable={false}/>
+            {isAuthenticated ? (
+                <Container>
+                    {numberOfCartItems !==0 ? (
+                        <Grid container spacing={4}>
+                            <Grid item xs={12} md={6}>
+                                <BreadcrumbsComponent links={breadcrumbsLinks}/>
+                                <Typography variant="h5" fontWeight="bold" mt={1.5} color={theme.palette.info.main}>
+                                    Order Summary
+                                </Typography>
+                                {numberOfCartItems !== 0 && (
+                                    <Grid container spacing={2} mt={2}>
+                                        {allCartItems?.map((item) => (
+                                            <Grid item key={item.id} xs={12}>
+                                                <CartItemCard item={item} isModifiable={false}/>
+                                            </Grid>
+                                        ))}
                                     </Grid>
-                                ))}
-                            </Grid>
-                        )}
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                        <Grid container spacing={2} mt={belowMedSize ? -3 : 2}>
-                            <Grid item xs={12}>
-                                <ShippingAddressesComponent
-                                    shippingAddresses={shippingAddresses}
-                                    selectedShippingAddress={selectedShippingAddress}
-                                    onAddressSelected={handleAddressSelected}
-                                    toggleModal={() => toggleModal()}
-                                    onAddAddress={handleAddAddress}
-                                    onEdit={handleEditAddress}
-                                />
-                                <PaymentTypeRadio paymentType={paymentType} handlePaymentTypeChange={handlePaymentTypeChange} />
+                                )}
                             </Grid>
 
+                            <Grid item xs={12} md={6}>
+                                <Grid container spacing={2} mt={belowMedSize ? -3 : 2}>
+                                    <Grid item xs={12}>
+                                        <ShippingAddressesComponent
+                                            shippingAddresses={shippingAddresses}
+                                            selectedShippingAddress={selectedShippingAddress}
+                                            onAddressSelected={handleAddressSelected}
+                                            toggleModal={() => toggleModal()}
+                                            onAddAddress={handleAddAddress}
+                                            onEdit={handleEditAddress}
+                                        />
+                                        <PaymentTypeRadio paymentType={paymentType} handlePaymentTypeChange={handlePaymentTypeChange} />
+                                    </Grid>
 
-                            <Grid item xs={12}>
-                                <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
-                                    {paymentType === "CASH" ? (
-                                        <StyledButton
-                                            fullWidth
-                                            disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
-                                            variant="contained"
-                                            sx={{mt: 3}}
-                                            onClick={handlePlaceOrder}
-                                        >
-                                            Place order
-                                        </StyledButton>
-                                    ): (
-                                        <StripeCheckout
-                                            stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY!}
-                                            token={handleToken}
-                                        >
-                                            <StyledButton
-                                                fullWidth
-                                                disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
-                                                variant="contained"
-                                                sx={{mt: 3}}
-                                            >
-                                                Place order
-                                            </StyledButton>
-                                        </StripeCheckout>
-                                    )}
 
-                                </CartSummary>
+                                    <Grid item xs={12}>
+                                        <CartSummary cartTotalPrice={cartTotalPrice} shippingPrice={shippingPrice}>
+                                            {paymentType === "CASH" ? (
+                                                <StyledButton
+                                                    fullWidth
+                                                    disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
+                                                    variant="contained"
+                                                    sx={{mt: 3}}
+                                                    onClick={handlePlaceOrder}
+                                                >
+                                                    Place order
+                                                </StyledButton>
+                                            ): (
+                                                <StripeCheckout
+                                                    stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY!}
+                                                    token={handleToken}
+                                                >
+                                                    <StyledButton
+                                                        fullWidth
+                                                        disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
+                                                        variant="contained"
+                                                        sx={{mt: 3}}
+                                                    >
+                                                        Place order
+                                                    </StyledButton>
+                                                </StripeCheckout>
+                                            )}
+
+                                        </CartSummary>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
+                    ) : (
+                        <ErrorComponent
+                            description="You don't have any items in Cart. Add products from the shop!"
+                            solution="Shop now!"
+                            linkTo="/shop"
+                        />
+                    )}
+                    <AddressFormModal
+                        toggleModal={toggleModal}
+                        isModalOpen={isModalOpen}
+                        onSaveForm={handleSaveForm}
+                        shippingAddress={editingAddress ?? nullObject}
+                        setEditingAddress={setEditingAddress}
+                    />
 
-                <AddressFormModal
-                    toggleModal={toggleModal}
-                    isModalOpen={isModalOpen}
-                    onSaveForm={handleSaveForm}
-                    shippingAddress={editingAddress ?? nullObject}
-                    setEditingAddress={setEditingAddress}
-                />
-
-            </Container>
+                </Container>
+            ) : (
+                <UnauthenticatedMessage />
+            )}
         </MainLayout>
     );
 };

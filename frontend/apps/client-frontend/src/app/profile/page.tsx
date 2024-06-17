@@ -5,17 +5,25 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import {BreadcrumbsComponent} from "ui";
+import {BreadcrumbsComponent, UnauthenticatedMessage} from "ui";
 import {ProfileInformation} from "ui";
-import ProfilePicture from "@/components/moleculas/manageProfile/ProfilePicture";
+import ProfilePicture, {UserType} from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
 import {AccountManagement} from "ui";
-import {getUserAccountByEmail} from "components";
+import {getUserAccountByEmail, useAuth} from "components";
 import {deleteAccountForBuyerByIdApi} from "../../../api/entities/UserAccount";
-
+import {useRouter} from "next/navigation";
 const ManageProfilePage = () => {
 
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType | null>(null);
+
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
 
     const getBuyerByEmail = (email: string) => {
         getUserAccountByEmail(email)
@@ -41,29 +49,33 @@ const ManageProfilePage = () => {
 
     return user && (
         <MainLayout>
-            <Container maxWidth="lg">
-                <BreadcrumbsComponent links={breadcrumbsLinks}/>
-                <Grid container spacing={2}>
+            {isAuthenticated ? (
+                <Container maxWidth="lg">
+                    <BreadcrumbsComponent links={breadcrumbsLinks}/>
+                    <Grid container spacing={2}>
 
-                    <Grid item xs={12} md={4}>
-                        <ProfilePicture
-                            user={user}
-                            setUser={setUser}
-                        />
+                        <Grid item xs={12} md={4}>
+                            <ProfilePicture
+                                user={user}
+                                setUser={setUser}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <ProfileInformation
+                                user={user}
+                                setUser={setUser}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={8}>
-                        <ProfileInformation
-                            user={user}
-                            setUser={setUser}
-                        />
-                    </Grid>
-                </Grid>
-                <AddressManagement/>
-                <AccountManagement
-                    user={user}
-                    deleteAccountApi={deleteAccountForBuyerByIdApi}
-                />
-            </Container>
+                    <AddressManagement/>
+                    <AccountManagement
+                        user={user}
+                        deleteAccountApi={deleteAccountForBuyerByIdApi}
+                    />
+                </Container>
+            ) : (
+                <UnauthenticatedMessage />
+            )}
         </MainLayout>
     );
 };

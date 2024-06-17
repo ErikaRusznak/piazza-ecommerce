@@ -3,9 +3,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from "components";
 import { addFavorite, getFavorites, removeFavorite } from "../api/entities/BuyerApi";
+import {ProductType} from "./CartContext";
+
 
 interface FavoriteContextType {
-    allFavorites: any[];
+    allFavorites: ProductType[];
     numberOfFavorites: number;
     addToFavorite: (productId: number) => void;
     removeFromFavorite: (productId: number) => void;
@@ -22,7 +24,7 @@ export const useFavorite = (): FavoriteContextType => {
 };
 
 const FavoriteProvider = ({ children } : { children: React.ReactNode}) => {
-    const [allFavorites, setAllFavorites] = useState<any[]>([]);
+    const [allFavorites, setAllFavorites] = useState<ProductType[]>([]);
     const [numberOfFavorites, setNumberOfFavorites] = useState(0);
     const { isAuthenticated } = useAuth();
 

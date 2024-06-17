@@ -22,7 +22,7 @@ type UserAndGroupChatsProps = {
     messages: any[];
     setMessages: (value: any[]) => void;
     connectedUsers: any[];
-    groupChats: GroupChatType[];
+    groupChats: GroupChatType[] | undefined;
     isUserClient?: boolean;
     unreadGroupMessages: { [key: number]: boolean };
     setUnreadGroupMessages: (newValue: (prevState: any) => any) => void;
@@ -46,7 +46,6 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
     const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
 
     const [sortedPrivateChats, setSortedPrivateChats] = useState<any>([]);
-    const [sortedGroupChats, setSortedGroupChats] = useState<any>([]);
 
     useEffect(() => {
         const sortedConnectedUsers = [...connectedUsers].sort((a, b) => {

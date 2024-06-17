@@ -3,6 +3,7 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {getBuyerByEmailApi} from "../api/entities/BuyerApi";
 import { useAuth } from "components";
+import {UserType} from "@/components/moleculas/manageProfile/ProfilePicture";
 
 interface ProfilePictureContextType {
     profilePictureUrl: string|null
@@ -22,7 +23,7 @@ export const useProfilePicture = ():ProfilePictureContextType => {
 
 const ProfilePictureProvider = ({children}:any) => {
 
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType|null>(null);
     const {isAuthenticated} = useAuth();
 
     const getBuyerByEmail = (email: string) => {

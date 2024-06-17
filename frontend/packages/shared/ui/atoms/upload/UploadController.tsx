@@ -7,7 +7,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 type FormUploadFieldDarkBackgroundProps = {
     onFileChange: (file: File) => void;
-    fileName: string;
+    fileName: string | undefined;
     setFileName: (newName: string) => void;
 };
 

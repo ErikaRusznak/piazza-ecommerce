@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import {useCart} from "../../../contexts/CartContext";
 import {useRouter} from "next/navigation";
 import MainLayout from "@/components/templates/MainLayout";
@@ -11,23 +11,29 @@ import {Container, Grid, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {StyledButton} from "ui";
 import {BreadcrumbsComponent} from "ui";
+import {useAuth} from "components";
 
 const ShoppingCartPage = () => {
 
     const {allCartItems, numberOfCartItems, cartTotalPrice} = useCart();
     const shippingPrice = 10;
-    // const {isAuthenticated} = useAuth();
-    // if (!isAuthenticated) {
-    //     redirect("/login");
-    // }
-    // TODO - redirect pages if not authenticated
+
     const theme = useTheme();
 
-    const router = useRouter();
     const breadcrumbsLinks = [
         {label: "Home", link: "/"},
         {label: "Cart", link: ""},
     ];
+
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
+    console.log("num", numberOfCartItems)
+    console.log('all', allCartItems)
 
     return (
         <MainLayout>
@@ -40,7 +46,7 @@ const ShoppingCartPage = () => {
                     </Typography>
                 )}
 
-                {numberOfCartItems !== 0 && (
+                {numberOfCartItems !== 0 ? (
                     <Grid container spacing={6}>
                         <Grid item xs={12} md={8}>
                             {allCartItems?.map((cartItem) => (
@@ -61,15 +67,14 @@ const ShoppingCartPage = () => {
                             </CartSummary>
                         </Grid>
                     </Grid>
-                )}
-
-                {numberOfCartItems === 0 && allCartItems !== null && (
+                ) : (
+                    numberOfCartItems === 0 && (
                     <ErrorComponent
                         description="You don't have any items in Cart. Add products from the shop!"
                         solution="Shop now!"
                         linkTo="/shop"
                     />
-                )}
+                ))}
             </Container>
         </MainLayout>
     );

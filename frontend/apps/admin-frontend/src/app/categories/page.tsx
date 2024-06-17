@@ -19,11 +19,16 @@ import DeleteCategoryModal from "@/components/organisms/modals/DeleteCategoryMod
 
 const tableCellLabels = ["Image", "Name", "Actions"];
 
-// TODO - create product type
+type CategoryType = {
+    id: number;
+    name: string;
+    imageName: string;
+}
+
 const ProductsPage = () => {
     const theme = useTheme();
     const router = useRouter();
-    const renderCell = (item: any, key: string) => {
+    const renderCell = (item: CategoryType, key: string) => {
         switch (key) {
             case 'Image':
                 return (
@@ -54,10 +59,10 @@ const ProductsPage = () => {
 
     const {isAuthenticated} = useAuth();
 
-    const [categories, setCategories] = useState<any>([]);
+    const [categories, setCategories] = useState<CategoryType[]>([]);
 
     const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const toggleModal = (categoryId: number | null ) => {
         setCategoryIdToDelete(categoryId);
@@ -77,10 +82,10 @@ const ProductsPage = () => {
     }, []);
 
     const onDelete = (categoryId: number) => {
-        setCategories(categories.filter((category:any) => category.id !== categoryId));
+        setCategories(categories.filter((category:CategoryType) => category.id !== categoryId));
     };
 
-    const categoriesToDisplay = categories?.map((category: any) => ({
+    const categoriesToDisplay = categories?.map((category: CategoryType) => ({
         id: category.id,
         imageName: category.imageName,
         name: category.name,

@@ -79,7 +79,8 @@ export {DeleteAccountModal, PrincipalFormLayout};
 
 // templates
 import BaseModal from "./templates/BaseModal";
-export {BaseModal};
+import NotFoundCustomPage from "./templates/NotFoundCustomPage";
+export {BaseModal, NotFoundCustomPage};
 
 // themes
 import CustomThemeProvider, {useThemeToggle} from "./themes/ThemeContext";

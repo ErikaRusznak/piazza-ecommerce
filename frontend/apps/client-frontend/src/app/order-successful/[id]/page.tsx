@@ -8,6 +8,11 @@ import {Box, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {CheckCircleOutlineIcon} from "@/components/atoms/icons";
 import moment from "moment";
+import {AddressType} from "@/app/checkout/page";
+import {ProductType} from "../../../../contexts/CartContext";
+import {useRouter} from "next/navigation";
+import {useAuth} from "components";
+import {UnauthenticatedMessage} from "ui";
 
 type OrderSuccessfulPageProps = {
     params: {
@@ -15,10 +20,50 @@ type OrderSuccessfulPageProps = {
     };
 };
 
+export type OrderItemType = {
+    product: ProductType;
+    quantity: number;
+};
+
+export type OrderType = {
+    buyerEmail: string;
+    buyerFirstName: string;
+    buyerLastName: string;
+    buyerTelephone: string;
+    id: number;
+    legalDetails: any;
+    orderDate: string;
+    orderItems: OrderItemType[];
+    orderNumber: string;
+    orderStatus: string;
+    sellerEmail: string;
+    sellerType: string;
+    totalPrice: number;
+    shippingAddress: AddressType;
+};
+
+export type FullOrderType = {
+    buyerEmail: string;
+    id: number;
+    orderNumber: string;
+    orders: OrderType[];
+    publishDate: string;
+    shippingAddress: AddressType;
+    totalPrice: number;
+};
+
 const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
     const fullOrderId = params.id;
     const theme = useTheme();
-    const [fullOrder, setFullOrder] = useState<any | null>(null);
+    const [fullOrder, setFullOrder] = useState<FullOrderType | null>(null);
+
+    const router = useRouter();
+    const {isAuthenticated} = useAuth();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push("/login");
+        }
+    }, []);
 
     const getFullOrder = (fullOrderId: number) => {
         getFullOrderByIdApi(fullOrderId)
@@ -35,7 +80,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
     const smallerScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const variantForTitle = smallerScreen ? "h5" : "h4";
 
-    return (
+    return isAuthenticated ? (
         fullOrder && (
             <MainLayout>
                 <Box
@@ -97,6 +142,10 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
                 </Box>
             </MainLayout>
         )
+    ) : (
+        <MainLayout>
+            <UnauthenticatedMessage />
+        </MainLayout>
     );
 };
 

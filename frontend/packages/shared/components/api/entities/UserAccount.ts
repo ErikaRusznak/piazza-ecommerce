@@ -8,7 +8,7 @@ export const getUserAccountByEmail = (email: string) => {
     return api.get(`/api/users/${email}`);
 };
 
-export const updateUserAccountApi = (id: number, firstName: string, lastName: string, email: string, imageName: string, telephone: string) => {
+export const updateUserAccountApi = (id: number, firstName: string, lastName: string, email: string, imageName: string | null, telephone: string) => {
     return api.put(`/api/users/${id}`, {
         firstName: firstName,
         lastName: lastName,

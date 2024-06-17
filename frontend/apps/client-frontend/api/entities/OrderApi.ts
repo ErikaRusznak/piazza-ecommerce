@@ -4,8 +4,8 @@ import {ShippingAddressType} from "@/app/checkout/page";
 export const submitOrder = (
     shippingAddress: ShippingAddressType,
     products: {
-        quantity: any;
-        productId: any }[] | undefined,
+        quantity: number;
+        productId: number }[] | undefined,
     email: string,
     paymentType: string) => {
     return api.post('/api/orders', {

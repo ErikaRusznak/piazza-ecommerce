@@ -8,9 +8,20 @@ import {getUserAccountByEmail} from "components";
 import {useAuth} from "components";
 import {UnauthenticatedMessage} from "ui";
 
+export type UserType = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageName: string | null;
+    password: string;
+    telephone: string;
+    userRole: string;
+};
+
 const ManageProfilePage = () => {
 
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType | null>(null);
     const {isAuthenticated} = useAuth();
     const getBuyerByEmail = (email: string) => {
         getUserAccountByEmail(email)

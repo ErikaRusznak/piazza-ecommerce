@@ -23,6 +23,7 @@ import {baseURL} from "components";
 import {BreadcrumbsComponent} from "ui";
 import SellerMap from "@/components/moleculas/SellerMap";
 import {useThemeToggle} from "ui";
+import {SellerType} from "../../../../contexts/CartContext";
 
 type SellerPageContentProps = {
     sellerAlias: string;
@@ -31,7 +32,7 @@ type SellerPageContentProps = {
 const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-    const [seller, setSeller] = useState<any>(null);
+    const [seller, setSeller] = useState<SellerType>(null);
     const { username } = useAuth();
 
     const [itemsPerPage, setItemsPerPage] = useState(12);

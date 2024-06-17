@@ -14,12 +14,14 @@ export type UserType = {
     lastName: string;
     email: string;
     telephone: string;
-    imageName: string;
+    imageName: string | null;
+    password: string;
+    userRole: string;
 };
 
 const ProfilePicture = ({setUser, user}:ProfilePictureProps) => {
 
-    const [fileName, setFileName] = useState<string>(user.imageName);
+    const [fileName, setFileName] = useState<string | null>(user?.imageName);
     const {profilePictureUrl, setProfilePictureUrl} = useProfilePicture();
     const {pushAlert} = useAlert();
 

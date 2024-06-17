@@ -2,33 +2,81 @@
 
 import React, {useEffect, useState} from "react";
 import { getGroupChatsForBuyerApi } from "../../../api/entities/ChatApi";
-import {getUserAccountByEmail} from "components";
+import {getUserAccountByEmail, useAuth} from "components";
 import {Box, Container, useMediaQuery} from "@mui/material";
-
 import MainLayout from "@/components/templates/MainLayout";
 import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
 import {useSearchParams} from "next/navigation";
-import {UserAndGroupChats} from "ui";
+import {UnauthenticatedMessage, UserAndGroupChats} from "ui";
 import {ChatContainer} from "ui";
 import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
 import {useThemeToggle} from "ui";
 
+type PrivateMessageType = {
+    senderId: number;
+    recipientId: number;
+    date: string;
+    content: string;
+};
+
+type GroupMessageType = {
+    buyerId: number;
+    clientId: number;
+    courierId: number;
+    sellerId: number;
+    content: string;
+    date: string;
+    senderRole: string;
+};
+
+type AccountType = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageName: string | null;
+    password: string;
+    telephone: string;
+    userRole: string;
+};
+
+type GroupChatType = {
+    buyerEmail: string;
+    buyerFirstName: string;
+    buyerId: number;
+    buyerLastName: string;
+    courierEmail: string;
+    courierFirstName: string;
+    courierId: number;
+    courierLastName: string;
+    groupRoomCode: string;
+    id: number;
+    orderId: number;
+    orderNumber: string;
+    sellerEmail: string;
+    sellerFirstName: string;
+    sellerId: number;
+    sellerLastName: string;
+}
+
 const ChatPage = () => {
+
     const theme = useTheme();
+    const {isAuthenticated} = useAuth();
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
     const [unreadGroupMessages, setUnreadGroupMessages] = useState<{ [key: number]: boolean }>({});
 
     const searchParams = useSearchParams();
-    const [messages, setMessages] = useState<any[]>([]);
+    const [messages, setMessages] = useState<PrivateMessageType[] | GroupMessageType[]>([]);
 
     const [id, setId] = useState<number>(0);
     const [recipientId, setRecipientId] = useState<number | null>(Number(searchParams.get("recipientId")) ?? null);
 
-    const [connectedUsers, setConnectedUsers] = useState<any>();
-    const [groupChats, setGroupChats] = useState<any>();
+    const [connectedUsers, setConnectedUsers] = useState<AccountType[]>();
+    const [groupChats, setGroupChats] = useState<GroupChatType[]>();
 
     const [courierId, setCourierId] = useState<number | null>(null);
     const [buyerId, setBuyerId] = useState<number | null>(null);
@@ -92,7 +140,7 @@ const ChatPage = () => {
             .catch((err) => console.error(err))
     };
 
-    return (
+    return isAuthenticated ? (
         (connectedUsers && id) && (
             <MainLayout>
                 <Container>
@@ -136,6 +184,10 @@ const ChatPage = () => {
                 </Container>
             </MainLayout>
         )
+    ) : (
+        <MainLayout>
+            <UnauthenticatedMessage />
+        </MainLayout>
     );
 };
 

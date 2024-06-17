@@ -20,14 +20,16 @@ type ProfileInformationFormInput = {
     telephone: string;
 };
 
-export type UserType = {
+type UserType = {
     id: number;
     firstName: string;
     lastName: string;
     email: string;
+    imageName: string | null;
+    password: string;
     telephone: string;
-    imageName: string;
-}
+    userRole: string;
+};
 
 type ProfileInformationProps = {
     user: UserType;

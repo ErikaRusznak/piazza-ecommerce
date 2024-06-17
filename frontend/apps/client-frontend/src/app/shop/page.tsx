@@ -59,7 +59,6 @@ const ProductsPage = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productId, setProductId] = useState<number>(0);
-    const [isLoading, setLoading] = useState(true)
 
     const toggleModal = (productId: number) => {
         setIsModalOpen(!isModalOpen);
@@ -72,8 +71,6 @@ const ProductsPage = () => {
             .then((res) => {
                 setProducts(res.data.data);
                 setTotalNumberOfProducts(res.data.numberOfElements);
-                setLoading(false)
-
             })
             .catch((err) => console.error(err))
     };

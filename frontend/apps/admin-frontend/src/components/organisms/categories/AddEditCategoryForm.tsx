@@ -13,7 +13,7 @@ type AddEditCategoryForm = {
     errorImageMessage: string;
     setErrorImageMessage: (data: any) => void;
     onSubmit: (data: AddEditCategoryInput) => void;
-    fileName: string;
+    fileName: string | undefined;
     setFileName: (data: string) => void;
     category?: any | undefined;
 }

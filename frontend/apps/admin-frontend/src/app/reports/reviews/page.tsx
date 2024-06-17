@@ -12,6 +12,31 @@ import {useAuth} from "components";
 import {getAllReviewsThatHaveReportsApi} from "../../../../api/entities/ReportsApi";
 import moment from "moment/moment";
 
+type BuyerType = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageName: string | null;
+    telephone: string;
+};
+
+export type ReviewType = {
+    id: number;
+    buyer: BuyerType;
+    description: string;
+    publishDate: string;
+    rating: number;
+};
+
+type ReviewTableType = {
+    id: number;
+    review: string;
+    publishedBy: string;
+    publishedDate: string;
+};
+
+
 const ReviewsWithReportsPage = () => {
 
     const theme = useTheme();
@@ -21,7 +46,7 @@ const ReviewsWithReportsPage = () => {
 
     const tableCellLabels = ["Review", "Published Date", "Published By", "Actions"];
 
-    const renderCell = (item: any, key: string) => {
+    const renderCell = (item: ReviewTableType, key: string) => {
         switch (key) {
             case 'Review':
                 return (
@@ -80,12 +105,13 @@ const ReviewsWithReportsPage = () => {
         getReviewsWithReports();
     }, []);
 
-    const reviewsToDisplay = reviews?.map((review: any) => ({
+    const reviewsToDisplay = reviews?.map((review: ReviewType) => ({
         id: review.id,
         review: review.description,
         publishedDate: review.publishDate,
         publishedBy: review.buyer.email
-    }))
+    }));
+
     return (
             <MainLayout>
                 {isAuthenticated ? (
