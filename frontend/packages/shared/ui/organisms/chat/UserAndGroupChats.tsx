@@ -9,6 +9,7 @@ import {useThemeToggle} from "../../themes/ThemeContext";
 import ToggleChatsShow from "../../atoms/chat/ToggleChatsShow";
 import PrivateChatMessageUser from "../../moleculas/chat/PrivateChatMessageUser";
 import GroupChatMessageUser, {GroupChatType} from "../../moleculas/chat/GroupChatMessageUser";
+import moment from "moment";
 
 type UserAndGroupChatsProps = {
     id: number;
@@ -44,6 +45,20 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
     const [lastMessages, setLastMessages] = useState<{ [key: number]: any }>({});
     const [lastMessagesForGroup, setLastMessagesForGroup] = useState<{ [key: number]: any }>({});
 
+    const [sortedPrivateChats, setSortedPrivateChats] = useState<any>([]);
+    const [sortedGroupChats, setSortedGroupChats] = useState<any>([]);
+
+    useEffect(() => {
+        const sortedConnectedUsers = [...connectedUsers].sort((a, b) => {
+            const lastMessageA = lastMessages[a.id];
+            const lastMessageB = lastMessages[b.id];
+            if (!lastMessageA) return 1;
+            if (!lastMessageB) return -1;
+            return moment(lastMessageB.date).diff(moment(lastMessageA.date));
+        });
+
+        setSortedPrivateChats(sortedConnectedUsers);
+    }, [lastMessages]);
 
     useEffect(() => {
         connectedUsers?.forEach((user: any) => {
@@ -198,7 +213,7 @@ const UserAndGroupChats = ({ id, setBuyerId, setCourierId, setSellerId, setOrder
             <ToggleChatsShow label={"Chat messages"} toggle={toggleConnectedUsers} showChats={showConnectedUsers}/>
             <PrivateChatMessageUser
                 showChats={showConnectedUsers}
-                chats={connectedUsers}
+                chats={sortedPrivateChats}
                 handleOnClick={handleOnClickForPrivateChats}
                 fontWeightForLastMessage={fontWeightForLastMessage}
                 lastMessages={lastMessages}

@@ -1,8 +1,10 @@
+"use client";
+
 import {Box, Typography} from "@mui/material";
 import {ChatMessageInput, useThemeToggle} from "../../index";
 import {useTheme} from "@mui/material/styles";
 import {formatDate} from "../../services/FormatHour";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import ChatMessageForCourier from "../../atoms/chat/ChatMessageForCourier";
 import ChatMessage from "../../atoms/chat/ChatMessage";
 import {useSearchParams} from "next/navigation";
@@ -56,6 +58,17 @@ const ChatContainerDetailsWrapper = ({
     const recipientId = Number(searchParams.get("recipientId")) ?? null;
     const {isDark} = useThemeToggle();
 
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+
+    const scrollToBottom = () => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     return (
         <>
@@ -67,7 +80,7 @@ const ChatContainerDetailsWrapper = ({
             }}>
                 {label}
             </Typography>
-            <Box sx={{
+            <Box ref={chatContainerRef} sx={{
                 flex: 1, p: 2,
                 overflowY: 'auto',
                 display: 'flex',
@@ -130,11 +143,13 @@ const ChatContainerDetailsWrapper = ({
                 })}
             </Box>
             <ChatMessageInput
-                sendMessageFunction={sendMessageFunction}
+                sendMessageFunction={(message, setMessage) => {
+                    sendMessageFunction(message, setMessage);
+                    scrollToBottom();
+                }}
             />
         </>
     );
 };
 
 export default ChatContainerDetailsWrapper;
-
