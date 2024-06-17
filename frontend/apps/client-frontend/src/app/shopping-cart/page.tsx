@@ -32,6 +32,9 @@ const ShoppingCartPage = () => {
             router.push("/login");
         }
     }, []);
+    console.log("num", numberOfCartItems)
+    console.log('all', allCartItems)
+
     return (
         <MainLayout>
             <Container>
@@ -43,7 +46,7 @@ const ShoppingCartPage = () => {
                     </Typography>
                 )}
 
-                {numberOfCartItems !== 0 && (
+                {numberOfCartItems !== 0 ? (
                     <Grid container spacing={6}>
                         <Grid item xs={12} md={8}>
                             {allCartItems?.map((cartItem) => (
@@ -64,15 +67,14 @@ const ShoppingCartPage = () => {
                             </CartSummary>
                         </Grid>
                     </Grid>
-                )}
-
-                {numberOfCartItems === 0 && allCartItems !== null && (
+                ) : (
+                    numberOfCartItems === 0 && (
                     <ErrorComponent
                         description="You don't have any items in Cart. Add products from the shop!"
                         solution="Shop now!"
                         linkTo="/shop"
                     />
-                )}
+                ))}
             </Container>
         </MainLayout>
     );

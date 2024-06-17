@@ -30,7 +30,6 @@ export type FilterOptions = {
 }
 
 const buildFilterOptionsFromQueryParams = (queryParams: any) => {
-    console.log("q", queryParams)
     return {
         priceFrom: queryParams.get('priceFrom') ? parseInt(queryParams.get('priceFrom')) : null,
         priceTo: queryParams.get('priceTo') ? parseInt(queryParams.get('priceTo')) : null,
@@ -60,7 +59,6 @@ const ProductsPage = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productId, setProductId] = useState<number>(0);
-    const [isLoading, setLoading] = useState(true)
 
     const toggleModal = (productId: number) => {
         setIsModalOpen(!isModalOpen);
@@ -73,8 +71,6 @@ const ProductsPage = () => {
             .then((res) => {
                 setProducts(res.data.data);
                 setTotalNumberOfProducts(res.data.numberOfElements);
-                setLoading(false)
-
             })
             .catch((err) => console.error(err))
     };

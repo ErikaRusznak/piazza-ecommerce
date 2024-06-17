@@ -37,7 +37,6 @@ type RequestSellerItemType = {
 const RequestsPage = () => {
 
     const renderCell = (item: RequestSellerItemType, key: string) => {
-        console.log("item", item)
         switch (key) {
             case 'Email':
                 return <Typography sx={{fontSize: "14px"}}>{item.email}</Typography>
