@@ -12,6 +12,7 @@ import {AddressType} from "@/app/checkout/page";
 import {ProductType} from "../../../../contexts/CartContext";
 import {useRouter} from "next/navigation";
 import {useAuth} from "components";
+import {UnauthenticatedMessage} from "ui";
 
 type OrderSuccessfulPageProps = {
     params: {
@@ -79,7 +80,7 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
     const smallerScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const variantForTitle = smallerScreen ? "h5" : "h4";
 
-    return (
+    return isAuthenticated ? (
         fullOrder && (
             <MainLayout>
                 <Box
@@ -141,6 +142,10 @@ const OrderSuccessfulPage = ({ params }: OrderSuccessfulPageProps) => {
                 </Box>
             </MainLayout>
         )
+    ) : (
+        <MainLayout>
+            <UnauthenticatedMessage />
+        </MainLayout>
     );
 };
 

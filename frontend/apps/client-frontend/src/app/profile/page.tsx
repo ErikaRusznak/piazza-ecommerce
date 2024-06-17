@@ -5,7 +5,7 @@ import MainLayout from "@/components/templates/MainLayout";
 import {
     Grid, Container,
 } from "@mui/material";
-import {BreadcrumbsComponent} from "ui";
+import {BreadcrumbsComponent, UnauthenticatedMessage} from "ui";
 import {ProfileInformation} from "ui";
 import ProfilePicture, {UserType} from "@/components/moleculas/manageProfile/ProfilePicture";
 import AddressManagement from "@/components/moleculas/manageProfile/AddressManagement";
@@ -49,29 +49,33 @@ const ManageProfilePage = () => {
 
     return user && (
         <MainLayout>
-            <Container maxWidth="lg">
-                <BreadcrumbsComponent links={breadcrumbsLinks}/>
-                <Grid container spacing={2}>
+            {isAuthenticated ? (
+                <Container maxWidth="lg">
+                    <BreadcrumbsComponent links={breadcrumbsLinks}/>
+                    <Grid container spacing={2}>
 
-                    <Grid item xs={12} md={4}>
-                        <ProfilePicture
-                            user={user}
-                            setUser={setUser}
-                        />
+                        <Grid item xs={12} md={4}>
+                            <ProfilePicture
+                                user={user}
+                                setUser={setUser}
+                            />
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <ProfileInformation
+                                user={user}
+                                setUser={setUser}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} md={8}>
-                        <ProfileInformation
-                            user={user}
-                            setUser={setUser}
-                        />
-                    </Grid>
-                </Grid>
-                <AddressManagement/>
-                <AccountManagement
-                    user={user}
-                    deleteAccountApi={deleteAccountForBuyerByIdApi}
-                />
-            </Container>
+                    <AddressManagement/>
+                    <AccountManagement
+                        user={user}
+                        deleteAccountApi={deleteAccountForBuyerByIdApi}
+                    />
+                </Container>
+            ) : (
+                <UnauthenticatedMessage />
+            )}
         </MainLayout>
     );
 };

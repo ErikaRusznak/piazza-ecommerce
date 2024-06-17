@@ -7,8 +7,8 @@ import {Box, Container, useMediaQuery} from "@mui/material";
 import MainLayout from "@/components/templates/MainLayout";
 import {useTheme} from "@mui/material/styles";
 import {useWebSocket} from "components";
-import {useRouter, useSearchParams} from "next/navigation";
-import {UserAndGroupChats} from "ui";
+import {useSearchParams} from "next/navigation";
+import {UnauthenticatedMessage, UserAndGroupChats} from "ui";
 import {ChatContainer} from "ui";
 import {getAllUserSellersApi} from "../../../api/entities/UserAccount";
 import {useThemeToggle} from "ui";
@@ -63,6 +63,7 @@ type GroupChatType = {
 const ChatPage = () => {
 
     const theme = useTheme();
+    const {isAuthenticated} = useAuth();
     const {isDark} = useThemeToggle();
     const {connectToWebSocket} = useWebSocket();
     const isSm = useMediaQuery(theme.breakpoints.down('sm'));
@@ -81,14 +82,6 @@ const ChatPage = () => {
     const [buyerId, setBuyerId] = useState<number | null>(null);
     const [sellerId, setSellerId] = useState<number | null>(null);
     const [orderId, setOrderId] = useState<number | null>(null);
-
-    const router = useRouter();
-    const {isAuthenticated} = useAuth();
-    useEffect(() => {
-        if (!isAuthenticated) {
-            router.push("/login");
-        }
-    }, []);
 
     const onMessageReceived = (message: any) => {
         const updateMessages = () => {
@@ -147,7 +140,7 @@ const ChatPage = () => {
             .catch((err) => console.error(err))
     };
 
-    return (
+    return isAuthenticated ? (
         (connectedUsers && id) && (
             <MainLayout>
                 <Container>
@@ -191,6 +184,10 @@ const ChatPage = () => {
                 </Container>
             </MainLayout>
         )
+    ) : (
+        <MainLayout>
+            <UnauthenticatedMessage />
+        </MainLayout>
     );
 };
 
