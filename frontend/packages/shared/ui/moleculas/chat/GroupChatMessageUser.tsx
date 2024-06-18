@@ -26,7 +26,7 @@ export type GroupChatType = {
 }
 type GroupChatMessageUserProps = {
     showChats: boolean;
-    chats: GroupChatType[];
+    chats: GroupChatType[] | undefined;
     handleOnClick: (chat: GroupChatType) => void;
     lastMessages: { [key: number]: MessageType };
     unreadGroupMessages: { [key: number]: boolean };

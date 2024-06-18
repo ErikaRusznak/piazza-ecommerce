@@ -12,7 +12,9 @@ type UserType = {
     lastName: string;
     email: string;
     telephone: string;
-    imageName: string;
+    imageName: string | null;
+    password: string;
+    userRole: string;
 };
 
 type ProfilePictureDataProps = {
@@ -78,7 +80,7 @@ const ProfilePictureData = ({user, setUser, handleProfilePicUpdate, fileName}:Pr
                     >
                         <Avatar
                             alt={fileName ?? "profile-pic"}
-                            src={ `${baseURL}${fileName}` || user.imageName  }
+                            src={ `${baseURL}${fileName}` || (user?.imageName ?? "") }
                             sx={{width: 150, height: 150, transition: "filter 0.3s ease-in-out",}}
                         />
                         {hovered && (
