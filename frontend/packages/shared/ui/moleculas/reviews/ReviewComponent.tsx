@@ -5,7 +5,6 @@ import {getReviewByIdApi} from "components";
 import {Box, Button, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {getCommentsForReviewApi} from "components";
-import EditReviewModal from "client-frontend/src/components/organisms/modals/EditReviewModal";
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ProductRating from "../../atoms/review/ProductRating";
 import CommentsComponent from "../../atoms/review/CommentsComponent";
@@ -13,6 +12,7 @@ import {useThemeToggle} from "../../themes/ThemeContext";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Tooltip from '@mui/material/Tooltip';
 import AddReportModal from "../../organisms/modals/AddReportModal";
+import EditReviewModal from "../../organisms/modals/EditReviewModal";
 
 type ReviewComponentProps = {
     review: any;

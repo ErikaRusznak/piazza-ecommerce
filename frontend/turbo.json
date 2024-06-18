@@ -11,10 +11,11 @@
       "outputs": []
     },
     "build": {
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
+      "dependsOn": [
+        "^build"
+      ],
+      "env": ["SOME_ENV_VAR", "API_KEY_VAR"],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
       "outputs": []

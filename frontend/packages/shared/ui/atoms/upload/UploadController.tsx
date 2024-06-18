@@ -1,4 +1,3 @@
-import React from "react";
 import {Box, Button, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {baseURL} from "components";

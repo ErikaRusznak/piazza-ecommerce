@@ -11,7 +11,6 @@ const HomePage = () => {
     const theme = useTheme();
     const {isDark} = useThemeToggle();
     const router = useRouter();
-
     return (
         <MainLayout>
             <Box

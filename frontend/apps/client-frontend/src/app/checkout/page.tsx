@@ -11,7 +11,7 @@ import CartSummary from "@/components/moleculas/cart/CartSummary";
 import ShippingAddressesComponent from "@/components/moleculas/ShippingAddressesComponent";
 import AddressFormModal from "@/components/organisms/modals/AddressFormModal";
 import MainLayout from "@/components/templates/MainLayout";
-import {Container, Grid, Typography, useMediaQuery} from "@mui/material";
+import {Box, Container, Grid, Typography, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {StyledButton, UnauthenticatedMessage} from "ui";
 import {BreadcrumbsComponent} from "ui";
@@ -242,19 +242,12 @@ const CheckoutPage = () => {
                                                     Place order
                                                 </StyledButton>
                                             ): (
-                                                <StripeCheckout
-                                                    stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY!}
-                                                    token={handleToken}
-                                                >
-                                                    <StyledButton
-                                                        fullWidth
-                                                        disabled={shippingAddresses.length === 0 || !selectedShippingAddress}
-                                                        variant="contained"
-                                                        sx={{mt: 3}}
-                                                    >
-                                                        Place order
-                                                    </StyledButton>
-                                                </StripeCheckout>
+                                                <Box sx={{display: "flex", justifyContent: "center"}}>
+                                                    <StripeCheckout
+                                                        stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY!}
+                                                        token={handleToken}
+                                                    />
+                                                </Box>
                                             )}
 
                                         </CartSummary>

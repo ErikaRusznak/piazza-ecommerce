@@ -16,15 +16,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useTheme} from "@mui/material/styles";
-import {ThemedSwitch} from "ui";
 import {Button} from "@mui/material";
 import {usePathname, useRouter} from "next/navigation";
-import {useThemeToggle} from "ui";
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import {useThemeToggle} from "../../themes/ThemeContext";
+import ThemedSwitch from "../../atoms/icons/ThemedSwitch";
 
 const drawerWidth = 240;
 

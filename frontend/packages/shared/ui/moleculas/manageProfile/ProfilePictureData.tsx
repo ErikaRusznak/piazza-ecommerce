@@ -5,7 +5,15 @@ import {Edit} from "@mui/icons-material";
 import {baseURL, updateUserAccountApi} from "components";
 import {useTheme} from "@mui/material/styles";
 import {useState} from "react";
-import {UserType} from "client-frontend/src/components/moleculas/manageProfile/ProfilePicture";
+
+type UserType = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    telephone: string;
+    imageName: string;
+};
 
 type ProfilePictureDataProps = {
     setUser: (data: UserType)=>void;

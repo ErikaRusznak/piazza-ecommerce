@@ -5,7 +5,7 @@ import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {useAlert, useAuth} from "components";
 import {AxiosResponse} from "axios";
-import {DeleteAccountModal} from "ui";
+import DeleteAccountModal from "../../organisms/modals/DeleteAccountModal";
 
 type AccountManagementProps = {
     user: any;

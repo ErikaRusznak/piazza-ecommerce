@@ -20,8 +20,8 @@ export { getMessagesForSenderAndRecipientApi, markMessagesAsReadApi, getMessages
 import { getOrderByIdApi } from "./api/entities/OrderApi";
 export { getOrderByIdApi };
 
-import { getReviewsApi, getReviewByIdApi } from "./api/entities/ReviewApi";
-export { getReviewsApi, getReviewByIdApi };
+import { getReviewsApi, getReviewByIdApi, updateReviewApi } from "./api/entities/ReviewApi";
+export { getReviewsApi, getReviewByIdApi, updateReviewApi };
 
 import { addCommentApi, getCommentsForReviewApi} from "./api/entities/CommentsApi";
 export { addCommentApi, getCommentsForReviewApi };
@@ -31,6 +31,9 @@ export { reportReviewApi, reportCommentApi }
 
 import { getUserByIdApi } from "./api/entities/UserAccount";
 export { getUserByIdApi }
+
+import { getSellerByIdApi } from "./api/entities/SellerApi";
+export { getSellerByIdApi }
 
 // hooks
 import {useRouteAlias} from "./hooks/useRouteAlias";

@@ -1,7 +1,7 @@
 import {Typography} from '@mui/material';
-import {StarReviewsReadOnly} from "ui";
 import {useTheme} from "@mui/material/styles";
-import {useThemeToggle} from "ui";
+import {useThemeToggle} from "../../themes/ThemeContext";
+import StarReviewsReadOnly from "../StarReviewsReadOnly";
 
 type ProductRatingProps = {
     rating: number;

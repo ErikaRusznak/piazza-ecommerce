@@ -3,7 +3,7 @@ import {Box, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {GroupChatType} from "../../moleculas/chat/GroupChatMessageUser";
 import {useTheme} from "@mui/material/styles";
-import {getSellerByIdApi} from "producer-frontend/api/entities/SellerApi";
+import {getSellerByIdApi} from "components";
 import {useThemeToggle} from "../../themes/ThemeContext";
 import CircleIcon from "@mui/icons-material/Circle";
 

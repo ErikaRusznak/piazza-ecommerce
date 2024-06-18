@@ -2,8 +2,7 @@
 
 import {ChatContainerDetailsWrapper} from "../../index";
 import {useEffect, useState} from "react";
-import {getOrderByIdApi, getUserByIdApi} from "components";
-import {getSellerByIdApi} from "producer-frontend/api/entities/SellerApi";
+import {getOrderByIdApi, getSellerByIdApi, getUserByIdApi} from "components";
 
 type ChatContainerDetailsProps = {
     id: number;
