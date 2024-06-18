@@ -32,7 +32,7 @@ type SellerPageContentProps = {
 const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
     const theme = useTheme();
     const {isDark} = useThemeToggle();
-    const [seller, setSeller] = useState<SellerType>(null);
+    const [seller, setSeller] = useState<SellerType|null>(null);
     const { username } = useAuth();
 
     const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -148,7 +148,7 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                 >
                                     <img
                                         src={`${baseURL}${seller.account.imageName}`}
-                                        alt={seller.account.imageName}
+                                        alt={seller?.account?.imageName ?? undefined}
                                         style={{ width: "60%" }}
                                     />
                                     <Box sx={{display: "flex", justifyContent: "center", flexDirection: "column",
