@@ -75,7 +75,6 @@ const ReportsFromSpecificCommentPage = ({params}:ReportsFromSpecificCommentPageP
                 <Container>
                     {commentId && (
                         <>
-
                             <CommentDetails
                                 commentId={comment?.id}
                                 commentDescription={comment?.content}

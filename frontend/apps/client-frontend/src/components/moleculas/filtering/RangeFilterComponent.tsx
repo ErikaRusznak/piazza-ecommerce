@@ -14,7 +14,6 @@ type RangeFilterComponentProps = {
 
 const RangeFilterComponent = ({onClickInside, toggleRangeFilter, handleRangeChanged, getRangeFrom, getRangeTo, smallPageSize=false }: RangeFilterComponentProps) => {
 
-    // TODO - find the smallest price and biggest price to put them in the RangeFilterComponent instead of 0 and 100
     const theme = useTheme();
 
     const [value, setValue] = React.useState<number[]>([getRangeFrom || 0, getRangeTo || 100]);

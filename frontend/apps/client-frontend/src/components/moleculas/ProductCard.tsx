@@ -9,10 +9,10 @@ import { useAuth } from "components";
 import {useFavorite} from "../../../contexts/FavoriteContext";
 import {useRouter} from "next/navigation";
 import {useThemeToggle} from "ui";
+import {ProductType} from "../../../contexts/CartContext";
 
-// TODO - make a type for product, not any
 type ProductCardProps = {
-    product?: any;
+    product?: ProductType;
     toggleModal: (productId: number) => void;
 };
 

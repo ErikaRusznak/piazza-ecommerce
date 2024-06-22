@@ -6,6 +6,7 @@ import ChatContainerDetails from "@/components/moleculas/chat/ChatContainerDetai
 import {useThemeToggle} from "ui";
 
 type ChatContainerProps = {
+    id: number;
     orderId: number | null;
     messages: any[];
     setMessages: (value: (prevMessages: any) => any[]) => void;
@@ -15,7 +16,7 @@ type ChatContainerProps = {
 };
 
 const ChatContainer = ({
-                           orderId, messages, setMessages,
+                           id, orderId, messages, setMessages,
                            buyerId, courierId, sellerId
                        }: ChatContainerProps) => {
 
@@ -60,6 +61,7 @@ const ChatContainer = ({
                 <ChatContainerDetails
                     label={`Chat for Order #${orderNumber}`}
                     messages={messages}
+                    id={id}
                     sendMessageFunction={sendMessageToGroupChatInternal}/>
                 : null
             }

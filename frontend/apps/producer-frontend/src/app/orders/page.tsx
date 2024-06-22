@@ -174,18 +174,27 @@ const OrdersPage = () => {
                                 <MenuItem value="CANCELED">Canceled</MenuItem>
                             </CssTextFieldDarkBackground>
                         </FormControl>
-                        <TableContainerComponent
-                            items={displayOrders}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
-                        <TablePaginationComponent
-                            totalNumberOfProducts={totalNumberOfOrders}
-                            currentPage={currentPage}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            setItemsPerPage={setItemsPerPage}
-                        />
+                        {displayOrders.length === 0 ? (
+                            <Typography>
+                                No orders yet!
+                            </Typography>
+                        ) : (
+                            <>
+                                <TableContainerComponent
+                                    items={displayOrders}
+                                    tableCellLabels={tableCellLabels}
+                                    renderCell={renderCell}
+                                />
+                                <TablePaginationComponent
+                                    totalNumberOfProducts={totalNumberOfOrders}
+                                    currentPage={currentPage}
+                                    itemsPerPage={itemsPerPage}
+                                    setCurrentPage={setCurrentPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </>
+                        )}
+
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>
