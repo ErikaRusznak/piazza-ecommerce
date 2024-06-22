@@ -92,10 +92,9 @@ public class Order extends BaseEntity {
     @Column(name = Columns.SELLER_TYPE)
     private SellerType sellerType;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = OrderItem.Columns.ORDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition =
-            "FOREIGN KEY (" + OrderItem.Columns.ORDER_ID + ") REFERENCES " + Order.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItem> orderItems;
+
 
     @Getter
     @Column(name = Columns.BUYER_EMAIL, nullable = false)
@@ -172,6 +171,7 @@ public class Order extends BaseEntity {
         }
 
         OrderItem newItem = new OrderItem(product, quantity);
+        newItem.setOrder(this);
         this.orderItems.add(newItem);
 
         this.totalPrice = (float) this.orderItems
@@ -249,7 +249,6 @@ public class Order extends BaseEntity {
                 ", seller=" + seller +
                 ", sellerEmail='" + sellerEmail + '\'' +
                 ", sellerAlias='" + sellerAlias + '\'' +
-//                ", legalDetails=" + legalDetails +
                 ", sellerType=" + sellerType +
                 ", orderItems=" + orderItems +
                 ", buyerEmail='" + buyerEmail + '\'' +

@@ -39,7 +39,7 @@ public class Cart extends BaseEntity {
     @Column(name = Columns.TOTAL_PRICE, nullable = false, scale = 2)
     private double totalCartPrice;
 
-    @Deprecated()//currently to be implemented later
+    @Deprecated()
     public Cart() {
         this.cartItems = new HashSet<>();
     }

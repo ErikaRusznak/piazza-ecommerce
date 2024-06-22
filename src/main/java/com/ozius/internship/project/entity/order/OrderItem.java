@@ -4,6 +4,7 @@ import com.ozius.internship.project.entity.BaseEntity;
 import com.ozius.internship.project.entity.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -29,7 +30,7 @@ public class OrderItem extends BaseEntity {
     private float quantity;
 
     @Column(name = Columns.ITEM_NAME, nullable = false)
-    private String productName;
+    private String orderItemName;
 
     @Column(name = Columns.ITEM_PRICE, nullable = false)
     private float itemPrice;
@@ -37,13 +38,18 @@ public class OrderItem extends BaseEntity {
     @Column(name = Columns.DESCRIPTION, nullable = false)
     private String description;
 
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = Columns.ORDER_ID, foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (" + Columns.ORDER_ID + ") REFERENCES " + Order.TABLE_NAME + " (" + BaseEntity.ID + ")  ON DELETE CASCADE"))
+    private Order order;
+
     protected OrderItem() {
     }
 
     OrderItem(Product product, float quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.productName = product.getName();
+        this.orderItemName = product.getName();
         this.itemPrice = product.getPrice();
         this.description = product.getDescription();
     }
@@ -54,7 +60,7 @@ public class OrderItem extends BaseEntity {
         return "OrderItem{" +
                 "product=" + product.getName() +
                 ", quantity=" + quantity +
-                ", name='" + productName + '\'' +
+                ", name='" + orderItemName + '\'' +
                 ", price=" + itemPrice +
                 ", description='" + description + '\'' +
                 '}';

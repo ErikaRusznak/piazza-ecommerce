@@ -22,7 +22,7 @@ import LogoComponent from "@/components/atoms/logo/LogoComponent";
 import SimpleMenu from "@/components/moleculas/menu/SimpleMenu";
 import {useAuth} from "components";
 import HamburgerMenu from "@/components/organisms/navbar/HamburgerMenu";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {getAllCategoriesApi} from "components";
 import {baseURL} from "components";
 import {useProfilePicture} from "../../../../contexts/ProfilePictureContext";
@@ -34,6 +34,7 @@ const NavigationBar = () => {
     const theme = useTheme();
     const { isDark} = useThemeToggle();
     const router = useRouter();
+    const pathname = usePathname();
     const backgroundColor = isDark ? theme.palette.background.lighter : "#DBE1FD";
 
     const [categories, setCategories] = useState([]);
@@ -92,10 +93,10 @@ const NavigationBar = () => {
                 <Box sx={{display: {xxs: "none", sm: "flex"}, gap: theme.spacing(3), alignItems: "center"}}>
                     <Typography
                         sx={{
-                            color: theme.palette.info.main,
+                            color: pathname === "/shop" ? isDark ? theme.palette.lightColor.main : theme.palette.tertiary.main : theme.palette.info.main,
                             cursor: "pointer",
                             textTransform: "uppercase",
-                            fontWeight: theme.typography.fontWeightRegular,
+                            fontWeight:pathname === "/shop" ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
                         }}
                         onClick={() => router.push("/shop")}
                     >
@@ -103,10 +104,10 @@ const NavigationBar = () => {
                     </Typography>
                     <Typography
                         sx={{
-                            color: theme.palette.info.main,
+                            color: pathname === "/sellers" ? isDark ? theme.palette.lightColor.main : theme.palette.tertiary.main : theme.palette.info.main,
                             cursor: "pointer",
                             textTransform: "uppercase",
-                            fontWeight: theme.typography.fontWeightRegular,
+                            fontWeight:pathname === "/sellers" ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular,
                         }}
                         onClick={() => router.push("/sellers")}
                     >
