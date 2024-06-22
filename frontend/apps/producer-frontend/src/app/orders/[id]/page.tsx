@@ -137,7 +137,7 @@ const OrderPage = ({ params }: OrderPageProps) => {
                         </Box>
                     </Container>
                 ) : (
-                    <Typography color={theme.palette.info.main}>No order with this id</Typography>
+                    <Typography color={theme.palette.info.main}>No order with this id!</Typography>
                 )
             ) : (
                 <UnauthenticatedMessage />

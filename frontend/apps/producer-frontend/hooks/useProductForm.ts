@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {useAuth} from "../api/auth/AuthContext";
 import {getAllCategoriesApi} from "components";
-import {getSellerByIdApi} from "../api/entities/SellerApi";
+import {getSellerByIdApi} from "components";
 
 const useProductForm = () => {
     const {  id } = useAuth();
