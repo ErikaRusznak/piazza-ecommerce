@@ -13,8 +13,8 @@ import {StyledButton} from "ui";
 type ProductInformationProps = {
     description: string;
     price: number;
-    category: string; // TODO- create category type (here is string but in general)
-    producer: string; // TODO - same for producer
+    category: string;
+    producer: string;
     city: string;
     productId: number;
     availability: string;

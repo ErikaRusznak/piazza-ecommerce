@@ -5,12 +5,14 @@ type ChatContainerDetailsProps = {
     label: string;
     messages: any[];
     sendMessageFunction: (message: any, setMessage: (value: string) => void) => void;
+    id: number;
 };
 
-const ChatContainerDetails = ({label, messages, sendMessageFunction}: ChatContainerDetailsProps) => {
+const ChatContainerDetails = ({id, label, messages, sendMessageFunction}: ChatContainerDetailsProps) => {
 
     return (
         <ChatContainerDetailsWrapper
+            id={id}
             isCourierUser={true}
             label={label}
             messages={messages}

@@ -128,11 +128,15 @@ const OrdersPage = () => {
                                 <MenuItem value="DELIVERED">Delivered</MenuItem>
                             </CssTextFieldDarkBackground>
                         </FormControl>
-                        <TableContainerComponent
-                            items={displayOrders}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
+                        {displayOrders.length === 0 ? (
+                            <Typography>No orders available yet!</Typography>
+                        ) : (
+                            <TableContainerComponent
+                                items={displayOrders}
+                                tableCellLabels={tableCellLabels}
+                                renderCell={renderCell}
+                            />
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

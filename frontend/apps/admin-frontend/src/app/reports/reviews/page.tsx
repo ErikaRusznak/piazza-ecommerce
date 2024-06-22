@@ -121,11 +121,15 @@ const ReviewsWithReportsPage = () => {
                                 Reviews that have been reported
                             </Typography>
                         </Box>
-                        <TableContainerComponent
-                            items={reviewsToDisplay}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
+                        {reviewsToDisplay.length === 0 ? (
+                            <Typography>There are no reported reviews!</Typography>
+                        ) : (
+                            <TableContainerComponent
+                                items={reviewsToDisplay}
+                                tableCellLabels={tableCellLabels}
+                                renderCell={renderCell}
+                            />
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

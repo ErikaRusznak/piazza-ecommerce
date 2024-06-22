@@ -5,13 +5,10 @@ import com.ozius.internship.project.dto.CheckoutItemDto;
 import com.ozius.internship.project.dto.FullOrderDTO;
 import com.ozius.internship.project.dto.OrderDTO;
 import com.ozius.internship.project.entity.courier.Courier;
-import com.ozius.internship.project.entity.order.OrderStatus;
-import com.ozius.internship.project.entity.order.PaymentType;
+import com.ozius.internship.project.entity.order.*;
 import com.ozius.internship.project.entity.user.Address;
 import com.ozius.internship.project.entity.buyer.Buyer;
 import com.ozius.internship.project.entity.cart.Cart;
-import com.ozius.internship.project.entity.order.FullOrder;
-import com.ozius.internship.project.entity.order.Order;
 import com.ozius.internship.project.entity.product.Product;
 import com.ozius.internship.project.entity.seller.Seller;
 import com.ozius.internship.project.repository.CourierRepository;
@@ -59,12 +56,6 @@ public class OrderService {
         return fullOrder.getBuyerEmail();
     }
 
-    public String getSellerEmailFromOrder(long id) {
-        Order order = orderRepository.findById(id).orElseThrow();
-        return order.getSellerEmail();
-    }
-
-
     @Transactional
     public FullOrderDTO makeOrdersFromCheckout(String buyerEmail, BuyerAddressDto shippingAddress, List<CheckoutItemDto> products, PaymentType paymentType) {
 
@@ -102,7 +93,8 @@ public class OrderService {
             });
 
             //add product to the retrieved order
-            orderPersisted.addProduct(product, checkoutItemDto.getQuantity());
+            OrderItem orderItem = orderPersisted.addProduct(product, checkoutItemDto.getQuantity());
+            em.persist(orderItem);
         }
 
         //remove products from cart
@@ -126,14 +118,6 @@ public class OrderService {
         List<FullOrder> fullOrders = fullOrderRepository.findAllByBuyerEmail(email);
         return fullOrders.stream()
                 .map(fullOrder -> modelMapper.map(fullOrder, FullOrderDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public List<OrderDTO> getAllOrdersForSeller(String sellerEmail) {
-        List<Order> orders = orderRepository.findBySellerEmailOrderByOrderDateDesc(sellerEmail);
-        return orders.stream()
-                .map(order -> modelMapper.map(order, OrderDTO.class))
                 .collect(Collectors.toList());
     }
 

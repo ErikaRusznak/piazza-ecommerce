@@ -102,7 +102,6 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
     const fontSizeForAlias = belowSmallerSize ? "h6" : "h4";
     const fontSizeForSellerType = belowSmallerSize ? "body1" : "h6";
 
-    // TODO - check if no products exist, say it on the frontend as well
     return seller && (
         <MainLayout>
             <ProductAddToCartModal
@@ -178,10 +177,10 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                             display: "flex",
                             flexDirection: "column",
                             gap: 2,
+                            width: "full",
                         }}
                     >
                         <Box sx={{backgroundColor: theme.palette.background.default, p:2,
-                            // boxShadow: "0 4px 10px rgba(255, 255, 255, 0.1)",
                             border: "1px solid #a5b4fc",
                             borderRadius: "14px",
                         }}>
@@ -189,25 +188,32 @@ const SellerPageContent = ({ sellerAlias }: SellerPageContentProps) => {
                                 Products
                             </Typography>
 
-                            <Paper
+                            <Box
                                 sx={{
                                     backgroundColor: theme.palette.background.default,
                                     mt: 2,
                                 }}
                             >
-                                <MainProductList
-                                    products={products}
-                                    toggleModal={(productId: number) => toggleModal(productId)}
-                                />
-                                <Box sx={{display: "flex", justifyContent: "center"}}>
-                                    <PaginationComponent
-                                        numberOfPages={numberOfPages}
-                                        currentPage={currentPage}
-                                        setCurrentPage={setCurrentPage}
-                                    />
-                                </Box>
-
-                            </Paper>
+                                {products.length === 0 ? (
+                                    <Typography>
+                                        This seller has no products yet!
+                                    </Typography>
+                                ) : (
+                                    <>
+                                        <MainProductList
+                                            products={products}
+                                            toggleModal={(productId: number) => toggleModal(productId)}
+                                        />
+                                        <Box sx={{display: "flex", justifyContent: "center"}}>
+                                            <PaginationComponent
+                                                numberOfPages={numberOfPages}
+                                                currentPage={currentPage}
+                                                setCurrentPage={setCurrentPage}
+                                            />
+                                        </Box>
+                                    </>
+                                )}
+                            </Box>
                         </Box>
                     </Box>
                 </Box>

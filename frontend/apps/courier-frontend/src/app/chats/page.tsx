@@ -116,6 +116,7 @@ const ChatPage = () => {
                                     buyerId={buyerId}
                                     courierId={courierId}
                                     sellerId={sellerId}
+                                    id={courierId}
                                 />
                             </Box>
                         </Box>

@@ -19,7 +19,6 @@ const ReviewItems = ({productId, updateProductRating}:ReviewItemsProps) => {
     const addReview = (newReview: any) => {
         setReviews([...reviews, newReview]);
     };
-    // TODO - create review type
 
     const getReviewItems = (productId: number) => {
         getReviewsApi(productId)

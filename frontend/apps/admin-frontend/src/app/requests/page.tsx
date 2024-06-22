@@ -157,19 +157,24 @@ const RequestsPage = () => {
 
                         </Box>
 
-                        <TableContainerComponent
-                            items={requestsToDisplay}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
-
-                        <TablePaginationComponent
-                            totalNumberOfProducts={totalNumberOfRequests}
-                            currentPage={currentPage}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            setItemsPerPage={setItemsPerPage}
-                        />
+                        {requestsToDisplay.length === 0 ? (
+                            <Typography>There are no requests from sellers yet!</Typography>
+                        ) : (
+                            <>
+                                <TableContainerComponent
+                                    items={requestsToDisplay}
+                                    tableCellLabels={tableCellLabels}
+                                    renderCell={renderCell}
+                                />
+                                <TablePaginationComponent
+                                    totalNumberOfProducts={totalNumberOfRequests}
+                                    currentPage={currentPage}
+                                    itemsPerPage={itemsPerPage}
+                                    setCurrentPage={setCurrentPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </>
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

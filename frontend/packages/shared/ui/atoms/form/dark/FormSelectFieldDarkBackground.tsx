@@ -57,7 +57,6 @@ const FormSelectFieldDarkBackground = ({
                         }
                     }}
                 >
-                    {/* todo - add another option to stop overlaping the label*/}
                     <option key={"null"} value={""}>
                         {""}
                     </option>

@@ -100,11 +100,15 @@ const CommentsWithReportsPage = () => {
                             Comments that have been reported
                         </Typography>
                     </Box>
-                    <TableContainerComponent
-                        items={commentsToDisplay}
-                        tableCellLabels={tableCellLabels}
-                        renderCell={renderCell}
-                    />
+                    {commentsToDisplay.length === 0 ? (
+                        <Typography>No comments are reported!</Typography>
+                    ) : (
+                        <TableContainerComponent
+                            items={commentsToDisplay}
+                            tableCellLabels={tableCellLabels}
+                            renderCell={renderCell}
+                        />
+                    )}
                 </Container>
             ) : (
                 <UnauthenticatedMessage/>

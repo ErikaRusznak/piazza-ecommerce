@@ -4,7 +4,7 @@ import {Box, Typography} from "@mui/material";
 import {ChatMessageInput, useThemeToggle} from "../../index";
 import {useTheme} from "@mui/material/styles";
 import {formatDate} from "../../services/FormatHour";
-import React, {useEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 import ChatMessageForCourier from "../../atoms/chat/ChatMessageForCourier";
 import ChatMessage from "../../atoms/chat/ChatMessage";
 import {useSearchParams} from "next/navigation";
@@ -56,6 +56,7 @@ const ChatContainerDetailsWrapper = ({
     const theme = useTheme();
     const searchParams = useSearchParams();
     const recipientId = Number(searchParams.get("recipientId")) ?? null;
+    const orderId = Number(searchParams.get("orderId")) ?? null;
     const {isDark} = useThemeToggle();
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -103,6 +104,7 @@ const ChatContainerDetailsWrapper = ({
             }}>
                 {messages.slice(0).reverse().map((mess: ChatMessForGroup | ChatMessForPrivate, index: number, array: string | any[]) => {
                     const messageDate = formatDate(mess.date)
+                    console.log("mess", mess);
                     let shouldDisplayDateHeader = false;
                     if (index === array.length - 1) {
                         shouldDisplayDateHeader = true; // always display date for last message
@@ -110,7 +112,7 @@ const ChatContainerDetailsWrapper = ({
                         const nextMessageDate = formatDate(array[index + 1].date);
                         shouldDisplayDateHeader = messageDate !== nextMessageDate;
                     }
-                    if ((isPrivateMessage(mess) && (id === mess.senderId || recipientId === mess.senderId)) || (isGroupMessage(mess))) {
+                    if ((isPrivateMessage(mess) && (id === mess.senderId || recipientId === mess.senderId)) || (isGroupMessage(mess) && mess.orderId === orderId)) {
                         return (
                             <Box key={`${index}`} sx={{
                                 display: 'flex',

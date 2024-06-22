@@ -63,8 +63,6 @@ const NumberOfPageSelect = ({handleItemsPerPageChange}: NumberOfPageSelectProps)
                     },
                 }}
             >
-                {/*TODO - try to put the menu item in a separate component, idk why it was not working*/}
-                {/*TODO - change style for selected menu item*/}
                 <MenuItem
                     value={6}
                     sx={{

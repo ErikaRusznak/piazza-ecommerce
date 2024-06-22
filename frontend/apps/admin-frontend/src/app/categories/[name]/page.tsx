@@ -100,19 +100,25 @@ const CategoryProducts = ({params}: ProductPageProps) => {
                             </Typography>
                         </Box>
 
-                        <TableContainerComponent
-                            items={productsToDisplay}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
+                        {productsToDisplay.length === 0 ? (
+                            <Typography>There are no products in this category!</Typography>
+                        ) : (
+                            <>
+                                <TableContainerComponent
+                                    items={productsToDisplay}
+                                    tableCellLabels={tableCellLabels}
+                                    renderCell={renderCell}
+                                />
 
-                        <TablePaginationComponent
-                            totalNumberOfProducts={totalNumberOfProducts}
-                            currentPage={currentPage}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            setItemsPerPage={setItemsPerPage}
-                        />
+                                <TablePaginationComponent
+                                    totalNumberOfProducts={totalNumberOfProducts}
+                                    currentPage={currentPage}
+                                    itemsPerPage={itemsPerPage}
+                                    setCurrentPage={setCurrentPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </>
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

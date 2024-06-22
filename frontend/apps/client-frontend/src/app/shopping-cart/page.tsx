@@ -32,8 +32,6 @@ const ShoppingCartPage = () => {
             router.push("/login");
         }
     }, []);
-    console.log("num", numberOfCartItems)
-    console.log('all', allCartItems)
 
     return (
         <MainLayout>

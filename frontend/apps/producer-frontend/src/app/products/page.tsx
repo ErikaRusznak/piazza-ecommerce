@@ -21,7 +21,6 @@ import useProductForm from "../../../hooks/useProductForm";
 
 const tableCellLabels = ["Image", "Name", "Category", "Price", "Actions"];
 
-// TODO - create product type
 const ProductsPage = () => {
     const theme = useTheme();
     const router = useRouter();
@@ -124,20 +123,25 @@ const ProductsPage = () => {
                                 Add Product
                             </StyledButton>
                         </Box>
+                        {productsToDisplay.length === 0 ? (
+                            <Typography>No products in store yet! Add some!</Typography>
+                        ) : (
+                            <>
+                                <TableContainerComponent
+                                    items={productsToDisplay}
+                                    tableCellLabels={tableCellLabels}
+                                    renderCell={renderCell}
+                                />
 
-                        <TableContainerComponent
-                            items={productsToDisplay}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
-
-                        <TablePaginationComponent
-                            totalNumberOfProducts={totalNumberOfProducts}
-                            currentPage={currentPage}
-                            itemsPerPage={itemsPerPage}
-                            setCurrentPage={setCurrentPage}
-                            setItemsPerPage={setItemsPerPage}
-                        />
+                                <TablePaginationComponent
+                                    totalNumberOfProducts={totalNumberOfProducts}
+                                    currentPage={currentPage}
+                                    itemsPerPage={itemsPerPage}
+                                    setCurrentPage={setCurrentPage}
+                                    setItemsPerPage={setItemsPerPage}
+                                />
+                            </>
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>

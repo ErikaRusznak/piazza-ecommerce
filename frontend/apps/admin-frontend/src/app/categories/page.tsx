@@ -112,11 +112,15 @@ const ProductsPage = () => {
                                 Add category
                             </StyledButton>
                         </Box>
-                        <TableContainerComponent
-                            items={categoriesToDisplay}
-                            tableCellLabels={tableCellLabels}
-                            renderCell={renderCell}
-                        />
+                        {categoriesToDisplay.length === 0 ? (
+                            <Typography>No categories in the platform yet!</Typography>
+                        ) : (
+                            <TableContainerComponent
+                                items={categoriesToDisplay}
+                                tableCellLabels={tableCellLabels}
+                                renderCell={renderCell}
+                            />
+                        )}
                     </Container>
                 ) : (
                     <UnauthenticatedMessage/>
