@@ -1,5 +1,5 @@
 
-# Piazza E-commerce
+# Fresh Corner
 
 Proiectul este disponibil la link-ul https://github.com/ErikaRusznak/piazza-ecommerce.
 
