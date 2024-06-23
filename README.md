@@ -1,7 +1,7 @@
 
 # Piazza E-commerce
 
-Acesta este un proiect de e-commerce, disponibil pe [GitHub](https://github.com/ErikaRusznak/piazza-ecommerce).
+Acesta este un proiect de e-commerce, disponibil la link-ul https://github.com/ErikaRusznak/piazza-ecommerce.
 
 ## Cerințe pentru rularea aplicației
 
@@ -17,7 +17,7 @@ IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
 
 ### Backend
 
-1. **Setare Path pentru Upload**:
+1. **Setare Path pentru preluarea și încărcarea imaginilor**:
     - Se caută fișierul `application-dev.properties`.
     - Înlocuiți path-ul existent la variabila `upload.path` cu path-ul către directorul din calculatorul dumneavoastră care să acceseze folderul `assets` din root-ul proiectului.
 
@@ -48,9 +48,10 @@ IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
     - Aplicația de curier: [http://localhost:3002](http://localhost:3002)
     - Aplicația de administrator: [http://localhost:3003](http://localhost:3003)
 
-## Detalii Conectare Administrator
+### Observații
 
-În fișierul `application.properties` din `src/main/resources` se vor găsi detaliile de conectare ale administratorului.
+ - În fișierul `application.properties` din `src/main/resources` se vor găsi detaliile de conectare ale administratorului.
+ - Dacă nu doriți să creați conturi noi, în fișierul `DataCreatorForTesting` din folderul `src/test` se pot vedea datele deja adăugate în baza de date.
 
 ## Baza de Date
 
