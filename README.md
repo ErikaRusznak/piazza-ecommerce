@@ -1,7 +1,7 @@
 
 # Piazza E-commerce
 
-Acesta este un proiect de e-commerce, disponibil la link-ul https://github.com/ErikaRusznak/piazza-ecommerce.
+Proiectul este disponibil la link-ul https://github.com/ErikaRusznak/piazza-ecommerce.
 
 ## Cerințe pentru rularea aplicației
 
@@ -11,7 +11,7 @@ Pentru a putea rula această aplicație pe calculatorul/laptopul personal, trebu
 - Maven
 - Turbo (`npm install turbo --global`)
 
-IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
+IDE-ul folosit pentru acest proiect este IntelliJ IDEA.
 
 ## Pași pentru configurarea și rularea aplicației
 
@@ -19,30 +19,30 @@ IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
 
 1. **Setare Path pentru preluarea și încărcarea imaginilor**:
     - Se caută fișierul `application-dev.properties`.
-    - Înlocuiți path-ul existent la variabila `upload.path` cu path-ul către directorul din calculatorul dumneavoastră care să acceseze folderul `assets` din root-ul proiectului.
+    - Se înlocuiește path-ul existent la variabila `upload.path` cu path-ul către directorul din calculatorul dumneavoastră care să acceseze folderul `assets` din root-ul proiectului.
 
 2. **Rularea aplicației**:
     - Se caută fișierul `ProjectApplicationWebAppEmbeddedDb` din folderul `src/test`.
-    - Rulați acest fișier.
+    - Se rulează acest fișier.
 
 ### Frontend
 
-1. Deschideți terminalul și navigați în folderul de frontend:
+1. Se deschide terminalul și se navighează în folderul de frontend:
     ```sh
     cd frontend
     ```
 
-2. Instalați toate dependențele necesare:
+2. Se instalează toate dependențele necesare:
     ```sh
     npm i
     ```
 
-3. După ce instalarea s-a terminat, rulați următoarea comandă pentru a porni aplicațiile de frontend:
+3. După ce instalarea s-a terminat, se rulează următoarea comandă pentru a porni aplicațiile de frontend:
     ```sh
     npm run dev
     ```
 
-4. Accesați aplicațiile folosind următoarele adrese:
+4. Accesarea aplicațiilor se face folosind următoarele adrese:
     - Aplicația de client: [http://localhost:3000](http://localhost:3000)
     - Aplicația de producător: [http://localhost:3001](http://localhost:3001)
     - Aplicația de curier: [http://localhost:3002](http://localhost:3002)
@@ -57,6 +57,6 @@ IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
 
 Pentru baza de date nu este nevoie de alte configurări, deoarece se folosește H2 Database, care este gestionată de către Spring Boot.
 
-Pentru a vedea datele din baza de date, accesați [http://localhost:8080/h2-console](http://localhost:8080/h2-console) și completați:
+Pentru a vedea datele din baza de date, se accesează [http://localhost:8080/h2-console](http://localhost:8080/h2-console) și completați:
 - **JDBC URL**: `jdbc:h2:mem:testdb`
 - **User Name**: `sa`
