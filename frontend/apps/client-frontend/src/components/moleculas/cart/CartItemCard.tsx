@@ -23,6 +23,20 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
         updateCartItemQuantity(item.product.id, newQuantity);
     };
 
+    const getUnitOfMeasure = (unitOfMeasure: string) => {
+        switch (unitOfMeasure) {
+            case "KILOGRAM":
+                return "kilogram";
+            case "ONE_HUNDRED_GRAM":
+                return "100 grams";
+            case "ONE_UNIT":
+                return "unit";
+            default:
+                return "Wrong unit of measure";
+        }
+    };
+
+
     const router = useRouter();
 
     return (
@@ -77,7 +91,7 @@ const CartItemCard = ({item, isModifiable}: CartItemCardProps) => {
                         {item.product.name}
                     </Typography>
                     <Typography variant="body2" mt={1} color={theme.palette.info.main}>
-                        {belowSmallSize ? "" : `Price per ${item.product.unitOfMeasure.toLowerCase()}: `}
+                        {belowSmallSize ? "" : `Price per ${getUnitOfMeasure(item.product.unitOfMeasure)}: `}
                         {item.product.price} RON
                     </Typography>
                 </Box>

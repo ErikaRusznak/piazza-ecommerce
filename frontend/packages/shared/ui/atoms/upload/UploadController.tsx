@@ -3,6 +3,7 @@ import {useTheme} from "@mui/material/styles";
 import {baseURL} from "components";
 import UploadIcon from '@mui/icons-material/Upload';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import {useThemeToggle} from "../../themes/ThemeContext";
 
 type FormUploadFieldDarkBackgroundProps = {
     onFileChange: (file: File) => void;
@@ -13,6 +14,7 @@ type FormUploadFieldDarkBackgroundProps = {
 const UploadController = ({onFileChange, fileName, setFileName}: FormUploadFieldDarkBackgroundProps) => {
 
     const theme = useTheme();
+    const {isDark} = useThemeToggle();
 
     const handleButtonClick = () => {
         const fileInput = document.getElementById("file-input");
@@ -56,7 +58,7 @@ const UploadController = ({onFileChange, fileName, setFileName}: FormUploadField
                     },
                     '&:disabled': {
                         background: theme.palette.tertiary.main,
-                        color: theme.palette.info.main,
+                        color: isDark ? theme.palette.info.main : theme.palette.info.contrastText,
                     },
 
                 }}

@@ -76,6 +76,19 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
         setIsModalOpen(false);
     };
 
+    const getUnitOfMeasure = (unitOfMeasure: string) => {
+        switch (unitOfMeasure) {
+            case "KILOGRAM":
+                return "kilogram";
+            case "ONE_HUNDRED_GRAM":
+                return "100 grams";
+            case "ONE_UNIT":
+                return "unit";
+            default:
+                return "Wrong unit of measure";
+        }
+    };
+
     return (
         <BaseModal isModalOpen={isModalOpen} toggleModal={() => toggleModal(productId)}>
             {product &&
@@ -147,7 +160,7 @@ const ProductAddToCartModal: React.FC<ProductAddToCartModalProps> = ({
                                             {product.name}
                                         </Typography>
                                         <Typography variant="body2" sx={{color: theme.palette.info.main}}>
-                                            Price per {product.unitOfMeasure}: {product.price} RON
+                                            Price per {getUnitOfMeasure(product.unitOfMeasure)}: {product.price} RON
                                         </Typography>
 
                                     </Box>

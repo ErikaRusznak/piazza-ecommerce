@@ -65,9 +65,10 @@ const AddEditProductForm = ({
         description: product ? product.description : "",
         price: product ? product.price : "",
         category: product ? product.category.name : "",
-        unitOfMeasure: product ? product.unitOfMeasure.name : "",
+        unitOfMeasure: product ? product.unitOfMeasure : "",
         quantity: product ? product.quantity : "",
     }
+
     const {
         handleSubmit,
         control,

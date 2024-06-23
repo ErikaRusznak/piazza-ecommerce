@@ -11,6 +11,7 @@ type FormSelectFieldDarkBackgroundProps = {
     required?: boolean | undefined;
     items: any[];
 }
+
 const FormSelectFieldDarkBackground = ({
                                            name,
                                            control,
@@ -35,10 +36,9 @@ const FormSelectFieldDarkBackground = ({
                     {...field}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
-                    defaultValue={items[0].name}
+                    value={field.value}
                     SelectProps={{
                         native: true,
-
                     }}
                     InputProps={{
                         style: {

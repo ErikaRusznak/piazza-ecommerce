@@ -9,6 +9,18 @@ type ProductInformationProps = {
 const ProductInformation = ({product}: ProductInformationProps) => {
 
     const theme = useTheme();
+    const getUnitOfMeasure = (unitOfMeasure: string) => {
+        switch (unitOfMeasure) {
+            case "KILOGRAM":
+                return "kilogram";
+            case "ONE_HUNDRED_GRAM":
+                return "100 grams";
+            case "ONE_UNIT":
+                return "unit";
+            default:
+                return "Wrong unit of measure";
+        }
+    };
     return (
         <Box sx={{
             display: "flex",
@@ -31,7 +43,7 @@ const ProductInformation = ({product}: ProductInformationProps) => {
                 />
                 <ProductSpecificInfo
                     label="Price"
-                    information={`${product.price} RON`}
+                    information={`${product.price} RON per ${getUnitOfMeasure(product.unitOfMeasure)}`}
                 />
                 <ProductSpecificInfo
                     label="Rating"

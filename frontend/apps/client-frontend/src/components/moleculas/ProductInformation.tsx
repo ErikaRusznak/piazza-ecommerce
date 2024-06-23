@@ -19,9 +19,10 @@ type ProductInformationProps = {
     productId: number;
     availability: string;
     availableQuantity: number;
+    unitOfMeasure: string;
     updateProductAvailability: (newAvailability: string, remainingQuantity: number) => void;
 }
-const ProductInformation = ({description, price, category, producer, city, productId, availability, availableQuantity, updateProductAvailability}: ProductInformationProps) => {
+const ProductInformation = ({unitOfMeasure, description, price, category, producer, city, productId, availability, availableQuantity, updateProductAvailability}: ProductInformationProps) => {
     const [quantity, setQuantity] = useState(1);
     const {updateCartItemQuantity} = useCart()
     const {isAuthenticated} = useAuth();
@@ -63,6 +64,19 @@ const ProductInformation = ({description, price, category, producer, city, produ
         }
     };
 
+    const getUnitOfMeasure = (unitOfMeasure: string) => {
+        switch (unitOfMeasure) {
+            case "KILOGRAM":
+                return "kilogram";
+            case "ONE_HUNDRED_GRAM":
+                return "100 grams";
+            case "ONE_UNIT":
+                return "unit";
+            default:
+                return "Wrong unit of measure";
+        }
+    };
+
     return (
         <Box sx={{
             display: "flex",
@@ -82,7 +96,7 @@ const ProductInformation = ({description, price, category, producer, city, produ
                         sx={{fontWeight: "bold", mt: 2, color: theme.palette.info.main,
                             ml: {xs: 1},}}
             >
-                {price} RON
+                {price} RON per {getUnitOfMeasure(unitOfMeasure)}
             </Typography>
 
             <Box sx={{mt: 3}}>

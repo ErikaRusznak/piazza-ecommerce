@@ -19,11 +19,24 @@ import {TablePaginationComponent} from "ui";
 import DeleteProductModal from "@/components/organisms/modals/DeleteProductModal";
 import useProductForm from "../../../hooks/useProductForm";
 
-const tableCellLabels = ["Image", "Name", "Category", "Price", "Actions"];
+const tableCellLabels = ["Image", "Name", "Category", "Price", "Unit Of Measure", "Actions"];
 
 const ProductsPage = () => {
     const theme = useTheme();
     const router = useRouter();
+    const getUnitOfMeasure = (unitOfMeasure: string) => {
+        switch (unitOfMeasure) {
+            case "KILOGRAM":
+                return "kilogram";
+            case "ONE_HUNDRED_GRAM":
+                return "100 grams";
+            case "ONE_UNIT":
+                return "unit";
+            default:
+                return "Wrong unit of measure";
+        }
+    };
+
     const renderCell = (item: any, key: string) => {
         switch (key) {
             case 'Image':
@@ -37,6 +50,8 @@ const ProductsPage = () => {
                 return item.category;
             case 'Price':
                 return `${item.price.toFixed(2)} RON`;
+            case 'Unit Of Measure':
+                return getUnitOfMeasure(item.unitOfMeasure);
             case 'Actions':
                 return (
                     <>
@@ -100,6 +115,7 @@ const ProductsPage = () => {
         name: product.name,
         category: product.category.name,
         price: product.price,
+        unitOfMeasure: product.unitOfMeasure,
     }));
 
     return (

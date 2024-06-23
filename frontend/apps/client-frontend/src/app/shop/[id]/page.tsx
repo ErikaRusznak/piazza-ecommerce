@@ -151,6 +151,7 @@ const ProductDetailsContent = ({id}: ProductDetailsContentProps) => {
                                     productId={product.id}
                                     availability={product.availability}
                                     availableQuantity={product.quantity}
+                                    unitOfMeasure={product.unitOfMeasure}
                                     updateProductAvailability={updateProductAvailability}
                                 />
                             </Box>

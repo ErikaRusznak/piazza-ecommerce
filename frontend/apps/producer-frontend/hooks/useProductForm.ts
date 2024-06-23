@@ -10,7 +10,7 @@ const useProductForm = () => {
 
     const UNIT_OF_MEASURES = [
         { id: 0, name: "KILOGRAM" },
-        { id: 1, name: "GRAM" },
+        { id: 1, name: "ONE_HUNDRED_GRAM" },
         { id: 2, name: "ONE_UNIT" },
     ];
 

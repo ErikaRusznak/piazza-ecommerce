@@ -53,7 +53,7 @@ public class DataCreatorForTesting {
                 "Erika",
                 "Rusznak",
                 "erikarusznak@gmail.com",
-                "/images/burger.jpg",
+                "/images/girlavatar.jpg",
                 "0747871208",
                 UserRole.CLIENT);
         account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -63,7 +63,7 @@ public class DataCreatorForTesting {
                 "Andrei",
                 "Dulfu",
                 "alexdulfu@gmail.com",
-                null,
+                "/images/avatarPic.png",
                 "0758418097",
                 UserRole.CLIENT);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -110,16 +110,16 @@ public class DataCreatorForTesting {
     }
 
     public static void createCourierBaseData(EntityManager em, PasswordEncoder passwordEncoder){
-
-        UserAccount account1 = new UserAccount(
-                "Andrei",
-                "Pop",
-                "andreipop@gmail.com",
-                null,
-                "0787523948",
-                UserRole.COURIER);
-        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-        Couriers.courier1 = createCourier(em, account1);
+//
+//        UserAccount account1 = new UserAccount(
+//                "Andrei",
+//                "Pop",
+//                "andreipop@gmail.com",
+//                null,
+//                "0787523948",
+//                UserRole.COURIER);
+//        account1.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
+//        Couriers.courier1 = createCourier(em, account1);
 
         UserAccount account2 = new UserAccount(
                 "Monica",
@@ -130,36 +130,6 @@ public class DataCreatorForTesting {
                 UserRole.COURIER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
         Couriers.courier2 = createCourier(em, account2);
-
-//        UserAccount account3 = new UserAccount(
-//                "Mihai",
-//                "Rusu",
-//                "mihairusu@gmail.com",
-//                null,
-//                "0796859752",
-//                UserRole.COURIER);
-//        account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-//        Couriers.courier3 = createCourier(em, account3);
-//
-//        UserAccount account4 = new UserAccount(
-//                "Vlad",
-//                "Popesescu",
-//                "vladpopescu@gmail.com",
-//                null,
-//                "0736859752",
-//                UserRole.COURIER);
-//        account4.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-//        Couriers.courier4 = createCourier(em, account4);
-//
-//        UserAccount account5 = new UserAccount(
-//                "Stefania",
-//                "Osan",
-//                "stefiosan@gmail.com",
-//                null,
-//                "0776859752",
-//                UserRole.COURIER);
-//        account5.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
-//        Couriers.courier5 = createCourier(em, account5);
 
     }
 
@@ -173,7 +143,6 @@ public class DataCreatorForTesting {
     public static Seller createSellerCompany(EntityManager em, Address address, UserAccount account, String alias, SellerType sellerType, LegalDetails legalDetails){
         Seller seller = new Seller(alias, sellerType, account, address, legalDetails);
         em.persist(seller);
-
         return seller;
     }
 
@@ -214,7 +183,7 @@ public class DataCreatorForTesting {
         UserAccount account2 = new UserAccount("Stefan",
                 "Rusznak",
                 "rusznak65@gmail.com",
-                "/images/magazine.jpg",
+                "/images/grocer.png",
                 "0734896777",
                 UserRole.SELLER);
         account2.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -233,7 +202,7 @@ public class DataCreatorForTesting {
         UserAccount account3 = new UserAccount("Ozius",
                 "Solutions",
                 "ozius123@gmail.com",
-                "/images/magazine.jpg",
+                "/images/grocery.jpg",
                 "0734896777",
                 UserRole.SELLER);
         account3.setInitialPassword(passwordEncoder.encode("Ozius1234!"));
@@ -264,10 +233,9 @@ public class DataCreatorForTesting {
         Categories.category2 = createCategory(em, "Vegetables", "/images/vegetables.svg");
         Categories.category3 = createCategory(em, "Dairy", "/images/dairy.svg");
         Categories.category4 = createCategory(em, "Nuts", "/images/nuts.svg");
-        Categories.category5 = createCategory(em, "Honey", "/images/honey.svg");
-        Categories.category6 = createCategory(em, "Sweets", "/images/sweets.svg");
-        Categories.category7 = createCategory(em, "Oil", "/images/oil.svg");
-        Categories.category8 = createCategory(em, "Tea", "/images/tea.svg");
+        Categories.category5 = createCategory(em, "Sweets", "/images/sweets.svg");
+        Categories.category6 = createCategory(em, "Oil", "/images/oil.svg");
+        Categories.category7 = createCategory(em, "Tea", "/images/tea.svg");
     }
 
     public static Product createProduct(EntityManager em, String name, String description, String image, float price, Category category , Seller seller, UnitOfMeasure unitOfMeasure, float quantity){
@@ -280,16 +248,24 @@ public class DataCreatorForTesting {
 
     public static void createProductsBaseData(EntityManager em){
 
-        product1 = createProduct(em, "Apple", "This is an apple! It is a fruit!", "/images/apple.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product2 = createProduct(em, "Pear", "This is a pear! It is a fruit!", "/images/pear.jpg", 4.5f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM,5);
-        Products.product3 = createProduct(em, "Cherry", "This are cherries! They are a fruit!", "/images/cherry.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.GRAM, 3);
-        Products.product4 = createProduct(em, "Banana", "This is a banana! It is a fruit!", "/images/banana.jpeg", 2f, Categories.category1, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 10);
-        Products.product5 = createProduct(em, "Mango", "This is a mango! It is a fruit!", "/images/mango.jpg", 6f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 10);
-        Products.product6 = createProduct(em, "Peach", "This is a peach! It is a fruit!", "/images/peach.jpg", 4f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 11);
-        Products.product7 = createProduct(em, "Orange", "This is an orange! It is a fruit!", "/images/orange.jpg", 5f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product8 = createProduct(em, "Potato", "This is a potato! It is a vegetable!", "/images/potato.jpeg", 3f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
-        Products.product9 = createProduct(em, "Pepper", "This is a pepper! It is a vegetable!", "/images/pepper.jpg", 4.8f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 15);
+        Products.product1 = createProduct(em, "Apple", "A fresh, crisp apple, perfect for a healthy snack or adding to salads.", "/images/apple.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product2 = createProduct(em, "Pear", "A juicy pear with a sweet, delicate flavor, ideal for desserts or enjoying on its own.", "/images/pear.jpg", 4.5f, Categories.category1, Sellers.seller2, UnitOfMeasure.KILOGRAM, 5);
+        Products.product3 = createProduct(em, "Cherry", "A bunch of ripe cherries, great for snacking or baking into pies and tarts.", "/images/cherry.jpg", 3f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_HUNDRED_GRAM, 3);
+        Products.product4 = createProduct(em, "Banana", "A ripe banana, full of potassium and perfect for a quick, nutritious snack.", "/images/banana.jpeg", 2f, Categories.category1, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 10);
+        Products.product5 = createProduct(em, "Peach", "A sweet and juicy peach, perfect for eating fresh or adding to desserts.", "/images/peach.jpg", 4f, Categories.category1, Sellers.seller1, UnitOfMeasure.ONE_HUNDRED_GRAM, 11);
+        Products.product6 = createProduct(em, "Potato", "A versatile potato, great for boiling, baking, or frying into delicious dishes.", "/images/potato.jpeg", 3f, Categories.category2, Sellers.seller1, UnitOfMeasure.KILOGRAM, 20);
+        Products.product7 = createProduct(em, "Pepper", "A fresh pepper, adding a crunchy texture and vibrant flavor to any meal.", "/images/pepper.jpg", 4.8f, Categories.category2, Sellers.seller1, UnitOfMeasure.ONE_HUNDRED_GRAM, 15);
+        Products.product8 = createProduct(em, "Milk", "A jar of fresh milk, rich in calcium and essential for strong bones and teeth.", "/images/milk.jpg", 10f, Categories.category3, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 6);
+        Products.product9 = createProduct(em, "Butter", "A block of creamy butter, perfect for cooking, baking, or spreading on bread.", "/images/untdecasa.jpg", 14f, Categories.category3, Sellers.seller2, UnitOfMeasure.ONE_UNIT, 8);
+        Products.product10 = createProduct(em, "Cheddar Cheese", "A block of aged Cheddar cheese, with a rich and tangy flavor, great for sandwiches or cooking.", "/images/cheddarcheese.png", 30f, Categories.category3, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 3);
+        Products.product11 = createProduct(em, "Pistachios", "A handful of crunchy pistachios, perfect for snacking or adding to salads and desserts.", "/images/pistacchio.jpeg", 15f, Categories.category4, Sellers.seller1, UnitOfMeasure.ONE_HUNDRED_GRAM, 7);
+        Products.product12 = createProduct(em, "Cashews", "A serving of creamy cashews, great for snacking or adding to stir-fries and desserts.", "/images/cashew.jpg", 12f, Categories.category4, Sellers.seller1, UnitOfMeasure.ONE_HUNDRED_GRAM, 8);
+        Products.product13 = createProduct(em, "Chocolate", "A bar of homemade chocolate, rich and indulgent, perfect for a sweet treat.", "/images/chocolate.png", 8f, Categories.category5, Sellers.seller2, UnitOfMeasure.ONE_HUNDRED_GRAM, 8);
+        Products.product14 = createProduct(em, "Black tea", "A package of premium black tea, perfect for a refreshing and invigorating cup.", "/images/blacktea.png", 20f, Categories.category7, Sellers.seller3, UnitOfMeasure.ONE_UNIT, 15);
+        Products.product15 = createProduct(em, "Cooking oil", "A bottle of high-quality cooking oil, essential for frying, baking, and sautéing.", "/images/cookingoil.png", 15f, Categories.category6, Sellers.seller1, UnitOfMeasure.ONE_UNIT, 12);
+        Products.product16 = createProduct(em, "Olive oil", "A bottle of extra virgin olive oil, perfect for dressings, marinades, and cooking.", "/images/oliveoil.png", 30f, Categories.category6, Sellers.seller1, UnitOfMeasure.ONE_UNIT, 6);
     }
+
 
     public static void createAddresses(){
         Addresses.address1 = new Address("Romania", "Timis", "Timisoara", "Strada Macilor 10", "Bloc 4, Scara F, ap 50", "300091");
@@ -348,9 +324,6 @@ public class DataCreatorForTesting {
     public static class Couriers {
         public static Courier courier1;
         public static Courier courier2;
-        public static Courier courier3;
-        public static Courier courier4;
-        public static Courier courier5;
     }
 
     public static class Sellers{
@@ -369,6 +342,13 @@ public class DataCreatorForTesting {
         public static Product product7;
         public static Product product8;
         public static Product product9;
+        public static Product product10;
+        public static Product product11;
+        public static Product product12;
+        public static Product product13;
+        public static Product product14;
+        public static Product product15;
+        public static Product product16;
     }
 
     public static class Categories{
