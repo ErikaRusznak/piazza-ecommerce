@@ -31,10 +31,10 @@ const FilterTagContainer = ({ filterTags, removeFilterOneOption, removeFilterMul
                     flexWrap: "wrap",
                 }}
             >
-                {filterTags.map((tag, index) => (
+                {filterTags?.map((tag, index) => (
                     <Box key={index} sx={{ display: "inline-flex", gap: "6px" }}>
                         {Array.isArray(tag.value) ? (
-                            tag.value.map((value, valueIndex) => (
+                            tag.value?.map((value, valueIndex) => (
                                 <FilterTag
                                     key={valueIndex}
                                     filterName={tag.filterName}

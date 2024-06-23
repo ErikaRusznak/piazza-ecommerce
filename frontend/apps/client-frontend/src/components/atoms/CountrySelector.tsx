@@ -119,7 +119,7 @@ export default function CountrySelector({id, open, disabled = false, onToggle, o
                                     ) : (
                                         COUNTRIES.filter((country) =>
                                             country.title.toLowerCase().startsWith(query.toLowerCase())
-                                        ).map((value, index) => (
+                                        )?.map((value, index) => (
                                             <ListItem
                                                 key={`${id}-${index}`}
                                                 onClick={() => {

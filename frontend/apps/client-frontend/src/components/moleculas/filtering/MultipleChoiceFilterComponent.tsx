@@ -54,7 +54,7 @@ const MultipleChoiceFilterComponent = ({
                     flexDirection: 'column',
                 }}
             >
-                {list.map((item, index) => (
+                {list?.map((item, index) => (
                     <Box
                         key={index}
                         sx={{

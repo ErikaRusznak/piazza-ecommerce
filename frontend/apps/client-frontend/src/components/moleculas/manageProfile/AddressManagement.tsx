@@ -121,7 +121,7 @@ const AddressManagement = ({  }: AddressManagementProps) => {
                 </StyledButton>
 
             </Box>
-            {shippingAddresses.map((item) => (
+            {shippingAddresses?.map((item) => (
                 <Box key={item.id}
                      sx={{
                          border: `1px solid ${isDark ? theme.palette.background.lighter : theme.palette.lightColor.main}`,

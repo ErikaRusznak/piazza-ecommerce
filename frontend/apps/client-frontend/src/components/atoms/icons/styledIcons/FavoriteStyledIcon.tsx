@@ -66,7 +66,7 @@ const FavoriteStyledIcon = () => {
                             backgroundColor: isDark ? theme.palette.background.lighter : theme.palette.background.default,
                             borderRadius: "14px",
                         }}>
-                            {allFavorites.map((item) => (
+                            {allFavorites?.map((item) => (
                                 <React.Fragment key={item.id}>
                                     <Box
                                         key={item.id}

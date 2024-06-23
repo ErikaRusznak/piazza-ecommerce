@@ -15,7 +15,7 @@ const TableContainerComponent = <T,>({items, tableCellLabels, renderCell}:TableC
             <Table>
                 <TableHead>
                     <TableRow>
-                        {tableCellLabels.map((tableCellLabel:string, index: number) => (
+                        {tableCellLabels?.map((tableCellLabel:string, index: number) => (
                             <TableCell key={index} sx={{
                                 color: theme.palette.info.main,
                                 textTransform: "uppercase",
@@ -29,7 +29,7 @@ const TableContainerComponent = <T,>({items, tableCellLabels, renderCell}:TableC
                 <TableBody>
                     {items?.map((item:T, index:number) => (
                         <TableRow key={index}>
-                            {tableCellLabels.map((key: string, index: number) => (
+                            {tableCellLabels?.map((key: string, index: number) => (
                                 <TableCell key={index} sx={{
                                     color: theme.palette.info.main
                                 }}>

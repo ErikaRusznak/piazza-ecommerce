@@ -26,7 +26,7 @@ const FullOrderItems = ({ orders, totalPrice, shippingPrice }: FullOrderItemsPro
                     Ordered Items
                 </Typography>
 
-                {orders.map((orderFromSeller, index) => (
+                {orders?.map((orderFromSeller, index) => (
                     <div key={index}>
                         {orderFromSeller.orderItems.map((orderItem: any, index1: number) => (
                             <div key={index1}>

@@ -97,7 +97,7 @@ const SimpleMenu = ({text, menuItems }:SimpleMenuProps) => {
                 open={open}
                 onClose={handleClose}
             >
-                {menuItems.map((item) => (
+                {menuItems?.map((item) => (
                     <MenuItem key={item.id} onClick={handleClose} disableRipple>
                         <Box sx={{display: "flex", gap: 2, alignItems: "center"}}>
                             <img

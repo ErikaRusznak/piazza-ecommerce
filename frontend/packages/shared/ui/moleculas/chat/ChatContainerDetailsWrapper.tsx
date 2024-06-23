@@ -102,7 +102,7 @@ const ChatContainerDetailsWrapper = ({
                     background: isDark ? theme.palette.background.lighter : theme.palette.primary.main,
                 },
             }}>
-                {messages.slice(0).reverse().map((mess: ChatMessForGroup | ChatMessForPrivate, index: number, array: string | any[]) => {
+                {messages.slice(0).reverse()?.map((mess: ChatMessForGroup | ChatMessForPrivate, index: number, array: string | any[]) => {
                     const messageDate = formatDate(mess.date)
                     console.log("mess", mess);
                     let shouldDisplayDateHeader = false;

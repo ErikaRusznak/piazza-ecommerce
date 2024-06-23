@@ -177,7 +177,7 @@ export default function NavigationAdmProd({children, isSeller, isAuthenticated, 
                 </Box>
                 <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
-                    {informationList.map((listItem) => (
+                    {informationList?.map((listItem) => (
                         <ListItem key={listItem.label} disablePadding sx={{display: 'block'}}
                                   className={pathname === listItem.href ? "ActiveLink" : ""}>
                             <ListItemButton
@@ -211,7 +211,7 @@ export default function NavigationAdmProd({children, isSeller, isAuthenticated, 
                 </List>
                 <Divider sx={{backgroundColor: theme.palette.info.contrastText}}/>
                 <List>
-                    {profileList.map((listItem) => (
+                    {profileList?.map((listItem) => (
                         <ListItem key={listItem.label}
                                   disablePadding sx={{display: 'block'}}
                                   className={pathname === listItem.href ? "ActiveLink" : ""}>

@@ -49,7 +49,7 @@ const ShippingAddressesComponent = ({
             </Box>
             {(shippingAddresses && selectedShippingAddress) ? (
             <RadioGroup value={selectedShippingAddress.id} onChange={onAddressSelected}>
-                {shippingAddresses.map((item) => (
+                {shippingAddresses?.map((item) => (
                     <Box key={item.id}
                         sx={{
                             border: `1px solid ${selectedShippingAddress?.id === item.id ? "#a5b4fc" : theme.palette.background.lighter}`,

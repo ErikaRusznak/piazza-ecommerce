@@ -41,7 +41,7 @@ const CommentsComponent = ({reviewId, comments, setComments, isAuthenticated}: C
 
     return (
         <Box sx={{ml: 4}}>
-            {comments.map((comment: any) => (
+            {comments?.map((comment: any) => (
                 <div key={`${reviewId}-${comment.id}`}>
                     <Box sx={{mt: 2, borderLeft: "2px solid #a5b4fc", pl: 2}}>
                         <Box sx={{display: "flex", alignItems: "center"}}>

@@ -52,7 +52,7 @@ const OrderPage = ({ params }: OrderPageProps) => {
         }
     };
 
-    const orderItemsToDisplay = order?.orderItems.map((orderItem: any) => ({
+    const orderItemsToDisplay = order?.orderItems?.map((orderItem: any) => ({
         imageName: orderItem.product.imageName,
         name: orderItem.product.name,
         price: orderItem.product.price,

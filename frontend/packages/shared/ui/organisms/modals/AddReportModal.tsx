@@ -128,7 +128,7 @@ const AddReportModal = ({ isModalOpen, toggleModal, idCommentOrReviewToReport, u
                     >
                         <FormControl component="fieldset">
                             <RadioGroup value={selectedReason} onChange={handleReasonChange}>
-                                {reasons.map((reason, index) => (
+                                {reasons?.map((reason, index) => (
                                     <Box key={reason.value}>
                                         <FormControlLabel
                                             value={reason.label}
