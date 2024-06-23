@@ -69,7 +69,7 @@ const SellerDetailsComponent = ({
                 {(seller.sellerType === "COMPANY" || seller.sellerType === "PFA") && (
                     <>
                         <Divider style={{ margin: "16px 0", backgroundColor: theme.palette.primary.main }} />
-                        <Typography variant="h6" gutterBottom sx={{color: theme.palette.lightColor.main, fontWeight: 600}}>
+                        <Typography variant="h6" gutterBottom sx={{color: isDark ? theme.palette.lightColor.main : theme.palette.primary.main, fontWeight: 600}}>
                             Legal details
                         </Typography>
                         <Typography sx={{color: theme.palette.info.main}}>

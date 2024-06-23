@@ -3,7 +3,7 @@ import {
     Grid,
 } from "@mui/material";
 import {useAuth} from "../../../../api/auth/AuthContext";
-import {getSellerByIdApi} from "../../../../api/entities/SellerApi";
+import {getSellerByIdApi} from "components";
 import LegalDetailsForm from "@/components/moleculas/accountDetails/LegalDetailsForm";
 import AddressDetailsForm from "@/components/moleculas/accountDetails/AddressDetailsForm";
 type AddressManagementProps = {

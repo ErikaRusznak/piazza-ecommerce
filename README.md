@@ -1,1 +1,61 @@
 
+# Piazza E-commerce
+
+Acesta este un proiect de e-commerce, disponibil pe [GitHub](https://github.com/ErikaRusznak/piazza-ecommerce).
+
+## Cerințe pentru rularea aplicației
+
+Pentru a putea rula această aplicație pe calculatorul/laptopul personal, trebuie să fie instalate următoarele tehnologii:
+- Java 17
+- Node.js > 18 și npm
+- Maven
+- Turbo (`npm install turbo --global`)
+
+IDE-ul folosit pentru acest proiect a fost IntelliJ IDEA.
+
+## Pași pentru configurarea și rularea aplicației
+
+### Backend
+
+1. **Setare Path pentru Upload**:
+    - Se caută fișierul `application-dev.properties`.
+    - Înlocuiți path-ul existent la variabila `upload.path` cu path-ul către directorul din calculatorul dumneavoastră care să acceseze folderul `assets` din root-ul proiectului.
+
+2. **Rularea aplicației**:
+    - Se caută fișierul `ProjectApplicationWebAppEmbeddedDb` din folderul `src/test`.
+    - Rulați acest fișier.
+
+### Frontend
+
+1. Deschideți terminalul și navigați în folderul de frontend:
+    ```sh
+    cd frontend
+    ```
+
+2. Instalați toate dependențele necesare:
+    ```sh
+    npm i
+    ```
+
+3. După ce instalarea s-a terminat, rulați următoarea comandă pentru a porni aplicațiile de frontend:
+    ```sh
+    npm run dev
+    ```
+
+4. Accesați aplicațiile folosind următoarele adrese:
+    - Aplicația de client: [http://localhost:3000](http://localhost:3000)
+    - Aplicația de producător: [http://localhost:3001](http://localhost:3001)
+    - Aplicația de curier: [http://localhost:3002](http://localhost:3002)
+    - Aplicația de administrator: [http://localhost:3003](http://localhost:3003)
+
+## Detalii Conectare Administrator
+
+În fișierul `application.properties` din `src/main/resources` se vor găsi detaliile de conectare ale administratorului.
+
+## Baza de Date
+
+Pentru baza de date nu este nevoie de alte configurări, deoarece se folosește H2 Database, care este gestionată de către Spring Boot.
+
+Pentru a vedea datele din baza de date, accesați [http://localhost:8080/h2-console](http://localhost:8080/h2-console) și completați:
+- **JDBC URL**: `jdbc:h2:mem:testdb`
+- **User Name**: `sa`

@@ -83,7 +83,6 @@ const NavigationBar = () => {
                 top: 0,
                 background: backgroundColor,
                 boxShadow: theme.shadows[3]
-                // borderBottom: "2px solid #020617"
             }}
         >
             <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>

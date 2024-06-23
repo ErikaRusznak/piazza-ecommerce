@@ -16,7 +16,7 @@ const ProductSpecificInfo: React.FC<ProductSpecificInfoProps> = ({ label, inform
 
     const handleProducerClick = () => {
         if (label === "Producer") {
-            router.push(`/${information}`);
+            router.push(`/sellers//${information}`);
         }
     };
 
